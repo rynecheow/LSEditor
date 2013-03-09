@@ -4,7 +4,7 @@ import java.awt.image.BufferedImage;
 import java.awt.geom.Rectangle2D;
 
 public class SVGImageCanvas extends BufferedImage {
-	private static double zoomScale = 1;
+	private static double zoomScale = 1.0f;
 
 	public SVGImageCanvas(int width, int height) {
 		super(width, height, BufferedImage.TYPE_4BYTE_ABGR_PRE);
