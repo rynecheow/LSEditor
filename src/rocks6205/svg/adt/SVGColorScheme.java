@@ -8,4 +8,7 @@ public class SVGColorScheme extends Color {
 		super(red, green, blue);
 		// TODO Auto-generated constructor stub
 	}
+	public SVGColorScheme(int red, int green, int blue, int alpha) {
+		super(red, green, blue, alpha);
+	}
 }
