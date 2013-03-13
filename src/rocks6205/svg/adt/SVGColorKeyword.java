@@ -6,7 +6,7 @@ package rocks6205.svg.adt;
  * Description: Enumerates color keyword names recognized by data type <color> in SVG
  * 
  * @author: Sugar CheeSheen Chan
- * @version: 1.1
+ * @version: 1.0
  * @date: 13/03/2013
  * 
  */
