@@ -188,4 +188,8 @@ public enum SVGColorKeyword {
 	public int getBlue() {
 		return blue;
 	}
+	
+	public SVGColorScheme getSVGColorScheme(){
+		return new SVGColorScheme(red, green, blue);
+	}
 }
