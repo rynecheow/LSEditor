@@ -189,6 +189,11 @@ public enum SVGColorKeyword {
 		return blue;
 	}
 	
+	/**
+	 * Returns a standard color scheme from a color keyword provided
+	 * 
+	 * @return Standard color scheme expressed in red, green and blue
+	 */
 	public SVGColorScheme getSVGColorScheme(){
 		return new SVGColorScheme(red, green, blue);
 	}
