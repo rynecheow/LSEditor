@@ -12,7 +12,7 @@ package rocks6205.svg.adt;
  */
 
 public enum SVGColorKeyword {
-	
+
 	// List of color keywords
 	ALICEBLUE( 240, 248, 255 ),
 	ANTIQUEWHITE( 250, 235, 215 ),
@@ -161,34 +161,34 @@ public enum SVGColorKeyword {
 	WHITESMOKE( 245, 245, 245 ),
 	YELLOW( 255, 255, 0 ),
 	YELLOWGREEN( 154, 205, 50 );
-	
+
 	// Instance fields
 	private final int red;
 	private final int green;
 	private final int blue;
-	
+
 	// Enum constructor
 	SVGColorKeyword( int r , int g , int b ) {
 		red = r;
 		green = g;
 		blue = b;
 	}
-	
+
 	// Accessor for field red
 	public int getRed() {
 		return red;
 	}
-	
+
 	// Accessor for field green
 	public int getGreen() {
 		return green;
 	}
-	
+
 	// Accessor for field blue
 	public int getBlue() {
 		return blue;
 	}
-	
+
 	/**
 	 * Returns a standard color scheme from a color keyword provided
 	 * 
