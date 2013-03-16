@@ -15,7 +15,9 @@ import java.awt.Color;
 import java.util.regex.*;
 
 public class SVGColorScheme extends Color {
-	/*PRIMITIVE DATA STRUCTURE FORMAT*/
+	/*
+	 * PRIMITIVE DATA STRUCTURE FORMAT
+	 */
 	//	8-bit integer regex
 	public static final String _8_BIT_UINT = "([01]?[0-9]?[0-9]|2[0-4][0-9]|25[0-5])";	
 
@@ -29,7 +31,9 @@ public class SVGColorScheme extends Color {
 	//	8-bit hex integer regex
 	public static final String _4_BIT_HEX_UINT = "([0-9A-Fa-f])";	
 
-	/*COLOR DATA STRUCTURE FORMAT*/
+	/*
+	 * COLOR DATA STRUCTURE FORMAT
+	 */
 	//	Standard color format
 	//	e.g. RGB(120,83,22)
 	public static final String RGB_COLOR_UINT = "^RGB\\(\\s*"
@@ -51,11 +55,17 @@ public class SVGColorScheme extends Color {
 			+ SVGColorScheme._4_BIT_HEX_UINT + "{3})";
 
 	private static final long serialVersionUID = 5839823140108294927L;
-
+	
+	/*
+	 * CONSTRUCTOR
+	 */
 	public SVGColorScheme(int red, int green, int blue) {
 		super(red, green, blue);
 	}
 
+	/*
+	 * METHODS
+	 */
 	/**
 	 * Parsing color attribute to convert to Java-compatible color type where matches formats.
 	 * 

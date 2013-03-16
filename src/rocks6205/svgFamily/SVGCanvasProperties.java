@@ -1,25 +1,45 @@
+/**
+ * 
+ * Class: SVGCanvasProperties
+ * Description: Describes the environment where the canvas will run on, focusing on output resolution and text size.
+ * 
+ * @author: Cheow Yeong Chi
+ * @version: 1.0
+ * @date: 11/03/2013
+ * 
+ */
 package rocks6205.svgFamily;
 
 public class SVGCanvasProperties {
-	private static int RES = 72;
-	private static float GLOBAL_TEXT_SIZE = 10;
+	/*
+	 * PROPERTIES
+	 */
+	private static float TEXT_SIZE = 10;
+	private static int DOTS_PER_INCH = 72;
 
+	/*
+	 * CONSTRUCTOR
+	 */
 	private SVGCanvasProperties() {
 	}
-
-	public static int getResolution() {
-		return RES;
+	/*
+	 * ACCESSORS
+	 */
+	public static int getOutputResolution() {
+		return DOTS_PER_INCH;
 	}
-
-	public static void setResolution(int res) {
-		RES = res;
-	}
-
+	
 	public static float getFontSize() {
-		return GLOBAL_TEXT_SIZE;
+		return TEXT_SIZE;
+	}
+	/*
+	 * MUTATORS
+	 */
+	public static void setOutputResolution(int dpi) {
+		DOTS_PER_INCH = dpi;
 	}
 
 	public static void setFontSize(float fontSize) {
-		GLOBAL_TEXT_SIZE = fontSize;
+		TEXT_SIZE = fontSize;
 	}
 }

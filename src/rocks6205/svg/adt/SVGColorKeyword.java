@@ -162,32 +162,40 @@ public enum SVGColorKeyword {
 	YELLOW( 255, 255, 0 ),
 	YELLOWGREEN( 154, 205, 50 );
 
-	// Instance fields
+	/*
+	 * PROPERTIES
+	 */
 	private final int red;
 	private final int green;
 	private final int blue;
 
-	// Enum constructor
+	/*
+	 * CONSTRUCTOR
+	 */
 	SVGColorKeyword( int r , int g , int b ) {
 		red = r;
 		green = g;
 		blue = b;
 	}
 
-	// Accessor for field red
+	/*
+	 * ACCESSORS
+	 */
 	public int getRed() {
 		return red;
 	}
 
-	// Accessor for field green
 	public int getGreen() {
 		return green;
 	}
 
-	// Accessor for field blue
 	public int getBlue() {
 		return blue;
 	}
+
+	/*
+	 * METHODS
+	 */
 
 	/**
 	 * Returns a standard color scheme from a color keyword provided
