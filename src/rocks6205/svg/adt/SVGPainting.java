@@ -38,6 +38,9 @@ public class SVGPainting {
 		this.paintColor = c;
 	}
 
+	public final void setPaintingType(SVGPaintingType type){
+		this.paintType = type;
+	}
 	/*
 	 * ACCESSOR
 	 */
