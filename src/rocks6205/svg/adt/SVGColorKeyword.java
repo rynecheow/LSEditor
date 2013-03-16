@@ -3,8 +3,8 @@ package rocks6205.svg.adt;
 /**
  * 
  * Class: SVGColorKeyword
- * Description: Enumerates color keyword names recognized by data type <color> in SVG
- * 
+ * Description: Enumerates color keyword names recognized by data type <color> in SVG as specified in 4.4
+ * Refer to : <a href="http://www.w3.org/TR/SVG/types.html#ColorKeywords"/>
  * @author: Sugar CheeSheen Chan
  * @version: 1.0
  * @date: 13/03/2013

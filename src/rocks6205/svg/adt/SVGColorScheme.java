@@ -19,17 +19,16 @@ public class SVGColorScheme extends Color {
 	 * PRIMITIVE DATA STRUCTURE FORMAT
 	 */
 	//	8-bit integer regex
-	public static final String _8_BIT_UINT = "([01]?[0-9]?[0-9]|2[0-4][0-9]|25[0-5])";	
+	public static final String _8_BIT_UINT = "([01]?[0-9]?[0-9]|2[0-4][0-9]|25[0-5])";	//<color> as declared in 4.2
 
 	// 	percentage regex
 	// 	e.g. 99%, 18.4%,  100%
-	public static final String PERCENTAGE_UNUM = "([01]?[0-9]?[0-9](.[0-9]+)?)%";		
+	public static final String PERCENTAGE_UNUM = "([01]?[0-9]?[0-9](.[0-9]+)?)%";	//<color> as declared in 4.2
 
 	//	8-bit hex integer regex
-	public static final String _8_BIT_HEX_UINT = "([0-9A-Fa-f]{2})";
-
+	public static final String _8_BIT_HEX_UINT = "([0-9A-Fa-f]{2})"; //<color> as declared in 4.2
 	//	8-bit hex integer regex
-	public static final String _4_BIT_HEX_UINT = "([0-9A-Fa-f])";	
+	public static final String _4_BIT_HEX_UINT = "([0-9A-Fa-f])";	//<color> as declared in 4.2
 
 	/*
 	 * COLOR DATA STRUCTURE FORMAT
@@ -55,7 +54,7 @@ public class SVGColorScheme extends Color {
 			+ SVGColorScheme._4_BIT_HEX_UINT + "{3})";
 
 	private static final long serialVersionUID = 5839823140108294927L;
-	
+
 	/*
 	 * CONSTRUCTOR
 	 */

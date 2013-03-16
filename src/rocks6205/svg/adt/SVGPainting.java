@@ -2,7 +2,7 @@
  * 
  * Class: SVGPainting
  * Description: Parsing <paint> in SVG documents and convert to respective type and color to be drawn on canvas
- * 
+ * Refer to: <a href="http://www.w3.org/TR/SVG/painting.html#SpecifyingPaint"/>
  * @author: Cheow Yeong Chi
  * @version: 1.0
  * @date: 16/03/2013
@@ -41,7 +41,7 @@ public class SVGPainting {
 		if (type != null)   {this.paintType = type;}
 		if (type == SVGPaintingType.NONE)   {this.paintColor = new SVGColorScheme(0, 0, 0);}
 	}
-	
+
 	/*
 	 * ACCESSOR
 	 */
@@ -65,7 +65,7 @@ public class SVGPainting {
 	 */
 	public static SVGPainting parse(String paintAttributeString){
 		paintAttributeString = paintAttributeString.trim();
-		
+
 		if (paintAttributeString.equalsIgnoreCase(SVGPaintingType.NONE.name())) {
 			return new SVGPainting(SVGPaintingType.NONE);
 		} else if (paintAttributeString.equalsIgnoreCase(SVGPaintingType.CURRENTCOLOR.name())) {
@@ -87,7 +87,7 @@ public class SVGPainting {
 		setPaintType(type);
 		if (type == SVGPaintingType.COLOR) {setPaintColor(c);}
 	}
-	
+
 	/**
 	 * Variant. Setting the color of paint.
 	 * 

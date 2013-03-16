@@ -1,8 +1,7 @@
 /**
  * 
  * Class: SVGLengthUnit
- * Description: Parsing <length> in SVG documents and convert to floating points with respective type to be
- * 				presented on Java
+ * Description: Parsing <length> in SVG documents and convert to floating points with respective type to be presented on Java
  * 
  * @author: Cheow Yeong Chi
  * @version: 1.0
@@ -19,9 +18,12 @@ public class SVGLengthUnit {
 	/*
 	 * STATIC VARIABLES
 	 */
-	public static final String INT = "[+-]?[0-9]+";
-	public static final String NUM = INT + "([Ee]" + INT
-			+ ")?|[+-]?[0-9]*\\.[0-9]+([Ee]" + INT + ")?";
+
+	//<integer> as specified in 4.2
+	public static final String INT = "[+-]?[0-9]+"; 
+	//<number> as specified in 4.2
+	public static final String NUM = INT + "([Ee]" + INT + ")?|[+-]?[0-9]*\\.[0-9]+([Ee]" + INT + ")?"; 
+
 	/*
 	 * PROPERTIES
 	 */
@@ -51,7 +53,7 @@ public class SVGLengthUnit {
 	public float getValue(){
 		return getValue("");
 	}
-	
+
 	public float getValue(String sym){
 		SVGLengthUnitType target = SVGLengthUnitType.getType(sym);
 
@@ -78,7 +80,7 @@ public class SVGLengthUnit {
 	/*
 	 * METHODS
 	 */
-	
+
 	/**
 	 * Parsing length attribute by extracting symbols and matches with defined unit types.
 	 * 
@@ -89,7 +91,7 @@ public class SVGLengthUnit {
 		lengthAttributeValue = lengthAttributeValue.trim();
 		//initialise variables
 		SVGLengthUnit length = null;
-		
+
 		Pattern pattern = null, unitPattern = null;
 		Matcher matcher = null;
 		String numberStr = "";

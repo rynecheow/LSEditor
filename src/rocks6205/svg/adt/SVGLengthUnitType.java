@@ -1,7 +1,8 @@
 /**
  * 
  * Class: SVGLengthUnitType
- * Description: Enumerates length unit type symbols recognized by data type <length> in SVG
+ * Description: Enumerates length unit type symbols recognized by data type <length> in SVG as defined in 4.3.2 of CSS2 BDT
+ * Refer to: <a href="http://www.w3.org/TR/2008/REC-CSS2-20080411/syndata.html#length-units"/>
  * 
  * @author: Cheow Yeong Chi
  * @version: 1.0
@@ -38,9 +39,9 @@ public enum SVGLengthUnitType {
 	/**
 	 * In CSS definition,
 	 * 
-	 * The ÔexÕ unit is defined by the fontÕs Ôx-heightÕ. 
+	 * The ï¿½exï¿½ unit is defined by the fontï¿½s ï¿½x-heightï¿½. 
 	 * The x-height is so called because it is often equal to the height of the lowercase "x". 
-	 * However, an ÔexÕ is defined even for fonts that donÕt contain an "x".
+	 * However, an ï¿½exï¿½ is defined even for fonts that donï¿½t contain an "x".
 	 * 
 	 * 1 'em' is equal to the current font size. 
 	 * n 'em' means n times the size of the current font. 
