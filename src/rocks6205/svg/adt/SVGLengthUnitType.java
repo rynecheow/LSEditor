@@ -1,8 +1,8 @@
 /**
  * 
  * Class: SVGLengthUnitType
- * Description: Enumerates length unit type symbols recognized by data type <length> in SVG as defined in 4.3.2 of CSS2 BDT
- * Refer to: <a href="http://www.w3.org/TR/2008/REC-CSS2-20080411/syndata.html#length-units"/>
+ * Description: Enumerates length unit type symbols recognized by data type <length> in SVG as defined in 4.5.11 of CSS2 BDT
+ * Refer to: <a href="http://www.w3.org/TR/SVG/types.html#InterfaceSVGLength"/>
  * 
  * @author: Cheow Yeong Chi
  * @version: 1.0
@@ -15,16 +15,16 @@ package rocks6205.svg.adt;
 import rocks6205.svgFamily.SVGCanvasProperties;
 
 public enum SVGLengthUnitType {
-	UNDEFINED(null), 
+	UNKNOWN(null), 
 	NUMBER(null), 
-	MM("mm"),
+	EMS("em"), 
+	EXS("ex"), 
+	PX("px"), 
 	CM("cm"), 
+	MM("mm"), 
 	IN("in"), 
 	PT("pt"), 
-	PC("pc"),
-	PX("px"), 
-	EMS("em"),
-	EXS("ex");
+	PC("pc");
 
 	private final String symbol;
 
@@ -39,7 +39,7 @@ public enum SVGLengthUnitType {
 	/**
 	 * In CSS definition,
 	 * 
-	 * The �ex� unit is defined by the font�s �x-height�. 
+	 * The 'ex' unit is defined by the font�s �x-height�. 
 	 * The x-height is so called because it is often equal to the height of the lowercase "x". 
 	 * However, an �ex� is defined even for fonts that don�t contain an "x".
 	 * 
@@ -52,7 +52,7 @@ public enum SVGLengthUnitType {
 	 * @return Scaling factor that the length unit symbol defined
 	 */
 	public float getUnitScalingFactor() {
-		//'mm' is set as default unit
+		//'mm' is set as default unit as defined in 4.5.11
 		float mm = 1.0f; 
 		float cm = 10.0f * mm;
 		float in = 25.4f * mm;

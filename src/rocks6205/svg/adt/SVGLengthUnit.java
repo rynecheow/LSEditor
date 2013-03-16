@@ -30,7 +30,7 @@ public class SVGLengthUnit {
 	private float value;
 	private SVGLengthUnitType unitType;
 	public SVGLengthUnit() {
-		setSVGLengthUnit(SVGLengthUnitType.UNDEFINED, 0.0f);
+		setSVGLengthUnit(SVGLengthUnitType.UNKNOWN, 0.0f);
 	}
 	/*
 	 * CONSTRUCTORS
@@ -59,7 +59,7 @@ public class SVGLengthUnit {
 
 		if (this.unitType == target) {
 			return this.value;
-		} else if (this.unitType != SVGLengthUnitType.UNDEFINED) {
+		} else if (this.unitType != SVGLengthUnitType.UNKNOWN) {
 			return value * this.unitType.getUnitScalingFactor() / target.getUnitScalingFactor();
 		}
 
@@ -102,7 +102,7 @@ public class SVGLengthUnit {
 		//search
 		for (SVGLengthUnitType type: SVGLengthUnitType.values()) {
 			symbol = type.getUnitSymbol();
-			if (type != SVGLengthUnitType.UNDEFINED && type != SVGLengthUnitType.NUMBER) {
+			if (type != SVGLengthUnitType.UNKNOWN && type != SVGLengthUnitType.NUMBER) {
 				if (u != 0) 	{symbol = "|" + symbol;}
 				unitSym += symbol;
 				u++;
