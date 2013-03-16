@@ -2,7 +2,7 @@ package rocks6205.svgFamily;
 
 public class SVGCanvasProperties {
 	private static int RES = 72;
-	private static double GLOBAL_TEXT_SIZE = 10;
+	private static float GLOBAL_TEXT_SIZE = 10;
 
 	private SVGCanvasProperties() {
 	}
@@ -15,11 +15,11 @@ public class SVGCanvasProperties {
 		RES = res;
 	}
 
-	public static double getFontSize() {
+	public static float getFontSize() {
 		return GLOBAL_TEXT_SIZE;
 	}
 
-	public static void setFontSize(double fontSize) {
+	public static void setFontSize(float fontSize) {
 		GLOBAL_TEXT_SIZE = fontSize;
 	}
 }
