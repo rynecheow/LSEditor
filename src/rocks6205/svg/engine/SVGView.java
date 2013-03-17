@@ -17,8 +17,7 @@ import java.util.Observer;
 
 import javax.swing.*;
 
-public class SVGView extends JFrame implements Observer{
-
+public class SVGView extends JFrame implements Observer {
 	/**
 	 * 
 	 */
@@ -74,17 +73,8 @@ public class SVGView extends JFrame implements Observer{
 		inPanelRight.setBorder(BorderFactory.createLineBorder(Color.blue));
 		inPanelBottom.setBorder(BorderFactory.createLineBorder(Color.blue));
 		
-		panel.add(inPanel);
-		panel.add(inPanelTop, BorderLayout.NORTH);
-		panel.add(inPanelLeft, BorderLayout.WEST);
-		panel.add(inPanelRight, BorderLayout.EAST);
-		panel.add(inPanelBottom, BorderLayout.SOUTH);
-		
-		c.add(panel);
-		c.add(panelTop, BorderLayout.NORTH);
-		c.add(panelLeft, BorderLayout.WEST);
-		c.add(panelRight, BorderLayout.EAST);
-		c.add(panelBottom, BorderLayout.SOUTH);
+		setupLayout(panel, inPanel, inPanelTop, inPanelBottom, inPanelRight, inPanelLeft);
+		setupLayout(c, panel, panelTop, panelBottom, panelRight, panelLeft);
 		
 		this.setJMenuBar(menuBar);
 		
@@ -96,7 +86,7 @@ public class SVGView extends JFrame implements Observer{
 	}
 
 	public static void main (String args[]) {
-		SVGView view = new SVGView();
+		new SVGView();
 	}
 
 	/*
@@ -124,6 +114,25 @@ public class SVGView extends JFrame implements Observer{
 	public void update(Observable o, Object arg) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	/*
+	 *  Set components via BorderLayout to Center, North, South, East and West
+	 */
+	public void setupLayout(JPanel pane, JPanel pane1, JPanel pane2, JPanel pane3, JPanel pane4, JPanel pane5) {
+		pane.add(pane1, BorderLayout.CENTER);
+		pane.add(pane2, BorderLayout.NORTH);
+		pane.add(pane3, BorderLayout.SOUTH);
+		pane.add(pane4, BorderLayout.EAST);
+		pane.add(pane5, BorderLayout.WEST);
+	}
+	
+	public void setupLayout(Container contain, JPanel pane1, JPanel pane2, JPanel pane3, JPanel pane4, JPanel pane5) {
+		contain.add(pane1, BorderLayout.CENTER);
+		contain.add(pane2, BorderLayout.NORTH);
+		contain.add(pane3, BorderLayout.SOUTH);
+		contain.add(pane4, BorderLayout.EAST);
+		contain.add(pane5, BorderLayout.WEST);
 	}
 
 }
