@@ -11,12 +11,18 @@
 
 package rocks6205.svg.engine;
 
-import java.awt.*;
 import javax.swing.*;
 
-public class SVGViewMenu extends JFrame {
+public class SVGViewMenu extends JMenuBar {
 	
-	JMenuBar menuBar;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	/*
+	 * GUI COMPONENTS
+	 */
 	JMenu fileMenu, editMenu, insertMenu, helpMenu;
 
 	JMenuItem newItem, openItem, saveItem, saveAsItem, docPropItem, exitItem;
@@ -24,9 +30,10 @@ public class SVGViewMenu extends JFrame {
 	JMenuItem rectItem, circleItem, lineItem;
 	JMenuItem faqItem, aboutItem;
 
+	/*
+	 * CONSTRUCTOR
+	 */
 	public SVGViewMenu() {
-
-		menuBar = new JMenuBar();
 
 		fileMenu = new JMenu("File");
 		editMenu = new JMenu("Edit");
@@ -70,23 +77,11 @@ public class SVGViewMenu extends JFrame {
 
 		helpMenu.add(faqItem);
 		helpMenu.add(aboutItem);
-
-		menuBar.add(fileMenu);
-		menuBar.add(editMenu);
-		menuBar.add(insertMenu);
-		menuBar.add(helpMenu);
-
-		this.setJMenuBar(menuBar);
-
-		setExtendedState(JFrame.MAXIMIZED_BOTH);
-
-		setTitle("SVG Editor");
-		setVisible(true);
-		setResizable(false);
-	}
-
-	public static void main (String args[]) {
-		new SVGViewMenu();
+		
+		this.add(fileMenu);
+		this.add(editMenu);
+		this.add(insertMenu);
+		this.add(helpMenu);
 	}
 
 }
