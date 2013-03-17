@@ -16,17 +16,28 @@ import javax.swing.*;
 
 public class SVGTopToolbar extends JPanel {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	/*
+	 * GUI COMPONENTS
+	 */
 	JButton newBut, openBut, saveBut;
 	
+	/*
+	 * CONSTRUCTOR
+	 */
 	public SVGTopToolbar() {
 		
 		newBut = new JButton("New");
 		openBut = new JButton("Open");
 		saveBut = new JButton("Save");
 		
-		this.add(newBut, FlowLayout.LEFT);
-		this.add(openBut, FlowLayout.LEFT);
-		this.add(saveBut, FlowLayout.LEFT);
+		this.add(newBut);
+		this.add(openBut);
+		this.add(saveBut);
 	}
 
 }
