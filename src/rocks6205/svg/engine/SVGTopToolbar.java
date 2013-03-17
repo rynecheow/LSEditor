@@ -11,7 +11,6 @@
 
 package rocks6205.svg.engine;
 
-import java.awt.*;
 import javax.swing.*;
 
 public class SVGTopToolbar extends JPanel {
