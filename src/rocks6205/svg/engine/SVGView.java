@@ -12,13 +12,32 @@
 package rocks6205.svg.engine;
 
 import java.awt.*;
+import java.util.Observable;
+import java.util.Observer;
+
 import javax.swing.*;
 
-public class SVGView extends JFrame {
+public class SVGView extends JFrame implements Observer{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6764861773639452353L;
+	/*
+	 * PROPERTIES
+	 */
+	private SVGModel model;
+	private SVGViewController controller;
+	
+	/*
+	 * GUI COMPONENTS
+	 */
 	JPanel panel, panelTop, panelLeft, panelRight, panelBottom;
 	JPanel inPanel, inPanelTop, inPanelLeft, inPanelRight, inPanelBottom;
 
+	/*
+	 * CONSTRUCTOR
+	 */
 	public SVGView() {
 
 		panel = new JPanel();
@@ -71,6 +90,33 @@ public class SVGView extends JFrame {
 
 	public static void main (String args[]) {
 		SVGView view = new SVGView();
+	}
+
+	/*
+	 * ACCESSORS
+	 */
+	public SVGModel getModel() {
+		return model;
+	}
+	
+	public SVGViewController getController() {
+		return controller;
+	}
+
+	/*
+	 * MUTATORS
+	 */
+	public void setController(SVGViewController controller) {
+		this.controller = controller;
+	}
+
+	public void setModel(SVGModel model) {
+		this.model = model;
+	}
+
+	public void update(Observable o, Object arg) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
