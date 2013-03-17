@@ -54,10 +54,6 @@ public class SVGViewMenu extends JFrame {
 		faqItem = new JMenuItem("FAQ");
 		aboutItem = new JMenuItem("About");
 
-		Container c = getContentPane();
-
-		c.setLayout(new FlowLayout());
-
 		fileMenu.add(newItem);
 		fileMenu.add(openItem);
 		fileMenu.addSeparator();
