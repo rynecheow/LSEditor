@@ -17,7 +17,7 @@ import javax.swing.*;
 public class SVGViewMenu extends JFrame {
 
 	/**
-	 * 
+	 *  Program generated default ID
 	 */
 	private static final long serialVersionUID = 1L;
 	
