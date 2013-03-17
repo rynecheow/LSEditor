@@ -22,28 +22,29 @@ public class SVGView extends JFrame implements Observer {
 	 * 
 	 */
 	private static final long serialVersionUID = 6764861773639452353L;
-	
+
 	/*
 	 * PROPERTIES
 	 */
 	private SVGModel model;
 	private SVGViewController controller;
-	
+
 	/*
 	 * GUI COMPONENTS
 	 */
-	SVGViewMenu menuBar;
+	SVGViewMenubar menuBar;
 	SVGTopToolbar topTool;
-	
+
 	JPanel panel, panelTop, panelLeft, panelRight, panelBottom;
 	JPanel inPanel, inPanelTop, inPanelLeft, inPanelRight, inPanelBottom;
+	Container container = getContentPane();
 
 	/*
 	 * CONSTRUCTOR
 	 */
 	public SVGView() {
-		
-		menuBar = new SVGViewMenu();
+
+		menuBar = new SVGViewMenubar();
 		topTool = new SVGTopToolbar();
 
 		panel = new JPanel();
@@ -51,43 +52,69 @@ public class SVGView extends JFrame implements Observer {
 		panelLeft = new JPanel();
 		panelRight = new JPanel();
 		panelBottom = new JPanel();
-		
+
 		inPanel = new JPanel();
 		inPanelTop = new JPanel();
 		inPanelLeft = new JPanel();
 		inPanelRight = new JPanel();
 		inPanelBottom = new JPanel();
 
-		Container c = getContentPane();
-		
-		c.setLayout(new BorderLayout());
+		container.setLayout(new BorderLayout());
 		panel.setLayout(new BorderLayout());
 		panelTop.setLayout(new BorderLayout());
-		
-		panel.setBorder(BorderFactory.createLineBorder(Color.black));
-		panelTop.setBorder(BorderFactory.createLineBorder(Color.black));
-		panelLeft.setBorder(BorderFactory.createLineBorder(Color.black));
-		panelRight.setBorder(BorderFactory.createLineBorder(Color.black));
-		panelBottom.setBorder(BorderFactory.createLineBorder(Color.black));
-		
-		inPanel.setBorder(BorderFactory.createLineBorder(Color.blue));
-		inPanelTop.setBorder(BorderFactory.createLineBorder(Color.blue));
-		inPanelLeft.setBorder(BorderFactory.createLineBorder(Color.blue));
-		inPanelRight.setBorder(BorderFactory.createLineBorder(Color.blue));
-		inPanelBottom.setBorder(BorderFactory.createLineBorder(Color.blue));
-		
-		panelTop.add(topTool, BorderLayout.WEST);
-		
-		setupLayout(panel, inPanel, inPanelTop, inPanelBottom, inPanelRight, inPanelLeft);
-		setupLayout(c, panel, panelTop, panelBottom, panelRight, panelLeft);
-		
-		this.setJMenuBar(menuBar);
-		
+
+		setupBorder();	
+		setupLayoutForMainPanel();
+		setupLayoutForContainer();
+
+		setJMenuBar(menuBar);
+
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 
 		setTitle("SVG Editor");
 		setVisible(true);
 		setResizable(false);
+	}
+
+	/**
+	 * Setting border color of JPanels
+	 */
+	private void setupBorder(){
+		Color blueColor = Color.BLUE, blackColor = Color.black;
+		setBorderColorForPanel(blackColor,panel);
+		setBorderColorForPanel(blackColor,panelTop);
+		setBorderColorForPanel(blackColor,panelLeft);
+		setBorderColorForPanel(blackColor,panelRight);
+		setBorderColorForPanel(blackColor,panelBottom);
+
+		setBorderColorForPanel(blueColor,inPanel);
+		setBorderColorForPanel(blueColor,inPanelTop);
+		setBorderColorForPanel(blueColor,inPanelLeft);
+		setBorderColorForPanel(blueColor,inPanelRight);
+		setBorderColorForPanel(blueColor,inPanelBottom);
+	}
+
+	private void setBorderColorForPanel(Color color, JPanel p){
+		p.setBorder(BorderFactory.createLineBorder(color));
+	}
+
+	/*
+	 *  Set components via BorderLayout to Center, North, South, East and West
+	 */
+	private void setupLayoutForContainer() {
+		container.add(panel, BorderLayout.CENTER);
+		container.add(panelTop, BorderLayout.NORTH);
+		container.add(panelBottom, BorderLayout.SOUTH);
+		container.add(panelRight, BorderLayout.EAST);
+		container.add(panelLeft, BorderLayout.WEST);
+	}
+
+	private void setupLayoutForMainPanel(){
+		panel.add(inPanel, BorderLayout.CENTER);
+		panel.add(inPanelTop, BorderLayout.NORTH);
+		panel.add(inPanelBottom, BorderLayout.SOUTH);
+		panel.add(inPanelRight, BorderLayout.EAST);
+		panel.add(inPanelLeft, BorderLayout.WEST);
 	}
 
 	public static void main (String args[]) {
@@ -100,7 +127,7 @@ public class SVGView extends JFrame implements Observer {
 	public SVGModel getModel() {
 		return model;
 	}
-	
+
 	public SVGViewController getController() {
 		return controller;
 	}
@@ -118,26 +145,7 @@ public class SVGView extends JFrame implements Observer {
 
 	public void update(Observable o, Object arg) {
 		// TODO Auto-generated method stub
-		
-	}
-	
-	/*
-	 *  Set components via BorderLayout to Center, North, South, East and West
-	 */
-	public void setupLayout(JPanel pane, JPanel pane1, JPanel pane2, JPanel pane3, JPanel pane4, JPanel pane5) {
-		pane.add(pane1, BorderLayout.CENTER);
-		pane.add(pane2, BorderLayout.NORTH);
-		pane.add(pane3, BorderLayout.SOUTH);
-		pane.add(pane4, BorderLayout.EAST);
-		pane.add(pane5, BorderLayout.WEST);
-	}
-	
-	public void setupLayout(Container contain, JPanel pane1, JPanel pane2, JPanel pane3, JPanel pane4, JPanel pane5) {
-		contain.add(pane1, BorderLayout.CENTER);
-		contain.add(pane2, BorderLayout.NORTH);
-		contain.add(pane3, BorderLayout.SOUTH);
-		contain.add(pane4, BorderLayout.EAST);
-		contain.add(pane5, BorderLayout.WEST);
+
 	}
 
 }

@@ -13,7 +13,7 @@ package rocks6205.svg.engine;
 
 import javax.swing.*;
 
-public class SVGViewMenu extends JMenuBar {
+public class SVGViewMenubar extends JMenuBar {
 	
 	/**
 	 * 
@@ -33,7 +33,7 @@ public class SVGViewMenu extends JMenuBar {
 	/*
 	 * CONSTRUCTOR
 	 */
-	public SVGViewMenu() {
+	public SVGViewMenubar() {
 
 		fileMenu = new JMenu("File");
 		editMenu = new JMenu("Edit");
