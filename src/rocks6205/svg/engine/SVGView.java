@@ -63,7 +63,10 @@ public class SVGView extends JFrame implements Observer {
 		panel.setLayout(new BorderLayout());
 		panelTop.setLayout(new BorderLayout());
 
-		setupBorder();	
+		setupBorder();
+		
+		panelTop.add(topTool, BorderLayout.WEST);
+		
 		setupLayoutForMainPanel();
 		setupLayoutForContainer();
 
@@ -76,7 +79,7 @@ public class SVGView extends JFrame implements Observer {
 		setResizable(false);
 	}
 
-	/**
+	/*
 	 * Setting border color of JPanels
 	 */
 	private void setupBorder(){
@@ -99,7 +102,7 @@ public class SVGView extends JFrame implements Observer {
 	}
 
 	/*
-	 *  Set components via BorderLayout to Center, North, South, East and West
+	 *  Set components via BorderLayout to Center, North, South, East, West
 	 */
 	private void setupLayoutForContainer() {
 		container.add(panel, BorderLayout.CENTER);
