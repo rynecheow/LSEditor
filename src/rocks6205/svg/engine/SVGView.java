@@ -23,6 +23,7 @@ public class SVGView extends JFrame implements Observer{
 	 * 
 	 */
 	private static final long serialVersionUID = 6764861773639452353L;
+	
 	/*
 	 * PROPERTIES
 	 */
@@ -32,6 +33,8 @@ public class SVGView extends JFrame implements Observer{
 	/*
 	 * GUI COMPONENTS
 	 */
+	SVGViewMenu menuBar;
+	
 	JPanel panel, panelTop, panelLeft, panelRight, panelBottom;
 	JPanel inPanel, inPanelTop, inPanelLeft, inPanelRight, inPanelBottom;
 
@@ -39,6 +42,8 @@ public class SVGView extends JFrame implements Observer{
 	 * CONSTRUCTOR
 	 */
 	public SVGView() {
+		
+		menuBar = new SVGViewMenu();
 
 		panel = new JPanel();
 		panelTop = new JPanel();
@@ -80,6 +85,8 @@ public class SVGView extends JFrame implements Observer{
 		c.add(panelLeft, BorderLayout.WEST);
 		c.add(panelRight, BorderLayout.EAST);
 		c.add(panelBottom, BorderLayout.SOUTH);
+		
+		this.setJMenuBar(menuBar);
 		
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 
