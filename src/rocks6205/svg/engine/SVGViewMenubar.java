@@ -11,6 +11,8 @@
 
 package rocks6205.svg.engine;
 
+import java.awt.event.KeyEvent;
+
 import javax.swing.*;
 
 public class SVGViewMenubar extends JMenuBar {
@@ -39,14 +41,19 @@ public class SVGViewMenubar extends JMenuBar {
 		editMenu = new JMenu("Edit");
 		insertMenu = new JMenu("Insert");
 		helpMenu = new JMenu("Help");
+		
+		fileMenu.setMnemonic(KeyEvent.VK_F);
+		editMenu.setMnemonic(KeyEvent.VK_E);
+		insertMenu.setMnemonic(KeyEvent.VK_I);
+		helpMenu.setMnemonic(KeyEvent.VK_H);
 
-		newItem = new JMenuItem("New");
-		openItem = new JMenuItem("Open File...");
-		saveItem = new JMenuItem("Save");
-		saveAsItem = new JMenuItem("Save As...");
+		newItem = new JMenuItem("New                                     Ctrl+N");
+		openItem = new JMenuItem("Open File...                         Ctrl+O");
+		saveItem = new JMenuItem("Save                                    Ctrl+S");
+		saveAsItem = new JMenuItem("Save As...                Ctrl+Shift+S");
 		docPropItem = new JMenuItem("Document Properties");
 		exitItem = new JMenuItem("Exit");
-		selAllItem = new JMenuItem("Select All");
+		selAllItem = new JMenuItem("Select All                      Ctrl+A");
 		groupItem = new JMenuItem("Group");
 		ungroupItem = new JMenuItem("Ungroup");
 		deleteItem = new JMenuItem("Delete");
@@ -67,8 +74,10 @@ public class SVGViewMenubar extends JMenuBar {
 		fileMenu.add(exitItem);
 
 		editMenu.add(selAllItem);
+		editMenu.addSeparator();
 		editMenu.add(groupItem);
 		editMenu.add(ungroupItem);
+		editMenu.addSeparator();
 		editMenu.add(deleteItem);
 
 		insertMenu.add(rectItem);
