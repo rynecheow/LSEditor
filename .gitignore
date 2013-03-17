@@ -6,3 +6,4 @@
 *.ear
 /bin
 /nbproject/private/
+/build/
