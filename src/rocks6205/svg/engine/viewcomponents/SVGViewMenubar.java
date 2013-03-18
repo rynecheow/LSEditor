@@ -9,7 +9,7 @@
  *
  */
 
-package rocks6205.svg.engine;
+package rocks6205.svg.engine.viewcomponents;
 
 import java.awt.event.KeyEvent;
 

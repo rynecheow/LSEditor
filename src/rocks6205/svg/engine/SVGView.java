@@ -11,6 +11,10 @@
 
 package rocks6205.svg.engine;
 
+import rocks6205.svg.engine.viewcomponents.SVGDelete;
+import rocks6205.svg.engine.viewcomponents.SVGTopToolbar;
+import rocks6205.svg.engine.viewcomponents.SVGBottomToolbar;
+import rocks6205.svg.engine.viewcomponents.SVGViewMenubar;
 import java.awt.*;
 import java.util.Observable;
 import java.util.Observer;
