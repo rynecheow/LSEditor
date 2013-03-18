@@ -3,9 +3,9 @@
  * Class: SVGGraphicsElement
  * Description: 
  * 
- * @author: Cheow Yeong Chi
+ * @author: Sugar CheeSheen Chan
  * @version: 1.0
- * @date: 14/03/2013
+ * @date: 16/03/2013
  * 
  */
 
