@@ -35,19 +35,21 @@ public class SVGView extends JFrame implements Observer {
 	SVGViewMenubar menuBar;
 	SVGTopToolbar topTool;
 	SVGBottomToolbar bottomTool;
+	SVGDelete delete;
 
 	JPanel panel, panelTop, panelLeft, panelRight, panelBottom;
 	JPanel inPanel, inPanelTop, inPanelLeft, inPanelRight, inPanelBottom;
+	
 	Container container = getContentPane();
 
 	/*
 	 * CONSTRUCTOR
 	 */
 	public SVGView() {
-
 		menuBar = new SVGViewMenubar();
 		topTool = new SVGTopToolbar();
 		bottomTool = new SVGBottomToolbar();
+		delete = new SVGDelete();
 
 		panel = new JPanel();
 		panelTop = new JPanel();
@@ -64,12 +66,13 @@ public class SVGView extends JFrame implements Observer {
 		container.setLayout(new BorderLayout());
 		panel.setLayout(new BorderLayout());
 		panelTop.setLayout(new BorderLayout());
-		panelBottom.setLayout(new BorderLayout());
+		inPanelBottom.setLayout(new BorderLayout());
 
 		setupBorder();
 		
 		panelTop.add(topTool, BorderLayout.WEST);
-		panelBottom.add(bottomTool, BorderLayout.WEST);
+		inPanelBottom.add(bottomTool, BorderLayout.WEST);
+		inPanelBottom.add(delete, BorderLayout.EAST);
 		
 		setupLayoutForMainPanel();
 		setupLayoutForContainer();
