@@ -11,101 +11,104 @@
 
 package rocks6205.svg.elements;
 
-public class SVGCircleElement extends SVGGraphicsElement {
-	
-	// Instance fields
-	private int cx;
-	private int cy;
-	private int radius;
-	private String fill;
-	
-	/**
-	 * 
-	 * @param cx contains value for field cx
-	 * @param cy contains value for field cy
-	 * @param radius contains value for field radius
-	 * @param fill contains value for field fill
-	 * @param stroke contains value for field stroke
-	 * @param strokeWidth contains value for field strokeWidth
+import java.awt.geom.Rectangle2D.Double;
+
+import rocks6205.svg.adt.SVGLengthUnit;
+import rocks6205.svg.adt.SVGPainting;
+import rocks6205.svgFamily.SVGImageCanvas;
+
+public class SVGCircleElement extends SVGGenericElement {
+
+	/*
+	 * PROPERTIES
 	 */
-	public SVGCircleElement( int cx , int cy , int radius , 
-			String fill , String stroke , String strokeWidth ) {
-		super( stroke , strokeWidth );
+	private SVGLengthUnit cx;
+	private SVGLengthUnit cy;
+	private SVGLengthUnit radius;
+	private SVGPainting fill;
+
+	public SVGCircleElement( SVGLengthUnit cx , SVGLengthUnit cy , SVGLengthUnit radius , 
+			SVGPainting fill) {
 		this.cx = cx;
 		this.cy = cy;
 		this.radius = radius;
 		this.fill = fill;
 	}
-	
-	/**
-	 * Mutator for field cx
-	 * 
-	 * @param cx contains value for field cx
-	 */
-	public void setCx( int cx ) {
-		this.cx = cx;
-	}
 
-	/**
-	 * Mutator for field cy
-	 * 
-	 * @param cy contains value for field cy
+	/*
+	 * ACCESSORS
 	 */
-	public void setCy( int cy ) {
-		this.cy = cy;
-	}
-
 	/**
-	 * Mutator for field radius
-	 * 
-	 * @param radius contains value for field radius
-	 */
-	public void setRadius( int radius ) {
-		this.radius = radius;
-	}
-	
-	/**
-	 * Mutator for field fill
-	 * 
-	 * @param fill contains value for field fill
-	 */
-	public void setFill( String fill ) {
-		this.fill = fill;
-	}
-
-	/**
-	 * Accessor for field cx
-	 * 
 	 * @return Value of cx
 	 */
-	public int getCx() {
+	public SVGLengthUnit getCx() {
 		return this.cx;
 	}
-	
+
 	/**
-	 * Accessor for field cy
-	 * 
 	 * @return Value of cy
 	 */
-	public int getCy() {
+	public SVGLengthUnit getCy() {
 		return this.cy;
 	}
-	
+
 	/**
-	 * Accessor for field radius
-	 * 
 	 * @return Value of radius
 	 */
-	public int getRadius() {
+	public SVGLengthUnit getRadius() {
 		return this.radius;
 	}
-	
+
 	/**
-	 * Accessor for field fill
-	 * 
 	 * @return Value of fill
 	 */
-	public String getFill() {
+	public SVGPainting getFill() {
 		return this.fill;
 	}
+
+	/*
+	 * MUTATORS
+	 */
+	/**
+	 * @param cx contains value for field 'cx'
+	 */
+	public void setCx( SVGLengthUnit cx ) {
+		this.cx = cx;
+	}
+
+	/**
+	 * @param cy contains value for field 'cy'
+	 */
+	public void setCy( SVGLengthUnit cy ) {
+		this.cy = cy;
+	}
+
+	/**
+
+	 * @param radius contains value for field radius
+	 */
+	public void setRadius( SVGLengthUnit radius ) {
+		this.radius = radius;
+	}
+
+	/**
+	 * @param fill contains value for field 'fill'
+	 */
+	public void setFill( SVGPainting fill ) {
+		this.fill = fill;
+	}
+
+	@Override
+	public Double getBounds() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public SVGImageCanvas draw() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
 }

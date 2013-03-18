@@ -115,7 +115,7 @@ public class SVGColorScheme extends Color {
 	 * @param colorAttributeString	Attribute string that is read directly from SVG file
 	 * @return Color in RGB format which Java reads
 	 */
-	private static SVGColorScheme getColorFromKeyword(
+	public static SVGColorScheme getColorFromKeyword(
 			String colorAttributeString) {
 		colorAttributeString = colorAttributeString.toUpperCase();
 		for (SVGColorKeyword keyword : SVGColorKeyword.values()) {

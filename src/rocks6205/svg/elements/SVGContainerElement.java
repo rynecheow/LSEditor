@@ -11,10 +11,12 @@
 
 package rocks6205.svg.elements;
 
-public class SVGContainerElement {
+
+public abstract class SVGContainerElement extends SVGGenericElement{
 
 	public SVGContainerElement() {
 		// TODO Auto-generated constructor stub
 	}
+
 
 }

@@ -11,28 +11,27 @@
 
 package rocks6205.svg.elements;
 
-public class SVGRectElement extends SVGGraphicsElement {
+import java.awt.geom.Rectangle2D.Double;
+
+import rocks6205.svg.adt.SVGPainting;
+import rocks6205.svgFamily.SVGImageCanvas;
+
+public class SVGRectElement extends SVGGenericElement {
 	
-	// Instance fields
+	/*
+	 * PROPERTIES
+	 */
 	private int x;
 	private int y;
 	private int width;
 	private int height;
-	private String fill;
+	private SVGPainting fill;
 	
-	/**
-	 * 
-	 * @param x contains value for field x
-	 * @param y contains value for field y
-	 * @param width contains value for field width
-	 * @param height contains value for field height
-	 * @param fill contains value for field fill
-	 * @param stroke contains value for field stroke
-	 * @param strokeWidth contains value for field strokeWidth
+	/*
+	 * CONSTRUCTOR
 	 */
 	public SVGRectElement( int x , int y , int width , int height ,
-			String fill , String stroke , String strokeWidth ) {
-		super( stroke , strokeWidth );
+			SVGPainting fill) {
 		this.x = x;
 		this.y = y;
 		this.width = width;
@@ -40,54 +39,10 @@ public class SVGRectElement extends SVGGraphicsElement {
 		this.fill = fill;
 	}
 	
-	/**
-	 * Mutator for field x
-	 * 
-	 * @param x contains value for field x
+	/*
+	 * ACCESSORS
 	 */
-	public void setX( int x ) {
-		this.x = x;
-	}
-
 	/**
-	 * Mutator for field y
-	 * 
-	 * @param y contains value for field y
-	 */
-	public void setY( int y ) {
-		this.y = y;
-	}
-
-	/**
-	 * Mutator for field width
-	 * 
-	 * @param width contains value for field width
-	 */
-	public void setWidth( int width ) {
-		this.width = width;
-	}
-	
-	/**
-	 * Mutator for field height
-	 * 
-	 * @param height contains value for field height
-	 */
-	public void setHeight( int height ) {
-		this.height = height;
-	}
-	
-	/**
-	 * Mutator for field fill
-	 * 
-	 * @param fill contains value for field fill
-	 */
-	public void setFill( String fill ) {
-		this.fill = fill;
-	}
-
-	/**
-	 * Accessor for field x
-	 * 
 	 * @return Value of x
 	 */
 	public int getX() {
@@ -95,8 +50,6 @@ public class SVGRectElement extends SVGGraphicsElement {
 	}
 	
 	/**
-	 * Accessor for field y
-	 * 
 	 * @return Value of y
 	 */
 	public int getY() {
@@ -104,8 +57,6 @@ public class SVGRectElement extends SVGGraphicsElement {
 	}
 	
 	/**
-	 * Accessor for field width
-	 * 
 	 * @return Value of width
 	 */
 	public int getWidth() {
@@ -113,8 +64,6 @@ public class SVGRectElement extends SVGGraphicsElement {
 	}
 	
 	/**
-	 * Accessor for field height
-	 * 
 	 * @return Value of height
 	 */
 	public int getHeight() {
@@ -122,11 +71,59 @@ public class SVGRectElement extends SVGGraphicsElement {
 	}
 	
 	/**
-	 * Accessor for field fill
-	 * 
 	 * @return Value of fill
 	 */
-	public String getFill() {
+	public SVGPainting getFill() {
 		return this.fill;
+	}
+	
+	/*
+	 * MUTATORS
+	 */
+	/**
+	 * @param x contains value for field x
+	 */
+	public void setX( int x ) {
+		this.x = x;
+	}
+
+	/**
+	 * @param y contains value for field y
+	 */
+	public void setY( int y ) {
+		this.y = y;
+	}
+
+	/**
+	 * @param width contains value for field width
+	 */
+	public void setWidth( int width ) {
+		this.width = width;
+	}
+	
+	/**
+	 * @param height contains value for field height
+	 */
+	public void setHeight( int height ) {
+		this.height = height;
+	}
+	
+	/**
+	 * @param fill contains value for field fill
+	 */
+	public void setFill( SVGPainting fill ) {
+		this.fill = fill;
+	}
+
+	@Override
+	public Double getBounds() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public SVGImageCanvas draw() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
