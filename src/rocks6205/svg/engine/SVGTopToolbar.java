@@ -14,7 +14,6 @@ package rocks6205.svg.engine;
 import javax.swing.*;
 
 public class SVGTopToolbar extends JPanel {
-	
 	/**
 	 * 
 	 */
@@ -29,7 +28,6 @@ public class SVGTopToolbar extends JPanel {
 	 * CONSTRUCTOR
 	 */
 	public SVGTopToolbar() {
-		
 		newBut = new JButton("New");
 		openBut = new JButton("Open");
 		saveBut = new JButton("Save");
