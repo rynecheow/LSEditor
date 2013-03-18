@@ -15,18 +15,26 @@ import java.awt.*;
 import javax.swing.*;
 
 public class SVGBottomToolbar extends JPanel {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	
+	/*
+	 * GUI COMPONENTS
+	 */
 	JButton rectBut, circleBut, lineBut;
 	JButton fillBut, strokeBut, widthBut;
 	JButton groupBut, ungroupBut;
-//	JButton delBut;
 	
 	JPanel panel;
 	
 	JSeparator separate, separate2;
 	
+	/*
+	 * CONSTRUCTOR
+	 */
 	public SVGBottomToolbar() {
-		
 		rectBut = new JButton("Rectangle");
 		circleBut = new JButton("Circle");
 		lineBut = new JButton("Line");
@@ -37,8 +45,6 @@ public class SVGBottomToolbar extends JPanel {
 		
 		groupBut = new JButton("Group");
 		ungroupBut = new JButton("Ungroup");
-		
-//		delBut = new JButton("Delete");
 		
 		panel = new JPanel();
 		
@@ -63,9 +69,6 @@ public class SVGBottomToolbar extends JPanel {
 		panel.add(ungroupBut);
 		
 		this.add(panel);
-//		this.add(delBut);
-		
 	}
-
-
+	
 }
