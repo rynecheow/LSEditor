@@ -1,12 +1,12 @@
-package rocks6205.svg.engine;
-
-import java.io.File;
-import rocks6205.svg.engine.SVGModel;
-import rocks6205.svg.engine.SVGView;
-import rocks6205.svg.engine.SVGViewController;
-
-public class Main {
-
+//package rocks6205.svg.engine;
+//
+//import java.io.File;
+//import rocks6205.svg.engine.SVGModel;
+//import rocks6205.svg.engine.SVGView;
+//import rocks6205.svg.engine.SVGViewController;
+//
+//public class Main {
+//
 //	public static void main(String []rcks){
 //
 //		String fileURI = "";
@@ -24,5 +24,5 @@ public class Main {
 //			//			c.fileLoad(new File(fileURI));
 //		}
 //	}
-
-}
+//
+//}

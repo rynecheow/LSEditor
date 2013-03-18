@@ -8,9 +8,6 @@ import javax.swing.KeyStroke;
 
 public abstract class SVGViewAction extends AbstractAction {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 9085407834848872724L;
 	/*
 	 * CONSTRUCTOR
