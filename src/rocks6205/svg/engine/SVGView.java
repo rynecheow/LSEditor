@@ -11,20 +11,20 @@
 
 package rocks6205.svg.engine;
 
-import rocks6205.svg.engine.viewcomponents.SVGDelete;
-import rocks6205.svg.engine.viewcomponents.SVGTopToolbar;
-import rocks6205.svg.engine.viewcomponents.SVGBottomToolbar;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Container;
+import rocks6205.svg.engine.viewcomponents.SVGViewDeleteAccessoryPanel;
+import rocks6205.svg.engine.viewcomponents.SVGViewTopToolbar;
+import rocks6205.svg.engine.viewcomponents.SVGViewBottomToolbar;
 import rocks6205.svg.engine.viewcomponents.SVGViewMenubar;
-import java.awt.*;
 import java.util.Observable;
 import java.util.Observer;
 
 import javax.swing.*;
 
 public class SVGView extends JFrame implements Observer {
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 6764861773639452353L;
 
 	/*
@@ -37,23 +37,41 @@ public class SVGView extends JFrame implements Observer {
 	 * GUI COMPONENTS
 	 */
 	SVGViewMenubar menuBar;
-	SVGTopToolbar topTool;
-	SVGBottomToolbar bottomTool;
-	SVGDelete delete;
+	SVGViewTopToolbar topTool;
+	SVGViewBottomToolbar bottomTool;
+	SVGViewDeleteAccessoryPanel delete;
 
 	JPanel panel, panelTop, panelLeft, panelRight, panelBottom;
 	JPanel inPanel, inPanelTop, inPanelLeft, inPanelRight, inPanelBottom;
-	
+
 	Container container = getContentPane();
 
 	/*
 	 * CONSTRUCTOR
 	 */
 	public SVGView() {
+		initialise();
+		setupBorder();
+		panelTop.add(topTool, BorderLayout.WEST);
+		inPanelBottom.add(bottomTool, BorderLayout.WEST);
+		inPanelBottom.add(delete, BorderLayout.EAST);
+		setupLayoutForMainPanel();
+		setupLayoutForContainer();
+		setJMenuBar(menuBar);
+		setExtendedState(JFrame.MAXIMIZED_BOTH);
+		setTitle("SVG Editor");
+		setVisible(true);
+		setResizable(false);
+	}
+
+	/**
+	 * Initialisation of GUI components
+	 */
+	private void initialise() {
 		menuBar = new SVGViewMenubar();
-		topTool = new SVGTopToolbar();
-		bottomTool = new SVGBottomToolbar();
-		delete = new SVGDelete();
+		topTool = new SVGViewTopToolbar();
+		bottomTool = new SVGViewBottomToolbar();
+		delete = new SVGViewDeleteAccessoryPanel();
 
 		panel = new JPanel();
 		panelTop = new JPanel();
@@ -71,26 +89,9 @@ public class SVGView extends JFrame implements Observer {
 		panel.setLayout(new BorderLayout());
 		panelTop.setLayout(new BorderLayout());
 		inPanelBottom.setLayout(new BorderLayout());
-
-		setupBorder();
-		
-		panelTop.add(topTool, BorderLayout.WEST);
-		inPanelBottom.add(bottomTool, BorderLayout.WEST);
-		inPanelBottom.add(delete, BorderLayout.EAST);
-		
-		setupLayoutForMainPanel();
-		setupLayoutForContainer();
-
-		setJMenuBar(menuBar);
-
-		setExtendedState(JFrame.MAXIMIZED_BOTH);
-
-		setTitle("SVG Editor");
-		setVisible(true);
-		setResizable(false);
 	}
 
-	/*
+	/**
 	 * Setting border color of JPanels
 	 */
 	private void setupBorder(){
@@ -112,7 +113,7 @@ public class SVGView extends JFrame implements Observer {
 		p.setBorder(BorderFactory.createLineBorder(color));
 	}
 
-	/*
+	/**
 	 *  Set components via BorderLayout to Center, North, South, East, West
 	 */
 	private void setupLayoutForContainer() {
@@ -157,6 +158,7 @@ public class SVGView extends JFrame implements Observer {
 		this.model = model;
 	}
 
+	@Override
 	public void update(Observable o, Object arg) {
 		// TODO Auto-generated method stub
 

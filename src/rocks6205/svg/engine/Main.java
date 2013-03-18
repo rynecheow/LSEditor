@@ -1,4 +1,4 @@
-package rocks6205.svgFamily;
+package rocks6205.svg.engine;
 
 import java.io.File;
 import rocks6205.svg.engine.SVGModel;

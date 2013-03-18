@@ -9,15 +9,19 @@
  * 
  */
 
-package rocks6205.svg.parser;
-import javax.xml.parsers.*;
+package rocks6205.svgParser;
 
 import java.io.IOException;
 import java.io.StringReader;
 
-import org.w3c.dom.Document;
-import org.xml.sax.*;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 
+import org.w3c.dom.Document;
+import org.xml.sax.EntityResolver;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
 public class XMLParser {
 
 	/*
@@ -26,11 +30,11 @@ public class XMLParser {
 	private XMLParser() {
 		// TODO Auto-generated constructor stub
 	}
-	
+
 	/*
 	 * METHODS
 	 */
-	
+
 	/**
 	 * Checks and build a document from input source and aware of namespaces.
 	 * 

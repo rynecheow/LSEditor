@@ -46,9 +46,7 @@ public class SVGModel extends Observable{
 	public void setSVGElement(SVGSVGElement sVGElement) {
 		SVGElement = sVGElement;
 	}
-	/*
-	 * OVERRIDING
-	 */
+	
 	public void addObserver(SVGView v) {
 
 	}
