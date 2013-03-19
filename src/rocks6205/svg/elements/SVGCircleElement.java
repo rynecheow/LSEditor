@@ -11,6 +11,11 @@
 
 package rocks6205.svg.elements;
 
+import java.awt.BasicStroke;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
+import java.awt.geom.Ellipse2D;
+import java.awt.geom.Rectangle2D;
 import java.awt.geom.Rectangle2D.Double;
 
 import rocks6205.svg.adt.SVGLengthUnit;
@@ -100,15 +105,27 @@ public class SVGCircleElement extends SVGGenericElement {
 
 	@Override
 	public Double getBounds() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public SVGImageCanvas draw() {
-		// TODO Auto-generated method stub
-		return null;
+		Rectangle2D.Double bounds = getBounds();
+		SVGImageCanvas canvas = SVGImageCanvas.getBlankCanvas(bounds);
+		Graphics2D graphics = canvas.createGraphics();
+		
+		Ellipse2D circle = new Ellipse2D.Double( cx.getValue() - bounds.x , 
+				 cy.getValue() - bounds.y , radius.getValue() * 2 , radius.getValue() * 2 );
+		graphics.scale(SVGImageCanvas.getZoomScale(), SVGImageCanvas.getZoomScale());
+		graphics.setStroke( new BasicStroke( super.strokeWidth.getValue() , getStrokeLineCap(), getStrokeLineJoin() ) );
+		graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+				RenderingHints.VALUE_ANTIALIAS_ON);
+		
+		graphics.setPaint( this.fill.getPaintColor() );
+		graphics.fill( circle );
+		graphics.setPaint( stroke.getPaintColor() );
+		graphics.draw( circle );
+		
+		return canvas;
 	}
-
-
 }

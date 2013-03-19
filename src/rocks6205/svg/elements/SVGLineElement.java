@@ -30,16 +30,16 @@ public class SVGLineElement extends SVGGenericElement {
 	/*
 	 * PROPERTIES
 	 */
-	private SVGLengthUnit x1 = new SVGLengthUnit(0);
-	private SVGLengthUnit y1 = new SVGLengthUnit(0);
-	private SVGLengthUnit x2 = new SVGLengthUnit(0);
-	private SVGLengthUnit y2 = new SVGLengthUnit(0);
+	private SVGLengthUnit x1 = new SVGLengthUnit( 0 );
+	private SVGLengthUnit y1 = new SVGLengthUnit( 0 );
+	private SVGLengthUnit x2 = new SVGLengthUnit( 0 );
+	private SVGLengthUnit y2 = new SVGLengthUnit( 0 );
 
 	/*
 	 * CONSTRUCTORS
 	 */
 	public SVGLineElement( SVGLengthUnit x1 , SVGLengthUnit y1 , SVGLengthUnit x2 , SVGLengthUnit y2 , 
-			SVGPainting stroke , SVGPainting strokeWidth ) {
+			SVGPainting stroke , SVGLengthUnit strokeWidth ) {
 		this.x1 = x1;
 		this.y1 = y1;
 		this.x2 = x2;

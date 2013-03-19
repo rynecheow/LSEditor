@@ -32,8 +32,8 @@ public abstract class SVGGenericElement {
 
 	private SVGPainting fill;
 
-	private SVGPainting stroke;
-	private SVGLengthUnit strokeWidth;
+	protected SVGPainting stroke;
+	protected SVGLengthUnit strokeWidth;
 	private int strokeLineCap;
 	private int strokeLineJoin;
 
