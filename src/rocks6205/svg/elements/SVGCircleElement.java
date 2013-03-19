@@ -18,8 +18,10 @@ import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.geom.Rectangle2D.Double;
 
+import org.w3c.dom.Element;
+
 import rocks6205.svg.adt.SVGLengthUnit;
-import rocks6205.svg.adt.SVGPainting;
+import rocks6205.svg.adt.SVGPaintingType;
 import rocks6205.svgFamily.SVGImageCanvas;
 
 public class SVGCircleElement extends SVGGenericElement {
@@ -30,16 +32,17 @@ public class SVGCircleElement extends SVGGenericElement {
 	private SVGLengthUnit cx;
 	private SVGLengthUnit cy;
 	private SVGLengthUnit radius;
-	private SVGPainting fill;
 
-	public SVGCircleElement( SVGLengthUnit cx , SVGLengthUnit cy , SVGLengthUnit radius , 
-			SVGPainting fill) {
+	/*
+	 * CONSTRUCTORS
+	 */
+	public SVGCircleElement( SVGLengthUnit cx , SVGLengthUnit cy , SVGLengthUnit radius) {
 		this.cx = cx;
 		this.cy = cy;
 		this.radius = radius;
-		this.fill = fill;
 	}
 
+	public SVGCircleElement(){}
 	/*
 	 * ACCESSORS
 	 */
@@ -62,13 +65,6 @@ public class SVGCircleElement extends SVGGenericElement {
 	 */
 	public SVGLengthUnit getRadius() {
 		return this.radius;
-	}
-
-	/**
-	 * @return Value of fill
-	 */
-	public SVGPainting getFill() {
-		return this.fill;
 	}
 
 	/*
@@ -96,36 +92,59 @@ public class SVGCircleElement extends SVGGenericElement {
 		this.radius = radius;
 	}
 
-	/**
-	 * @param fill contains value for field 'fill'
-	 */
-	public void setFill( SVGPainting fill ) {
-		this.fill = fill;
-	}
-
 	@Override
 	public Double getBounds() {
-		return null;
+		float r = radius.getValue();
+		float xPos = cx.getValue();
+		float yPos = cy.getValue();
+
+		if (r > 0) {
+			double padding = 0;
+			if (getStroke().getPaintType() != SVGPaintingType.NONE) {
+				padding = getStrokeWidth().getValue() / 2;
+			}
+			return new Rectangle2D.Double(xPos - r - padding, yPos - r - padding, 2 * r + 2 * padding,
+					2 * r + 2 * padding);
+		} else {
+			return null;
+		}
 	}
 
 	@Override
 	public SVGImageCanvas draw() {
 		Rectangle2D.Double bounds = getBounds();
 		SVGImageCanvas canvas = SVGImageCanvas.getBlankCanvas(bounds);
-		Graphics2D graphics = canvas.createGraphics();
-		
-		Ellipse2D circle = new Ellipse2D.Double( cx.getValue() - bounds.x , 
-				 cy.getValue() - bounds.y , radius.getValue() * 2 , radius.getValue() * 2 );
-		graphics.scale(SVGImageCanvas.getZoomScale(), SVGImageCanvas.getZoomScale());
-		graphics.setStroke( new BasicStroke( super.strokeWidth.getValue() , getStrokeLineCap(), getStrokeLineJoin() ) );
-		graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-				RenderingHints.VALUE_ANTIALIAS_ON);
-		
-		graphics.setPaint( this.fill.getPaintColor() );
-		graphics.fill( circle );
-		graphics.setPaint( stroke.getPaintColor() );
-		graphics.draw( circle );
-		
+		float r = radius.getValue();
+		float xPos = cx.getValue();
+		float yPos = cy.getValue();
+
+		if(canvas!=null){
+			Graphics2D graphics = canvas.createGraphics();
+
+			Ellipse2D.Double circle = new Ellipse2D.Double( xPos - r - bounds.x , yPos - r - bounds.y , r * 2 , r * 2 );
+			graphics.scale(SVGImageCanvas.getZoomScale(), SVGImageCanvas.getZoomScale());
+			graphics.setStroke( new BasicStroke( getStrokeWidth().getValue() , getStrokeLineCap(), getStrokeLineJoin() ) );
+
+			graphics.setPaint( getFill().getPaintColor() );
+			graphics.fill( circle );
+			graphics.setPaint( getStroke().getPaintColor() );
+			graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+					RenderingHints.VALUE_ANTIALIAS_ON);
+			graphics.draw( circle );
+		}
+
 		return canvas;
+	}
+
+	public static SVGCircleElement parseElement(Element element) {
+		SVGCircleElement circ = new SVGCircleElement();
+
+		circ.setCx(SVGLengthUnit.parse(element.getAttributeNS(null, "cx")));
+		circ.setCy(SVGLengthUnit.parse(element.getAttributeNS(null, "cy")));
+		circ.setRadius(SVGLengthUnit.parse(element.getAttributeNS(null, "r")));
+
+		circ.parseAttributes(element);
+
+		return circ;
 	}
 }
