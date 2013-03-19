@@ -19,11 +19,7 @@ import java.awt.geom.Rectangle2D.Double;
 
 import org.w3c.dom.Element;
 
-import abesh.svg.SvgCanvas;
-import abesh.svg.datatype.SvgPaintType;
-
 import rocks6205.svg.adt.SVGLengthUnit;
-import rocks6205.svg.adt.SVGPainting;
 import rocks6205.svg.adt.SVGPaintingType;
 import rocks6205.svgFamily.SVGImageCanvas;
 
