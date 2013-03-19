@@ -130,22 +130,24 @@ public class SVGLineElement extends SVGGenericElement {
 	public SVGImageCanvas draw() {
 		Rectangle2D.Double bounds = getBounds();
 		SVGImageCanvas canvas = SVGImageCanvas.getBlankCanvas(bounds);
-		Graphics2D graphics = canvas.createGraphics();
-		Line2D.Double line = new Line2D.Double(x1.getValue() - bounds.x,
-				y1.getValue() - bounds.y, x2.getValue() - bounds.x,
-				y2.getValue() - bounds.y);
 
-		graphics.scale(SVGImageCanvas.getZoomScale(), SVGImageCanvas.getZoomScale());
-		graphics.setPaint(getStroke().getPaintColor());
-		graphics.setStroke(new BasicStroke((float) getStrokeWidth().getValue(),
-				getStrokeLineCap(), getStrokeLineJoin()));
-		graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-				RenderingHints.VALUE_ANTIALIAS_ON);
-		graphics.draw(line);
+		if(canvas!= null){
+			Graphics2D graphics = canvas.createGraphics();
+			Line2D.Double line = new Line2D.Double(x1.getValue() - bounds.x,
+					y1.getValue() - bounds.y, x2.getValue() - bounds.x,
+					y2.getValue() - bounds.y);
 
+			graphics.scale(SVGImageCanvas.getZoomScale(), SVGImageCanvas.getZoomScale());
+			graphics.setPaint(getStroke().getPaintColor());
+			graphics.setStroke(new BasicStroke((float) getStrokeWidth().getValue(),
+					getStrokeLineCap(), getStrokeLineJoin()));
+			graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+					RenderingHints.VALUE_ANTIALIAS_ON);
+			graphics.draw(line);
+		}
 		return canvas;
 	}
-	
+
 	/*
 	 * METHOD
 	 */
@@ -162,7 +164,7 @@ public class SVGLineElement extends SVGGenericElement {
 		line.setY1(SVGLengthUnit.parse(e.getAttributeNS(null, "y1")));
 		line.setX2(SVGLengthUnit.parse(e.getAttributeNS(null, "x2")));
 		line.setY2(SVGLengthUnit.parse(e.getAttributeNS(null, "y2")));
-		
+
 		line.parseAttributes(e);
 
 		return line;
