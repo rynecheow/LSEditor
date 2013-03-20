@@ -28,7 +28,7 @@ public abstract class SVGGenericElement {
 	/*
 	 * PROPERTIES
 	 */
-	private SVGContainerElement originElement;
+	private SVGContainerElement ancestorElement;
 
 	private SVGPainting fill;
 
@@ -40,7 +40,7 @@ public abstract class SVGGenericElement {
 	/*
 	 * ABSTRACT METHODS
 	 */
-	public abstract Rectangle2D.Double getBounds();
+	public abstract Rectangle2D.Float getBounds();
 	public abstract SVGImageCanvas draw();
 
 	/*
@@ -50,8 +50,8 @@ public abstract class SVGGenericElement {
 	/**
 	 * @return Origin element
 	 */
-	public SVGContainerElement getOriginElement(){
-		return this.originElement;
+	public SVGContainerElement getAncestorElement(){
+		return this.ancestorElement;
 	}
 
 	/**
@@ -60,12 +60,12 @@ public abstract class SVGGenericElement {
 	 */
 	public SVGPainting getFill() {
 		SVGPainting fill = this.fill;
-		SVGContainerElement origin = getOriginElement();
+		SVGContainerElement origin = getAncestorElement();
 		boolean isFillNull = (fill == null);
 		boolean isRootNull = (origin == null);
 		if (!isFillNull) return fill;
 
-		for (; isFillNull && !isRootNull; origin = origin.getOriginElement()) {
+		for (; isFillNull && !isRootNull; origin = origin.getAncestorElement()) {
 			if (origin.getFill() != null) {
 				return origin.getFill();
 			}
@@ -79,12 +79,12 @@ public abstract class SVGGenericElement {
 	 */
 	public SVGPainting getStroke() {
 		SVGPainting stroke = this.stroke;
-		SVGContainerElement origin = getOriginElement();
+		SVGContainerElement origin = getAncestorElement();
 		boolean isStrokeNull = (stroke == null);
 		boolean isRootNull = (origin == null);
 		if (isStrokeNull) return stroke;
 
-		for (; isStrokeNull && !isRootNull; origin = origin.getOriginElement()) {
+		for (; isStrokeNull && !isRootNull; origin = origin.getAncestorElement()) {
 			if (origin.getStroke() != null) {
 				return origin.getStroke();
 			}
@@ -98,12 +98,12 @@ public abstract class SVGGenericElement {
 	 */
 	public SVGLengthUnit getStrokeWidth() {
 		SVGLengthUnit strokeWidth = this.strokeWidth;
-		SVGContainerElement origin = getOriginElement();
+		SVGContainerElement origin = getAncestorElement();
 		boolean isStrokeWidthNull = (strokeWidth == null);
 		boolean isRootNull = (origin == null);
 		if (isStrokeWidthNull) return strokeWidth;
 
-		for (; isStrokeWidthNull && !isRootNull; origin = origin.getOriginElement()) {
+		for (; isStrokeWidthNull && !isRootNull; origin = origin.getAncestorElement()) {
 			if (origin.getStrokeWidth() != null) {
 				return origin.getStrokeWidth();
 			}
@@ -133,8 +133,8 @@ public abstract class SVGGenericElement {
 	/**
 	 * @param originElement
 	 */
-	public void setOriginElement(SVGContainerElement originElement) {
-		this.originElement = originElement;
+	public void setAncestorElement(SVGContainerElement ancestorElement) {
+		this.ancestorElement = ancestorElement;
 	}
 
 	/**
@@ -179,10 +179,10 @@ public abstract class SVGGenericElement {
 		boolean valid = strokeLineJoin == BasicStroke.JOIN_BEVEL;
 		valid |=  strokeLineJoin == BasicStroke.JOIN_MITER;
 		valid |=  strokeLineJoin == BasicStroke.JOIN_ROUND;
-		
+
 		if (valid) this.strokeLineJoin = strokeLineJoin;
 	}
-	
+
 	/*
 	 * METHODS
 	 */

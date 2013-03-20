@@ -16,7 +16,6 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
-import java.awt.geom.Rectangle2D.Double;
 
 import org.w3c.dom.Element;
 
@@ -93,18 +92,17 @@ public class SVGCircleElement extends SVGGenericElement {
 	}
 
 	@Override
-	public Double getBounds() {
+	public Rectangle2D.Float getBounds() {
 		float r = radius.getValue();
 		float xPos = cx.getValue();
 		float yPos = cy.getValue();
 
 		if (r > 0) {
-			double padding = 0;
+			float padding = 0;
 			if (getStroke().getPaintType() != SVGPaintingType.NONE) {
 				padding = getStrokeWidth().getValue() / 2;
 			}
-			return new Rectangle2D.Double(xPos - r - padding, yPos - r - padding, 2 * r + 2 * padding,
-					2 * r + 2 * padding);
+			return new Rectangle2D.Float (xPos - r - padding, yPos - r - padding, 2 * r + 2 * padding,2 * r + 2 * padding);
 		} else {
 			return null;
 		}
@@ -112,7 +110,7 @@ public class SVGCircleElement extends SVGGenericElement {
 
 	@Override
 	public SVGImageCanvas draw() {
-		Rectangle2D.Double bounds = getBounds();
+		Rectangle2D.Float bounds = getBounds();
 		SVGImageCanvas canvas = SVGImageCanvas.getBlankCanvas(bounds);
 		float r = radius.getValue();
 		float xPos = cx.getValue();

@@ -2,6 +2,7 @@ package rocks6205.svgFamily;
 
 import java.awt.image.BufferedImage;
 import java.awt.geom.Rectangle2D;
+import java.awt.geom.Rectangle2D.Float;
 
 public class SVGImageCanvas extends BufferedImage {
 	private static double zoomScale = 1.0f;
@@ -10,7 +11,7 @@ public class SVGImageCanvas extends BufferedImage {
 		super(width, height, BufferedImage.TYPE_4BYTE_ABGR_PRE);
 	}
 
-	public static SVGImageCanvas getBlankCanvas(Rectangle2D.Double bounds) {
+	public static SVGImageCanvas getBlankCanvas(Float bounds) {
 		boolean shouldGetCanvas = bounds != null;
 		shouldGetCanvas &= (bounds.width > 0 && bounds.height > 0);
 

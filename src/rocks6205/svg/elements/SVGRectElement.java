@@ -108,7 +108,7 @@ public class SVGRectElement extends SVGGenericElement {
 	}
 
 	@Override
-	public Double getBounds() {
+	public Rectangle2D.Float getBounds() {
 		float w = width.getValue();
 		float h = height.getValue();
 		boolean valid = (w > 0) && (h > 0);
@@ -119,7 +119,7 @@ public class SVGRectElement extends SVGGenericElement {
 				padding = getStrokeWidth().getValue() / 2;
 			}
 
-			return new Rectangle2D.Double( x.getValue() - padding , 
+			return new Rectangle2D.Float( x.getValue() - padding , 
 					y.getValue() - padding , w + 2 * padding , h + 2 * padding );
 		}else{
 			return null;
@@ -128,7 +128,7 @@ public class SVGRectElement extends SVGGenericElement {
 
 	@Override
 	public SVGImageCanvas draw() {
-		Rectangle2D.Double bounds = getBounds();
+		Rectangle2D.Float bounds = getBounds();
 		SVGImageCanvas canvas = SVGImageCanvas.getBlankCanvas(bounds);
 		if(canvas != null){
 			Graphics2D graphics = canvas.createGraphics();
@@ -147,7 +147,7 @@ public class SVGRectElement extends SVGGenericElement {
 		return canvas;
 	}
 
-	public static SVGRectElement parse(Element element) {
+	public static SVGRectElement parseElement(Element element) {
 		SVGRectElement rect = new SVGRectElement();
 
 		rect.setX(SVGLengthUnit.parse(element.getAttributeNS(null, "x")));

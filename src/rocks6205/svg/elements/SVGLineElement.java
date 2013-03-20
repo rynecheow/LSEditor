@@ -16,7 +16,6 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.geom.Line2D;
 import java.awt.geom.Rectangle2D;
-import java.awt.geom.Rectangle2D.Double;
 
 import org.w3c.dom.Element;
 
@@ -110,7 +109,7 @@ public class SVGLineElement extends SVGGenericElement {
 	}
 
 	@Override
-	public Double getBounds() {
+	public Rectangle2D.Float getBounds() {
 		float padding = 0;
 		if (getStroke().getPaintType() != SVGPaintingType.NONE) {
 			padding = getStrokeWidth().getValue() / 2;
@@ -122,13 +121,13 @@ public class SVGLineElement extends SVGGenericElement {
 		float computedHeight = Math.abs(y2.getValue() - y1.getValue()) + 2
 				* padding;
 
-		return new Rectangle2D.Double(computedX, computedY, computedWidth,
+		return new Rectangle2D.Float(computedX, computedY, computedWidth,
 				computedHeight);
 	}
 
 	@Override
 	public SVGImageCanvas draw() {
-		Rectangle2D.Double bounds = getBounds();
+		Rectangle2D.Float bounds = getBounds();
 		SVGImageCanvas canvas = SVGImageCanvas.getBlankCanvas(bounds);
 
 		if(canvas!= null){
