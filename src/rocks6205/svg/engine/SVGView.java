@@ -18,6 +18,9 @@ import rocks6205.svg.engine.viewcomponents.SVGViewDeleteAccessoryPanel;
 import rocks6205.svg.engine.viewcomponents.SVGViewTopToolbar;
 import rocks6205.svg.engine.viewcomponents.SVGViewBottomToolbar;
 import rocks6205.svg.engine.viewcomponents.SVGViewMenubar;
+import rocks6205.svg.engine.viewcomponents.SVGViewport;
+import rocks6205.svgFamily.SVGImageCanvas;
+
 import java.util.Observable;
 import java.util.Observer;
 
@@ -32,7 +35,7 @@ public class SVGView extends JFrame implements Observer {
 	 */
 	private SVGModel model;
 	private SVGViewController controller;
-
+	private SVGViewport viewport;
 	/*
 	 * GUI COMPONENTS
 	 */
@@ -160,8 +163,10 @@ public class SVGView extends JFrame implements Observer {
 
 	@Override
 	public void update(Observable o, Object arg) {
-		// TODO Auto-generated method stub
-
+		if (o instanceof SVGModel) {
+			viewport.setCanvas((SVGImageCanvas) arg);
+			viewport.repaint();
+	}
 	}
 
 }
