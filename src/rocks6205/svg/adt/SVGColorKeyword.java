@@ -173,24 +173,9 @@ public enum SVGColorKeyword {
 	 * CONSTRUCTOR
 	 */
 	SVGColorKeyword( int r , int g , int b ) {
-		red = r;
-		green = g;
-		blue = b;
-	}
-
-	/*
-	 * ACCESSORS
-	 */
-	public int getRed() {
-		return red;
-	}
-
-	public int getGreen() {
-		return green;
-	}
-
-	public int getBlue() {
-		return blue;
+		this.red = r;
+		this.green = g;
+		this.blue = b;
 	}
 
 	/*

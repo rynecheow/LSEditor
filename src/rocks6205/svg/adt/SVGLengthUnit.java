@@ -14,16 +14,7 @@ package rocks6205.svg.adt;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class SVGLengthUnit {
-	/*
-	 * STATIC VARIABLES
-	 */
-
-	//<integer> as specified in 4.2
-	public static final String INT = "[+-]?[0-9]+"; 
-	//<number> as specified in 4.2
-	public static final String NUM = INT + "([Ee]" + INT + ")?|[+-]?[0-9]*\\.[0-9]+([Ee]" + INT + ")?"; 
-
+public class SVGLengthUnit{
 	/*
 	 * PROPERTIES
 	 */
@@ -117,7 +108,7 @@ public class SVGLengthUnit {
 			lengthAttributeValue = lengthAttributeValue.replace(unitStr, "");
 		}
 
-		pattern = Pattern.compile(SVGLengthUnit.NUM);
+		pattern = Pattern.compile(SVGPrimitive.NUM);
 		matcher = pattern.matcher(lengthAttributeValue);
 		if (matcher.matches())	{numberStr = matcher.group();}
 		if (!numberStr.isEmpty()){
