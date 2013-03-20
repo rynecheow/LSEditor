@@ -4,7 +4,6 @@
  * Description: Parsing <length> in SVG documents and convert to floating points with respective type to be presented on Java
  * 
  * @author: Cheow Yeong Chi
- * @version: 1.0
  * @date: 16/03/2013
  * 
  */

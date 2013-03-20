@@ -4,7 +4,6 @@
  * Description: JPanel containing the Delete button.
  * 
  * @author: Toh Huey Jing
- * @version: 1.0
  * @date: 18/03/2013
  * 
  */

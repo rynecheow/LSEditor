@@ -4,7 +4,6 @@
  * Description: Describes the environment where the canvas will run on, focusing on output resolution and text size.
  * 
  * @author: Cheow Yeong Chi
- * @version: 1.0
  * @date: 11/03/2013
  * 
  */

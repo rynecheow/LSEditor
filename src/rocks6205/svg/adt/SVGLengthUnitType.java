@@ -5,7 +5,6 @@
  * Refer to: <a href="http://www.w3.org/TR/SVG/types.html#InterfaceSVGLength"/>
  * 
  * @author: Cheow Yeong Chi
- * @version: 1.0
  * @date: 16/03/2013
  * 
  */

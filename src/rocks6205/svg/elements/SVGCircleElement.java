@@ -4,7 +4,6 @@
  * Description: 
  * 
  * @author: Sugar CheeSheen Chan
- * @version: 1.0
  * @date: 15/03/2013
  * 
  */
@@ -134,6 +133,9 @@ public class SVGCircleElement extends SVGGenericElement {
 		return canvas;
 	}
 
+        /*
+         * METHOD
+         */
 	public static SVGCircleElement parseElement(Element element) {
 		SVGCircleElement circ = new SVGCircleElement();
 

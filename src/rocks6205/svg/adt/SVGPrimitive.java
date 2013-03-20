@@ -1,7 +1,19 @@
+/**
+ * 
+ * Class: SVGPrimitive
+ * Description: Standard data types
+ * @author: Cheow Yeong Chi
+ * @date: 16/03/2013
+ * 
+ */
+
 package rocks6205.svg.adt;
 
 public interface SVGPrimitive {
 
+    /*
+     * PROPERTIES
+     */
 	//<integer> as specified in 4.2
 	public static final String INT = "[+-]?[0-9]+";
 	//<number> as specified in 4.2
