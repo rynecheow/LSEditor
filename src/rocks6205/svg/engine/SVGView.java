@@ -135,10 +135,6 @@ public class SVGView extends JFrame implements Observer {
 		panel.add(inPanelLeft, BorderLayout.WEST);
 	}
 
-	public static void main (String args[]) {
-		new SVGView();
-	}
-
 	/*
 	 * ACCESSORS
 	 */
