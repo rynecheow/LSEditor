@@ -20,8 +20,7 @@
 //		v.setVisible(true);
 //		if (rcks.length > 0) {
 //			fileURI = rcks[0];
-//			//			load file
-//			//			c.fileLoad(new File(fileURI));
+//			c.fileLoad(new File(fileURI));
 //		}
 //	}
 //

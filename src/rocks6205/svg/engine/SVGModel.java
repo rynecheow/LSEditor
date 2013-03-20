@@ -46,13 +46,13 @@ public class SVGModel extends Observable{
 	public void setSVGElement(SVGSVGElement sVGElement) {
 		SVGElement = sVGElement;
 	}
-	
+
 	/*
 	 * METHOD
 	 */
-	
+
 	/**
-	 * Renders SVG file
+	 * Renders SVG file by notifying Observer
 	 */
 	public void render() {
 		setCanvas(SVGElement.draw());

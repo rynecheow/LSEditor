@@ -13,6 +13,13 @@ package rocks6205.svg.engine;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.io.File;
+
+import org.w3c.dom.Document;
+import org.xml.sax.InputSource;
+
+import rocks6205.svg.elements.SVGSVGElement;
+import rocks6205.svgParser.XMLParser;
 
 public class SVGViewController implements MouseMotionListener, MouseListener {
 	/*
@@ -52,6 +59,29 @@ public class SVGViewController implements MouseMotionListener, MouseListener {
 		this.view = view;
 	}
 
+
+	/*
+	 * METHODS
+	 */
+
+	public void fileLoad(File file) {
+		if (file != null) {
+			String path = file.toURI().toString();
+			Document doc = null;
+
+			try{
+				doc = XMLParser.parseXml(new InputSource(path));
+			}catch(NullPointerException npe){
+				npe.printStackTrace();
+			}
+
+			if (doc != null) {
+				SVGSVGElement svg_e = SVGSVGElement.parseDocument(doc);
+				model.setSVGElement(svg_e);
+				model.render();
+			}
+		}
+	}
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
