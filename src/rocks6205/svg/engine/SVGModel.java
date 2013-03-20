@@ -19,7 +19,7 @@ import rocks6205.svgFamily.SVGImageCanvas;
 public class SVGModel extends Observable{
 
 	private SVGSVGElement SVGElement;
-	private SVGImageCanvas imageCanvas;
+	private SVGImageCanvas canvas;
 
 	public SVGModel() {
 		// TODO Auto-generated constructor stub
@@ -33,21 +33,30 @@ public class SVGModel extends Observable{
 		return SVGElement;
 	}
 
-	public SVGImageCanvas getImageCanvas() {
-		return imageCanvas;
+	public SVGImageCanvas getCanvas() {
+		return canvas;
 	}
 	/*
 	 * MUTATORS
 	 */
-	public void setImageCanvas(SVGImageCanvas imageCanvas) {
-		this.imageCanvas = imageCanvas;
+	public void setCanvas(SVGImageCanvas canvas) {
+		this.canvas = canvas;
 	}
 
 	public void setSVGElement(SVGSVGElement sVGElement) {
 		SVGElement = sVGElement;
 	}
 	
-	public void addObserver(SVGView v) {
-
+	/*
+	 * METHOD
+	 */
+	
+	/**
+	 * Renders SVG file
+	 */
+	public void render() {
+		setCanvas(SVGElement.draw());
+		setChanged();
+		notifyObservers(this.canvas);
 	}
 }
