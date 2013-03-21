@@ -37,9 +37,9 @@ public class SVGViewDeleteAccessoryPanel extends JPanel {
 	 * Initialisation of GUI components
 	 */
 	private void initialise() {
-		deleteButton = new JButton("", createImageIcon("images/delete.jpg"));
+		deleteButton = new JButton("", createImageIcon("imageicon/delete.jpg"));
 	}
-	
+
 	protected static ImageIcon createImageIcon(String path) {
 		java.net.URL imgURL = SVGViewDeleteAccessoryPanel.class.getResource(path);
 		if (imgURL != null) {

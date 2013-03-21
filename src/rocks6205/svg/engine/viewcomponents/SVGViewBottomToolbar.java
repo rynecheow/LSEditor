@@ -48,16 +48,16 @@ public class SVGViewBottomToolbar extends JPanel {
 	 * Initialisation of GUI components
 	 */
 	private void initialise() {
-		insertRectButton = new JButton("", createImageIcon("images/rectangle.jpg"));
-		insertCircButton = new JButton("", createImageIcon("images/circle.jpg"));
-		insertLineButton = new JButton("", createImageIcon("images/line.jpg"));
+		insertRectButton = new JButton("", createImageIcon("imageicon/rectangle.jpg"));
+		insertCircButton = new JButton("", createImageIcon("imageicon/circle.jpg"));
+		insertLineButton = new JButton("", createImageIcon("imageicon/line.jpg"));
 
-		fillButton = new JButton("", createImageIcon("images/fillcolor.jpg"));
-		strokeButton = new JButton("", createImageIcon("images/stroke.jpg"));
-		strokeWidthButton = new JButton("", createImageIcon("images/width.jpg"));
+		fillButton = new JButton("", createImageIcon("imageicon/fillcolor.jpg"));
+		strokeButton = new JButton("", createImageIcon("imageicon/stroke.jpg"));
+		strokeWidthButton = new JButton("", createImageIcon("imageicon/width.jpg"));
 
-		groupButton = new JButton("", createImageIcon("images/grouped.jpg"));
-		ungroupButton = new JButton("", createImageIcon("images/ungrp.jpg"));
+		groupButton = new JButton("", createImageIcon("imageicon/grouped.jpg"));
+		ungroupButton = new JButton("", createImageIcon("imageicon/ungrp.jpg"));
 
 		backgroundPanel = new JPanel();
 
@@ -90,11 +90,11 @@ public class SVGViewBottomToolbar extends JPanel {
 		backgroundPanel.add(groupButton);
 		backgroundPanel.add(ungroupButton);
 	}
-	
+
 	/**
 	 * image insertion
 	 */
-	
+
 	protected static ImageIcon createImageIcon(String path) {
 		java.net.URL imgURL = SVGViewBottomToolbar.class.getResource(path);
 		if (imgURL != null) {

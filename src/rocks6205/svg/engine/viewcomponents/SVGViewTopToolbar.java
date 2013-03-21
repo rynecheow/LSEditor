@@ -37,9 +37,9 @@ public class SVGViewTopToolbar extends JPanel {
 	 * 
 	 */
 	private void initialise() {
-		newButton = new JButton("", createImageIcon("images/newfile.jpg"));
-		openButton = new JButton("", createImageIcon("images/openfile.jpg"));
-		saveButton = new JButton("", createImageIcon("images/save.jpg"));
+		newButton = new JButton("", createImageIcon("imageicon/newfile.jpg"));
+		openButton = new JButton("", createImageIcon("imageicon/openfile.jpg"));
+		saveButton = new JButton("", createImageIcon("imageicon/save.jpg"));
 
 	}
 	
