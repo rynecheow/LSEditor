@@ -4,7 +4,6 @@
  * Description: 
  * 
  * @author: Sugar CheeSheen Chan
- * @version: 1.0
  * @date: 14/03/2013
  * 
  */

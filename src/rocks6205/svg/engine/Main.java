@@ -1,3 +1,12 @@
+/**
+ * 
+ * Class: Main
+ * Description: Execute main function
+ * 
+ * @author: Cheow Yeong Chi
+ * @date: 14/03/2013
+ * 
+ */
 package rocks6205.svg.engine;
 
 import java.io.File;

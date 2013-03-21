@@ -4,7 +4,6 @@
  * Description: 
  * 
  * @author: Cheow Yeong Chi
- * @version: 1.0
  * @date: 14/03/2013
  * 
  */
