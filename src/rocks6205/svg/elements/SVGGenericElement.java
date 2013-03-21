@@ -40,7 +40,6 @@ public abstract class SVGGenericElement {
 	private SVGContainerElement ancestorElement;
 
 	private SVGPainting fill;
-
 	private SVGPainting stroke;
 	private SVGLengthUnit strokeWidth;
 	private int strokeLineCap;
@@ -69,12 +68,11 @@ public abstract class SVGGenericElement {
 	 */
 	public SVGPainting getFill() {
 		SVGPainting fill = this.fill;
-		SVGContainerElement origin = getAncestorElement();
+		
 		boolean isFillNull = (fill == null);
-		boolean isRootNull = (origin == null);
 		if (!isFillNull) return fill;
 
-		for (; isFillNull && !isRootNull; origin = origin.getAncestorElement()) {
+		for (SVGContainerElement origin = getAncestorElement(); isFillNull && origin !=null; origin = origin.getAncestorElement()) {
 			if (origin.getFill() != null) {
 				return origin.getFill();
 			}
@@ -88,12 +86,10 @@ public abstract class SVGGenericElement {
 	 */
 	public SVGPainting getStroke() {
 		SVGPainting stroke = this.stroke;
-		SVGContainerElement origin = getAncestorElement();
 		boolean isStrokeNull = (stroke == null);
-		boolean isRootNull = (origin == null);
 		if (!isStrokeNull) return stroke;
 
-		for (; isStrokeNull && !isRootNull; origin = origin.getAncestorElement()) {
+		for (SVGContainerElement origin = getAncestorElement(); isStrokeNull && origin != null; origin = origin.getAncestorElement()) {
 			if (origin.getStroke() != null) {
 				return origin.getStroke();
 			}
@@ -107,12 +103,11 @@ public abstract class SVGGenericElement {
 	 */
 	public SVGLengthUnit getStrokeWidth() {
 		SVGLengthUnit strokeWidth = this.strokeWidth;
-		SVGContainerElement origin = getAncestorElement();
+		
 		boolean isStrokeWidthNull = (strokeWidth == null);
-		boolean isRootNull = (origin == null);
-		if (isStrokeWidthNull) return strokeWidth;
+		if (!isStrokeWidthNull) return strokeWidth;
 
-		for (; isStrokeWidthNull && !isRootNull; origin = origin.getAncestorElement()) {
+		for (SVGContainerElement origin = getAncestorElement(); isStrokeWidthNull && origin!=null; origin = origin.getAncestorElement()) {
 			if (origin.getStrokeWidth() != null) {
 				return origin.getStrokeWidth();
 			}

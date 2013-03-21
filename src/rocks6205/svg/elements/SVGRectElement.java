@@ -92,7 +92,7 @@ public class SVGRectElement extends SVGGenericElement {
 	 * @param width contains value for field width
 	 */
 	public void setWidth( SVGLengthUnit width ) {
-		boolean shouldSetWidth = width.getValue() >= 0 && width!= null;
+		boolean shouldSetWidth = width!= null && width.getValue() >= 0 ;
 		if (shouldSetWidth)	this.width = width;
 	}
 
@@ -100,7 +100,7 @@ public class SVGRectElement extends SVGGenericElement {
 	 * @param height contains value for field height
 	 */
 	public void setHeight( SVGLengthUnit height ) {
-		boolean shouldSetHeight = height.getValue() >= 0 && height!= null;
+		boolean shouldSetHeight = height!= null && height.getValue() >= 0;
 		if (shouldSetHeight)	this.height = height;
 	}
 
