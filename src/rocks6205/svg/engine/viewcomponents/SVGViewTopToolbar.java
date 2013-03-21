@@ -10,7 +10,6 @@
 
 package rocks6205.svg.engine.viewcomponents;
 
-import javax.swing.*;
 import javax.swing.JPanel;
 
 

@@ -11,7 +11,8 @@
 package rocks6205.svg.adt;
 
 import java.awt.Color;
-import java.util.regex.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class SVGColorScheme extends Color {
 

@@ -10,8 +10,8 @@
 
 package rocks6205.svgFamily;
 
-import java.awt.image.BufferedImage;
 import java.awt.geom.Rectangle2D;
+import java.awt.image.BufferedImage;
 
 public class SVGImageCanvas extends BufferedImage {
 	private static double zoomScale = 1.0f;

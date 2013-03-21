@@ -13,16 +13,19 @@ package rocks6205.svg.engine;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
-import rocks6205.svg.engine.viewcomponents.SVGViewDeleteAccessoryPanel;
-import rocks6205.svg.engine.viewcomponents.SVGViewTopToolbar;
-import rocks6205.svg.engine.viewcomponents.SVGViewBottomToolbar;
-import rocks6205.svg.engine.viewcomponents.SVGViewMenubar;
-import rocks6205.svg.engine.viewcomponents.SVGViewport;
-import rocks6205.svgFamily.SVGImageCanvas;
 import java.util.Observable;
 import java.util.Observer;
 
-import javax.swing.*;
+import javax.swing.BorderFactory;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+import rocks6205.svg.engine.viewcomponents.SVGViewBottomToolbar;
+import rocks6205.svg.engine.viewcomponents.SVGViewDeleteAccessoryPanel;
+import rocks6205.svg.engine.viewcomponents.SVGViewMenubar;
+import rocks6205.svg.engine.viewcomponents.SVGViewTopToolbar;
+import rocks6205.svg.engine.viewcomponents.SVGViewport;
+import rocks6205.svgFamily.SVGImageCanvas;
 
 public class SVGView extends JFrame implements Observer {
 

@@ -12,8 +12,6 @@ package rocks6205.svg.engine.viewcomponents;
 
 import java.awt.Dimension;
 
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;

@@ -14,6 +14,7 @@ import java.awt.BasicStroke;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.geom.Rectangle2D;
+
 import org.w3c.dom.Element;
 
 import rocks6205.svg.adt.SVGLengthUnit;
