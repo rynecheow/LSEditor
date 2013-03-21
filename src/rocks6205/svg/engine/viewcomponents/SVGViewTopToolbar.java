@@ -21,16 +21,24 @@ public class SVGViewTopToolbar extends JPanel {
 	/*
 	 * GUI COMPONENTS
 	 */
-	JButton newButton, openButton, saveButton;
+	JButton newButton, openButton, saveButton, zoomInButton, zoomOutButton;
 
 	/*
 	 * CONSTRUCTOR
 	 */
 	public SVGViewTopToolbar() {
 		initialise();
+		disableUnused();
 		add(newButton);
 		add(openButton);
 		add(saveButton);
+		add(zoomInButton);
+		add(zoomOutButton);
+	}
+
+	private void disableUnused() {
+		newButton.setEnabled(false);
+		saveButton.setEnabled(false);
 	}
 
 	/**
@@ -40,7 +48,8 @@ public class SVGViewTopToolbar extends JPanel {
 		newButton = new JButton("", createImageIcon("imageicon/newfile.jpg"));
 		openButton = new JButton("", createImageIcon("imageicon/openfile.jpg"));
 		saveButton = new JButton("", createImageIcon("imageicon/save.jpg"));
-
+		zoomInButton = new JButton("", createImageIcon("imageicon/zoomin.png"));
+		zoomOutButton = new JButton("", createImageIcon("imageicon/zoomout.png"));
 	}
 	
 	protected static ImageIcon createImageIcon(String path) {

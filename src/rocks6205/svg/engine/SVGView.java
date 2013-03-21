@@ -19,7 +19,7 @@ import rocks6205.svg.engine.viewcomponents.SVGViewBottomToolbar;
 import rocks6205.svg.engine.viewcomponents.SVGViewMenubar;
 import rocks6205.svg.engine.viewcomponents.SVGViewport;
 import rocks6205.svgFamily.SVGImageCanvas;
-
+import rocks6205.svg.engine.events.SVGViewMenuAction;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -52,6 +52,7 @@ public class SVGView extends JFrame implements Observer {
 	/*
 	 * ACTION COMPONENTS
 	 */
+	
 	/*
 	 * CONSTRUCTOR
 	 */

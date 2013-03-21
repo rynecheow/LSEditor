@@ -31,13 +31,14 @@ public class SVGViewDeleteAccessoryPanel extends JPanel {
 	public SVGViewDeleteAccessoryPanel() {
 		initialise();
 		add(deleteButton);
+		deleteButton.setEnabled(false);
 	}
 
 	/**
 	 * Initialisation of GUI components
 	 */
 	private void initialise() {
-		deleteButton = new JButton("", createImageIcon("imageicon/delete.jpg"));
+		deleteButton = new JButton("", createImageIcon("imageicon/delete.png"));
 	}
 
 	protected static ImageIcon createImageIcon(String path) {

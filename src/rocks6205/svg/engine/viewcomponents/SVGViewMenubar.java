@@ -22,11 +22,12 @@ public class SVGViewMenubar extends JMenuBar {
 	/*
 	 * GUI COMPONENTS
 	 */
-	JMenu fileMenu, editMenu, insertMenu, helpMenu;
+	JMenu fileMenu, editMenu, insertMenu, windowMenu, helpMenu;
 
 	JMenuItem newMenuItem, openMenuItem, saveMenuItem, saveAsMenuItem, docPropMenuItem, exitMenuItem;
 	JMenuItem selectAllMenuItem, groupMenuItem, ungroupMenuItem, deleteMenuItem;
 	JMenuItem insertRectMenuItem, insertCircleMenuItem, insertLineMenuItem;
+	JMenuItem zoomInMenuItem, zoomOutMenuItem;
 	JMenuItem faqMenuItem, aboutMenuItem;
 
 	/*
@@ -38,11 +39,25 @@ public class SVGViewMenubar extends JMenuBar {
 		layoutFileMenuItemList();
 		layoutEditMenuItemList();
 		layoutInsertMenuItemList();
+		layoutWindowMenuItemList();
 		layoutHelpMenuItemList();
+		
 		add(fileMenu);
 		add(editMenu);
 		add(insertMenu);
+		add(windowMenu);
 		add(helpMenu);
+		disableUnused();
+	}
+
+	private void disableUnused() {
+		newMenuItem.setEnabled(false);
+		saveMenuItem.setEnabled(false);
+		saveAsMenuItem.setEnabled(false);
+		docPropMenuItem.setEnabled(false);
+		editMenu.setEnabled(false);
+		insertMenu.setEnabled(false);
+		helpMenu.setEnabled(false);
 	}
 
 	/**
@@ -52,8 +67,9 @@ public class SVGViewMenubar extends JMenuBar {
 		fileMenu = new JMenu("File");
 		editMenu = new JMenu("Edit");
 		insertMenu = new JMenu("Insert");
+		windowMenu = new JMenu("Window");
 		helpMenu = new JMenu("Help");
-
+		
 		newMenuItem = new JMenuItem("New                                     Ctrl+N");
 		openMenuItem = new JMenuItem("Open File...                         Ctrl+O");
 		saveMenuItem = new JMenuItem("Save                                    Ctrl+S");
@@ -67,6 +83,8 @@ public class SVGViewMenubar extends JMenuBar {
 		insertRectMenuItem = new JMenuItem("Rectangle");
 		insertCircleMenuItem = new JMenuItem("Circle");
 		insertLineMenuItem = new JMenuItem("Line");
+		zoomInMenuItem = new JMenuItem("Zoom In");
+		zoomOutMenuItem = new JMenuItem("Zoom Out");
 		faqMenuItem = new JMenuItem("FAQ");
 		aboutMenuItem = new JMenuItem("About");
 	}
@@ -78,6 +96,7 @@ public class SVGViewMenubar extends JMenuBar {
 		fileMenu.setMnemonic(KeyEvent.VK_F);
 		editMenu.setMnemonic(KeyEvent.VK_E);
 		insertMenu.setMnemonic(KeyEvent.VK_I);
+		windowMenu.setMnemonic(KeyEvent.VK_W);
 		helpMenu.setMnemonic(KeyEvent.VK_H);
 	}
 
@@ -123,5 +142,14 @@ public class SVGViewMenubar extends JMenuBar {
 	private void layoutHelpMenuItemList() {
 		helpMenu.add(faqMenuItem);
 		helpMenu.add(aboutMenuItem);
+	}
+	
+
+	/**
+	 * Layout file menu with menu items
+	 */
+	private void layoutWindowMenuItemList() {
+		windowMenu.add(zoomInMenuItem);
+		windowMenu.add(zoomOutMenuItem);
 	}
 }

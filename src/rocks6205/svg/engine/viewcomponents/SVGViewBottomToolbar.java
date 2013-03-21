@@ -42,6 +42,18 @@ public class SVGViewBottomToolbar extends JPanel {
 		setupSeparators();
 		layoutBackgroundPanel();
 		add(backgroundPanel);
+		disableUnused();
+	}
+
+	private void disableUnused() {
+		insertRectButton.setEnabled(false);
+		insertCircButton.setEnabled(false);
+		insertLineButton.setEnabled(false);
+		fillButton.setEnabled(false);
+		strokeButton.setEnabled(false);
+		strokeWidthButton.setEnabled(false);
+		groupButton.setEnabled(false);
+		ungroupButton.setEnabled(false);
 	}
 
 	/**
