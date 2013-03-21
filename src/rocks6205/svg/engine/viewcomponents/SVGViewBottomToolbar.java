@@ -11,6 +11,8 @@
 package rocks6205.svg.engine.viewcomponents;
 
 import java.awt.Dimension;
+
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
@@ -46,16 +48,16 @@ public class SVGViewBottomToolbar extends JPanel {
 	 * Initialisation of GUI components
 	 */
 	private void initialise() {
-		insertRectButton = new JButton("Rectangle");
-		insertCircButton = new JButton("Circle");
-		insertLineButton = new JButton("Line");
+		insertRectButton = new JButton("", createImageIcon("images/rectangle.jpg"));
+		insertCircButton = new JButton("", createImageIcon("images/circle.jpg"));
+		insertLineButton = new JButton("", createImageIcon("images/line.jpg"));
 
-		fillButton = new JButton("Fill Colour");
-		strokeButton = new JButton("Stroke Colour");
-		strokeWidthButton = new JButton("Stroke Width");
+		fillButton = new JButton("", createImageIcon("images/fillcolor.jpg"));
+		strokeButton = new JButton("", createImageIcon("images/stroke.jpg"));
+		strokeWidthButton = new JButton("", createImageIcon("images/width.jpg"));
 
-		groupButton = new JButton("Group");
-		ungroupButton = new JButton("Ungroup");
+		groupButton = new JButton("", createImageIcon("images/grouped.jpg"));
+		ungroupButton = new JButton("", createImageIcon("images/ungrp.jpg"));
 
 		backgroundPanel = new JPanel();
 
@@ -88,7 +90,21 @@ public class SVGViewBottomToolbar extends JPanel {
 		backgroundPanel.add(groupButton);
 		backgroundPanel.add(ungroupButton);
 	}
-
-
+	
+	/**
+	 * image insertion
+	 */
+	
+	protected static ImageIcon createImageIcon(String path) {
+		java.net.URL imgURL = SVGViewBottomToolbar.class.getResource(path);
+		if (imgURL != null) {
+			return new ImageIcon(imgURL);
+		} else {
+			System.err.println("Could not find file: " + path);
+			return null;
+		}
+	}
 
 }
+
+

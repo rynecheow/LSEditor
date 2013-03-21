@@ -10,6 +10,7 @@
 
 package rocks6205.svg.engine.viewcomponents;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
@@ -36,7 +37,18 @@ public class SVGViewDeleteAccessoryPanel extends JPanel {
 	 * Initialisation of GUI components
 	 */
 	private void initialise() {
-		deleteButton = new JButton("Delete");
+		deleteButton = new JButton("", createImageIcon("images/delete.jpg"));
 	}
+	
+	protected static ImageIcon createImageIcon(String path) {
+		java.net.URL imgURL = SVGViewDeleteAccessoryPanel.class.getResource(path);
+		if (imgURL != null) {
+			return new ImageIcon(imgURL);
+		} else {
+			System.err.println("Could not find file: " + path);
+			return null;
+		}
+	}
+
 
 }

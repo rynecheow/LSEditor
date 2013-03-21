@@ -10,7 +10,7 @@
 
 package rocks6205.svg.engine.viewcomponents;
 
-import javax.swing.JButton;
+import javax.swing.*;
 import javax.swing.JPanel;
 
 
@@ -37,9 +37,21 @@ public class SVGViewTopToolbar extends JPanel {
 	 * 
 	 */
 	private void initialise() {
-		newButton = new JButton("New");
-		openButton = new JButton("Open");
-		saveButton = new JButton("Save");
+		newButton = new JButton("", createImageIcon("images/newfile.jpg"));
+		openButton = new JButton("", createImageIcon("images/openfile.jpg"));
+		saveButton = new JButton("", createImageIcon("images/save.jpg"));
+
 	}
+	
+	protected static ImageIcon createImageIcon(String path) {
+		java.net.URL imgURL = SVGViewTopToolbar.class.getResource(path);
+		if (imgURL != null) {
+			return new ImageIcon(imgURL);
+		} else {
+			System.err.println("Could not find file: " + path);
+			return null;
+		}
+	}
+
 
 }
