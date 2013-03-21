@@ -1,12 +1,3 @@
-/**
- * 
- * Class: SVGViewport
- * Description: 
- * 
- * @author: Cheow Yeong Chi
- * @date: 20/03/2013
- * 
- */
 package rocks6205.svg.engine.viewcomponents;
 
 import java.awt.Graphics;

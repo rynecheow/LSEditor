@@ -4,6 +4,7 @@
  * Description: Parsing a single XML source into a Document ready to be read by other classes.
  * 
  * @author: Cheow Yeong Chi
+ * @version: 1.0
  * @date: 11/03/2013
  * 
  */

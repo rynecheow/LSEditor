@@ -1,13 +1,3 @@
-/**
- * 
- * Class: SVGImageCanvas
- * Description: 
- * 
- * @author: Cheow Yeong Chi
- * @date: 11/03/2013
- * 
- */
-
 package rocks6205.svgFamily;
 
 import java.awt.image.BufferedImage;

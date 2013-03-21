@@ -4,6 +4,7 @@
  * Description: Toolbar containing all the SVG editing functions as required in Assignment 4.
  * 
  * @author: Toh Huey Jing
+ * @version: 1.0
  * @date:17/03/2013
  * 
  */

@@ -1,12 +1,3 @@
-/**
- * 
- * Class: SVGGenericElement
- * Description: 
- * 
- * @author: Cheow Yeong Chi
- * @date: 14/03/2013
- * 
- */
 package rocks6205.svg.elements;
 
 import java.awt.BasicStroke;

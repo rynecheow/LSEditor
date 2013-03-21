@@ -4,6 +4,7 @@
  * Description: Displays the menu bar for the GUI
  *
  * @author: Toh Huey Jing
+ * @version: 1.0
  * @date: 17/03/2013
  *
  */

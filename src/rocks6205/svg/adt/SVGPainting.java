@@ -4,6 +4,7 @@
  * Description: Parsing <paint> in SVG documents and convert to respective type and color to be drawn on canvas
  * Refer to: <a href="http://www.w3.org/TR/SVG/painting.html#SpecifyingPaint"/>
  * @author: Cheow Yeong Chi
+ * @version: 1.0
  * @date: 16/03/2013
  * 
  */

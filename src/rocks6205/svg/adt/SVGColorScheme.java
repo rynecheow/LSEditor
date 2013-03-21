@@ -4,6 +4,7 @@
  * Description: Parsing <color> in SVG documents and convert to standard RGB Color scheme readable by Java
  * 
  * @author: Cheow Yeong Chi
+ * @version: 1.0
  * @date: 15/03/2013
  * 
  */

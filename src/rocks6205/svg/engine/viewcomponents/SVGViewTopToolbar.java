@@ -4,6 +4,7 @@
  * Description: The toolbar containing the New, Open File and Save File icons at the top of the screen.
  * 
  * @author: Toh Huey Jing
+ * @version: 1.0
  * @date: 17/03/2013
  * 
  */
