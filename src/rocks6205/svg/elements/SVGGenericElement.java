@@ -91,7 +91,7 @@ public abstract class SVGGenericElement {
 		SVGContainerElement origin = getAncestorElement();
 		boolean isStrokeNull = (stroke == null);
 		boolean isRootNull = (origin == null);
-		if (isStrokeNull) return stroke;
+		if (!isStrokeNull) return stroke;
 
 		for (; isStrokeNull && !isRootNull; origin = origin.getAncestorElement()) {
 			if (origin.getStroke() != null) {
@@ -164,8 +164,7 @@ public abstract class SVGGenericElement {
 	 * @param strokeWidth
 	 */
 	public void setStrokeWidth(SVGLengthUnit strokeWidth) {
-		boolean valid = strokeWidth == null;
-		valid |= strokeWidth.getValue() >= 0;
+		boolean valid = (strokeWidth == null) || (strokeWidth.getValue() >= 0);
 
 		if (valid) this.strokeWidth = strokeWidth;
 	}
