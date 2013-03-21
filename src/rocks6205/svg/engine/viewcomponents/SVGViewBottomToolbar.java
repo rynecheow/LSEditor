@@ -26,9 +26,9 @@ public class SVGViewBottomToolbar extends JPanel {
 	/*
 	 * GUI COMPONENTS
 	 */
-	JButton insertRectButton, insertCircButton,insertLineButton;	//group 1
-	JButton fillButton, strokeButton, strokeWidthButton;			//group 2
-	JButton groupButton, ungroupButton;								//group 3
+	SVGViewButton insertRectButton, insertCircButton,insertLineButton;	//group 1
+	SVGViewButton fillButton, strokeButton, strokeWidthButton;			//group 2
+	SVGViewButton groupButton, ungroupButton;								//group 3
 
 	JPanel backgroundPanel;
 
@@ -60,16 +60,16 @@ public class SVGViewBottomToolbar extends JPanel {
 	 * Initialisation of GUI components
 	 */
 	private void initialise() {
-		insertRectButton = new JButton("", createImageIcon("imageicon/rectangle.jpg"));
-		insertCircButton = new JButton("", createImageIcon("imageicon/circle.jpg"));
-		insertLineButton = new JButton("", createImageIcon("imageicon/line.jpg"));
+		insertRectButton = new SVGViewButton("", "imageicon/rectangle.png");
+		insertCircButton = new SVGViewButton("", "imageicon/circle.png");
+		insertLineButton = new SVGViewButton("", "imageicon/line.png");
 
-		fillButton = new JButton("", createImageIcon("imageicon/fillcolor.jpg"));
-		strokeButton = new JButton("", createImageIcon("imageicon/stroke.jpg"));
-		strokeWidthButton = new JButton("", createImageIcon("imageicon/width.jpg"));
+		fillButton = new SVGViewButton("", "imageicon/fillcolor.jpg");
+		strokeButton = new SVGViewButton("", "imageicon/stroke.jpg");
+		strokeWidthButton = new SVGViewButton("", "imageicon/width.jpg");
 
-		groupButton = new JButton("", createImageIcon("imageicon/grouped.jpg"));
-		ungroupButton = new JButton("", createImageIcon("imageicon/ungrp.jpg"));
+		groupButton = new SVGViewButton("", "imageicon/grouped.jpg");
+		ungroupButton = new SVGViewButton("", "imageicon/ungrp.jpg");
 
 		backgroundPanel = new JPanel();
 
@@ -102,21 +102,6 @@ public class SVGViewBottomToolbar extends JPanel {
 		backgroundPanel.add(groupButton);
 		backgroundPanel.add(ungroupButton);
 	}
-
-	/**
-	 * image insertion
-	 */
-
-	protected static ImageIcon createImageIcon(String path) {
-		java.net.URL imgURL = SVGViewBottomToolbar.class.getResource(path);
-		if (imgURL != null) {
-			return new ImageIcon(imgURL);
-		} else {
-			System.err.println("Could not find file: " + path);
-			return null;
-		}
-	}
-
 }
 
 

@@ -21,7 +21,7 @@ public class SVGViewTopToolbar extends JPanel {
 	/*
 	 * GUI COMPONENTS
 	 */
-	JButton newButton, openButton, saveButton, zoomInButton, zoomOutButton;
+	SVGViewButton newButton, openButton, saveButton, zoomInButton, zoomOutButton;
 
 	/*
 	 * CONSTRUCTOR
@@ -41,26 +41,11 @@ public class SVGViewTopToolbar extends JPanel {
 		saveButton.setEnabled(false);
 	}
 
-	/**
-	 * 
-	 */
 	private void initialise() {
-		newButton = new JButton("", createImageIcon("imageicon/newfile.jpg"));
-		openButton = new JButton("", createImageIcon("imageicon/openfile.jpg"));
-		saveButton = new JButton("", createImageIcon("imageicon/save.jpg"));
-		zoomInButton = new JButton("", createImageIcon("imageicon/zoomin.png"));
-		zoomOutButton = new JButton("", createImageIcon("imageicon/zoomout.png"));
+		newButton = new SVGViewButton("", "imageicon/newfile.png");
+		openButton = new SVGViewButton("", "imageicon/openfile.png");
+		saveButton = new SVGViewButton("", "imageicon/save.png");
+		zoomInButton = new SVGViewButton("","imageicon/zoomin.png");
+		zoomOutButton = new SVGViewButton("", "imageicon/zoomout.png");
 	}
-	
-	protected static ImageIcon createImageIcon(String path) {
-		java.net.URL imgURL = SVGViewTopToolbar.class.getResource(path);
-		if (imgURL != null) {
-			return new ImageIcon(imgURL);
-		} else {
-			System.err.println("Could not find file: " + path);
-			return null;
-		}
-	}
-
-
 }
