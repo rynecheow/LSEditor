@@ -44,16 +44,21 @@ public class SVGView extends JFrame implements Observer {
 	SVGViewDeleteAccessoryPanel delete;
 
 	JPanel panel, panelTop, panelLeft, panelRight, panelBottom;
-	JPanel inPanel, inPanelTop, inPanelLeft, inPanelRight, inPanelBottom;
+	JPanel inPanelTop, inPanelLeft, inPanelRight, inPanelBottom;
+	SVGViewport inPanel;
 
 	Container container = getContentPane();
-
+	
+	/*
+	 * ACTION COMPONENTS
+	 */
 	/*
 	 * CONSTRUCTOR
 	 */
 	public SVGView() {
 		initialise();
-		setupBorder();
+//		setupBorder();
+		inPanel.setBackground(Color.RED);
 		panelTop.add(topTool, BorderLayout.WEST);
 		inPanelBottom.add(bottomTool, BorderLayout.WEST);
 		inPanelBottom.add(delete, BorderLayout.EAST);
@@ -81,7 +86,7 @@ public class SVGView extends JFrame implements Observer {
 		panelRight = new JPanel();
 		panelBottom = new JPanel();
 
-		inPanel = new JPanel();
+		inPanel = new SVGViewport(this);
 		inPanelTop = new JPanel();
 		inPanelLeft = new JPanel();
 		inPanelRight = new JPanel();
@@ -161,7 +166,7 @@ public class SVGView extends JFrame implements Observer {
 		if (o instanceof SVGModel) {
 			viewport.setCanvas((SVGImageCanvas) arg);
 			viewport.repaint();
-	}
+		}
 	}
 
 }

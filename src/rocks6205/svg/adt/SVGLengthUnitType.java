@@ -94,12 +94,32 @@ public enum SVGLengthUnitType {
 	 * @return	Returns the respective type if matches, returns 'NUMBER' if it doesn't
 	 */
 	public static SVGLengthUnitType getType(String symbol) {
+		if (symbol == null) {
+			throw new NullPointerException("Symbol String cannot be null");
+		}
+
+		if (symbol.isEmpty()) {
+			return SVGLengthUnitType.NUMBER;
+		}
+
 		for (SVGLengthUnitType type : values()) {
 			if (symbol.equalsIgnoreCase(type.getUnitSymbol())) {
 				return type;
 			}
 		}
-
-		return SVGLengthUnitType.NUMBER;
+		return null;
 	}
+
+	public static String[] getUnitSymbols() {
+		SVGLengthUnitType[] types = values();
+		int typeCount = types.length;
+		String[] symbols = new String[typeCount];
+
+		for (int i = 0; i < typeCount; i++) {
+			symbols[i] = types[i].getUnitSymbol();
+		}
+
+		return symbols;
+	}
+
 }

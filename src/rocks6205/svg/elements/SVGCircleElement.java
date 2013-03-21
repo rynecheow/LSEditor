@@ -19,6 +19,7 @@ import java.awt.geom.Rectangle2D;
 import org.w3c.dom.Element;
 
 import rocks6205.svg.adt.SVGLengthUnit;
+import rocks6205.svg.adt.SVGLengthUnitType;
 import rocks6205.svg.adt.SVGPaintingType;
 import rocks6205.svgFamily.SVGImageCanvas;
 
@@ -27,9 +28,9 @@ public class SVGCircleElement extends SVGGenericElement {
 	/*
 	 * PROPERTIES
 	 */
-	private SVGLengthUnit cx;
-	private SVGLengthUnit cy;
-	private SVGLengthUnit radius;
+	private SVGLengthUnit cx = new SVGLengthUnit(0);
+	private SVGLengthUnit cy = new SVGLengthUnit(0);
+	private SVGLengthUnit radius = new SVGLengthUnit(0);
 
 	/*
 	 * CONSTRUCTORS
@@ -72,14 +73,14 @@ public class SVGCircleElement extends SVGGenericElement {
 	 * @param cx contains value for field 'cx'
 	 */
 	public void setCx( SVGLengthUnit cx ) {
-		this.cx = cx;
+		if (cx != null)	this.cx = cx;
 	}
 
 	/**
 	 * @param cy contains value for field 'cy'
 	 */
 	public void setCy( SVGLengthUnit cy ) {
-		this.cy = cy;
+		if (cy != null)	this.cy = cy;
 	}
 
 	/**
@@ -87,24 +88,24 @@ public class SVGCircleElement extends SVGGenericElement {
 	 * @param radius contains value for field radius
 	 */
 	public void setRadius( SVGLengthUnit radius ) {
-		this.radius = radius;
+		if (radius != null && radius.getValue() >= 0)	this.radius = radius;
 	}
 
 	@Override
 	public Rectangle2D.Float getBounds() {
-		float r = radius.getValue();
-		float xPos = cx.getValue();
-		float yPos = cy.getValue();
-
+		float r = radius.getValue(SVGLengthUnitType.PX);
+		float xPos = cx.getValue(SVGLengthUnitType.PX);
+		float yPos = cy.getValue(SVGLengthUnitType.PX);
+		float padding = 0;
+		
+		Rectangle2D.Float bounds = new Rectangle2D.Float();
 		if (r > 0) {
-			float padding = 0;
 			if (getStroke().getPaintType() != SVGPaintingType.NONE) {
-				padding = getStrokeWidth().getValue() / 2;
+				padding = getStrokeWidth().getValue(SVGLengthUnitType.PX) / 2;
 			}
-			return new Rectangle2D.Float (xPos - r - padding, yPos - r - padding, 2 * r + 2 * padding,2 * r + 2 * padding);
-		} else {
-			return null;
-		}
+			
+		} 
+		return new Rectangle2D.Float (xPos - r - padding, yPos - r - padding, 2 * r + 2 * padding,2 * r + 2 * padding);
 	}
 
 	@Override
