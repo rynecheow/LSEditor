@@ -22,8 +22,8 @@ import rocks6205.svgFamily.SVGImageCanvas;
 
 
 public class SVGSVGElement extends SVGContainerElement {
-	private SVGLengthUnit width = new SVGLengthUnit(100); ///default to 100x100
-	private SVGLengthUnit height = new SVGLengthUnit(100);
+	private SVGLengthUnit width = new SVGLengthUnit(1000); ///default to 1000x1000
+	private SVGLengthUnit height = new SVGLengthUnit(1000);
 
 	public SVGSVGElement(SVGLengthUnit width, SVGLengthUnit height) {
 		setWidth(width);
