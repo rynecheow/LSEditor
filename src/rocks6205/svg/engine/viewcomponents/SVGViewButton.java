@@ -1,3 +1,12 @@
+/**
+ * 
+ * Class: SVGViewButton
+ * Description: 
+ * 
+ * @author: Komalah Nair
+ * @date: 21/03/2013
+ * 
+ */
 package rocks6205.svg.engine.viewcomponents;
 
 import java.net.URL;

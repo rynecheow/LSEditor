@@ -52,7 +52,7 @@ public class SVGView extends JFrame implements Observer {
 	/*
 	 * ACTION COMPONENTS
 	 */
-	
+
 	/*
 	 * CONSTRUCTOR
 	 */
@@ -76,7 +76,7 @@ public class SVGView extends JFrame implements Observer {
 	 * Initialisation of GUI components
 	 */
 	private void initialise() {
-		menuBar = new SVGViewMenubar();
+		menuBar = new SVGViewMenubar(this);
 		topTool = new SVGViewTopToolbar();
 		bottomTool = new SVGViewBottomToolbar();
 		delete = new SVGViewDeleteAccessoryPanel();
@@ -169,5 +169,7 @@ public class SVGView extends JFrame implements Observer {
 			viewport.repaint();
 		}
 	}
+
+
 
 }

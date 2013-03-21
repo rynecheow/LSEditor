@@ -15,6 +15,9 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
+import rocks6205.svg.engine.SVGView;
+import rocks6205.svg.engine.events.SVGViewMenuAction;
+
 public class SVGViewMenubar extends JMenuBar {
 
 	private static final long serialVersionUID = 57709812552137078L;
@@ -22,6 +25,8 @@ public class SVGViewMenubar extends JMenuBar {
 	/*
 	 * GUI COMPONENTS
 	 */
+	
+	private SVGView parent;
 	JMenu fileMenu, editMenu, insertMenu, windowMenu, helpMenu;
 
 	JMenuItem newMenuItem, openMenuItem, saveMenuItem, saveAsMenuItem, docPropMenuItem, exitMenuItem;
@@ -30,10 +35,14 @@ public class SVGViewMenubar extends JMenuBar {
 	JMenuItem zoomInMenuItem, zoomOutMenuItem;
 	JMenuItem faqMenuItem, aboutMenuItem;
 
+	
+	private SVGViewMenuAction.OpenFileAction openAct;
+	
 	/*
 	 * CONSTRUCTOR
 	 */
-	public SVGViewMenubar() {
+	public SVGViewMenubar(SVGView view) {
+		parent = view;
 		initialise();
 		setMnemonicForMenus();
 		layoutFileMenuItemList();
@@ -41,13 +50,17 @@ public class SVGViewMenubar extends JMenuBar {
 		layoutInsertMenuItemList();
 		layoutWindowMenuItemList();
 		layoutHelpMenuItemList();
-		
+		setActionForMenuItem();
 		add(fileMenu);
 		add(editMenu);
 		add(insertMenu);
 		add(windowMenu);
 		add(helpMenu);
 		disableUnused();
+	}
+
+	private void setActionForMenuItem() {
+		openMenuItem.setAction(getOpenAction());
 	}
 
 	private void disableUnused() {
@@ -151,5 +164,10 @@ public class SVGViewMenubar extends JMenuBar {
 	private void layoutWindowMenuItemList() {
 		windowMenu.add(zoomInMenuItem);
 		windowMenu.add(zoomOutMenuItem);
+	}
+	
+	public SVGViewMenuAction.OpenFileAction getOpenAction() {
+		if(openAct == null) openAct = new SVGViewMenuAction.OpenFileAction(parent);
+		return openAct;
 	}
 }
