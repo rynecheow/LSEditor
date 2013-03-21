@@ -14,45 +14,23 @@ import java.awt.Color;
 import java.util.regex.*;
 
 public class SVGColorScheme extends Color {
-	/*
-	 * PRIMITIVE DATA STRUCTURE FORMAT
-	 */
-	//	8-bit integer regex
-	public static final String _8_BIT_UINT = "([01]?[0-9]?[0-9]|2[0-4][0-9]|25[0-5])";	//<color> as declared in 4.2
 
-	// 	percentage regex
-	// 	e.g. 99%, 18.4%,  100%
-	public static final String PERCENTAGE_UNUM = "([01]?[0-9]?[0-9](.[0-9]+)?)%";	//<color> as declared in 4.2
-
-	//	8-bit hex integer regex
-	public static final String _8_BIT_HEX_UINT = "([0-9A-Fa-f]{2})"; //<color> as declared in 4.2
-	//	8-bit hex integer regex
-	public static final String _4_BIT_HEX_UINT = "([0-9A-Fa-f])";	//<color> as declared in 4.2
+	private static final long serialVersionUID = 5839823140108294927L;
 
 	/*
 	 * COLOR DATA STRUCTURE FORMAT
 	 */
+
 	//	Standard color format
 	//	e.g. RGB(120,83,22)
-	public static final String RGB_COLOR_UINT = "^RGB\\(\\s*"
-			+ SVGColorScheme._8_BIT_UINT + "\\s*,\\s*"
-			+ SVGColorScheme._8_BIT_UINT + "\\s*,\\s*"
-			+ SVGColorScheme._8_BIT_UINT + "\\s*\\)$";
-
-	//	Standard color format with percentile format
 	//	e.g. RGB(70%,62%,3%)
-	public static final String RGB_PERCENTILE = "^RGB\\(\\s*"
-			+ SVGColorScheme.PERCENTAGE_UNUM + "\\s*,\\s*"
-			+ SVGColorScheme.PERCENTAGE_UNUM + "\\s*,\\s*"
-			+ SVGColorScheme.PERCENTAGE_UNUM + "\\s*\\)$";
+	public static final String RGB_COLOR = "rgb\\((" + SVGPrimitive._8_BIT_UINT + ","
+			+ SVGPrimitive._8_BIT_UINT + "," + SVGPrimitive._8_BIT_UINT + "|" + SVGPrimitive.PERCENTAGE_UNUM
+			+ "," + SVGPrimitive.PERCENTAGE_UNUM + "," + SVGPrimitive.PERCENTAGE_UNUM + ")\\)";
 
 	//	Hexadecimal format
-	// 	e.g. #123abc , #fff 
-	public static final String HEXA_COLOR = "#" + "("
-			+ SVGColorScheme._8_BIT_HEX_UINT + "{3}|"
-			+ SVGColorScheme._4_BIT_HEX_UINT + "{3})";
-
-	private static final long serialVersionUID = 5839823140108294927L;
+	// 	e.g. #123abc , #fff
+	public static final String HEXA_COLOR = "#" + "(" + SVGPrimitive._4_BIT_HEX_UINT + "{3}){1,2}";
 
 	/*
 	 * CONSTRUCTOR
@@ -72,40 +50,44 @@ public class SVGColorScheme extends Color {
 	 */
 	public static SVGColorScheme parse(String colorAttributeString){
 		colorAttributeString = colorAttributeString.trim();
-
-		//set matcher to match specific type
-		Matcher hexMatcher = Pattern.compile(HEXA_COLOR,
-				Pattern.CASE_INSENSITIVE).matcher(colorAttributeString);
-		Matcher rgbUintMatcher = Pattern.compile(RGB_COLOR_UINT,
-				Pattern.CASE_INSENSITIVE).matcher(colorAttributeString);
-		Matcher rgbPercentileMatcher = Pattern.compile(RGB_PERCENTILE,
-				Pattern.CASE_INSENSITIVE).matcher(colorAttributeString);
-
-		if (rgbUintMatcher.matches()) {
-			int[] rgbColor = new int[3];
-			String segment;
-
-			for (int u = 0; u < 3; u++) {
-				segment = rgbUintMatcher.group(u + 1);
-				rgbColor[u] = Integer.parseInt(segment);
-			}
-			return new SVGColorScheme(rgbColor[0], rgbColor[1], rgbColor[2]);
-		} else if (rgbPercentileMatcher.matches()) {
-			int[] rgbColor = new int[3];
-			String segment;
-
-			for (int u = 0; u < 3; u++) {
-				segment = rgbPercentileMatcher.group(1 + 2 * u);
-				rgbColor[u] = (int) (Double.parseDouble(segment) / 100 * 255);
-			}
-
-			return new SVGColorScheme(rgbColor[0], rgbColor[1], rgbColor[2]);
-		} else if (hexMatcher.matches()) {
-			return decodeHex(colorAttributeString);
-		} else if (getColorFromKeyword(colorAttributeString) != null) {
-			return getColorFromKeyword(colorAttributeString);
+		SVGColorScheme color = getColorFromKeyword(colorAttributeString);
+		if (color != null) {
+			return color;
 		}
+
+		Matcher hexMatcher = Pattern.compile(HEXA_COLOR,Pattern.CASE_INSENSITIVE).matcher(colorAttributeString);
+		if (hexMatcher.matches()) {
+			return decodeHex(colorAttributeString);
+		}
+
+		Matcher rgbMatcher = Pattern.compile(RGB_COLOR,Pattern.CASE_INSENSITIVE).matcher(colorAttributeString);
+		if (rgbMatcher.matches()) {
+			int[] rgb = new int[3];
+			String string = rgbMatcher.group(1).trim();
+			double multiplier = 1;
+
+			if (string.contains("%")) {
+				string = string.replace("%", "");
+				multiplier = 2.55;
+			}
+
+			String[] parts = string.split("\\s*,\\s*");
+
+			for (int u = 0; u < 3; u++) {
+				rgb[u] = (int) (Integer.parseInt(parts[u]) * multiplier);
+				rgb[u] = normaliseRGB(rgb[u]);
+			}
+
+			return new SVGColorScheme(rgb[0], rgb[1], rgb[2]);
+		}
+
 		return null;
+	}
+
+	private static int normaliseRGB(int val) {
+		if(val>255) return 255;
+		if(val<0) return 0;
+		return val;
 	}
 
 	/**
@@ -133,16 +115,7 @@ public class SVGColorScheme extends Color {
 	 */
 	private static SVGColorScheme decodeHex(String hexColorString) {
 		try {
-			boolean isShortHexaString = Pattern.compile(
-					"([A-Fa-f0-9])([A-Fa-f0-9])([A-Fa-f0-9])").matcher(
-							hexColorString.substring(1)).matches();
-			//extend if needed
-			if(isShortHexaString){
-				hexColorString = extendHex(hexColorString);
-			}
-
-			Color color = Color.decode(hexColorString);
-
+			Color color = Color.decode(extendHex(hexColorString));
 			return new SVGColorScheme(color.getRed(), color.getGreen(),
 					color.getBlue());
 		} catch (NumberFormatException nfe) {
@@ -158,20 +131,20 @@ public class SVGColorScheme extends Color {
 	 * @param hexColorString	Short hexadecimal string
 	 * @return	Extended hexadecimal string 
 	 */
-	private static String extendHex(String hexColorString) {
-		String extendedHexGroup = "", shortHexInt;
-		Matcher shortHexaStringMatcher = Pattern.compile(
-				"([A-Fa-f0-9])([A-Fa-f0-9])([A-Fa-f0-9])").matcher(
-						hexColorString.substring(1));
-		for (int u = 0; u < 3; u++) {
-			shortHexInt = shortHexaStringMatcher.group(u + 1);
-			//extend by appending
-			extendedHexGroup += shortHexInt + shortHexInt;
+	private static String extendHex(String hexColorString) {		
+		Matcher shortHexaStringMatcher = Pattern.compile(SVGPrimitive._4_BIT_HEX_UINT + "{3}").matcher(
+				hexColorString.substring(1));
+		if (shortHexaStringMatcher.matches()) {
+			String shortHex = shortHexaStringMatcher.group(), prefix = "#";
+			char c;
+
+			for (int i = 0; i < 3; i++) {
+				c = shortHex.charAt(i);
+				prefix += "" + c + c;
+			}
+
+			return prefix;
 		}
-		//replace short hex with extended hex
-		hexColorString = hexColorString.replace(shortHexaStringMatcher.group(), extendedHexGroup);
 		return hexColorString;
 	}
-
-
 }

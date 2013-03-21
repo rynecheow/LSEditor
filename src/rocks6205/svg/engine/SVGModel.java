@@ -56,6 +56,6 @@ public class SVGModel extends Observable{
 	public void render() {
 		setCanvas(SVGElement.draw());
 		setChanged();
-		notifyObservers(this.canvas);
+//		notifyObservers(this.canvas);
 	}
 }

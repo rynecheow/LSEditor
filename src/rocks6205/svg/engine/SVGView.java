@@ -19,7 +19,6 @@ import rocks6205.svg.engine.viewcomponents.SVGViewBottomToolbar;
 import rocks6205.svg.engine.viewcomponents.SVGViewMenubar;
 import rocks6205.svg.engine.viewcomponents.SVGViewport;
 import rocks6205.svgFamily.SVGImageCanvas;
-import rocks6205.svg.engine.events.SVGViewMenuAction;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -44,7 +43,7 @@ public class SVGView extends JFrame implements Observer {
 	SVGViewDeleteAccessoryPanel delete;
 
 	JPanel panel, panelTop, panelLeft, panelRight, panelBottom;
-	JPanel inPanelTop, inPanelLeft, inPanelRight, inPanelBottom;
+//	JPanel inPanelTop, inPanelLeft, inPanelRight, inPanelBottom;
 	SVGViewport inPanel;
 
 	Container container = getContentPane();
@@ -59,11 +58,12 @@ public class SVGView extends JFrame implements Observer {
 	public SVGView() {
 		initialise();
 //		setupBorder();
-		inPanel.setBackground(Color.RED);
+//		inPanel.setBackground(Color.RED);
+//		panel.setBackground(Color.WHITE);
 		panelTop.add(topTool, BorderLayout.WEST);
-		inPanelBottom.add(bottomTool, BorderLayout.WEST);
-		inPanelBottom.add(delete, BorderLayout.EAST);
-		setupLayoutForMainPanel();
+		panelBottom.add(bottomTool, BorderLayout.WEST);
+		panelBottom.add(delete, BorderLayout.EAST);
+//		setupLayoutForMainPanel();
 		setupLayoutForContainer();
 		setJMenuBar(menuBar);
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -81,22 +81,23 @@ public class SVGView extends JFrame implements Observer {
 		bottomTool = new SVGViewBottomToolbar();
 		delete = new SVGViewDeleteAccessoryPanel();
 
-		panel = new JPanel();
+		panel = new SVGViewport(this);
+		panel.setBackground(Color.WHITE);
 		panelTop = new JPanel();
 		panelLeft = new JPanel();
 		panelRight = new JPanel();
 		panelBottom = new JPanel();
 
-		inPanel = new SVGViewport(this);
-		inPanelTop = new JPanel();
-		inPanelLeft = new JPanel();
-		inPanelRight = new JPanel();
-		inPanelBottom = new JPanel();
+//		inPanel = new SVGViewport(this);
+//		inPanelTop = new JPanel();
+//		inPanelLeft = new JPanel();
+//		inPanelRight = new JPanel();
+//		inPanelBottom = new JPanel();
 
 		container.setLayout(new BorderLayout());
 		panel.setLayout(new BorderLayout());
 		panelTop.setLayout(new BorderLayout());
-		inPanelBottom.setLayout(new BorderLayout());
+		panelBottom.setLayout(new BorderLayout());
 	}
 
 	/**
@@ -104,17 +105,17 @@ public class SVGView extends JFrame implements Observer {
 	 */
 	private void setupBorder(){
 		Color blueColor = Color.BLUE, blackColor = Color.black;
-		setBorderColorForPanel(blackColor,panel);
+//		setBorderColorForPanel(blackColor,panel);
 		setBorderColorForPanel(blackColor,panelTop);
 		setBorderColorForPanel(blackColor,panelLeft);
 		setBorderColorForPanel(blackColor,panelRight);
 		setBorderColorForPanel(blackColor,panelBottom);
 
-		setBorderColorForPanel(blueColor,inPanel);
-		setBorderColorForPanel(blueColor,inPanelTop);
-		setBorderColorForPanel(blueColor,inPanelLeft);
-		setBorderColorForPanel(blueColor,inPanelRight);
-		setBorderColorForPanel(blueColor,inPanelBottom);
+//		setBorderColorForPanel(blueColor,inPanel);
+//		setBorderColorForPanel(blueColor,inPanelTop);
+//		setBorderColorForPanel(blueColor,inPanelLeft);
+//		setBorderColorForPanel(blueColor,inPanelRight);
+//		setBorderColorForPanel(blueColor,inPanelBottom);
 	}
 
 	private void setBorderColorForPanel(Color color, JPanel p){
@@ -132,13 +133,13 @@ public class SVGView extends JFrame implements Observer {
 		container.add(panelLeft, BorderLayout.WEST);
 	}
 
-	private void setupLayoutForMainPanel(){
-		panel.add(inPanel, BorderLayout.CENTER);
-		panel.add(inPanelTop, BorderLayout.NORTH);
-		panel.add(inPanelBottom, BorderLayout.SOUTH);
-		panel.add(inPanelRight, BorderLayout.EAST);
-		panel.add(inPanelLeft, BorderLayout.WEST);
-	}
+//	private void setupLayoutForMainPanel(){
+//		panel.add(inPanel, BorderLayout.CENTER);
+//		panel.add(inPanelTop, BorderLayout.NORTH);
+//		panel.add(inPanelBottom, BorderLayout.SOUTH);
+//		panel.add(inPanelRight, BorderLayout.EAST);
+//		panel.add(inPanelLeft, BorderLayout.WEST);
+//	}
 
 	/*
 	 * ACCESSORS
