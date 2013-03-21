@@ -21,15 +21,13 @@ public class SVGImageCanvas extends BufferedImage {
 	}
 
 	public static SVGImageCanvas getBlankCanvas(Rectangle2D.Float bounds) {
-		boolean shouldGetCanvas = bounds != null;
-		shouldGetCanvas &= (bounds.width > 0 && bounds.height > 0);
+		boolean shouldGetCanvas = bounds != null  && (bounds.width > 0 && bounds.height > 0);
 
 		if (shouldGetCanvas) {
 			return new SVGImageCanvas(
 					(int) (SVGImageCanvas.getZoomScale() * Math.ceil(bounds.width)),
 					(int) (SVGImageCanvas.getZoomScale() * Math.ceil(bounds.height)));
 		}
-
 		return null;
 
 	}

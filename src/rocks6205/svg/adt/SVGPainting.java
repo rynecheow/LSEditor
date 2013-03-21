@@ -37,8 +37,8 @@ public class SVGPainting {
 	}
 
 	public final void setPaintType(SVGPaintingType type){
-		if (type != null)   {this.paintType = type;}
-		if (type == SVGPaintingType.NONE)   {this.paintColor = new SVGColorScheme(0, 0, 0);}
+		if (type != null)   this.paintType = type;
+		if (type == SVGPaintingType.NONE)   this.paintColor = new SVGColorScheme(0, 0, 0, 0);
 	}
 
 	/*
