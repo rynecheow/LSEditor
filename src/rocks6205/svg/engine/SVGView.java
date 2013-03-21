@@ -36,7 +36,7 @@ public class SVGView extends JFrame implements Observer {
 	 */
 	private SVGModel model;
 	private SVGViewController controller;
-	private SVGViewport viewport;
+	
 	/*
 	 * GUI COMPONENTS
 	 */
