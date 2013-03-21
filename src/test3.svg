@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+  <circle cy="72px" cx="72px" r="70px" stroke="black"
+  stroke-width="2" fill="red"/>
+  	<g fill="red" stroke="yellow">
+		<g fill="blue">
+			<g fill="green" stroke="blue">
+				<rect x="100" y="100" width="100" height="100" stroke-width="10" />
+			</g>
+			<rect x="200" y="200" width="100" height="100" stroke-width="10" />
+		</g>
+		<rect x="300" y="300" width="100" height="100" stroke-width="10" />
+	</g>
+
+	  <rect x="10" y="20" width="100" height="100" fill="rgb(122,12,12)" stroke-width="1" stroke="rgb(122,12,12)"/>
+  <rect x="150" y="160" width="100" height="100" fill="rgb(122,133,12)" stroke-width="1" stroke="rgb(122,12,12)"/>
+  <rect x="290" y="2410" width="100" height="100" fill="rgb(122,12,144)" stroke-width="1" stroke="rgb(122,12,12)"/>
+  <rect x="344" y="530" width="100" height="100" fill="rgb(122,12,155)" stroke-width="1" stroke="rgb(122,12,12)"/>
+<g>
+  <line stroke="rgb(25%, 75%, 100%)" stroke-width="50mm" x1="5cm" x2="10cm" y1="32px" y2="10pt"/>
+<line stroke="#F00" stroke-width="50mm" x1="5cm" x2="10cm" y1="2em" y2="10pt"/>
+<line stroke="yellow" stroke-width="50mm" x1="5cm" x2="10cm" y1="4.5ex" y2="10pt"/>
+</g>
+</svg>
