@@ -17,6 +17,7 @@ import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.JFileChooser;
 import javax.swing.KeyStroke;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import rocks6205.svg.engine.SVGView;
 
@@ -47,6 +48,10 @@ public abstract class SVGViewMenuAction extends AbstractAction {
 		@Override
 		public void actionPerformed(ActionEvent event) {
 			JFileChooser fc = new JFileChooser();
+			fc.setMultiSelectionEnabled(false);
+			fc.setAcceptAllFileFilterUsed(false);
+			FileNameExtensionFilter extFilter = new FileNameExtensionFilter("SVG Documents", "svg");
+			fc.setFileFilter(extFilter);
 			if (fc.showOpenDialog(super.parent) == JFileChooser.APPROVE_OPTION) {
 				super.parent.getController().fileLoad(fc.getSelectedFile());
 
