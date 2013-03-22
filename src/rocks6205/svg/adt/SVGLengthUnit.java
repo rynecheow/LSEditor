@@ -19,32 +19,18 @@ public class SVGLengthUnit{
 	 */
 	private float value;
 	private SVGLengthUnitType unitType;
-
+	public SVGLengthUnit() {
+		setSVGLengthUnit(SVGLengthUnitType.UNKNOWN, 0.0f);
+	}
 	/*
 	 * CONSTRUCTORS
 	 */
-	public SVGLengthUnit() {
-		value = Float.NaN;
-		unitType = SVGLengthUnitType.UNKNOWN;
-	}
-
 	public SVGLengthUnit(float val){
-		this(SVGLengthUnitType.NUMBER,val);
+		setSVGLengthUnit(val);
 	}
 
 	public SVGLengthUnit(SVGLengthUnitType type, float val){
-		if (Float.isNaN(value)) {
-			throw new IllegalArgumentException("Length value cannot be NaN");
-		}
-		value = val;
-
-		if (type == null) {
-			throw new IllegalArgumentException("Length type cannot be null");
-		}
-		if (type == SVGLengthUnitType.UNKNOWN) {
-			throw new IllegalArgumentException("Length type cannot be UNKNOWN");
-		}
-		unitType = type;
+		setSVGLengthUnit(type, val);
 	}
 
 	/*
@@ -55,19 +41,19 @@ public class SVGLengthUnit{
 	}
 
 	public float getValue(){
-		return this.value;
+		return getValue("");
 	}
 
-	public float getValue(SVGLengthUnitType target){
-		if (target == null) {
-			throw new NullPointerException("Target type must not be null");
+	public float getValue(String sym){
+		SVGLengthUnitType target = SVGLengthUnitType.getType(sym);
+
+		if (this.unitType == target) {
+			return this.value;
+		} else if (this.unitType != SVGLengthUnitType.UNKNOWN) {
+			return value * this.unitType.getUnitScalingFactor() / target.getUnitScalingFactor();
 		}
 
-		if (Float.isNaN(value) || unitType == target) {
-			return value;
-		}
-
-		return value * this.unitType.getUnitScalingFactor() / target.getUnitScalingFactor();
+		return 0;
 	}
 
 	/*
@@ -92,9 +78,6 @@ public class SVGLengthUnit{
 	 * @return	Length unit type in floating point and respective type.
 	 */
 	public static SVGLengthUnit parse(String lengthAttributeValue){
-		if (lengthAttributeValue == null) {
-			return null;
-		}
 		lengthAttributeValue = lengthAttributeValue.trim();
 		//initialise variables
 		SVGLengthUnit length = null;
@@ -103,14 +86,14 @@ public class SVGLengthUnit{
 		Matcher matcher = null;
 		String numberStr = "";
 		String unitStr = "", unitSym = "";
+		String symbol = "";
 		int u = 0;
 
 		//search
-		for (String symbol : SVGLengthUnitType.getUnitSymbols()) {
-			if (symbol != null && !symbol.isEmpty()) {
-				if (u != 0) {
-					symbol = "|" + symbol;
-				}
+		for (SVGLengthUnitType type: SVGLengthUnitType.values()) {
+			symbol = type.getUnitSymbol();
+			if (type != SVGLengthUnitType.UNKNOWN && type != SVGLengthUnitType.NUMBER) {
+				if (u != 0) 	{symbol = "|" + symbol;}
 				unitSym += symbol;
 				u++;
 			}
@@ -126,10 +109,31 @@ public class SVGLengthUnit{
 
 		pattern = Pattern.compile(SVGPrimitive.NUM);
 		matcher = pattern.matcher(lengthAttributeValue);
-		if (matcher.matches())	numberStr = matcher.group();
+		if (matcher.matches())	{numberStr = matcher.group();}
 		if (!numberStr.isEmpty()){
 			length = new SVGLengthUnit(SVGLengthUnitType.getType(unitStr),Float.parseFloat(numberStr));
 		}
 		return length;
 	}
+
+	/**
+	 * Setting the type and value of the length unit object.
+	 * 
+	 * @param type	Type of length unit
+	 * @param val	Value of length unit
+	 */
+	public final void setSVGLengthUnit(SVGLengthUnitType type, float val){
+		if(type!=null)	setUnitType(type);
+		setValue(val);
+	}
+
+	/**
+	 * Variant. Default unit type set to 'NUMBER'.
+	 * 
+	 * @param val	Value of length unit
+	 */
+	public final void setSVGLengthUnit(float val){
+		setSVGLengthUnit(SVGLengthUnitType.NUMBER, val);		
+	}
+
 }

@@ -112,13 +112,13 @@ public class SVGLineElement extends SVGGenericElement {
 	public Rectangle2D.Float getBounds() {
 		float padding = 0;
 		if (getStroke().getPaintType() != SVGPaintingType.NONE) {
-			padding = getStrokeWidth().getValue(SVGLengthUnitType.PX) / 2;
+			padding = getStrokeWidth().getValue() / 2;
 		}
-		float computedX = Math.min(x1.getValue(SVGLengthUnitType.PX), x2.getValue(SVGLengthUnitType.PX)) - padding;
-		float computedY = Math.min(y1.getValue(SVGLengthUnitType.PX), y2.getValue(SVGLengthUnitType.PX)) - padding;
-		float computedWidth = Math.abs(x2.getValue(SVGLengthUnitType.PX) - x1.getValue(SVGLengthUnitType.PX)) + 2
+		float computedX = Math.min(x1.getValue(), x2.getValue()) - padding;
+		float computedY = Math.min(y1.getValue(), y2.getValue()) - padding;
+		float computedWidth = Math.abs(x2.getValue() - x1.getValue()) + 2
 				* padding;
-		float computedHeight = Math.abs(y2.getValue(SVGLengthUnitType.PX) - y1.getValue(SVGLengthUnitType.PX)) + 2
+		float computedHeight = Math.abs(y2.getValue() - y1.getValue()) + 2
 				* padding;
 
 		return new Rectangle2D.Float(computedX, computedY, computedWidth,
@@ -132,9 +132,9 @@ public class SVGLineElement extends SVGGenericElement {
 
 		if(canvas!= null){
 			Graphics2D graphics = canvas.createGraphics();
-			Line2D.Double line = new Line2D.Double(x1.getValue(SVGLengthUnitType.PX) - bounds.x,
-					y1.getValue(SVGLengthUnitType.PX) - bounds.y, x2.getValue(SVGLengthUnitType.PX) - bounds.x,
-					y2.getValue(SVGLengthUnitType.PX) - bounds.y);
+			Line2D.Double line = new Line2D.Double(x1.getValue() - bounds.x,
+					y1.getValue() - bounds.y, x2.getValue() - bounds.x,
+					y2.getValue() - bounds.y);
 
 			graphics.scale(SVGImageCanvas.getZoomScale(), SVGImageCanvas.getZoomScale());
 			graphics.setPaint(getStroke().getPaintColor());

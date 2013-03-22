@@ -14,8 +14,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.Rectangle;
 import java.util.Observable;
 import java.util.Observer;
@@ -81,7 +79,6 @@ public class SVGView extends JFrame implements Observer {
 
 	private void customise() {
 		scrollPane.setBounds(new Rectangle(renderAreaSize));
-//		renderPanel.setPreferredSize(new Dimension(500,500));
 		renderPanel.setBackground(Color.WHITE);
 
 		container.setLayout(new BorderLayout());
