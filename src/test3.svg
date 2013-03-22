@@ -1,23 +1,20 @@
-<svg xmlns="http://www.w3.org/2000/svg" version="1.1">
-  <circle cy="72px" cx="72px" r="70px" stroke="black"
-  stroke-width="2" fill="red"/>
-  	<g fill="red" stroke="yellow">
-		<g fill="blue">
-			<g fill="green" stroke="blue">
-				<rect x="100" y="100" width="100" height="100" stroke-width="10" />
-			</g>
-			<rect x="200" y="200" width="100" height="100" stroke-width="10" />
-		</g>
-		<rect x="300" y="300" width="100" height="100" stroke-width="10" />
-	</g>
-
-	  <rect x="10" y="20" width="100" height="100" fill="rgb(122,12,12)" stroke-width="1" stroke="rgb(122,12,12)"/>
-  <rect x="150" y="160" width="100" height="100" fill="rgb(122,133,12)" stroke-width="1" stroke="rgb(122,12,12)"/>
-  <rect x="290" y="2410" width="100" height="100" fill="rgb(122,12,144)" stroke-width="1" stroke="rgb(122,12,12)"/>
-  <rect x="344" y="530" width="100" height="100" fill="rgb(122,12,155)" stroke-width="1" stroke="rgb(122,12,12)"/>
-<g>
-  <line stroke="rgb(25%, 75%, 100%)" stroke-width="50mm" x1="5cm" x2="10cm" y1="32px" y2="10pt"/>
-<line stroke="#F00" stroke-width="50mm" x1="5cm" x2="10cm" y1="2em" y2="10pt"/>
-<line stroke="yellow" stroke-width="50mm" x1="5cm" x2="10cm" y1="4.5ex" y2="10pt"/>
-</g>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg height="1200.0px" width="1200.0px" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="320.0px" cy="294.0px" fill="rgb(255,0,0)" r="135.06823465761425px" stroke="rgb(0,0,0)" stroke-width="2.0"/>
+  <rect fill="rgb(122,12,12)" height="100.0" stroke="rgb(122,12,12)" stroke-width="1.0" width="100.0" x="487.0" y="68.0"/>
+  <rect fill="rgb(122,12,144)" height="100.0" stroke="rgb(122,12,12)" stroke-width="1.0" width="100.0" x="290.0" y="2410.0"/>
+  <g stroke-width="1.0">
+    <rect fill="rgb(122,133,12)" height="100.0" stroke="rgb(122,12,12)" stroke-width="1.0" width="100.0" x="200.0" y="198.0"/>
+    <g stroke-width="1.0" transform="translate(53.0,-283.0)">
+      <g fill="rgb(0,128,0)" stroke="rgb(0,0,255)" stroke-width="1.0" transform="translate(483.0,470.0)">
+        <rect height="100.0" stroke-width="10.0" width="100.0" x="100.0" y="100.0"/>
+      </g>
+      <rect fill="rgb(0,0,255)" height="100.0" stroke="rgb(255,255,0)" stroke-width="10.0" transform="translate(54.0,558.0)" width="100.0" x="200.0" y="200.0"/>
+      <rect fill="rgb(255,0,0)" height="100.0" stroke="rgb(255,255,0)" stroke-width="10.0" transform="translate(595.0,792.0)" width="100.0" x="136.0" y="-318.0"/>
+      <rect fill="rgb(122,12,155)" height="100.0" stroke="rgb(122,12,12)" stroke-width="1.0" width="100.0" x="431.0" y="652.0"/>
+    </g>
+    <line stroke="rgb(63,191,254)" stroke-width="50.0mm" transform="translate(317.0,229.0)" x1="1.3222916666666653cm" x2="6.322291666666663cm" y1="2.0px" y2="-12.500000000000028pt"/>
+    <line stroke="rgb(255,0,0)" stroke-width="50.0mm" transform="translate(317.0,229.0)" x1="1.3222916666666653cm" x2="6.322291666666663cm" y1="-0.3076923076923066em" y2="-12.500000000000028pt"/>
+    <line stroke="rgb(255,255,0)" stroke-width="50.0mm" transform="translate(317.0,229.0)" x1="1.3222916666666653cm" x2="6.322291666666663cm" y1="-0.1153846153846132ex" y2="-12.500000000000028pt"/>
+  </g>
 </svg>
