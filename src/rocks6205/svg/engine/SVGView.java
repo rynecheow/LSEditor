@@ -16,11 +16,14 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Rectangle;
 import java.util.Observable;
 import java.util.Observer;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.WindowConstants;
 
 import rocks6205.svg.engine.viewcomponents.SVGViewBottomToolbar;
 import rocks6205.svg.engine.viewcomponents.SVGViewDeleteAccessoryPanel;
@@ -38,7 +41,7 @@ public class SVGView extends JFrame implements Observer {
 	 */
 	private SVGModel model;
 	private SVGViewController controller;
-	
+
 	/*
 	 * GUI COMPONENTS
 	 */
@@ -47,12 +50,12 @@ public class SVGView extends JFrame implements Observer {
 	SVGViewBottomToolbar bottomTool;
 	SVGViewDeleteAccessoryPanel delete;
 
-	JPanel panel, panelTop, panelLeft, panelRight, panelBottom;
-//	JPanel inPanelTop, inPanelLeft, inPanelRight, inPanelBottom;
+	JPanel panelTop, panelBottom;
 	SVGViewport renderPanel;
 
 	Container container = getContentPane();
-	
+	JScrollPane scrollPane;
+	Dimension renderAreaSize;
 	/*
 	 * ACTION COMPONENTS
 	 */
@@ -62,56 +65,53 @@ public class SVGView extends JFrame implements Observer {
 	 */
 	public SVGView() {
 		initialise();
+		customise();
 		panelTop.add(topTool, BorderLayout.WEST);
 		panelBottom.add(bottomTool, BorderLayout.WEST);
 		panelBottom.add(delete, BorderLayout.EAST);
 		setupLayoutForContainer();
 		setJMenuBar(menuBar);
-		setExtendedState(JFrame.MAXIMIZED_BOTH);
+		//		setExtendedState(JFrame.MAXIMIZED_BOTH);
+		setSize(1000,1000);
 		setTitle("SVG Editor");
 		setVisible(true);
-		setResizable(false);
+		setMinimumSize(new Dimension(700,700));
+		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+	}
+
+	private void customise() {
+		scrollPane.setBounds(new Rectangle(renderAreaSize));
+//		renderPanel.setPreferredSize(new Dimension(500,500));
+		renderPanel.setBackground(Color.WHITE);
+
+		container.setLayout(new BorderLayout());
+		panelTop.setLayout(new BorderLayout());
+		panelBottom.setLayout(new BorderLayout());
 	}
 
 	/**
 	 * Initialisation of GUI components
 	 */
 	private void initialise() {
+		renderAreaSize = new Dimension(0,0);
 		menuBar = new SVGViewMenubar(this);
 		topTool = new SVGViewTopToolbar();
 		bottomTool = new SVGViewBottomToolbar();
 		delete = new SVGViewDeleteAccessoryPanel();
-		
-		panel = new JPanel();
-		panel.setBackground(Color.GRAY);
+
 		renderPanel = new SVGViewport(this);
-		renderPanel.setPreferredSize(new Dimension(500,500));
-		renderPanel.setBackground(Color.WHITE);
-		
 		panelTop = new JPanel();
-		panelLeft = new JPanel();
-		panelRight = new JPanel();
 		panelBottom = new JPanel();
-		
-		container.setLayout(new BorderLayout());
-		
-		panelTop.setLayout(new BorderLayout());
-		panelBottom.setLayout(new BorderLayout());
-		panel.setLayout(new GridBagLayout());
-		panel.add(renderPanel, new GridBagConstraints());
+		scrollPane = new JScrollPane(renderPanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 	}
 
 	/**
 	 *  Set components via BorderLayout to Center, North, South, East, West
 	 */
 	private void setupLayoutForContainer() {
-		container.add(panel, BorderLayout.CENTER);
+		container.add(scrollPane, BorderLayout.CENTER);
 		container.add(panelTop, BorderLayout.NORTH);
 		container.add(panelBottom, BorderLayout.SOUTH);
-		container.add(panelRight, BorderLayout.EAST);
-		container.add(panelLeft, BorderLayout.WEST);
-		
-		panel.add(renderPanel);
 	}
 	/*
 	 * ACCESSORS
@@ -138,8 +138,18 @@ public class SVGView extends JFrame implements Observer {
 	@Override
 	public void update(Observable o, Object arg) {
 		if (o instanceof SVGModel) {
+			float w = ((SVGModel) o).getSVGElement().getWidth().getValue();
+			float h = ((SVGModel) o).getSVGElement().getHeight().getValue();
+			renderAreaSize.height = (int) h;
+			renderAreaSize.width = (int) w;
+			scrollPane.setPreferredSize(renderAreaSize);
+			renderPanel.setPreferredSize(renderAreaSize);
+
 			renderPanel.setCanvas((SVGImageCanvas) arg);
 			renderPanel.repaint();
+			scrollPane.setViewportView(renderPanel);
+//			scrollPane.revalidate();
+			scrollPane.repaint();
 		}
 	}
 

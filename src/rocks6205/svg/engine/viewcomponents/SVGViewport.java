@@ -24,8 +24,7 @@ public class SVGViewport extends JPanel {
 	private SVGImageCanvas canvas;
 
 	public SVGViewport(SVGView view) {
-		int resolution = Toolkit.getDefaultToolkit().getScreenResolution();
-		SVGCanvasProperties.setOutputResolution(resolution);
+		SVGCanvasProperties.setOutputResolution(Toolkit.getDefaultToolkit().getScreenResolution());
 		SVGCanvasProperties.setFontSize((this.getFont().getSize2D()));
 	}
 

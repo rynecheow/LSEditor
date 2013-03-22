@@ -29,7 +29,6 @@ public class SVGViewMenubar extends JMenuBar {
 	
 	private SVGView parent;
 	JMenu fileMenu, editMenu, insertMenu, windowMenu, helpMenu;
-
 	JMenuItem newMenuItem, openMenuItem, saveMenuItem, saveAsMenuItem, docPropMenuItem, exitMenuItem;
 	JMenuItem selectAllMenuItem, groupMenuItem, ungroupMenuItem, deleteMenuItem;
 	JMenuItem insertRectMenuItem, insertCircleMenuItem, insertLineMenuItem;
@@ -43,6 +42,7 @@ public class SVGViewMenubar extends JMenuBar {
 	 * CONSTRUCTOR
 	 */
 	public SVGViewMenubar(SVGView view) {
+		super();
 		parent = view;
 		initialise();
 		setMnemonicForMenus();
@@ -84,13 +84,13 @@ public class SVGViewMenubar extends JMenuBar {
 		windowMenu = new JMenu("Window");
 		helpMenu = new JMenu("Help");
 		
-		newMenuItem = new JMenuItem("New                                     Ctrl+N");
-		openMenuItem = new JMenuItem("Open File...                         Ctrl+O");
-		saveMenuItem = new JMenuItem("Save                                    Ctrl+S");
-		saveAsMenuItem = new JMenuItem("Save As...                Ctrl+Shift+S");
+		newMenuItem = new JMenuItem("New");
+		openMenuItem = new JMenuItem("Open File...");
+		saveMenuItem = new JMenuItem("Save");
+		saveAsMenuItem = new JMenuItem("Save As...");
 		docPropMenuItem = new JMenuItem("Document Properties");
 		exitMenuItem = new JMenuItem("Exit");
-		selectAllMenuItem = new JMenuItem("Select All                      Ctrl+A");
+		selectAllMenuItem = new JMenuItem("Select All");
 		groupMenuItem = new JMenuItem("Group");
 		ungroupMenuItem = new JMenuItem("Ungroup");
 		deleteMenuItem = new JMenuItem("Delete");
