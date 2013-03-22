@@ -13,10 +13,12 @@ package rocks6205.svg.engine;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.util.Observable;
 import java.util.Observer;
 
-import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -45,9 +47,9 @@ public class SVGView extends JFrame implements Observer {
 	SVGViewBottomToolbar bottomTool;
 	SVGViewDeleteAccessoryPanel delete;
 
-	JPanel panelTop, panelLeft, panelRight, panelBottom;
+	JPanel panel, panelTop, panelLeft, panelRight, panelBottom;
 //	JPanel inPanelTop, inPanelLeft, inPanelRight, inPanelBottom;
-	SVGViewport panel;
+	SVGViewport renderPanel;
 
 	Container container = getContentPane();
 	
@@ -60,13 +62,9 @@ public class SVGView extends JFrame implements Observer {
 	 */
 	public SVGView() {
 		initialise();
-//		setupBorder();
-//		inPanel.setBackground(Color.RED);
-//		panel.setBackground(Color.WHITE);
 		panelTop.add(topTool, BorderLayout.WEST);
 		panelBottom.add(bottomTool, BorderLayout.WEST);
 		panelBottom.add(delete, BorderLayout.EAST);
-//		setupLayoutForMainPanel();
 		setupLayoutForContainer();
 		setJMenuBar(menuBar);
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -83,46 +81,24 @@ public class SVGView extends JFrame implements Observer {
 		topTool = new SVGViewTopToolbar();
 		bottomTool = new SVGViewBottomToolbar();
 		delete = new SVGViewDeleteAccessoryPanel();
-
-		panel = new SVGViewport(this);
-		panel.setBackground(Color.WHITE);
+		
+		panel = new JPanel();
+		panel.setBackground(Color.GRAY);
+		renderPanel = new SVGViewport(this);
+		renderPanel.setPreferredSize(new Dimension(500,500));
+		renderPanel.setBackground(Color.WHITE);
+		
 		panelTop = new JPanel();
 		panelLeft = new JPanel();
 		panelRight = new JPanel();
 		panelBottom = new JPanel();
-
-//		inPanel = new SVGViewport(this);
-//		inPanelTop = new JPanel();
-//		inPanelLeft = new JPanel();
-//		inPanelRight = new JPanel();
-//		inPanelBottom = new JPanel();
-
+		
 		container.setLayout(new BorderLayout());
-		panel.setLayout(new BorderLayout());
+		
 		panelTop.setLayout(new BorderLayout());
 		panelBottom.setLayout(new BorderLayout());
-	}
-
-	/**
-	 * Setting border color of JPanels
-	 */
-	private void setupBorder(){
-		Color blueColor = Color.BLUE, blackColor = Color.black;
-//		setBorderColorForPanel(blackColor,panel);
-		setBorderColorForPanel(blackColor,panelTop);
-		setBorderColorForPanel(blackColor,panelLeft);
-		setBorderColorForPanel(blackColor,panelRight);
-		setBorderColorForPanel(blackColor,panelBottom);
-
-//		setBorderColorForPanel(blueColor,inPanel);
-//		setBorderColorForPanel(blueColor,inPanelTop);
-//		setBorderColorForPanel(blueColor,inPanelLeft);
-//		setBorderColorForPanel(blueColor,inPanelRight);
-//		setBorderColorForPanel(blueColor,inPanelBottom);
-	}
-
-	private void setBorderColorForPanel(Color color, JPanel p){
-		p.setBorder(BorderFactory.createLineBorder(color));
+		panel.setLayout(new GridBagLayout());
+		panel.add(renderPanel, new GridBagConstraints());
 	}
 
 	/**
@@ -134,16 +110,9 @@ public class SVGView extends JFrame implements Observer {
 		container.add(panelBottom, BorderLayout.SOUTH);
 		container.add(panelRight, BorderLayout.EAST);
 		container.add(panelLeft, BorderLayout.WEST);
+		
+		panel.add(renderPanel);
 	}
-
-//	private void setupLayoutForMainPanel(){
-//		panel.add(inPanel, BorderLayout.CENTER);
-//		panel.add(inPanelTop, BorderLayout.NORTH);
-//		panel.add(inPanelBottom, BorderLayout.SOUTH);
-//		panel.add(inPanelRight, BorderLayout.EAST);
-//		panel.add(inPanelLeft, BorderLayout.WEST);
-//	}
-
 	/*
 	 * ACCESSORS
 	 */
@@ -169,8 +138,8 @@ public class SVGView extends JFrame implements Observer {
 	@Override
 	public void update(Observable o, Object arg) {
 		if (o instanceof SVGModel) {
-			panel.setCanvas((SVGImageCanvas) arg);
-			panel.repaint();
+			renderPanel.setCanvas((SVGImageCanvas) arg);
+			renderPanel.repaint();
 		}
 	}
 
