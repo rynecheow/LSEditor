@@ -105,7 +105,7 @@ public class SVGViewTopToolbar extends JPanel {
 		return zoomOutAction;
 	}
 
-	
+
 	private void setActionForButtons() {
 		openButton.setAction(getOpenAction());
 		zoomInButton.setAction(getZoomInAction());
@@ -118,7 +118,7 @@ public class SVGViewTopToolbar extends JPanel {
 		String saveFileIconPath = "imageicon/save.png";
 		String zoomInIconPath = "imageicon/zoomin.png";
 		String zoomOutIconPath = "imageicon/zoomout.png";
-		
+
 		newButton.setIcon(newFileIconPath);
 		openButton.setIcon(openFileIconPath);
 		saveButton.setIcon(saveFileIconPath);
