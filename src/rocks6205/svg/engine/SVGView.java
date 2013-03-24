@@ -15,13 +15,15 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Rectangle;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.Observable;
 import java.util.Observer;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.WindowConstants;
 
 import rocks6205.svg.engine.viewcomponents.SVGViewBottomToolbar;
 import rocks6205.svg.engine.viewcomponents.SVGViewDeleteAccessoryPanel;
@@ -64,26 +66,6 @@ public class SVGView extends JFrame implements Observer {
 	public SVGView() {
 		initialise();
 		customise();
-		panelTop.add(topTool, BorderLayout.WEST);
-		panelBottom.add(bottomTool, BorderLayout.WEST);
-		panelBottom.add(delete, BorderLayout.EAST);
-		setupLayoutForContainer();
-		setJMenuBar(menuBar);
-		//		setExtendedState(JFrame.MAXIMIZED_BOTH);
-		setSize(1000,1000);
-		setTitle("SVG Editor");
-		setVisible(true);
-		setMinimumSize(new Dimension(700,700));
-		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-	}
-
-	private void customise() {
-		scrollPane.setBounds(new Rectangle(renderAreaSize));
-		renderPanel.setBackground(Color.WHITE);
-
-		container.setLayout(new BorderLayout());
-		panelTop.setLayout(new BorderLayout());
-		panelBottom.setLayout(new BorderLayout());
 	}
 
 	/**
@@ -92,8 +74,8 @@ public class SVGView extends JFrame implements Observer {
 	private void initialise() {
 		renderAreaSize = new Dimension(0,0);
 		menuBar = new SVGViewMenubar(this);
-		topTool = new SVGViewTopToolbar();
-		bottomTool = new SVGViewBottomToolbar();
+		topTool = new SVGViewTopToolbar(this);
+		bottomTool = new SVGViewBottomToolbar(this);
 		delete = new SVGViewDeleteAccessoryPanel();
 
 		renderPanel = new SVGViewport(this);
@@ -103,12 +85,47 @@ public class SVGView extends JFrame implements Observer {
 	}
 
 	/**
-	 *  Set components via BorderLayout to Center, North, South, East, West
+	 * Customisation of GUI components
+	 * 
 	 */
-	private void setupLayoutForContainer() {
+	private void customise() {
+		setSize(1000,1000);
+		setTitle("SVG Editor");
+		scrollPane.setBounds(new Rectangle(renderAreaSize));
+		renderPanel.setBackground(Color.WHITE);
+
+		container.setLayout(new BorderLayout());
+		panelTop.setLayout(new BorderLayout());
+		panelBottom.setLayout(new BorderLayout());
+
+		panelTop.add(topTool, BorderLayout.WEST);
+		panelBottom.add(bottomTool, BorderLayout.WEST);
+		panelBottom.add(delete, BorderLayout.EAST);	
+
+		setVisible(true);
+		setMinimumSize(new Dimension(700,700));
+		setClosingEvent();
+		setJMenuBar(menuBar);
+
 		container.add(scrollPane, BorderLayout.CENTER);
 		container.add(panelTop, BorderLayout.NORTH);
 		container.add(panelBottom, BorderLayout.SOUTH);
+	}
+
+	/**
+	 * Prompt exit confirmation while user clicks on 'x' button on the window
+	 * 
+	 */
+	private void setClosingEvent() {
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent winEvt) {
+				int closeCf = JOptionPane.showConfirmDialog(null, "Exit SVG Editor?", "Confirm exit", JOptionPane.WARNING_MESSAGE);
+				if (closeCf == JOptionPane.YES_OPTION) {
+					System.exit(0);
+				}
+			}
+		});
 	}
 	/*
 	 * ACCESSORS
@@ -145,11 +162,9 @@ public class SVGView extends JFrame implements Observer {
 			renderPanel.setCanvas((SVGImageCanvas) arg);
 			renderPanel.repaint();
 			scrollPane.setViewportView(renderPanel);
-//			scrollPane.revalidate();
 			scrollPane.repaint();
 		}
+
+
 	}
-
-
-
 }

@@ -16,42 +16,37 @@ import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
 
+import rocks6205.svg.engine.SVGView;
+
 
 public class SVGViewBottomToolbar extends JPanel {
 
 	private static final long serialVersionUID = 4968792782186848487L;
 
 	/*
+	 * PARENT COMPONENT
+	 */
+	@SuppressWarnings("unused")
+	private SVGView parent;
+
+	/*
 	 * GUI COMPONENTS
 	 */
-	SVGViewButton insertRectButton, insertCircButton,insertLineButton;	//group 1
-	SVGViewButton fillButton, strokeButton, strokeWidthButton;			//group 2
-	SVGViewButton groupButton, ungroupButton;								//group 3
-
-	JPanel backgroundPanel;
-
-	JSeparator separator_1, separator_2;
+	private SVGViewButton insertRectButton, insertCircButton,insertLineButton;	//group 1
+	private SVGViewButton fillButton, strokeButton, strokeWidthButton;			//group 2
+	private SVGViewButton groupButton, ungroupButton;							//group 3
+	private JPanel backgroundPanel;
+	private JSeparator separator_1, separator_2;
 
 	/*
 	 * CONSTRUCTOR
 	 */
-	public SVGViewBottomToolbar() {
-		initialise();
-		setupSeparators();
-		layoutBackgroundPanel();
-		add(backgroundPanel);
-		disableUnused();
-	}
+	public SVGViewBottomToolbar(SVGView view) {
+		super();
+		parent = view;
 
-	private void disableUnused() {
-		insertRectButton.setEnabled(false);
-		insertCircButton.setEnabled(false);
-		insertLineButton.setEnabled(false);
-		fillButton.setEnabled(false);
-		strokeButton.setEnabled(false);
-		strokeWidthButton.setEnabled(false);
-		groupButton.setEnabled(false);
-		ungroupButton.setEnabled(false);
+		initialise();
+		customise();
 	}
 
 	/**
@@ -73,6 +68,16 @@ public class SVGViewBottomToolbar extends JPanel {
 
 		separator_1 = new JSeparator(SwingConstants.VERTICAL);
 		separator_2 = new JSeparator(SwingConstants.VERTICAL);
+	}
+
+	/**
+	 * Customisation of GUI components
+	 */
+	private void customise() {
+		setupSeparators();
+		layoutBackgroundPanel();
+		add(backgroundPanel);
+		disableUnused();
 	}
 
 	/**
@@ -99,6 +104,20 @@ public class SVGViewBottomToolbar extends JPanel {
 		backgroundPanel.add(separator_2);
 		backgroundPanel.add(groupButton);
 		backgroundPanel.add(ungroupButton);
+	}
+
+	/**
+	 * Disable temporarily unused buttons
+	 */
+	private void disableUnused() {
+		insertRectButton.setEnabled(false);
+		insertCircButton.setEnabled(false);
+		insertLineButton.setEnabled(false);
+		fillButton.setEnabled(false);
+		strokeButton.setEnabled(false);
+		strokeWidthButton.setEnabled(false);
+		groupButton.setEnabled(false);
+		ungroupButton.setEnabled(false);
 	}
 }
 

@@ -11,6 +11,8 @@ package rocks6205.svg.engine;
 
 import java.io.File;
 
+import javax.swing.JFrame;
+
 public class Main {
 
 	public static void main(String []rcks){
@@ -28,6 +30,7 @@ public class Main {
 			fileURI = rcks[0];
 			c.fileLoad(new File(fileURI));
 		}
+		v.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 	}
 
 }

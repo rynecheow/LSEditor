@@ -36,7 +36,7 @@ public class SVGImageCanvas extends BufferedImage {
 		return zoomScale;
 	}
 
-	public static void setZoomFactor(double zoomScale) {
+	public static void setZoomScale(double zoomScale) {
 		SVGImageCanvas.zoomScale = zoomScale;
 	}
 }

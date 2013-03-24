@@ -18,16 +18,23 @@ import javax.swing.JMenuItem;
 
 import rocks6205.svg.engine.SVGView;
 import rocks6205.svg.engine.events.SVGViewMenuAction;
+import rocks6205.svg.engine.events.SVGViewMenuAction.ExitAction;
+import rocks6205.svg.engine.events.SVGViewMenuAction.OpenFileAction;
+import rocks6205.svg.engine.events.SVGViewMenuAction.ZoomInViewAction;
+import rocks6205.svg.engine.events.SVGViewMenuAction.ZoomOutViewAction;
 
 public class SVGViewMenubar extends JMenuBar {
 
 	private static final long serialVersionUID = 57709812552137078L;
 
 	/*
+	 * PARENT COMPONENT
+	 */
+	private SVGView parent;
+
+	/*
 	 * GUI COMPONENTS
 	 */
-	
-	private SVGView parent;
 	JMenu fileMenu, editMenu, insertMenu, windowMenu, helpMenu;
 	JMenuItem newMenuItem, openMenuItem, saveMenuItem, saveAsMenuItem, docPropMenuItem, exitMenuItem;
 	JMenuItem selectAllMenuItem, groupMenuItem, ungroupMenuItem, deleteMenuItem;
@@ -35,9 +42,14 @@ public class SVGViewMenubar extends JMenuBar {
 	JMenuItem zoomInMenuItem, zoomOutMenuItem;
 	JMenuItem faqMenuItem, aboutMenuItem;
 
-	
-	private SVGViewMenuAction.OpenFileAction openAct;
-	
+	/*
+	 * ACTION COMPONENTS
+	 */
+	private OpenFileAction openAct;
+	private ExitAction exitAct;
+	private ZoomInViewAction zoomInAction;
+	private ZoomOutViewAction zoomOutAction;
+
 	/*
 	 * CONSTRUCTOR
 	 */
@@ -45,33 +57,7 @@ public class SVGViewMenubar extends JMenuBar {
 		super();
 		parent = view;
 		initialise();
-		setMnemonicForMenus();
-		layoutFileMenuItemList();
-		layoutEditMenuItemList();
-		layoutInsertMenuItemList();
-		layoutWindowMenuItemList();
-		layoutHelpMenuItemList();
-		setActionForMenuItem();
-		add(fileMenu);
-		add(editMenu);
-		add(insertMenu);
-		add(windowMenu);
-		add(helpMenu);
-		disableUnused();
-	}
-
-	private void setActionForMenuItem() {
-		openMenuItem.setAction(getOpenAction());
-	}
-
-	private void disableUnused() {
-		newMenuItem.setEnabled(false);
-		saveMenuItem.setEnabled(false);
-		saveAsMenuItem.setEnabled(false);
-		docPropMenuItem.setEnabled(false);
-		editMenu.setEnabled(false);
-		insertMenu.setEnabled(false);
-		helpMenu.setEnabled(false);
+		customise();
 	}
 
 	/**
@@ -83,7 +69,7 @@ public class SVGViewMenubar extends JMenuBar {
 		insertMenu = new JMenu("Insert");
 		windowMenu = new JMenu("Window");
 		helpMenu = new JMenu("Help");
-		
+
 		newMenuItem = new JMenuItem("New");
 		openMenuItem = new JMenuItem("Open File...");
 		saveMenuItem = new JMenuItem("Save");
@@ -101,7 +87,33 @@ public class SVGViewMenubar extends JMenuBar {
 		zoomOutMenuItem = new JMenuItem("Zoom Out");
 		faqMenuItem = new JMenuItem("FAQ");
 		aboutMenuItem = new JMenuItem("About");
+		
+		openAct = new OpenFileAction(parent);
+		zoomOutAction = new ZoomOutViewAction(parent);
+		zoomInAction = new ZoomInViewAction(parent);
 	}
+
+
+	/**
+	 * Customisation of GUI Components
+	 */
+	private void customise() {
+		setMnemonicForMenus();
+		layoutFileMenuItemList();
+		layoutEditMenuItemList();
+		layoutInsertMenuItemList();
+		layoutWindowMenuItemList();
+		layoutHelpMenuItemList();
+		setActionForMenuItem();
+		disableUnused();
+		add(fileMenu);
+		add(editMenu);
+		add(insertMenu);
+		add(windowMenu);
+		add(helpMenu);
+		zoomInAction.setZoomOutPartnerAction(zoomOutAction);
+	}
+
 
 	/**
 	 * Setting up mnemonic keys events for respective file menu
@@ -157,7 +169,7 @@ public class SVGViewMenubar extends JMenuBar {
 		helpMenu.add(faqMenuItem);
 		helpMenu.add(aboutMenuItem);
 	}
-	
+
 
 	/**
 	 * Layout file menu with menu items
@@ -166,9 +178,50 @@ public class SVGViewMenubar extends JMenuBar {
 		windowMenu.add(zoomInMenuItem);
 		windowMenu.add(zoomOutMenuItem);
 	}
-	
+
+	/**
+	 * Configure action for buttons
+	 */
+	private void setActionForMenuItem() {
+		openMenuItem.setAction(getOpenAction());
+		exitMenuItem.setAction(getExitAct());
+		zoomInMenuItem.setAction(getZoomInAction());
+		zoomOutMenuItem.setAction(getZoomOutAction());
+	}
+
+	/**
+	 * Disables unused buttons
+	 */
+	private void disableUnused() {
+		newMenuItem.setEnabled(false);
+		saveMenuItem.setEnabled(false);
+		saveAsMenuItem.setEnabled(false);
+		docPropMenuItem.setEnabled(false);
+		editMenu.setEnabled(false);
+		insertMenu.setEnabled(false);
+		helpMenu.setEnabled(false);
+	}
+
+	/*
+	 * MUTATORS
+	 */
 	public SVGViewMenuAction.OpenFileAction getOpenAction() {
 		if(openAct == null) openAct = new SVGViewMenuAction.OpenFileAction(parent);
 		return openAct;
+	}
+
+	public ExitAction getExitAct() {
+		if(exitAct == null) exitAct = new SVGViewMenuAction.ExitAction(parent);
+		return exitAct;
+	}
+
+	public ZoomInViewAction getZoomInAction() {
+		if(zoomInAction == null) zoomInAction = new ZoomInViewAction(parent);
+		return zoomInAction;
+	}
+
+	public ZoomOutViewAction getZoomOutAction() {
+		if(zoomOutAction == null) zoomOutAction = new ZoomOutViewAction(parent);
+		return zoomOutAction;
 	}
 }
