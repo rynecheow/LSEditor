@@ -71,7 +71,6 @@ public class SVGViewTopToolbar extends JPanel {
 	 * Customisation of GUI components
 	 */
 	private void customise() {
-		
 		add(newButton);
 		add(openButton);
 		add(saveButton);
