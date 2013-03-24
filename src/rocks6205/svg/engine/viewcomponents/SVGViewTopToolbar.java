@@ -57,21 +57,21 @@ public class SVGViewTopToolbar extends JPanel {
 	 * Initialisation of GUI Components
 	 */
 	private void initialise() {
-		newButton = new SVGViewButton("", "imageicon/newfile.png");
-		openButton = new SVGViewButton("", "imageicon/openfile.png");
-		saveButton = new SVGViewButton("", "imageicon/save.png");
-		zoomInButton = new SVGViewButton("","imageicon/zoomin.png");
-		zoomOutButton = new SVGViewButton("", "imageicon/zoomout.png");
+		newButton = new SVGViewButton();
+		openButton = new SVGViewButton();
+		saveButton = new SVGViewButton();
+		zoomInButton = new SVGViewButton();
+		zoomOutButton = new SVGViewButton();
 
 		openAct = new OpenFileAction(parent);
 		zoomInAction = new ZoomInViewAction(parent);
 		zoomOutAction = new ZoomOutViewAction(parent);
-		
 	}
 	/**
 	 * Customisation of GUI components
 	 */
 	private void customise() {
+		
 		add(newButton);
 		add(openButton);
 		add(saveButton);
@@ -79,8 +79,8 @@ public class SVGViewTopToolbar extends JPanel {
 		add(zoomOutButton);
 		disableUnused();
 		zoomInAction.setZoomOutPartnerAction(zoomOutAction);
-		setActionForMenuItem();
-		
+		setActionForButtons();
+		setIconsForButtons();
 	}
 
 	/**
@@ -91,6 +91,9 @@ public class SVGViewTopToolbar extends JPanel {
 		saveButton.setEnabled(false);
 	}
 
+	/*
+	 * ACCESSORS
+	 */
 	public OpenFileAction getOpenAction() {
 		return openAct;
 	}
@@ -104,10 +107,23 @@ public class SVGViewTopToolbar extends JPanel {
 	}
 
 	
-	private void setActionForMenuItem() {
+	private void setActionForButtons() {
 		openButton.setAction(getOpenAction());
 		zoomInButton.setAction(getZoomInAction());
 		zoomOutButton.setAction(getZoomOutAction());
 	}
-	
+
+	private void setIconsForButtons() {
+		String newFileIconPath = "imageicon/newfile.png";
+		String openFileIconPath = "imageicon/openfile.png";
+		String saveFileIconPath = "imageicon/save.png";
+		String zoomInIconPath = "imageicon/zoomin.png";
+		String zoomOutIconPath = "imageicon/zoomout.png";
+		
+		newButton.setIcon(newFileIconPath);
+		openButton.setIcon(openFileIconPath);
+		saveButton.setIcon(saveFileIconPath);
+		zoomInButton.setIcon(zoomInIconPath);
+		zoomOutButton.setIcon(zoomOutIconPath);
+	}	
 }

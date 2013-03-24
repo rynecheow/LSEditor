@@ -31,6 +31,14 @@ public abstract class SVGViewMenuAction extends AbstractAction {
 	 */
 	private SVGView parent;
 
+	public SVGViewMenuAction(String tooltipText,
+			Integer mnemonic, KeyStroke keyStroke, SVGView parent) {
+		putValue(SHORT_DESCRIPTION, tooltipText);
+		putValue(MNEMONIC_KEY, mnemonic);
+		putValue(ACCELERATOR_KEY, keyStroke);
+		this.parent = parent;
+	}
+
 	public SVGViewMenuAction(String actionName, String tooltipText,
 			Integer mnemonic, KeyStroke keyStroke, SVGView parent) {
 		putValue(Action.NAME,actionName);
@@ -39,14 +47,18 @@ public abstract class SVGViewMenuAction extends AbstractAction {
 		putValue(ACCELERATOR_KEY, keyStroke);
 		this.parent = parent;
 	}
-
+	
 	public static class OpenFileAction extends SVGViewMenuAction {
 		private static final long serialVersionUID = -7823707833188816535L;
 
 		public OpenFileAction(SVGView parent) {
-			super("Open", "Open a file", KeyEvent.VK_O, KeyStroke.getKeyStroke(KeyEvent.VK_O, ActionEvent.CTRL_MASK), parent);
+			super("Open a file", KeyEvent.VK_O, KeyStroke.getKeyStroke(KeyEvent.VK_O, ActionEvent.CTRL_MASK), parent);
 		}
 
+		public OpenFileAction(SVGView parent, String actionName){
+			super(actionName, "Open a file", KeyEvent.VK_O, KeyStroke.getKeyStroke(KeyEvent.VK_O, ActionEvent.CTRL_MASK), parent);
+		}
+		
 		@Override
 		public void actionPerformed(ActionEvent event) {
 			JFileChooser fc = new JFileChooser();
@@ -65,9 +77,12 @@ public abstract class SVGViewMenuAction extends AbstractAction {
 		private static final long serialVersionUID = 6507259946341784118L;
 
 		public ExitAction(SVGView parent) {
-			super("Exit", null, KeyEvent.VK_X, KeyStroke.getKeyStroke(KeyEvent.VK_F4, ActionEvent.ALT_MASK), parent);
+			super(null, KeyEvent.VK_X, KeyStroke.getKeyStroke(KeyEvent.VK_F4, ActionEvent.ALT_MASK), parent);
 		}
 
+		public ExitAction(SVGView parent, String actionName) {
+			super("Exit", null, KeyEvent.VK_X, KeyStroke.getKeyStroke(KeyEvent.VK_F4, ActionEvent.ALT_MASK), parent);
+		}
 		@Override
 		public void actionPerformed(ActionEvent event) {
 			int closeCf = JOptionPane.showConfirmDialog(null, "Exit SVG Editor?", "Confirm exit", JOptionPane.WARNING_MESSAGE);
@@ -83,12 +98,11 @@ public abstract class SVGViewMenuAction extends AbstractAction {
 		private ZoomOutViewAction zoomOutPartnerAction;
 
 		public ZoomInViewAction(SVGView parent) {
-			this(parent, null);
+			super("Zoom In", KeyEvent.VK_I, KeyStroke.getKeyStroke(KeyEvent.VK_EQUALS, ActionEvent.CTRL_MASK), parent);
 		}
 
-		public ZoomInViewAction(SVGView parent, ZoomOutViewAction zoomOutPartnerAction) {
-			super("Zoom In", null, KeyEvent.VK_I, KeyStroke.getKeyStroke(KeyEvent.VK_EQUALS, ActionEvent.CTRL_MASK), parent);
-			this.zoomOutPartnerAction = zoomOutPartnerAction;
+		public ZoomInViewAction(SVGView parent, String actionName) {
+			super(actionName, "Zoom In", KeyEvent.VK_I, KeyStroke.getKeyStroke(KeyEvent.VK_EQUALS, ActionEvent.CTRL_MASK), parent);
 		}
 
 		public void setZoomOutPartnerAction(ZoomOutViewAction zoomOutPartnerAction){
@@ -107,9 +121,13 @@ public abstract class SVGViewMenuAction extends AbstractAction {
 		private static final long serialVersionUID = -6578149781110081473L;
 
 		public ZoomOutViewAction(SVGView parent) {
-			super("Zoom Out", null, KeyEvent.VK_O, KeyStroke.getKeyStroke(KeyEvent.VK_MINUS, ActionEvent.CTRL_MASK), parent);
+			super("Zoom Out", KeyEvent.VK_O, KeyStroke.getKeyStroke(KeyEvent.VK_MINUS, ActionEvent.CTRL_MASK), parent);
 			setEnabled(false);
-
+		}
+		
+		public ZoomOutViewAction(SVGView parent, String actionName) {
+			super(actionName, "Zoom Out", KeyEvent.VK_O, KeyStroke.getKeyStroke(KeyEvent.VK_MINUS, ActionEvent.CTRL_MASK), parent);
+			setEnabled(false);
 		}
 
 		@Override

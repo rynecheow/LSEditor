@@ -47,8 +47,6 @@ public class SVGViewButton extends JButton {
 		super(text, icon);
 		setBorder(null);
 	}
-
-	
 	
 	public SVGViewButton(String text, String iconPath) {
 		super(text, createIcon(iconPath));
@@ -68,5 +66,15 @@ public class SVGViewButton extends JButton {
 		}
 		System.err.println("Could not find file: " + path);
 		return null;
+	}
+	/**
+	 * Sets the button's default icon. 
+     * 
+	 * @param iconPath
+	 */
+	public void setIcon(String iconPath){
+		ImageIcon icon = createIcon(iconPath);
+		super.setIcon(icon);
+		setBorder(null);
 	}
 }
