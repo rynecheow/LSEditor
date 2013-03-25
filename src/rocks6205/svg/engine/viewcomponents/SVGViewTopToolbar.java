@@ -90,28 +90,18 @@ public class SVGViewTopToolbar extends JPanel {
 		saveButton.setEnabled(false);
 	}
 
-	/*
-	 * ACCESSORS
+	/**
+	 * Setup actions for button
 	 */
-	public OpenFileAction getOpenAction() {
-		return openAct;
-	}
-
-	public ZoomInViewAction getZoomInAction() {
-		return zoomInAction;
-	}
-
-	public ZoomOutViewAction getZoomOutAction() {
-		return zoomOutAction;
-	}
-
-
 	private void setActionForButtons() {
 		openButton.setAction(getOpenAction());
 		zoomInButton.setAction(getZoomInAction());
 		zoomOutButton.setAction(getZoomOutAction());
 	}
-
+	
+	/**
+	 * Setup icons for button
+	 */
 	private void setIconsForButtons() {
 		String newFileIconPath = "imageicon/newfile.png";
 		String openFileIconPath = "imageicon/openfile.png";
@@ -125,4 +115,20 @@ public class SVGViewTopToolbar extends JPanel {
 		zoomInButton.setIcon(zoomInIconPath);
 		zoomOutButton.setIcon(zoomOutIconPath);
 	}	
+
+	/*
+	 * ACCESSORS
+	 */
+	private OpenFileAction getOpenAction() {
+		return openAct;
+	}
+
+	private ZoomInViewAction getZoomInAction() {
+		return zoomInAction;
+	}
+
+	private ZoomOutViewAction getZoomOutAction() {
+		return zoomOutAction;
+	}
+
 }

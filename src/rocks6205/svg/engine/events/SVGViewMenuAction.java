@@ -139,6 +139,4 @@ public abstract class SVGViewMenuAction extends AbstractAction {
 			}
 		}
 	}
-
-
 }

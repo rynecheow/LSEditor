@@ -39,6 +39,11 @@ public class SVGViewBottomToolbar extends JPanel {
 	private JSeparator separator_1, separator_2;
 
 	/*
+	 * ACTION COMPONENTS
+	 */
+
+
+	/*
 	 * CONSTRUCTOR
 	 */
 	public SVGViewBottomToolbar(SVGView view) {
@@ -53,16 +58,16 @@ public class SVGViewBottomToolbar extends JPanel {
 	 * Initialisation of GUI components
 	 */
 	private void initialise() {
-		insertRectButton = new SVGViewButton("", "imageicon/rectangle.png");
-		insertCircButton = new SVGViewButton("", "imageicon/circle.png");
-		insertLineButton = new SVGViewButton("", "imageicon/line.png");
+		insertRectButton = new SVGViewButton();
+		insertCircButton = new SVGViewButton();
+		insertLineButton = new SVGViewButton();
 
-		fillButton = new SVGViewButton("", "imageicon/fillcolor.jpg");
-		strokeButton = new SVGViewButton("", "imageicon/stroke.jpg");
-		strokeWidthButton = new SVGViewButton("", "imageicon/width.jpg");
+		fillButton = new SVGViewButton();
+		strokeButton = new SVGViewButton();
+		strokeWidthButton = new SVGViewButton();
 
-		groupButton = new SVGViewButton("", "imageicon/grouped.jpg");
-		ungroupButton = new SVGViewButton("", "imageicon/ungrp.jpg");
+		groupButton = new SVGViewButton();
+		ungroupButton = new SVGViewButton();
 
 		backgroundPanel = new JPanel();
 
@@ -78,6 +83,31 @@ public class SVGViewBottomToolbar extends JPanel {
 		layoutBackgroundPanel();
 		add(backgroundPanel);
 		disableUnused();
+		setIconsForButtons();
+	}
+
+	private void setIconsForButtons() {
+		String rectangleIconPath = "imageicon/rectangle.png";
+		String circleIconPath = "imageicon/circle.png";
+		String lineIconPath = "imageicon/line.png";
+
+		String fillColorIconPath = "imageicon/fillcolor.jpg";
+		String strokeColorIconPath = "imageicon/stroke.jpg";
+		String strokeWidthIconPath = "imageicon/width.jpg";
+
+		String groupIconPath = "imageicon/grouped.jpg";
+		String ungroupIconPath = "imageicon/ungrp.jpg";
+
+		insertRectButton.setIcon(rectangleIconPath);
+		insertCircButton.setIcon(circleIconPath);
+		insertLineButton.setIcon(lineIconPath);
+
+		fillButton.setIcon(fillColorIconPath);
+		strokeButton.setIcon(strokeColorIconPath);
+		strokeWidthButton.setIcon(strokeWidthIconPath);
+
+		groupButton.setIcon(groupIconPath);
+		ungroupButton.setIcon(ungroupIconPath);
 	}
 
 	/**
