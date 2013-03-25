@@ -9,9 +9,6 @@
  */
 
 package rocks6205.svg.engine;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
 import java.io.File;
 
 import org.w3c.dom.Document;
@@ -20,7 +17,7 @@ import org.xml.sax.InputSource;
 import rocks6205.svg.elements.SVGSVGElement;
 import rocks6205.svgParser.XMLParser;
 
-public class SVGViewController implements MouseMotionListener, MouseListener {
+public class SVGViewController{
 	/*
 	 * PROPERTIES
 	 */
@@ -80,47 +77,5 @@ public class SVGViewController implements MouseMotionListener, MouseListener {
 				model.render();
 			}
 		}
-	}
-
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mouseDragged(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mouseMoved(MouseEvent e) {
-		// TODO Auto-generated method stub
-
 	}
 }

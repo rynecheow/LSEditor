@@ -1,4 +1,5 @@
 *.class
+*.cvsignore
 
 # Package Files #
 *.jar
