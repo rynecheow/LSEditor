@@ -104,7 +104,7 @@ public class SVGViewTopToolbar extends JPanel {
 	 */
 	private void setIconsForButtons() {
 		String newFileIconPath = "imageicon/newfile.png";
-		String openFileIconPath = "imageicon/openfile.png";
+		String openFileIconPath = "imageicon/openfolder.png";
 		String saveFileIconPath = "imageicon/save.png";
 		String zoomInIconPath = "imageicon/zoomin.png";
 		String zoomOutIconPath = "imageicon/zoomout.png";

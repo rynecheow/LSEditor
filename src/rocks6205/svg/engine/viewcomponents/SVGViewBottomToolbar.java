@@ -91,12 +91,12 @@ public class SVGViewBottomToolbar extends JPanel {
 		String circleIconPath = "imageicon/circle.png";
 		String lineIconPath = "imageicon/line.png";
 
-		String fillColorIconPath = "imageicon/fillcolor.jpg";
-		String strokeColorIconPath = "imageicon/stroke.jpg";
-		String strokeWidthIconPath = "imageicon/width.jpg";
+		String fillColorIconPath = "imageicon/fillcolor.png";
+		String strokeColorIconPath = "imageicon/stroke.png";
+		String strokeWidthIconPath = "imageicon/width.png";
 
-		String groupIconPath = "imageicon/grouped.jpg";
-		String ungroupIconPath = "imageicon/ungrp.jpg";
+		String groupIconPath = "imageicon/grouped.png";
+		String ungroupIconPath = "imageicon/ungrp.png";
 
 		insertRectButton.setIcon(rectangleIconPath);
 		insertCircButton.setIcon(circleIconPath);
