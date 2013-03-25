@@ -76,7 +76,7 @@ public class SVGView extends JFrame implements Observer {
 		menuBar = new SVGViewMenubar(this);
 		topTool = new SVGViewTopToolbar(this);
 		bottomTool = new SVGViewBottomToolbar(this);
-		delete = new SVGViewDeleteAccessoryPanel();
+		delete = new SVGViewDeleteAccessoryPanel(this);
 
 		renderPanel = new SVGViewport(this);
 		panelTop = new JPanel();

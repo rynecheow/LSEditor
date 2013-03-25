@@ -87,7 +87,7 @@ public class SVGViewMenubar extends JMenuBar {
 		zoomOutMenuItem = new JMenuItem("Zoom Out");
 		faqMenuItem = new JMenuItem("FAQ");
 		aboutMenuItem = new JMenuItem("About");
-		
+
 		openAct = new OpenFileAction(parent);
 		zoomOutAction = new ZoomOutViewAction(parent);
 		zoomInAction = new ZoomInViewAction(parent);
