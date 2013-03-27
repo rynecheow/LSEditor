@@ -10,7 +10,6 @@
 package rocks6205.svg.elements;
 
 import java.awt.BasicStroke;
-import java.awt.Color;
 import java.awt.geom.Rectangle2D;
 
 import org.w3c.dom.Element;
@@ -23,180 +22,180 @@ import rocks6205.svgFamily.SVGImageCanvas;
 
 public abstract class SVGGenericElement {
 
-    public static final String SVGDefaultNamespace = "http://www.w3.org/2000/svg";
+	public static final String SVGDefaultNamespace = "http://www.w3.org/2000/svg";
 
-    /*
-     * DEFAULT ATTRIBUTES FOR PRESENTATION
-     */
-    public static final SVGPainting SVG_FILL_DEFAULT = new SVGPainting(new SVGColorScheme(0,0,0,0));
+	/*
+	 * DEFAULT ATTRIBUTES FOR PRESENTATION
+	 */
+	public static final SVGPainting SVG_FILL_DEFAULT = new SVGPainting(SVGColorScheme.getColorFromKeyword("black"));
 
-    public static final SVGPainting SVG_STROKE_DEFAULT = new SVGPainting(SVGPaintingType.NONE);
-    public static final SVGLengthUnit SVG_STROKE_WIDTH_DEFAULT = new SVGLengthUnit(1);
-    public static final int SVG_STROKE_LINECAP_DEFAULT = BasicStroke.CAP_BUTT;
-    public static final int SVG_STROKE_LINEJOIN_DEFAULT = BasicStroke.JOIN_MITER;
+	public static final SVGPainting SVG_STROKE_DEFAULT = new SVGPainting(SVGPaintingType.NONE);
+	public static final SVGLengthUnit SVG_STROKE_WIDTH_DEFAULT = new SVGLengthUnit(1);
+	public static final int SVG_STROKE_LINECAP_DEFAULT = BasicStroke.CAP_BUTT;
+	public static final int SVG_STROKE_LINEJOIN_DEFAULT = BasicStroke.JOIN_MITER;
 
-    /*
-     * PROPERTIES
-     */
-    private SVGContainerElement ancestorElement;
+	/*
+	 * PROPERTIES
+	 */
+	private SVGContainerElement ancestorElement;
 
-    private SVGPainting fill;
-    private SVGPainting stroke;
-    private SVGLengthUnit strokeWidth;
-    private int strokeLineCap;
-    private int strokeLineJoin;
+	private SVGPainting fill;
+	private SVGPainting stroke;
+	private SVGLengthUnit strokeWidth;
+	private int strokeLineCap;
+	private int strokeLineJoin;
 
-    /*
-     * ABSTRACT METHODS
-     */
-    public abstract Rectangle2D.Float getBounds();
-    public abstract SVGImageCanvas draw();
+	/*
+	 * ABSTRACT METHODS
+	 */
+	public abstract Rectangle2D.Float getBounds();
+	public abstract SVGImageCanvas draw();
 
-    /*
-     * ACCESSORS
-     */
+	/*
+	 * ACCESSORS
+	 */
 
-    /**
-     * @return Origin element
-     */
-    public SVGContainerElement getAncestorElement(){
-	return this.ancestorElement;
-    }
-
-    /**
-     * 
-     * @return 
-     */
-    public SVGPainting getFill() {
-	SVGPainting fill = this.fill;
-
-	boolean isFillNull = (fill == null);
-	if (!isFillNull) return fill;
-
-	for (SVGContainerElement origin = getAncestorElement(); isFillNull && origin !=null; origin = origin.getAncestorElement()) {
-	    if (origin.getFill() != null) {
-		return origin.getFill();
-	    }
+	/**
+	 * @return Origin element
+	 */
+	public SVGContainerElement getAncestorElement(){
+		return this.ancestorElement;
 	}
-	return SVG_FILL_DEFAULT;
-    }
 
-    /**
-     * 
-     * @return
-     */
-    public SVGPainting getStroke() {
-	SVGPainting stroke = this.stroke;
-	boolean isStrokeNull = (stroke == null);
-	if (!isStrokeNull) return stroke;
+	/**
+	 * 
+	 * @return 
+	 */
+	public SVGPainting getFill() {
+		SVGPainting fill = this.fill;
+		
+		boolean isFillNull = (fill == null);
+		if (!isFillNull) return fill;
 
-	for (SVGContainerElement origin = getAncestorElement(); isStrokeNull && origin != null; origin = origin.getAncestorElement()) {
-	    if (origin.getStroke() != null) {
-		return origin.getStroke();
-	    }
+		for (SVGContainerElement origin = getAncestorElement(); isFillNull && origin !=null; origin = origin.getAncestorElement()) {
+			if (origin.getFill() != null) {
+				return origin.getFill();
+			}
+		}
+		return SVG_FILL_DEFAULT;
 	}
-	return SVG_STROKE_DEFAULT;
-    }
 
-    /**
-     * 
-     * @return
-     */
-    public SVGLengthUnit getStrokeWidth() {
-	SVGLengthUnit strokeWidth = this.strokeWidth;
+	/**
+	 * 
+	 * @return
+	 */
+	public SVGPainting getStroke() {
+		SVGPainting stroke = this.stroke;
+		boolean isStrokeNull = (stroke == null);
+		if (!isStrokeNull) return stroke;
 
-	boolean isStrokeWidthNull = (strokeWidth == null);
-	if (!isStrokeWidthNull) return strokeWidth;
-
-	for (SVGContainerElement origin = getAncestorElement(); isStrokeWidthNull && origin!=null; origin = origin.getAncestorElement()) {
-	    if (origin.getStrokeWidth() != null) {
-		return origin.getStrokeWidth();
-	    }
+		for (SVGContainerElement origin = getAncestorElement(); isStrokeNull && origin != null; origin = origin.getAncestorElement()) {
+			if (origin.getStroke() != null) {
+				return origin.getStroke();
+			}
+		}
+		return SVG_STROKE_DEFAULT;
 	}
-	return SVG_STROKE_WIDTH_DEFAULT;
-    }
 
-    /**
-     * 
-     * @return
-     */
-    public int getStrokeLineCap() {
-	return this.strokeLineCap;
-    }
+	/**
+	 * 
+	 * @return
+	 */
+	public SVGLengthUnit getStrokeWidth() {
+		SVGLengthUnit strokeWidth = this.strokeWidth;
+		
+		boolean isStrokeWidthNull = (strokeWidth == null);
+		if (!isStrokeWidthNull) return strokeWidth;
 
-    /**
-     * 
-     * @return
-     */
-    public int getStrokeLineJoin() {
-	return strokeLineJoin;
-    }
+		for (SVGContainerElement origin = getAncestorElement(); isStrokeWidthNull && origin!=null; origin = origin.getAncestorElement()) {
+			if (origin.getStrokeWidth() != null) {
+				return origin.getStrokeWidth();
+			}
+		}
+		return SVG_STROKE_WIDTH_DEFAULT;
+	}
 
-    /*
-     * MUTATORS
-     */
-    /**
-     * @param originElement
-     */
-    public void setAncestorElement(SVGContainerElement ancestorElement) {
-	this.ancestorElement = ancestorElement;
-    }
+	/**
+	 * 
+	 * @return
+	 */
+	public int getStrokeLineCap() {
+		return this.strokeLineCap;
+	}
 
-    /**
-     * @param fill
-     */
-    public void setFill(SVGPainting fill) {
-	this.fill = fill;
-    }
+	/**
+	 * 
+	 * @return
+	 */
+	public int getStrokeLineJoin() {
+		return strokeLineJoin;
+	}
 
-    /**
-     * @param stroke
-     */
-    public void setStroke(SVGPainting stroke) {
-	this.stroke = stroke;
-    }
+	/*
+	 * MUTATORS
+	 */
+	/**
+	 * @param originElement
+	 */
+	public void setAncestorElement(SVGContainerElement ancestorElement) {
+		this.ancestorElement = ancestorElement;
+	}
 
-    /**
-     * @param strokeWidth
-     */
-    public void setStrokeWidth(SVGLengthUnit strokeWidth) {
-	boolean valid = (strokeWidth == null) || (strokeWidth.getValue() >= 0);
+	/**
+	 * @param fill
+	 */
+	public void setFill(SVGPainting fill) {
+		this.fill = fill;
+	}
 
-	if (valid) this.strokeWidth = strokeWidth;
-    }
+	/**
+	 * @param stroke
+	 */
+	public void setStroke(SVGPainting stroke) {
+		this.stroke = stroke;
+	}
 
-    /**
-     * @param strokeLinecap
-     */
-    public void setStrokeLineCap(int strokeLineCap) {
-	boolean valid =  strokeLineCap == BasicStroke.CAP_ROUND; 
-	valid |= strokeLineCap == BasicStroke.CAP_BUTT;
-	valid |= strokeLineCap == BasicStroke.CAP_SQUARE;
+	/**
+	 * @param strokeWidth
+	 */
+	public void setStrokeWidth(SVGLengthUnit strokeWidth) {
+		boolean valid = (strokeWidth == null) || (strokeWidth.getValue() >= 0);
 
-	if (valid) this.strokeLineCap = strokeLineCap;
-    }
+		if (valid) this.strokeWidth = strokeWidth;
+	}
 
-    /**
-     * @param strokeLineJoin
-     */
-    public void setStrokeLineJoin(int strokeLineJoin) {
-	boolean valid = strokeLineJoin == BasicStroke.JOIN_BEVEL;
-	valid |=  strokeLineJoin == BasicStroke.JOIN_MITER;
-	valid |=  strokeLineJoin == BasicStroke.JOIN_ROUND;
+	/**
+	 * @param strokeLinecap
+	 */
+	public void setStrokeLineCap(int strokeLineCap) {
+		boolean valid =  strokeLineCap == BasicStroke.CAP_ROUND; 
+		valid |= strokeLineCap == BasicStroke.CAP_BUTT;
+		valid |= strokeLineCap == BasicStroke.CAP_SQUARE;
 
-	if (valid) this.strokeLineJoin = strokeLineJoin;
-    }
+		if (valid) this.strokeLineCap = strokeLineCap;
+	}
 
-    /*
-     * METHODS
-     */
-    /**
-     * 
-     * @param e
-     */
-    public void parseAttributes(Element e) {
-	setFill(SVGPainting.parse(e.getAttributeNS(null, "fill")));
-	setStroke(SVGPainting.parse(e.getAttributeNS(null, "stroke")));
-	setStrokeWidth(SVGLengthUnit.parse(e.getAttributeNS(null,"stroke-width")));
-    }
+	/**
+	 * @param strokeLineJoin
+	 */
+	public void setStrokeLineJoin(int strokeLineJoin) {
+		boolean valid = strokeLineJoin == BasicStroke.JOIN_BEVEL;
+		valid |=  strokeLineJoin == BasicStroke.JOIN_MITER;
+		valid |=  strokeLineJoin == BasicStroke.JOIN_ROUND;
+
+		if (valid) this.strokeLineJoin = strokeLineJoin;
+	}
+
+	/*
+	 * METHODS
+	 */
+	/**
+	 * 
+	 * @param e
+	 */
+	public void parseAttributes(Element e) {
+		setFill(SVGPainting.parse(e.getAttributeNS(null, "fill")));
+		setStroke(SVGPainting.parse(e.getAttributeNS(null, "stroke")));
+		setStrokeWidth(SVGLengthUnit.parse(e.getAttributeNS(null,"stroke-width")));
+	}
 }
