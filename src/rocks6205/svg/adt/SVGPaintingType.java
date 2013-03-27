@@ -1,17 +1,14 @@
-/**
- * 
- * Class: SVGPaintingType
- * Description: Enumerates painting type recognized by data type <paint> in SVG specified in 11.2 
- * Refer to : <a href="http://www.w3.org/TR/SVG/painting.html#SpecifyingPaint"/>
- * @author: Cheow Yeong Chi
- * @date: 16/03/2013
- * 
- */
-
 package rocks6205.svg.adt;
 
-public enum SVGPaintingType {
-    NONE, 
-    CURRENTCOLOR, 
-    COLOR
-}
+/**
+ *
+ * Enumerates painting type recognized by data type <code>paint</code> in SVG specified in 11.2 <p>
+ * Refer to : <a href="http://www.w3.org/TR/SVG/painting.html#SpecifyingPaint">Scalable Vector Graphics
+ * (SVG) 1.1 - Specifying paint</a> 
+ *
+ * @author Cheow Yeong Chi
+ *
+ * @since 1.0
+ *
+ */
+public enum SVGPaintingType { NONE, CURRENTCOLOR, COLOR }

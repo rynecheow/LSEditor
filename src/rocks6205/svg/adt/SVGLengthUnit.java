@@ -6,13 +6,16 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * The <code>SVGLengthUnit</code> class is used to parse <code>length</code> elements in
+ * The <code>SVGLengthUnit</code> class is used to parse <code>length</code> attribute in
  * SVG documents and convert to floating points with respective type to be presented
  * on Java.
+ * <p>
+ * <code>SVGLengthUnit</code> is used for <code>coordinates</code>, <code>stroke-width</code>, 
+ * <code>width</code>, <code>height</code>, etc.
  *
- * @author: Cheow Yeong Chi
- * @date: 16/03/2013
+ * @author Cheow Yeong Chi
  *
+ * @since 1.0
  */
 public class SVGLengthUnit {
 
