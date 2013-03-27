@@ -64,6 +64,7 @@ public class SVGView extends JFrame implements Observer {
 	 * CONSTRUCTOR
 	 */
 	public SVGView() {
+		super();
 		initialise();
 		customise();
 	}

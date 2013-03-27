@@ -10,6 +10,7 @@
 package rocks6205.svg.elements;
 
 import java.awt.BasicStroke;
+import java.awt.Color;
 import java.awt.geom.Rectangle2D;
 
 import org.w3c.dom.Element;
@@ -27,7 +28,7 @@ public abstract class SVGGenericElement {
 	/*
 	 * DEFAULT ATTRIBUTES FOR PRESENTATION
 	 */
-	public static final SVGPainting SVG_FILL_DEFAULT = new SVGPainting(SVGColorScheme.getColorFromKeyword("black"));
+	public static final SVGPainting SVG_FILL_DEFAULT = new SVGPainting(new SVGColorScheme(0,0,0,0));
 
 	public static final SVGPainting SVG_STROKE_DEFAULT = new SVGPainting(SVGPaintingType.NONE);
 	public static final SVGLengthUnit SVG_STROKE_WIDTH_DEFAULT = new SVGLengthUnit(1);

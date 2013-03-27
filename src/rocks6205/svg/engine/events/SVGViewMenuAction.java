@@ -39,9 +39,9 @@ public abstract class SVGViewMenuAction extends AbstractAction {
 		this.parent = parent;
 	}
 
-	public SVGViewMenuAction(String actionName, String tooltipText,
+	public SVGViewMenuAction(String name, String tooltipText,
 			Integer mnemonic, KeyStroke keyStroke, SVGView parent) {
-		putValue(Action.NAME,actionName);
+		putValue(Action.NAME,name);
 		putValue(SHORT_DESCRIPTION, tooltipText);
 		putValue(MNEMONIC_KEY, mnemonic);
 		putValue(ACCELERATOR_KEY, keyStroke);
@@ -77,11 +77,11 @@ public abstract class SVGViewMenuAction extends AbstractAction {
 		private static final long serialVersionUID = 6507259946341784118L;
 
 		public ExitAction(SVGView parent) {
-			super(null, KeyEvent.VK_X, KeyStroke.getKeyStroke(KeyEvent.VK_F4, ActionEvent.ALT_MASK), parent);
+			super("Exit Program", KeyEvent.VK_X, KeyStroke.getKeyStroke(KeyEvent.VK_F4, ActionEvent.ALT_MASK), parent);
 		}
 
 		public ExitAction(SVGView parent, String actionName) {
-			super("Exit", null, KeyEvent.VK_X, KeyStroke.getKeyStroke(KeyEvent.VK_F4, ActionEvent.ALT_MASK), parent);
+			super(actionName, "Exit Program", KeyEvent.VK_X, KeyStroke.getKeyStroke(KeyEvent.VK_F4, ActionEvent.ALT_MASK), parent);
 		}
 		@Override
 		public void actionPerformed(ActionEvent event) {

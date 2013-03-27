@@ -88,9 +88,10 @@ public class SVGViewMenubar extends JMenuBar {
 		faqMenuItem = new JMenuItem("FAQ");
 		aboutMenuItem = new JMenuItem("About");
 
-		openAct = new OpenFileAction(parent);
-		zoomOutAction = new ZoomOutViewAction(parent);
-		zoomInAction = new ZoomInViewAction(parent);
+		openAct = new OpenFileAction(parent, "Open File...");
+		exitAct = new SVGViewMenuAction.ExitAction(parent, "Exit");
+		zoomOutAction = new ZoomOutViewAction(parent, "Zoom Out");
+		zoomInAction = new ZoomInViewAction(parent, "Zoom In");
 	}
 
 
@@ -104,7 +105,6 @@ public class SVGViewMenubar extends JMenuBar {
 		layoutInsertMenuItemList();
 		layoutWindowMenuItemList();
 		layoutHelpMenuItemList();
-		setActionForMenuItem();
 		disableUnused();
 		add(fileMenu);
 		add(editMenu);
@@ -112,6 +112,7 @@ public class SVGViewMenubar extends JMenuBar {
 		add(windowMenu);
 		add(helpMenu);
 		zoomInAction.setZoomOutPartnerAction(zoomOutAction);
+		setActionForMenuItem();
 	}
 
 
@@ -206,22 +207,22 @@ public class SVGViewMenubar extends JMenuBar {
 	 * MUTATORS
 	 */
 	public SVGViewMenuAction.OpenFileAction getOpenAction() {
-		if(openAct == null) openAct = new SVGViewMenuAction.OpenFileAction(parent);
+		if(openAct == null) openAct = new SVGViewMenuAction.OpenFileAction(parent, "Open File...");
 		return openAct;
 	}
 
 	public ExitAction getExitAct() {
-		if(exitAct == null) exitAct = new SVGViewMenuAction.ExitAction(parent);
+		if(exitAct == null) exitAct = new SVGViewMenuAction.ExitAction(parent, "Exit");
 		return exitAct;
 	}
 
 	public ZoomInViewAction getZoomInAction() {
-		if(zoomInAction == null) zoomInAction = new ZoomInViewAction(parent);
+		if(zoomInAction == null) zoomInAction = new ZoomInViewAction(parent, "Zoom In");
 		return zoomInAction;
 	}
 
 	public ZoomOutViewAction getZoomOutAction() {
-		if(zoomOutAction == null) zoomOutAction = new ZoomOutViewAction(parent);
+		if(zoomOutAction == null) zoomOutAction = new ZoomOutViewAction(parent, "Zoom Out");
 		return zoomOutAction;
 	}
 }
