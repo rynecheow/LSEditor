@@ -204,7 +204,7 @@ public class SVGLineElement extends SVGGenericElement {
     /**
      * Parse line element from DOM level to object interpretable as defined
      *
-     * @param element         Element get from the XML Parser
+     * @param element         Element from the document returned by the XMLParser
      * @return                Line element parsed from Element to be drawn
      */
     public static SVGLineElement parseElement(Element element) {

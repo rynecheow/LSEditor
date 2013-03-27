@@ -207,7 +207,7 @@ public class SVGRectElement extends SVGGenericElement {
     /**
      * Parse rectangle element from DOM level to object interpretable as defined
      *
-     * @param element   Element get from the XML Parser
+     * @param element   Element from the document returned by the XMLParser
      * @return          Rectangle element to be drawn parsed from <code>e</code>
      */
     public static SVGRectElement parseElement(Element element) {
