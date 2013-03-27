@@ -22,111 +22,111 @@ import rocks6205.svgFamily.SVGImageCanvas;
 
 
 public class SVGSVGElement extends SVGContainerElement {
-	private SVGLengthUnit width = new SVGLengthUnit(1000); ///default to 1000x1000
-	private SVGLengthUnit height = new SVGLengthUnit(1000);
+    private SVGLengthUnit width = new SVGLengthUnit(1000); ///default to 1000x1000
+    private SVGLengthUnit height = new SVGLengthUnit(1000);
 
-	public SVGSVGElement(SVGLengthUnit width, SVGLengthUnit height) {
-		setWidth(width);
-		setHeight(height);
-		setFill(SVG_FILL_DEFAULT);
-		setStroke(SVG_STROKE_DEFAULT);
-		setStrokeWidth(SVG_STROKE_WIDTH_DEFAULT);
-		setStrokeLineCap(SVG_STROKE_LINECAP_DEFAULT);
-		setStrokeLineJoin(SVG_STROKE_LINEJOIN_DEFAULT);
-	}
+    public SVGSVGElement(SVGLengthUnit width, SVGLengthUnit height) {
+	setWidth(width);
+	setHeight(height);
+	setFill(SVG_FILL_DEFAULT);
+	setStroke(SVG_STROKE_DEFAULT);
+	setStrokeWidth(SVG_STROKE_WIDTH_DEFAULT);
+	setStrokeLineCap(SVG_STROKE_LINECAP_DEFAULT);
+	setStrokeLineJoin(SVG_STROKE_LINEJOIN_DEFAULT);
+    }
 
-	public SVGLengthUnit getWidth() {
-		return width;
-	}
+    public SVGLengthUnit getWidth() {
+	return width;
+    }
 
-	public final void setWidth(SVGLengthUnit width) {
-		if (width != null)		this.width = width;
-	}
+    public final void setWidth(SVGLengthUnit width) {
+	if (width != null)		this.width = width;
+    }
 
-	public SVGLengthUnit getHeight() {
-		return height;
-	}
+    public SVGLengthUnit getHeight() {
+	return height;
+    }
 
-	public final void setHeight(SVGLengthUnit height) {
-		if (height != null) 	this.height = height;
-	}
+    public final void setHeight(SVGLengthUnit height) {
+	if (height != null) 	this.height = height;
+    }
 
-	@Override
-	public Rectangle2D.Float getBounds() {
-		return new Rectangle2D.Float(0, 0, width.getValue(), height.getValue());
-	}
+    @Override
+    public Rectangle2D.Float getBounds() {
+	return new Rectangle2D.Float(0, 0, width.getValue(), height.getValue());
+    }
 
-	@Override
-	public SVGImageCanvas draw() {
-		Rectangle2D.Float childRect;
-		SVGImageCanvas svgCanvas = SVGImageCanvas.getBlankCanvas(getBounds());
+    @Override
+    public SVGImageCanvas draw() {
+	Rectangle2D.Float childRect;
+	SVGImageCanvas svgCanvas = SVGImageCanvas.getBlankCanvas(getBounds());
 
-		if (svgCanvas != null) {
-			Graphics2D g = svgCanvas.createGraphics();
+	if (svgCanvas != null) {
+	    Graphics2D g = svgCanvas.createGraphics();
 
-			for (SVGGenericElement child : getDescendants()) {
-				childRect = child.getBounds();
-				if (childRect != null) {
-					g.drawImage(child.draw(), null, (int) (SVGImageCanvas.getZoomScale() *childRect.x),
-							(int) (SVGImageCanvas.getZoomScale() *childRect.y));
-				}
-			}
+	    for (SVGGenericElement child : getDescendants()) {
+		childRect = child.getBounds();
+		if (childRect != null) {
+		    g.drawImage(child.draw(), null, (int) (SVGImageCanvas.getZoomScale() *childRect.x),
+			    (int) (SVGImageCanvas.getZoomScale() *childRect.y));
 		}
-
-		return svgCanvas;
+	    }
 	}
 
-	public static SVGSVGElement parseDocument(Document document) {
-		SVGSVGElement svg_e = null;
-		SVGContainerElement ancestorElement = null, newAncestorElement;
-		Node node = document.getDocumentElement();
-		Element e;
+	return svgCanvas;
+    }
 
-		while (node != null) {
-			newAncestorElement = null;
+    public static SVGSVGElement parseDocument(Document document) {
+	SVGSVGElement svg_e = null;
+	SVGContainerElement ancestorElement = null, newAncestorElement;
+	Node node = document.getDocumentElement();
+	Element e;
 
-			if (node.getNodeType() == Node.ELEMENT_NODE) {
-				e = (Element) node;
-				switch (e.getTagName()) {
-				case "svg":
-					SVGLengthUnit width = SVGLengthUnit.parse(e.getAttributeNS(
-							null, "width"));
-					SVGLengthUnit height = SVGLengthUnit.parse(e.getAttributeNS(
-							null, "height"));
-					svg_e = new SVGSVGElement(width, height);
-					ancestorElement = svg_e;
-					break;
-				case "g":
-					SVGGElement g_e = SVGGElement.parseElement(e);
-					ancestorElement.addDescendant(g_e);
-					newAncestorElement = g_e;
-					break;
-				case "rect":
-					ancestorElement.addDescendant(SVGRectElement.parseElement(e));
-					break;
-				case "circle":
-					ancestorElement.addDescendant(SVGCircleElement.parseElement(e));
-					break;
-				case "line":
-					ancestorElement.addDescendant(SVGLineElement.parseElement(e));
-					break;
-				}
-			}
+	while (node != null) {
+	    newAncestorElement = null;
 
-			if (node.hasChildNodes()) {
-				node = node.getFirstChild();
-				if (newAncestorElement != null) {
-					ancestorElement = newAncestorElement;
-				}
-			} else if (node.getNextSibling() != null) {
-				node = node.getNextSibling();
-			} else {
-				node = node.getParentNode().getNextSibling();
-				if (ancestorElement.getAncestorElement() != null) {
-					ancestorElement = ancestorElement.getAncestorElement();
-				}
-			}
+	    if (node.getNodeType() == Node.ELEMENT_NODE) {
+		e = (Element) node;
+		switch (e.getTagName()) {
+		case "svg":
+		    SVGLengthUnit width = SVGLengthUnit.parse(e.getAttributeNS(
+			    null, "width"));
+		    SVGLengthUnit height = SVGLengthUnit.parse(e.getAttributeNS(
+			    null, "height"));
+		    svg_e = new SVGSVGElement(width, height);
+		    ancestorElement = svg_e;
+		    break;
+		case "g":
+		    SVGGElement g_e = SVGGElement.parseElement(e);
+		    ancestorElement.addDescendant(g_e);
+		    newAncestorElement = g_e;
+		    break;
+		case "rect":
+		    ancestorElement.addDescendant(SVGRectElement.parseElement(e));
+		    break;
+		case "circle":
+		    ancestorElement.addDescendant(SVGCircleElement.parseElement(e));
+		    break;
+		case "line":
+		    ancestorElement.addDescendant(SVGLineElement.parseElement(e));
+		    break;
 		}
-		return svg_e;
+	    }
+
+	    if (node.hasChildNodes()) {
+		node = node.getFirstChild();
+		if (newAncestorElement != null) {
+		    ancestorElement = newAncestorElement;
+		}
+	    } else if (node.getNextSibling() != null) {
+		node = node.getNextSibling();
+	    } else {
+		node = node.getParentNode().getNextSibling();
+		if (ancestorElement.getAncestorElement() != null) {
+		    ancestorElement = ancestorElement.getAncestorElement();
+		}
+	    }
 	}
+	return svg_e;
+    }
 }

@@ -25,204 +25,204 @@ import rocks6205.svg.engine.events.SVGViewMenuAction.ZoomOutViewAction;
 
 public class SVGViewMenubar extends JMenuBar {
 
-	private static final long serialVersionUID = 57709812552137078L;
+    private static final long serialVersionUID = 57709812552137078L;
 
-	/*
-	 * PARENT COMPONENT
-	 */
-	private SVGView parent;
+    /*
+     * PARENT COMPONENT
+     */
+    private SVGView parent;
 
-	/*
-	 * GUI COMPONENTS
-	 */
-	JMenu fileMenu, editMenu, insertMenu, windowMenu, helpMenu;
-	JMenuItem newMenuItem, openMenuItem, saveMenuItem, saveAsMenuItem, docPropMenuItem, exitMenuItem;
-	JMenuItem selectAllMenuItem, groupMenuItem, ungroupMenuItem, deleteMenuItem;
-	JMenuItem insertRectMenuItem, insertCircleMenuItem, insertLineMenuItem;
-	JMenuItem zoomInMenuItem, zoomOutMenuItem;
-	JMenuItem faqMenuItem, aboutMenuItem;
+    /*
+     * GUI COMPONENTS
+     */
+    JMenu fileMenu, editMenu, insertMenu, windowMenu, helpMenu;
+    JMenuItem newMenuItem, openMenuItem, saveMenuItem, saveAsMenuItem, docPropMenuItem, exitMenuItem;
+    JMenuItem selectAllMenuItem, groupMenuItem, ungroupMenuItem, deleteMenuItem;
+    JMenuItem insertRectMenuItem, insertCircleMenuItem, insertLineMenuItem;
+    JMenuItem zoomInMenuItem, zoomOutMenuItem;
+    JMenuItem faqMenuItem, aboutMenuItem;
 
-	/*
-	 * ACTION COMPONENTS
-	 */
-	private OpenFileAction openAct;
-	private ExitAction exitAct;
-	private ZoomInViewAction zoomInAction;
-	private ZoomOutViewAction zoomOutAction;
+    /*
+     * ACTION COMPONENTS
+     */
+    private OpenFileAction openAct;
+    private ExitAction exitAct;
+    private ZoomInViewAction zoomInAction;
+    private ZoomOutViewAction zoomOutAction;
 
-	/*
-	 * CONSTRUCTOR
-	 */
-	public SVGViewMenubar(SVGView view) {
-		super();
-		parent = view;
-		initialise();
-		customise();
-	}
+    /*
+     * CONSTRUCTOR
+     */
+    public SVGViewMenubar(SVGView view) {
+	super();
+	parent = view;
+	initialise();
+	customise();
+    }
 
-	/**
-	 * Initialisation of GUI components
-	 */
-	private void initialise() {
-		fileMenu = new JMenu("File");
-		editMenu = new JMenu("Edit");
-		insertMenu = new JMenu("Insert");
-		windowMenu = new JMenu("Window");
-		helpMenu = new JMenu("Help");
+    /**
+     * Initialisation of GUI components
+     */
+    private void initialise() {
+	fileMenu = new JMenu("File");
+	editMenu = new JMenu("Edit");
+	insertMenu = new JMenu("Insert");
+	windowMenu = new JMenu("Window");
+	helpMenu = new JMenu("Help");
 
-		newMenuItem = new JMenuItem("New");
-		openMenuItem = new JMenuItem("Open File...");
-		saveMenuItem = new JMenuItem("Save");
-		saveAsMenuItem = new JMenuItem("Save As...");
-		docPropMenuItem = new JMenuItem("Document Properties");
-		exitMenuItem = new JMenuItem("Exit");
-		selectAllMenuItem = new JMenuItem("Select All");
-		groupMenuItem = new JMenuItem("Group");
-		ungroupMenuItem = new JMenuItem("Ungroup");
-		deleteMenuItem = new JMenuItem("Delete");
-		insertRectMenuItem = new JMenuItem("Rectangle");
-		insertCircleMenuItem = new JMenuItem("Circle");
-		insertLineMenuItem = new JMenuItem("Line");
-		zoomInMenuItem = new JMenuItem("Zoom In");
-		zoomOutMenuItem = new JMenuItem("Zoom Out");
-		faqMenuItem = new JMenuItem("FAQ");
-		aboutMenuItem = new JMenuItem("About");
+	newMenuItem = new JMenuItem("New");
+	openMenuItem = new JMenuItem("Open File...");
+	saveMenuItem = new JMenuItem("Save");
+	saveAsMenuItem = new JMenuItem("Save As...");
+	docPropMenuItem = new JMenuItem("Document Properties");
+	exitMenuItem = new JMenuItem("Exit");
+	selectAllMenuItem = new JMenuItem("Select All");
+	groupMenuItem = new JMenuItem("Group");
+	ungroupMenuItem = new JMenuItem("Ungroup");
+	deleteMenuItem = new JMenuItem("Delete");
+	insertRectMenuItem = new JMenuItem("Rectangle");
+	insertCircleMenuItem = new JMenuItem("Circle");
+	insertLineMenuItem = new JMenuItem("Line");
+	zoomInMenuItem = new JMenuItem("Zoom In");
+	zoomOutMenuItem = new JMenuItem("Zoom Out");
+	faqMenuItem = new JMenuItem("FAQ");
+	aboutMenuItem = new JMenuItem("About");
 
-		openAct = new OpenFileAction(parent, "Open File...");
-		exitAct = new SVGViewMenuAction.ExitAction(parent, "Exit");
-		zoomOutAction = new ZoomOutViewAction(parent, "Zoom Out");
-		zoomInAction = new ZoomInViewAction(parent, "Zoom In");
-	}
-
-
-	/**
-	 * Customisation of GUI Components
-	 */
-	private void customise() {
-		setMnemonicForMenus();
-		layoutFileMenuItemList();
-		layoutEditMenuItemList();
-		layoutInsertMenuItemList();
-		layoutWindowMenuItemList();
-		layoutHelpMenuItemList();
-		disableUnused();
-		add(fileMenu);
-		add(editMenu);
-		add(insertMenu);
-		add(windowMenu);
-		add(helpMenu);
-		zoomInAction.setZoomOutPartnerAction(zoomOutAction);
-		setActionForMenuItem();
-	}
+	openAct = new OpenFileAction(parent, "Open File...");
+	exitAct = new SVGViewMenuAction.ExitAction(parent, "Exit");
+	zoomOutAction = new ZoomOutViewAction(parent, "Zoom Out");
+	zoomInAction = new ZoomInViewAction(parent, "Zoom In");
+    }
 
 
-	/**
-	 * Setting up mnemonic keys events for respective file menu
-	 */
-	private void setMnemonicForMenus() {
-		fileMenu.setMnemonic(KeyEvent.VK_F);
-		editMenu.setMnemonic(KeyEvent.VK_E);
-		insertMenu.setMnemonic(KeyEvent.VK_I);
-		windowMenu.setMnemonic(KeyEvent.VK_W);
-		helpMenu.setMnemonic(KeyEvent.VK_H);
-	}
-
-	/**
-	 * Layout file menu with menu items
-	 */
-	private void layoutFileMenuItemList() {
-		fileMenu.add(newMenuItem);
-		fileMenu.add(openMenuItem);
-		fileMenu.addSeparator();
-		fileMenu.add(saveMenuItem);
-		fileMenu.add(saveAsMenuItem);
-		fileMenu.addSeparator();
-		fileMenu.add(docPropMenuItem);
-		fileMenu.addSeparator();
-		fileMenu.add(exitMenuItem);
-	}
-
-	/**
-	 * Layout file menu with menu items
-	 */
-	private void layoutEditMenuItemList() {
-		editMenu.add(selectAllMenuItem);
-		editMenu.addSeparator();
-		editMenu.add(groupMenuItem);
-		editMenu.add(ungroupMenuItem);
-		editMenu.addSeparator();
-		editMenu.add(deleteMenuItem);
-	}
-
-	/**
-	 * Layout file menu with menu items
-	 */
-	private void layoutInsertMenuItemList() {
-		insertMenu.add(insertRectMenuItem);
-		insertMenu.add(insertCircleMenuItem);
-		insertMenu.add(insertLineMenuItem);
-	}
-
-	/**
-	 * Layout file menu with menu items
-	 */
-	private void layoutHelpMenuItemList() {
-		helpMenu.add(faqMenuItem);
-		helpMenu.add(aboutMenuItem);
-	}
+    /**
+     * Customisation of GUI Components
+     */
+    private void customise() {
+	setMnemonicForMenus();
+	layoutFileMenuItemList();
+	layoutEditMenuItemList();
+	layoutInsertMenuItemList();
+	layoutWindowMenuItemList();
+	layoutHelpMenuItemList();
+	disableUnused();
+	add(fileMenu);
+	add(editMenu);
+	add(insertMenu);
+	add(windowMenu);
+	add(helpMenu);
+	zoomInAction.setZoomOutPartnerAction(zoomOutAction);
+	setActionForMenuItem();
+    }
 
 
-	/**
-	 * Layout file menu with menu items
-	 */
-	private void layoutWindowMenuItemList() {
-		windowMenu.add(zoomInMenuItem);
-		windowMenu.add(zoomOutMenuItem);
-	}
+    /**
+     * Setting up mnemonic keys events for respective file menu
+     */
+    private void setMnemonicForMenus() {
+	fileMenu.setMnemonic(KeyEvent.VK_F);
+	editMenu.setMnemonic(KeyEvent.VK_E);
+	insertMenu.setMnemonic(KeyEvent.VK_I);
+	windowMenu.setMnemonic(KeyEvent.VK_W);
+	helpMenu.setMnemonic(KeyEvent.VK_H);
+    }
 
-	/**
-	 * Configure action for buttons
-	 */
-	private void setActionForMenuItem() {
-		openMenuItem.setAction(getOpenAction());
-		exitMenuItem.setAction(getExitAct());
-		zoomInMenuItem.setAction(getZoomInAction());
-		zoomOutMenuItem.setAction(getZoomOutAction());
-	}
+    /**
+     * Layout file menu with menu items
+     */
+    private void layoutFileMenuItemList() {
+	fileMenu.add(newMenuItem);
+	fileMenu.add(openMenuItem);
+	fileMenu.addSeparator();
+	fileMenu.add(saveMenuItem);
+	fileMenu.add(saveAsMenuItem);
+	fileMenu.addSeparator();
+	fileMenu.add(docPropMenuItem);
+	fileMenu.addSeparator();
+	fileMenu.add(exitMenuItem);
+    }
 
-	/**
-	 * Disables unused buttons
-	 */
-	private void disableUnused() {
-		newMenuItem.setEnabled(false);
-		saveMenuItem.setEnabled(false);
-		saveAsMenuItem.setEnabled(false);
-		docPropMenuItem.setEnabled(false);
-		editMenu.setEnabled(false);
-		insertMenu.setEnabled(false);
-		helpMenu.setEnabled(false);
-	}
+    /**
+     * Layout file menu with menu items
+     */
+    private void layoutEditMenuItemList() {
+	editMenu.add(selectAllMenuItem);
+	editMenu.addSeparator();
+	editMenu.add(groupMenuItem);
+	editMenu.add(ungroupMenuItem);
+	editMenu.addSeparator();
+	editMenu.add(deleteMenuItem);
+    }
 
-	/*
-	 * MUTATORS
-	 */
-	public SVGViewMenuAction.OpenFileAction getOpenAction() {
-		if(openAct == null) openAct = new SVGViewMenuAction.OpenFileAction(parent, "Open File...");
-		return openAct;
-	}
+    /**
+     * Layout file menu with menu items
+     */
+    private void layoutInsertMenuItemList() {
+	insertMenu.add(insertRectMenuItem);
+	insertMenu.add(insertCircleMenuItem);
+	insertMenu.add(insertLineMenuItem);
+    }
 
-	public ExitAction getExitAct() {
-		if(exitAct == null) exitAct = new SVGViewMenuAction.ExitAction(parent, "Exit");
-		return exitAct;
-	}
+    /**
+     * Layout file menu with menu items
+     */
+    private void layoutHelpMenuItemList() {
+	helpMenu.add(faqMenuItem);
+	helpMenu.add(aboutMenuItem);
+    }
 
-	public ZoomInViewAction getZoomInAction() {
-		if(zoomInAction == null) zoomInAction = new ZoomInViewAction(parent, "Zoom In");
-		return zoomInAction;
-	}
 
-	public ZoomOutViewAction getZoomOutAction() {
-		if(zoomOutAction == null) zoomOutAction = new ZoomOutViewAction(parent, "Zoom Out");
-		return zoomOutAction;
-	}
+    /**
+     * Layout file menu with menu items
+     */
+    private void layoutWindowMenuItemList() {
+	windowMenu.add(zoomInMenuItem);
+	windowMenu.add(zoomOutMenuItem);
+    }
+
+    /**
+     * Configure action for buttons
+     */
+    private void setActionForMenuItem() {
+	openMenuItem.setAction(getOpenAction());
+	exitMenuItem.setAction(getExitAct());
+	zoomInMenuItem.setAction(getZoomInAction());
+	zoomOutMenuItem.setAction(getZoomOutAction());
+    }
+
+    /**
+     * Disables unused buttons
+     */
+    private void disableUnused() {
+	newMenuItem.setEnabled(false);
+	saveMenuItem.setEnabled(false);
+	saveAsMenuItem.setEnabled(false);
+	docPropMenuItem.setEnabled(false);
+	editMenu.setEnabled(false);
+	insertMenu.setEnabled(false);
+	helpMenu.setEnabled(false);
+    }
+
+    /*
+     * MUTATORS
+     */
+    public SVGViewMenuAction.OpenFileAction getOpenAction() {
+	if(openAct == null) openAct = new SVGViewMenuAction.OpenFileAction(parent, "Open File...");
+	return openAct;
+    }
+
+    public ExitAction getExitAct() {
+	if(exitAct == null) exitAct = new SVGViewMenuAction.ExitAction(parent, "Exit");
+	return exitAct;
+    }
+
+    public ZoomInViewAction getZoomInAction() {
+	if(zoomInAction == null) zoomInAction = new ZoomInViewAction(parent, "Zoom In");
+	return zoomInAction;
+    }
+
+    public ZoomOutViewAction getZoomOutAction() {
+	if(zoomOutAction == null) zoomOutAction = new ZoomOutViewAction(parent, "Zoom Out");
+	return zoomOutAction;
+    }
 }

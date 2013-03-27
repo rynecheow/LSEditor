@@ -21,114 +21,114 @@ import rocks6205.svg.engine.events.SVGViewMenuAction.ZoomOutViewAction;
 
 public class SVGViewTopToolbar extends JPanel {
 
-	private static final long serialVersionUID = -295721542850966526L;
+    private static final long serialVersionUID = -295721542850966526L;
 
-	/*
-	 * PARENT COMPONENT
-	 */
-	SVGView parent;
+    /*
+     * PARENT COMPONENT
+     */
+    SVGView parent;
 
-	/*
-	 * GUI COMPONENTS
-	 */
-	SVGViewButton newButton, openButton, saveButton, zoomInButton, zoomOutButton;
+    /*
+     * GUI COMPONENTS
+     */
+    SVGViewButton newButton, openButton, saveButton, zoomInButton, zoomOutButton;
 
-	/*
-	 * ACTION COMPONENTS
-	 */
-	private ZoomInViewAction zoomInAction;
-	private ZoomOutViewAction zoomOutAction;
-	private OpenFileAction openAct;
+    /*
+     * ACTION COMPONENTS
+     */
+    private ZoomInViewAction zoomInAction;
+    private ZoomOutViewAction zoomOutAction;
+    private OpenFileAction openAct;
 
-	/*
-	 * CONSTRUCTOR
-	 */
-	public SVGViewTopToolbar(SVGView view) {
-		super();
-		parent = view;
+    /*
+     * CONSTRUCTOR
+     */
+    public SVGViewTopToolbar(SVGView view) {
+	super();
+	parent = view;
 
-		initialise();
-		customise();
-	}
+	initialise();
+	customise();
+    }
 
 
 
-	/**
-	 * Initialisation of GUI Components
-	 */
-	private void initialise() {
-		newButton = new SVGViewButton();
-		openButton = new SVGViewButton();
-		saveButton = new SVGViewButton();
-		zoomInButton = new SVGViewButton();
-		zoomOutButton = new SVGViewButton();
+    /**
+     * Initialisation of GUI Components
+     */
+    private void initialise() {
+	newButton = new SVGViewButton();
+	openButton = new SVGViewButton();
+	saveButton = new SVGViewButton();
+	zoomInButton = new SVGViewButton();
+	zoomOutButton = new SVGViewButton();
 
-		openAct = new OpenFileAction(parent);
-		zoomInAction = new ZoomInViewAction(parent);
-		zoomOutAction = new ZoomOutViewAction(parent);
-	}
-	/**
-	 * Customisation of GUI components
-	 */
-	private void customise() {
-		add(newButton);
-		add(openButton);
-		add(saveButton);
-		add(zoomInButton);
-		add(zoomOutButton);
-		disableUnused();
-		zoomInAction.setZoomOutPartnerAction(zoomOutAction);
-		setActionForButtons();
-		setIconsForButtons();
-	}
+	openAct = new OpenFileAction(parent);
+	zoomInAction = new ZoomInViewAction(parent);
+	zoomOutAction = new ZoomOutViewAction(parent);
+    }
+    /**
+     * Customisation of GUI components
+     */
+    private void customise() {
+	add(newButton);
+	add(openButton);
+	add(saveButton);
+	add(zoomInButton);
+	add(zoomOutButton);
+	disableUnused();
+	zoomInAction.setZoomOutPartnerAction(zoomOutAction);
+	setActionForButtons();
+	setIconsForButtons();
+    }
 
-	/**
-	 * Disable temporarily unused buttons
-	 */
-	private void disableUnused() {
-		newButton.setEnabled(false);
-		saveButton.setEnabled(false);
-	}
+    /**
+     * Disable temporarily unused buttons
+     */
+    private void disableUnused() {
+	newButton.setEnabled(false);
+	saveButton.setEnabled(false);
+    }
 
-	/**
-	 * Setup actions for button
-	 */
-	private void setActionForButtons() {
-		openButton.setAction(getOpenAction());
-		zoomInButton.setAction(getZoomInAction());
-		zoomOutButton.setAction(getZoomOutAction());
-	}
-	
-	/**
-	 * Setup icons for button
-	 */
-	private void setIconsForButtons() {
-		String newFileIconPath = "imageicon/newfile.png";
-		String openFileIconPath = "imageicon/openfolder.png";
-		String saveFileIconPath = "imageicon/save.png";
-		String zoomInIconPath = "imageicon/zoomin.png";
-		String zoomOutIconPath = "imageicon/zoomout.png";
+    /**
+     * Setup actions for button
+     */
+    private void setActionForButtons() {
+	openButton.setAction(getOpenAction());
+	zoomInButton.setAction(getZoomInAction());
+	zoomOutButton.setAction(getZoomOutAction());
+    }
 
-		newButton.setIcon(newFileIconPath);
-		openButton.setIcon(openFileIconPath);
-		saveButton.setIcon(saveFileIconPath);
-		zoomInButton.setIcon(zoomInIconPath);
-		zoomOutButton.setIcon(zoomOutIconPath);
-	}	
+    /**
+     * Setup icons for button
+     */
+    private void setIconsForButtons() {
+	String newFileIconPath = "imageicon/newfile.png";
+	String openFileIconPath = "imageicon/openfolder.png";
+	String saveFileIconPath = "imageicon/save.png";
+	String zoomInIconPath = "imageicon/zoomin.png";
+	String zoomOutIconPath = "imageicon/zoomout.png";
 
-	/*
-	 * ACCESSORS
-	 */
-	private OpenFileAction getOpenAction() {
-		return openAct;
-	}
+	newButton.setIcon(newFileIconPath);
+	openButton.setIcon(openFileIconPath);
+	saveButton.setIcon(saveFileIconPath);
+	zoomInButton.setIcon(zoomInIconPath);
+	zoomOutButton.setIcon(zoomOutIconPath);
+    }	
 
-	private ZoomInViewAction getZoomInAction() {
-		return zoomInAction;
-	}
+    /*
+     * ACCESSORS
+     */
+    private OpenFileAction getOpenAction() {
+	return openAct;
+    }
 
-	private ZoomOutViewAction getZoomOutAction() {
-		return zoomOutAction;
-	}
+    private ZoomInViewAction getZoomInAction() {
+	return zoomInAction;
+    }
+
+    private ZoomOutViewAction getZoomOutAction() {
+	return zoomOutAction;
+    }
 
 }

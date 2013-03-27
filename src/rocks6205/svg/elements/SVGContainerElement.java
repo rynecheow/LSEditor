@@ -14,41 +14,41 @@ import java.util.Vector;
 
 
 public abstract class SVGContainerElement extends SVGGenericElement{
-	private Vector<SVGGenericElement> descendants;
+    private Vector<SVGGenericElement> descendants;
 
-	public SVGContainerElement() {
-		descendants = new Vector<SVGGenericElement>();
-	}
+    public SVGContainerElement() {
+	descendants = new Vector<SVGGenericElement>();
+    }
 
-	public Vector<SVGGenericElement> getDescendants() {
-		return descendants;
-	}
+    public Vector<SVGGenericElement> getDescendants() {
+	return descendants;
+    }
 
-	public SVGGenericElement getDescendant(int index) {
-		return descendants.get(index);
-	}
+    public SVGGenericElement getDescendant(int index) {
+	return descendants.get(index);
+    }
 
-	public void addDescendant(SVGGenericElement e) {
-		descendants.add(e);
-		e.setAncestorElement(this);
-	}
+    public void addDescendant(SVGGenericElement e) {
+	descendants.add(e);
+	e.setAncestorElement(this);
+    }
 
-	public void insertDescendant(SVGGenericElement e,int atIndex) {
+    public void insertDescendant(SVGGenericElement e,int atIndex) {
 
-	}
+    }
 
-	public void replaceDescendant(SVGGenericElement e,int atIndex) {
+    public void replaceDescendant(SVGGenericElement e,int atIndex) {
 
-	}
+    }
 
-	public void replaceDescendant(SVGGenericElement e, SVGGenericElement eNew) {
-	}
+    public void replaceDescendant(SVGGenericElement e, SVGGenericElement eNew) {
+    }
 
-	public void removeDescendant(int index) {
+    public void removeDescendant(int index) {
 
-	}
+    }
 
-	public void removeDescendant(SVGGenericElement e) {
+    public void removeDescendant(SVGGenericElement e) {
 
-	}
+    }
 }

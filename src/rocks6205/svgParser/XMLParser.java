@@ -23,43 +23,43 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 public class XMLParser {
 
-	/*
-	 * CONSTRUCTOR
-	 */
-	private XMLParser() {
-		// TODO Auto-generated constructor stub
-	}
+    /*
+     * CONSTRUCTOR
+     */
+    private XMLParser() {
+	// TODO Auto-generated constructor stub
+    }
 
-	/*
-	 * METHODS
-	 */
+    /*
+     * METHODS
+     */
 
-	/**
-	 * Checks and build a document from input source and aware of namespaces.
-	 * 
-	 * @param XMLInputSource
-	 * @return XML Document to be further processed.
-	 */
-	public static Document parseXml(InputSource XMLInputSource){
-		Document doc = null;		
-		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-		factory.setNamespaceAware(true);
-		try {
-			DocumentBuilder builder = factory.newDocumentBuilder();
-			// Prevent loading external DTD
-			builder.setEntityResolver(new EntityResolver() {
-				public InputSource resolveEntity(String publicId,
-						String systemId) throws SAXException, IOException {
-					return new InputSource(new StringReader(""));
-				}
-			});
+    /**
+     * Checks and build a document from input source and aware of namespaces.
+     * 
+     * @param XMLInputSource
+     * @return XML Document to be further processed.
+     */
+    public static Document parseXml(InputSource XMLInputSource){
+	Document doc = null;		
+	DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+	factory.setNamespaceAware(true);
+	try {
+	    DocumentBuilder builder = factory.newDocumentBuilder();
+	    // Prevent loading external DTD
+	    builder.setEntityResolver(new EntityResolver() {
+		public InputSource resolveEntity(String publicId,
+			String systemId) throws SAXException, IOException {
+		    return new InputSource(new StringReader(""));
+		}
+	    });
 
-			doc = builder.parse(XMLInputSource);
-		} catch (IOException ioe) {
-		} catch (SAXException sae) {
-		} catch (ParserConfigurationException pce) {
-		} catch (NullPointerException npe) {}
+	    doc = builder.parse(XMLInputSource);
+	} catch (IOException ioe) {
+	} catch (SAXException sae) {
+	} catch (ParserConfigurationException pce) {
+	} catch (NullPointerException npe) {}
 
-		return doc;
-	}
+	return doc;
+    }
 }

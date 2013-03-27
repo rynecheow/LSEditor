@@ -21,24 +21,24 @@ import rocks6205.svgFamily.SVGImageCanvas;
 
 public class SVGViewport extends JPanel {
 
-	private static final long serialVersionUID = -7920677728155693552L;
-	private SVGImageCanvas canvas;
-
-	
-	
-	public SVGViewport(SVGView view) {
-		SVGCanvasProperties.setOutputResolution(Toolkit.getDefaultToolkit().getScreenResolution());
-		SVGCanvasProperties.setFontSize((this.getFont().getSize2D()));
-	}
+    private static final long serialVersionUID = -7920677728155693552L;
+    private SVGImageCanvas canvas;
 
 
-	public void setCanvas(SVGImageCanvas canvas) {
-		this.canvas = canvas;
-	}
 
-	@Override
-	protected void paintComponent(Graphics g) {
-		super.paintComponent(g);
-		g.drawImage(canvas, 0, 0, null);
-	}
+    public SVGViewport(SVGView view) {
+	SVGCanvasProperties.setOutputResolution(Toolkit.getDefaultToolkit().getScreenResolution());
+	SVGCanvasProperties.setFontSize((this.getFont().getSize2D()));
+    }
+
+
+    public void setCanvas(SVGImageCanvas canvas) {
+	this.canvas = canvas;
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+	super.paintComponent(g);
+	g.drawImage(canvas, 0, 0, null);
+    }
 }

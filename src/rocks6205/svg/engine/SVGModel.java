@@ -17,45 +17,45 @@ import rocks6205.svgFamily.SVGImageCanvas;
 
 public class SVGModel extends Observable{
 
-	private SVGSVGElement SVGElement;
-	private SVGImageCanvas canvas;
+    private SVGSVGElement SVGElement;
+    private SVGImageCanvas canvas;
 
-	public SVGModel() {
-		// TODO Auto-generated constructor stub
-	}
+    public SVGModel() {
+	// TODO Auto-generated constructor stub
+    }
 
 
-	/*
-	 * ACCESSOR
-	 */
-	public SVGSVGElement getSVGElement() {
-		return SVGElement;
-	}
+    /*
+     * ACCESSOR
+     */
+    public SVGSVGElement getSVGElement() {
+	return SVGElement;
+    }
 
-	public SVGImageCanvas getCanvas() {
-		return canvas;
-	}
-	/*
-	 * MUTATORS
-	 */
-	public void setCanvas(SVGImageCanvas canvas) {
-		this.canvas = canvas;
-	}
+    public SVGImageCanvas getCanvas() {
+	return canvas;
+    }
+    /*
+     * MUTATORS
+     */
+    public void setCanvas(SVGImageCanvas canvas) {
+	this.canvas = canvas;
+    }
 
-	public void setSVGElement(SVGSVGElement sVGElement) {
-		SVGElement = sVGElement;
-	}
+    public void setSVGElement(SVGSVGElement sVGElement) {
+	SVGElement = sVGElement;
+    }
 
-	/*
-	 * METHOD
-	 */
+    /*
+     * METHOD
+     */
 
-	/**
-	 * Renders SVG file by notifying Observer
-	 */
-	public void render() {
-		setCanvas(SVGElement.draw());
-		setChanged();
-		notifyObservers(this.canvas);
-	}
+    /**
+     * Renders SVG file by notifying Observer
+     */
+    public void render() {
+	setCanvas(SVGElement.draw());
+	setChanged();
+	notifyObservers(this.canvas);
+    }
 }
