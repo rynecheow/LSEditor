@@ -8,7 +8,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * The <code>SVGColorScheme</code> class is used to parse <code>color</code> element in SVG documents
+ * The <code>SVGColorScheme</code> class is used to parse <code>color</code> attribute in SVG documents
  * and convert to standard RGB Color scheme readable by Java. <p>
  *
  * Currently supported conversions formats are the standard RGB format e.g. <code> rgb(120,83,22)</code>,
@@ -33,9 +33,6 @@ public class SVGColorScheme extends Color {
     public static final String RGB_COLOR = "rgb\\((" + SVGPrimitive._8_BIT_UINT + "," + SVGPrimitive._8_BIT_UINT + ","
                                            + SVGPrimitive._8_BIT_UINT + "|" + SVGPrimitive.PERCENTAGE_UNUM + ","
                                            + SVGPrimitive.PERCENTAGE_UNUM + "," + SVGPrimitive.PERCENTAGE_UNUM + ")\\)";
-
-    //
-    //
 
     /**
      *  Regular expression for hexadecimal color format<br>
