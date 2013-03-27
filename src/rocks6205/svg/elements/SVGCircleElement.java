@@ -62,8 +62,6 @@ public class SVGCircleElement extends SVGGenericElement {
         radius = new SVGLengthUnit(0);
     }
 
-    ;
-
     /**
      * Construct an instance of <code>SVGCircleElement</code> with the coordinates
      * of the centre and its radius.
@@ -128,10 +126,10 @@ public class SVGCircleElement extends SVGGenericElement {
         this.radius = radius;
     }
 
-    @Override
-
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}<p>
+     * Calculate and return bounds of a <code>SVGCircleElement</code> element
+     * @return bounds of a <code>SVGCircleElement</code> element
      */
     public Rectangle2D.Float getBounds() {
         float r    = radius.getValue();
@@ -152,10 +150,10 @@ public class SVGCircleElement extends SVGGenericElement {
         }
     }
 
-    @Override
-
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}<p>
+     * Draw the shape on the canvas accordingly with the attributes correctly parsed
+     * @return <code>SVGImageCanvas</code> object
      */
     public SVGImageCanvas draw() {
         Rectangle2D.Float bounds = getBounds();
