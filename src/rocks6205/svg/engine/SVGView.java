@@ -1,13 +1,3 @@
-/**
- *
- * Class: SVGView
- * Description: General layout of the GUI
- *
- * @author: Toh Huey Jing
- * @date: 17/03/2013
- *
- */
-
 package rocks6205.svg.engine;
 
 import java.awt.BorderLayout;
@@ -15,6 +5,7 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Rectangle;
+import java.awt.event.MouseAdapter;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.Observable;
@@ -24,7 +15,9 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JViewport;
 
+import rocks6205.svg.engine.events.SVGViewPanMouseAdaptor;
 import rocks6205.svg.engine.viewcomponents.SVGViewBottomToolbar;
 import rocks6205.svg.engine.viewcomponents.SVGViewDeleteAccessoryPanel;
 import rocks6205.svg.engine.viewcomponents.SVGViewMenubar;
@@ -32,6 +25,18 @@ import rocks6205.svg.engine.viewcomponents.SVGViewTopToolbar;
 import rocks6205.svg.engine.viewcomponents.SVGViewport;
 import rocks6205.svgFamily.SVGImageCanvas;
 
+/**
+ * A class defining how the main user interface should look like.
+ * <p>
+ *
+ * @author Toh Huey Jing
+ * @author Cheow Yeong Chi
+ * 
+ * @date 17/03/2013
+ *
+ *
+ * @since 1.4
+ */
 public class SVGView extends JFrame implements Observer {
 
 	private static final long serialVersionUID = 6764861773639452353L;
@@ -52,14 +57,14 @@ public class SVGView extends JFrame implements Observer {
 
 	JPanel panelTop, panelBottom;
 	SVGViewport renderPanel;
-
+	JViewport viewport;
 	Container container = getContentPane();
 	JScrollPane scrollPane;
 	Dimension renderAreaSize;
 	/*
 	 * ACTION COMPONENTS
 	 */
-
+	private MouseAdapter panListener;
 	/*
 	 * CONSTRUCTOR
 	 */
@@ -79,10 +84,16 @@ public class SVGView extends JFrame implements Observer {
 		bottomTool = new SVGViewBottomToolbar(this);
 		delete = new SVGViewDeleteAccessoryPanel(this);
 
+		panListener = new SVGViewPanMouseAdaptor();
+		
 		renderPanel = new SVGViewport(this);
 		panelTop = new JPanel();
 		panelBottom = new JPanel();
 		scrollPane = new JScrollPane(renderPanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+		viewport = new JViewport();
+		viewport = scrollPane.getViewport();
+		viewport.addMouseListener(panListener);
+		viewport.addMouseMotionListener(panListener);
 	}
 
 	/**
