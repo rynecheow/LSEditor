@@ -35,7 +35,7 @@ import rocks6205.svgFamily.SVGImageCanvas;
  * @date 17/03/2013
  *
  *
- * @since 1.4
+ * @since 1.2
  */
 public class SVGView extends JFrame implements Observer {
 

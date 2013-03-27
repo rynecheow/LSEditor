@@ -1,49 +1,76 @@
-/**
- * 
- * Class: SVGModel
- * Description: 
- * 
- * @author: Cheow Yeong Chi
- * @date: 14/03/2013
- * 
- */
-
 package rocks6205.svg.engine;
+
+//~--- non-JDK imports --------------------------------------------------------
+
+import rocks6205.svg.elements.SVGSVGElement;
+
+import rocks6205.svgFamily.SVGImageCanvas;
+
+//~--- JDK imports ------------------------------------------------------------
 
 import java.util.Observable;
 
-import rocks6205.svg.elements.SVGSVGElement;
-import rocks6205.svgFamily.SVGImageCanvas;
+/**
+ * SVG Viewer model which consist of the image canvas and the current SVG
+ * fragment/object.
+ *
+ * @author: Cheow Yeong Chi
+ *
+ * @since 1.0
+ *
+ */
+public class SVGModel extends Observable {
 
-public class SVGModel extends Observable{
-
+    /**
+     * SVG Element to be drawn.
+     */
     private SVGSVGElement SVGElement;
+
+    /**
+     * Canvas to be drawn on.
+     */
     private SVGImageCanvas canvas;
 
-    public SVGModel() {
-	// TODO Auto-generated constructor stub
-    }
-
+    /**
+     * Default constructor.
+     */
+    public SVGModel() {}
 
     /*
      * ACCESSOR
      */
+
+    /**
+     * @return SVG Element to be drawn.
+     */
     public SVGSVGElement getSVGElement() {
-	return SVGElement;
+        return SVGElement;
     }
 
+    /**
+     * @return Canvas to be drawn on.
+     */
     public SVGImageCanvas getCanvas() {
-	return canvas;
+        return canvas;
     }
+
     /*
      * MUTATORS
      */
-    public void setCanvas(SVGImageCanvas canvas) {
-	this.canvas = canvas;
+
+    /**
+     *
+     * @param svgElement SVG Element to be drawn.
+     */
+    public void setSVGElement(SVGSVGElement svgElement) {
+        SVGElement = svgElement;
     }
 
-    public void setSVGElement(SVGSVGElement sVGElement) {
-	SVGElement = sVGElement;
+    /**
+     * @param canvas Canvas to be drawn on.
+     */
+    public void setCanvas(SVGImageCanvas canvas) {
+        this.canvas = canvas;
     }
 
     /*
@@ -54,8 +81,8 @@ public class SVGModel extends Observable{
      * Renders SVG file by notifying Observer
      */
     public void render() {
-	setCanvas(SVGElement.draw());
-	setChanged();
-	notifyObservers(this.canvas);
+        setCanvas(SVGElement.draw());
+        setChanged();
+        notifyObservers(this.canvas);
     }
 }
