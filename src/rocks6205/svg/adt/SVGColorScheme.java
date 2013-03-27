@@ -14,9 +14,9 @@ import java.util.regex.Pattern;
  * Currently supported conversions formats are the standard RGB format e.g. <code> rgb(120,83,22)</code>,
  * hexadecimal format e.g. <code>#112DAC</code> and color keywords.
  *
- * @author: Cheow Yeong Chi
- * @date: 15/03/2013
+ * @author Cheow Yeong Chi
  *
+ * @since 1.0
  */
 public class SVGColorScheme extends Color {
     private static final long serialVersionUID = 5839823140108294927L;
@@ -73,18 +73,17 @@ public class SVGColorScheme extends Color {
     }
 
     /**
+     * <p>List of color keywords.</p>
      * Enumerates color keyword names recognized by data type <code>color</code> in SVG as specified in 4.4<p>
      * Refer to : <a href="http://www.w3.org/TR/SVG/types.html#ColorKeywords">Scalable Vector Graphics
      * (SVG) 1.1 - Color Keywords</a>
      *
      * @author Sugar CheeSheen Chan
-     * @date 13/03/2013
      *
      * @since 1.0
      */
     private static enum SVGColorKeyword {
 
-        // List of color keywords
         ALICEBLUE(240, 248, 255), ANTIQUEWHITE(250, 235, 215), AQUA(0, 255, 255), AQUAMARINE(127, 255, 212),
                                   AZURE(240, 255, 255), BEIGE(245, 245, 220), BISQUE(255, 228, 196), BLACK(0, 0, 0),
                                   BLANCHEDALMOND(255, 235, 205), BLUE(0, 0, 255), BLUEVIOLET(138, 43, 226),
@@ -185,7 +184,7 @@ public class SVGColorScheme extends Color {
      *
      *
      * @param colorAttributeString      Attribute string that is read directly from SVG file
-     * @return <code>SVGColorScheme</code> in RGB format
+     * @return <code>SVGColorScheme</code> object
      */
     public static SVGColorScheme parse(String colorAttributeString) {
         colorAttributeString = colorAttributeString.trim();
@@ -253,7 +252,7 @@ public class SVGColorScheme extends Color {
      * Convert color keywords to Java-compatible color type where matches formats.
      *
      * @param colorAttributeString      Attribute string that is read directly from SVG file
-     * @return <code>SVGColorScheme</code> in RGB format
+     * @return <code>SVGColorScheme</code> object
      */
     public static SVGColorScheme getColorFromKeyword(String colorAttributeString) {
         colorAttributeString = colorAttributeString.toUpperCase();
@@ -271,7 +270,7 @@ public class SVGColorScheme extends Color {
      * Decodes hexadecimal string, and extend if the string is in only 3 hexadecimal digit format
      *
      * @param hexColorString    Attribute string that is read directly from SVG file
-     * @return <code>SVGColorScheme</code> in RGB format
+     * @return <code>SVGColorScheme</code> object
      */
     private static SVGColorScheme decodeHex(String hexColorString) {
         try {
