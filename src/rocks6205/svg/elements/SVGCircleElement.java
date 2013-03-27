@@ -127,9 +127,7 @@ public class SVGCircleElement extends SVGGenericElement {
     }
 
     /**
-     * {@inheritDoc}<p>
-     * Calculate and return bounds of a <code>SVGCircleElement</code> element
-     * @return bounds of a <code>SVGCircleElement</code> element
+     * {@inheritDoc}
      */
     public Rectangle2D.Float getBounds() {
         float r    = radius.getValue();
@@ -151,9 +149,7 @@ public class SVGCircleElement extends SVGGenericElement {
     }
 
     /**
-     * {@inheritDoc}<p>
-     * Draw the shape on the canvas accordingly with the attributes correctly parsed
-     * @return <code>SVGImageCanvas</code> object
+     * {@inheritDoc}
      */
     public SVGImageCanvas draw() {
         Rectangle2D.Float bounds = getBounds();

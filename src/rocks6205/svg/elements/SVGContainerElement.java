@@ -1,54 +1,94 @@
-/**
- * 
- * Class: SVGContainerElement
- * Description: 
- * 
- * @author: Cheow Yeong Chi
- * @date: 14/03/2013
- * 
- */
-
 package rocks6205.svg.elements;
+
+//~--- JDK imports ------------------------------------------------------------
 
 import java.util.Vector;
 
+/**
+ * The <code>SVGContainerElement</code> class is an abstract class that defines a
+ * container for other SVG container or non-container elements and store
+ * descendants of the container element
+ *
+ * @author Cheow Yeong Chi
+ *
+ * @since 1.1
+ *
+ */
+public abstract class SVGContainerElement extends SVGGenericElement {
 
-public abstract class SVGContainerElement extends SVGGenericElement{
+    /**
+     * List of SVG element object descendants
+     */
     private Vector<SVGGenericElement> descendants;
 
+    /**
+     * Default constructor
+     */
     public SVGContainerElement() {
-	descendants = new Vector<SVGGenericElement>();
+        descendants = new Vector<SVGGenericElement>();
     }
 
+    /*
+     * ACCESSOR
+     */
+
+    /**
+     * @return List of SVG element object descendants
+     */
     public Vector<SVGGenericElement> getDescendants() {
-	return descendants;
+        return descendants;
     }
 
+    /**
+     * Get descendant at a specific <code>index</code>
+     *
+     * @param index Descendant index
+     * @return Descendant object at <code>index</code>
+     */
     public SVGGenericElement getDescendant(int index) {
-	return descendants.get(index);
+        return descendants.get(index);
     }
 
+    /**
+     * Add descendant to current element and sets itself as the parent element
+     *
+     * @param e <code>SVGGenericElement</code> object
+     */
     public void addDescendant(SVGGenericElement e) {
-	descendants.add(e);
-	e.setAncestorElement(this);
+        descendants.add(e);
+        e.setAncestorElement(this);
     }
 
-    public void insertDescendant(SVGGenericElement e,int atIndex) {
+    /**
+     * Insert descendant element <code>e</code>at specific <code>index</code>
+     * @param e Element to be inserted
+     * @param atIndex Index for <code>e</code> to be inserted
+     */
+    public void insertDescendant(SVGGenericElement e, int atIndex) {}
 
-    }
+    /**
+     * Replace descendant element <code>e</code>at specific <code>index</code>
+     * @param e Element to be replaced
+     * @param atIndex Index for <code>e</code> to be replaced
+     */
+    public void replaceDescendant(SVGGenericElement e, int atIndex) {}
 
-    public void replaceDescendant(SVGGenericElement e,int atIndex) {
+    /**
+     * Replace descendant element <code>e</code> with new element <code>eNew</code>
+     * @param e Element to be replaced
+     * @param eNew New element to replace current element
+     */
+    public void replaceDescendant(SVGGenericElement e, SVGGenericElement eNew) {}
 
-    }
+    /**
+     * Remove descendant element at specific <code>index</code>
+     * @param index Index for element to be removed
+     */
+    public void removeDescendant(int index) {}
 
-    public void replaceDescendant(SVGGenericElement e, SVGGenericElement eNew) {
-    }
-
-    public void removeDescendant(int index) {
-
-    }
-
-    public void removeDescendant(SVGGenericElement e) {
-
-    }
+    /**
+     * Remove descendant element that matches <code>e</code>
+     * @param e Element to be removed
+     */
+    public void removeDescendant(SVGGenericElement e) {}
 }
