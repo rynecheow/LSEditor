@@ -4,6 +4,7 @@ package rocks6205.svg.engine.events;
 
 import rocks6205.svg.engine.SVGView;
 
+import rocks6205.svgFamily.OSValidator;
 import rocks6205.svgFamily.SVGImageCanvas;
 
 //~--- JDK imports ------------------------------------------------------------
@@ -35,6 +36,7 @@ public abstract class SVGViewMenuAction extends AbstractAction {
      * Parent component (Usually an <code>SVGView</code> object.)
      */
     private SVGView parent;
+    private int keyEventMask;
 
     /*
      * CONSTRUCTOR
@@ -74,6 +76,14 @@ public abstract class SVGViewMenuAction extends AbstractAction {
         putValue(MNEMONIC_KEY, mnemonic);
         putValue(ACCELERATOR_KEY, keyStroke);
         this.parent = parent;
+    }
+
+    public static int getKeyEventMask() {
+	if(OSValidator.isMac()){
+	    return ActionEvent.META_MASK;
+	}
+	
+	return ActionEvent.CTRL_MASK;
     }
 
     /**
@@ -152,7 +162,7 @@ public abstract class SVGViewMenuAction extends AbstractAction {
          * @param parent Parent component
          */
         public OpenFileAction(SVGView parent) {
-            super("Open a file", KeyEvent.VK_O, KeyStroke.getKeyStroke(KeyEvent.VK_O, ActionEvent.CTRL_MASK), parent);
+            super("Open a file", KeyEvent.VK_O, KeyStroke.getKeyStroke(KeyEvent.VK_O, getKeyEventMask()), parent);
         }
 
         /**
@@ -163,7 +173,7 @@ public abstract class SVGViewMenuAction extends AbstractAction {
          */
         public OpenFileAction(SVGView parent, String actionName) {
             super(actionName, "Open a file", KeyEvent.VK_O,
-                  KeyStroke.getKeyStroke(KeyEvent.VK_O, ActionEvent.CTRL_MASK), parent);
+                  KeyStroke.getKeyStroke(KeyEvent.VK_O, getKeyEventMask()), parent);
         }
 
         /**
@@ -219,7 +229,7 @@ public abstract class SVGViewMenuAction extends AbstractAction {
          * @param parent Parent component
          */
         public ZoomInViewAction(SVGView parent) {
-            super("Zoom In", KeyEvent.VK_I, KeyStroke.getKeyStroke(KeyEvent.VK_PLUS, ActionEvent.CTRL_MASK), parent);
+            super("Zoom In", KeyEvent.VK_I, KeyStroke.getKeyStroke(KeyEvent.VK_PLUS, getKeyEventMask()), parent);
             this.setEnabled(false);
         }
 
@@ -230,7 +240,7 @@ public abstract class SVGViewMenuAction extends AbstractAction {
          */
         public ZoomInViewAction(SVGView parent, String actionName) {
             super(actionName, "Zoom In", KeyEvent.VK_I,
-                  KeyStroke.getKeyStroke(KeyEvent.VK_PLUS, ActionEvent.CTRL_MASK), parent);
+                  KeyStroke.getKeyStroke(KeyEvent.VK_PLUS, getKeyEventMask()), parent);
             this.setEnabled(false);
         }
 
@@ -250,7 +260,7 @@ public abstract class SVGViewMenuAction extends AbstractAction {
         public void actionPerformed(ActionEvent event) {
             SVGImageCanvas.setZoomScale(SVGImageCanvas.getZoomScale() + 1);
             super.parent.getModel().render();
-            //zoomOutPartnerAction.setEnabled(true);
+            zoomOutPartnerAction.setEnabled(true);
             super.parent.getController().setZoomOut(true);
         }
     }
@@ -279,7 +289,7 @@ public abstract class SVGViewMenuAction extends AbstractAction {
          * @param parent Parent component
          */
         public ZoomOutViewAction(SVGView parent) {
-            super("Zoom Out", KeyEvent.VK_O, KeyStroke.getKeyStroke(KeyEvent.VK_MINUS, ActionEvent.CTRL_MASK), parent);
+            super("Zoom Out", KeyEvent.VK_O, KeyStroke.getKeyStroke(KeyEvent.VK_MINUS, getKeyEventMask()), parent);
             setEnabled(false);
         }
 
@@ -290,7 +300,7 @@ public abstract class SVGViewMenuAction extends AbstractAction {
          */
         public ZoomOutViewAction(SVGView parent, String actionName) {
             super(actionName, "Zoom Out", KeyEvent.VK_O,
-                  KeyStroke.getKeyStroke(KeyEvent.VK_MINUS, ActionEvent.CTRL_MASK), parent);
+                  KeyStroke.getKeyStroke(KeyEvent.VK_MINUS, getKeyEventMask()), parent);
             setEnabled(false);
         }
 
