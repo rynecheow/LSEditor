@@ -2,6 +2,15 @@ package rocks6205.svg.engine.events;
 
 //~--- JDK imports ------------------------------------------------------------
 
+import java.awt.Cursor;
+import java.awt.Point;
+import java.awt.Rectangle;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
+import javax.swing.JComponent;
+import javax.swing.JViewport;
+
 /**
  *
  * Handles event while user try to drag on the canvas, which results in a
@@ -14,15 +23,6 @@ package rocks6205.svg.engine.events;
  * @since 1.4
  *
  */
-import java.awt.Cursor;
-import java.awt.Point;
-import java.awt.Rectangle;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-
-import javax.swing.JComponent;
-import javax.swing.JViewport;
-
 public class SVGViewPanMouseAdaptor extends MouseAdapter {
 
     /**
