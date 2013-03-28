@@ -36,7 +36,6 @@ public abstract class SVGViewMenuAction extends AbstractAction {
      * Parent component (Usually an <code>SVGView</code> object.)
      */
     private SVGView parent;
-    private int keyEventMask;
 
     /*
      * CONSTRUCTOR
