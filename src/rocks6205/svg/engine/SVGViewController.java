@@ -14,6 +14,8 @@ import rocks6205.svgParser.XMLParser;
 
 import java.io.File;
 
+import javax.swing.JOptionPane;
+
 /**
  * The <code>SVGViewController</code> class defines a MVC module and plays as
  * the central control of the whole engine which lets the model and view
@@ -119,7 +121,17 @@ public class SVGViewController {
 
                 model.setSVGElement(svg_e);
                 model.render();
+                view.menuBar.enableZoomIn();
+                view.topTool.enableZoomIn();
+            }else {
+        	JOptionPane.showMessageDialog(null, "SVG Image could not be rendered. Please select another SVG file.",
+        		"SVG File Corrupted",JOptionPane.ERROR_MESSAGE);
             }
         }
+    }
+    
+    public void setZoomOut(boolean flag) {
+	view.menuBar.setZoomOut(flag);
+	view.topTool.setZoomOut(flag);
     }
 }

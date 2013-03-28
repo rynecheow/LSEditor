@@ -219,7 +219,8 @@ public abstract class SVGViewMenuAction extends AbstractAction {
          * @param parent Parent component
          */
         public ZoomInViewAction(SVGView parent) {
-            super("Zoom In", KeyEvent.VK_I, KeyStroke.getKeyStroke(KeyEvent.VK_EQUALS, ActionEvent.CTRL_MASK), parent);
+            super("Zoom In", KeyEvent.VK_I, KeyStroke.getKeyStroke(KeyEvent.VK_PLUS, ActionEvent.CTRL_MASK), parent);
+            this.setEnabled(false);
         }
 
         /**
@@ -229,7 +230,8 @@ public abstract class SVGViewMenuAction extends AbstractAction {
          */
         public ZoomInViewAction(SVGView parent, String actionName) {
             super(actionName, "Zoom In", KeyEvent.VK_I,
-                  KeyStroke.getKeyStroke(KeyEvent.VK_EQUALS, ActionEvent.CTRL_MASK), parent);
+                  KeyStroke.getKeyStroke(KeyEvent.VK_PLUS, ActionEvent.CTRL_MASK), parent);
+            this.setEnabled(false);
         }
 
         /**
@@ -248,7 +250,8 @@ public abstract class SVGViewMenuAction extends AbstractAction {
         public void actionPerformed(ActionEvent event) {
             SVGImageCanvas.setZoomScale(SVGImageCanvas.getZoomScale() + 1);
             super.parent.getModel().render();
-            zoomOutPartnerAction.setEnabled(true);
+            //zoomOutPartnerAction.setEnabled(true);
+            super.parent.getController().setZoomOut(true);
         }
     }
 
@@ -301,8 +304,9 @@ public abstract class SVGViewMenuAction extends AbstractAction {
             super.parent.getModel().render();
 
             if (SVGImageCanvas.getZoomScale() < 2) {
-                setEnabled(false);
-            }
+                //setEnabled(false);
+                super.parent.getController().setZoomOut(false);
+            } 
         }
     }
 }

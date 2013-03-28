@@ -205,6 +205,20 @@ public class SVGViewMenubar extends JMenuBar {
         insertMenu.setEnabled(false);
         helpMenu.setEnabled(false);
     }
+    
+    /**
+     * Enable zoom in button after SVG file is opened sucessfully
+     */
+    public void enableZoomIn() {
+	zoomInMenuItem.setEnabled(true);
+    }
+    
+    /**
+     * Disable zoom out button when it has resumed to its original size of image
+     */
+    public void setZoomOut(boolean flag) {
+	zoomOutMenuItem.setEnabled(flag);
+    }
 
     /*
      * MUTATORS

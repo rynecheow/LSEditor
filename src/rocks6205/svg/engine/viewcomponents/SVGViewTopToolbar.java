@@ -93,6 +93,20 @@ public class SVGViewTopToolbar extends JPanel {
         newButton.setEnabled(false);
         saveButton.setEnabled(false);
     }
+    
+    /**
+     * Enable zoom in button after SVG file is opened sucessfully
+     */
+    public void enableZoomIn() {
+	zoomInButton.setEnabled(true);
+    }
+    
+    /**
+     * Disable zoom out button when it has resumed to its original size of image
+     */
+    public void setZoomOut(boolean flag) {
+	zoomOutButton.setEnabled(flag);
+    }
 
     /**
      * Setup actions for button.
@@ -135,6 +149,9 @@ public class SVGViewTopToolbar extends JPanel {
      * @return Zoom in view action
      */
     private ZoomInViewAction getZoomInAction() {
+	if (zoomInAction == null) {
+            zoomInAction = new ZoomInViewAction(parent, "Zoom In");
+        }
         return zoomInAction;
     }
 
@@ -142,6 +159,9 @@ public class SVGViewTopToolbar extends JPanel {
      * @return Zoom out view action
      */
     private ZoomOutViewAction getZoomOutAction() {
+	 if (zoomOutAction == null) {
+	     zoomOutAction = new ZoomOutViewAction(parent, "Zoom Out");
+	 }
         return zoomOutAction;
     }
 }
