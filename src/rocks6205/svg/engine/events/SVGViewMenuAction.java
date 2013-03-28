@@ -31,14 +31,14 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 public abstract class SVGViewMenuAction extends AbstractAction {
     private static final long serialVersionUID = 9085407834848872724L;
 
-    /*
-     * CONSTRUCTOR
-     */
-
     /**
      * Parent component (Usually an <code>SVGView</code> object.)
      */
     private SVGView parent;
+
+    /*
+     * CONSTRUCTOR
+     */
 
     /**
      * Construct a <code>SVGViewMenuAction</code> type object with <code>tooltipText</code>,
@@ -89,6 +89,10 @@ public abstract class SVGViewMenuAction extends AbstractAction {
     public static class ExitAction extends SVGViewMenuAction {
         private static final long serialVersionUID = 6507259946341784118L;
 
+        /*
+         * CONSTRUCTOR
+         */
+
         /**
          * Construct a <code>ExitAction</code> instance with parent component
          * <code>parent</code> and no action name.
@@ -136,6 +140,10 @@ public abstract class SVGViewMenuAction extends AbstractAction {
      */
     public static class OpenFileAction extends SVGViewMenuAction {
         private static final long serialVersionUID = -7823707833188816535L;
+
+        /*
+         * CONSTRUCTOR
+         */
 
         /**
          * Construct a <code>OpenFileAction</code> instance with parent component
@@ -192,10 +200,18 @@ public abstract class SVGViewMenuAction extends AbstractAction {
     public static class ZoomInViewAction extends SVGViewMenuAction {
         private static final long serialVersionUID = 1180439021996674018L;
 
+        /*
+         * PROPERTIES
+         */
+
         /**
          * Partner action component that perform zoom out action.
          */
         private ZoomOutViewAction zoomOutPartnerAction;
+
+        /*
+         * CONSTRUCTOR
+         */
 
         /**
          * Construct a <code>ZoomOutViewAction</code> instance with parent component
@@ -249,6 +265,10 @@ public abstract class SVGViewMenuAction extends AbstractAction {
      */
     public static class ZoomOutViewAction extends SVGViewMenuAction {
         private static final long serialVersionUID = -6578149781110081473L;
+
+        /*
+         * CONSTRUCTOR
+         */
 
         /**
          * Construct a <code>ZoomOutViewAction</code> instance with parent component
