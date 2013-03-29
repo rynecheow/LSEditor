@@ -3,7 +3,6 @@ package rocks6205.svg.engine.viewcomponents;
 //~--- non-JDK imports --------------------------------------------------------
 
 import rocks6205.svg.engine.SVGView;
-import rocks6205.svg.engine.events.SVGViewMouseWheelZoomAdaptor;
 
 import rocks6205.svgFamily.SVGCanvasProperties;
 import rocks6205.svgFamily.SVGImageCanvas;
@@ -53,7 +52,11 @@ public class SVGViewport extends JPanel {
         setParentView(view);
         SVGCanvasProperties.setOutputResolution(Toolkit.getDefaultToolkit().getScreenResolution());
         SVGCanvasProperties.setFontSize((this.getFont().getSize2D()));
-        addMouseWheelListener(new SVGViewMouseWheelZoomAdaptor());
+
+        /*
+         * Unfinished implementation
+         * addMouseWheelListener(new SVGViewMouseWheelZoomAdaptor());
+         */
     }
 
     /**
