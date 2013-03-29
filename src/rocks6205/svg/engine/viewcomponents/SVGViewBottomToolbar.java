@@ -3,9 +3,11 @@ package rocks6205.svg.engine.viewcomponents;
 //~--- non-JDK imports --------------------------------------------------------
 
 import rocks6205.svg.engine.SVGView;
+import rocks6205.svgFamily.SVGEditorTheme;
 
 //~--- JDK imports ------------------------------------------------------------
 
+import java.awt.Color;
 import java.awt.Dimension;
 
 import javax.swing.JPanel;
@@ -80,7 +82,8 @@ public class SVGViewBottomToolbar extends JPanel {
      * Customisation of GUI components.
      */
     private void customise() {
-        setupSeparators();
+	setBackground(SVGEditorTheme.getDefaultMasterColor());
+      	setupSeparators();
         layoutBackgroundPanel();
         add(backgroundPanel);
         disableUnused();
@@ -135,6 +138,7 @@ public class SVGViewBottomToolbar extends JPanel {
         backgroundPanel.add(separator_2);
         backgroundPanel.add(groupButton);
         backgroundPanel.add(ungroupButton);
+        backgroundPanel.setBackground(SVGEditorTheme.getDefaultMasterColor());
     }
 
     /**

@@ -9,6 +9,7 @@ import rocks6205.svg.engine.viewcomponents.SVGViewMenubar;
 import rocks6205.svg.engine.viewcomponents.SVGViewTopToolbar;
 import rocks6205.svg.engine.viewcomponents.SVGViewport;
 
+import rocks6205.svgFamily.SVGEditorTheme;
 import rocks6205.svgFamily.SVGImageCanvas;
 
 //~--- JDK imports ------------------------------------------------------------
@@ -137,6 +138,8 @@ public class SVGView extends JFrame implements Observer {
         viewport = scrollPane.getViewport();
         viewport.addMouseListener(panListener);
         viewport.addMouseMotionListener(panListener);
+        panelTop.setBackground(SVGEditorTheme.getDefaultMasterColor());
+        panelBottom.setBackground(SVGEditorTheme.getDefaultMasterColor());
     }
 
     /**
@@ -207,8 +210,10 @@ public class SVGView extends JFrame implements Observer {
             scrollPane.setPreferredSize(renderAreaSize);
             renderPanel.setPreferredSize(renderAreaSize);
             renderPanel.setCanvas((SVGImageCanvas) arg);
+            renderPanel.revalidate();
             renderPanel.repaint();
             scrollPane.setViewportView(renderPanel);
+            scrollPane.revalidate();
             scrollPane.repaint();
         }
     }

@@ -2,6 +2,8 @@ package rocks6205.svg.engine.viewcomponents;
 
 //~--- non-JDK imports --------------------------------------------------------
 
+import java.awt.Color;
+
 import rocks6205.svg.engine.SVGView;
 import rocks6205.svg.engine.events.SVGViewMenuAction.OpenFileAction;
 import rocks6205.svg.engine.events.SVGViewMenuAction.ZoomInViewAction;
@@ -84,6 +86,7 @@ public class SVGViewTopToolbar extends JPanel {
         zoomInAction.setZoomOutPartnerAction(zoomOutAction);
         setActionForButtons();
         setIconsForButtons();
+        setBackground(new Color(0x0A3E54));
     }
 
     /**

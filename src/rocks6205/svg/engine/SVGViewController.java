@@ -121,17 +121,20 @@ public class SVGViewController {
 
                 model.setSVGElement(svg_e);
                 model.render();
+
+                // --REFURBISH REQUIRED -- //
                 view.menuBar.enableZoomIn();
                 view.topTool.enableZoomIn();
-            }else {
-        	JOptionPane.showMessageDialog(null, "SVG Image could not be rendered. Please select another SVG file.",
-        		"SVG File Corrupted",JOptionPane.ERROR_MESSAGE);
+                // --REFURBISH REQUIRED -- //
+            } else {
+                JOptionPane.showMessageDialog(null, "SVG Image could not be rendered. Please select another SVG file.",
+                                              "SVG File Corrupted", JOptionPane.ERROR_MESSAGE);
             }
         }
     }
-    
+
     public void setZoomOut(boolean flag) {
-	view.menuBar.setZoomOut(flag);
-	view.topTool.setZoomOut(flag);
+        view.menuBar.setZoomOut(flag);
+        view.topTool.setZoomOut(flag);
     }
 }

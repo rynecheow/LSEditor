@@ -9,6 +9,7 @@ import rocks6205.svgFamily.SVGImageCanvas;
 
 //~--- JDK imports ------------------------------------------------------------
 
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Toolkit;
 
@@ -28,7 +29,6 @@ public class SVGViewport extends JPanel {
     /**
      * Parent component
      */
-
     @SuppressWarnings("unused")
     private SVGView view;
 
@@ -67,5 +67,19 @@ public class SVGViewport extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.drawImage(canvas, 0, 0, null);
+    }
+
+    /**
+     * Handles zoom in and out by resizing canvas.<p>
+     * {@inheritDoc}
+     */
+    public Dimension getPreferredSize() {
+        if (canvas != null) {
+            int w = (int) (SVGImageCanvas.getZoomScale() * canvas.getWidth()),
+                h = (int) (SVGImageCanvas.getZoomScale() * canvas.getHeight());
+
+            return new Dimension(w, h);
+        }
+        return super.getPreferredSize();
     }
 }

@@ -3,6 +3,7 @@ package rocks6205.svg.engine.viewcomponents;
 //~--- non-JDK imports --------------------------------------------------------
 
 import rocks6205.svg.engine.SVGView;
+import rocks6205.svgFamily.SVGEditorTheme;
 
 //~--- JDK imports ------------------------------------------------------------
 
@@ -60,8 +61,10 @@ public class SVGViewDeleteAccessoryPanel extends JPanel {
      */
     private void customise() {
         add(deleteButton);
-        deleteButton.setEnabled(false);
         setIconsForButtons();
+        deleteButton.setEnabled(true);
+        setBackground(SVGEditorTheme.getDefaultMasterColor());
+        this.setSize(this.getSize().width,deleteButton.getPreferredSize().height * 2);
     }
 
     /**
