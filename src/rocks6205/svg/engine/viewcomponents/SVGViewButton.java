@@ -32,6 +32,7 @@ public class SVGViewButton extends JButton {
      */
     public SVGViewButton() {
         setBorder(null);
+        setBackground(null);
     }
 
     /**

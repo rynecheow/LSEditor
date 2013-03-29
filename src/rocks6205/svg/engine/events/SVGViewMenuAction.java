@@ -261,6 +261,9 @@ public abstract class SVGViewMenuAction extends AbstractAction {
             super.parent.getModel().render();
             zoomOutPartnerAction.setEnabled(true);
             super.parent.getController().setZoomOut(true);
+            if (SVGImageCanvas.getZoomScale() > 5) {
+                super.parent.getController().setZoomOut(false);
+            }
         }
     }
 
@@ -313,7 +316,6 @@ public abstract class SVGViewMenuAction extends AbstractAction {
             super.parent.getModel().render();
 
             if (SVGImageCanvas.getZoomScale() < 2) {
-
                 // setEnabled(false);
                 super.parent.getController().setZoomOut(false);
             }

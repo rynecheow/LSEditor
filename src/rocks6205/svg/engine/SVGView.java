@@ -122,7 +122,6 @@ public class SVGView extends JFrame implements Observer {
      *
      */
     private void customise() {
-        setUpLookAndFeel("Nimbus");
         setSize(1000, 1000);
         setTitle("SVG Editor");
         scrollPane.setBounds(new Rectangle(renderAreaSize));
@@ -145,29 +144,6 @@ public class SVGView extends JFrame implements Observer {
         viewport.addMouseMotionListener(panListener);
         panelTop.setBackground(SVGEditorTheme.MASTER_DEFAULT_COLOR);
         panelBottom.setBackground(SVGEditorTheme.MASTER_DEFAULT_COLOR);
-    }
-
-    /**
-     * Setup look and feel for GUI.
-     * @param style <code>String</code> containing the name
-     */
-    private void setUpLookAndFeel(String style) {
-        if (OSValidator.isWindows()) {
-            System.out.println(UIManager.getLookAndFeel().toString());
-
-            try {
-                for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
-                    System.out.println(info.getName());
-
-                    if (style.equals(info.getName())) {
-                        UIManager.setLookAndFeel(info.getClassName());
-
-                        break;
-                    }
-                }
-            } catch (ClassNotFoundException | InstantiationException | IllegalAccessException
-                     | UnsupportedLookAndFeelException e) {}
-        }
     }
 
     /**
