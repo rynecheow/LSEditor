@@ -2,10 +2,10 @@ package rocks6205.svg.engine.viewcomponents;
 
 //~--- non-JDK imports --------------------------------------------------------
 
-import rocks6205.svg.engine.SVGView;
-import rocks6205.svg.engine.events.SVGViewMenuAction.OpenFileAction;
-import rocks6205.svg.engine.events.SVGViewMenuAction.ZoomInViewAction;
-import rocks6205.svg.engine.events.SVGViewMenuAction.ZoomOutViewAction;
+import rocks6205.svg.engine.SVGEditorView;
+import rocks6205.svg.engine.events.SVGEditorMenuAction.OpenFileAction;
+import rocks6205.svg.engine.events.SVGEditorMenuAction.ZoomInViewAction;
+import rocks6205.svg.engine.events.SVGEditorMenuAction.ZoomOutViewAction;
 
 import rocks6205.svgFamily.SVGEditorTheme;
 
@@ -22,18 +22,18 @@ import javax.swing.JPanel;
  * @since 1.2
  *
  */
-public class SVGViewTopToolbar extends JPanel {
+public class SVGEditorTopToolbar extends JPanel {
     private static final long serialVersionUID = -295721542850966526L;
 
     /**
      * Parent component
      */
-    SVGView parent;
+    SVGEditorView parent;
 
     /*
      * GUI COMPONENTS
      */
-    SVGViewButton newButton, openButton, saveButton, zoomInButton, zoomOutButton;
+    SVGEditorButton newButton, openButton, saveButton, zoomInButton, zoomOutButton;
 
     /*
      * ACTION COMPONENTS
@@ -52,7 +52,7 @@ public class SVGViewTopToolbar extends JPanel {
      *
      * @param view Parent component
      */
-    public SVGViewTopToolbar(SVGView view) {
+    public SVGEditorTopToolbar(SVGEditorView view) {
         super();
         parent = view;
         initialise();
@@ -63,11 +63,11 @@ public class SVGViewTopToolbar extends JPanel {
      * Initialisation of GUI components.
      */
     private void initialise() {
-        newButton     = new SVGViewButton();
-        openButton    = new SVGViewButton();
-        saveButton    = new SVGViewButton();
-        zoomInButton  = new SVGViewButton();
-        zoomOutButton = new SVGViewButton();
+        newButton     = new SVGEditorButton();
+        openButton    = new SVGEditorButton();
+        saveButton    = new SVGEditorButton();
+        zoomInButton  = new SVGEditorButton();
+        zoomOutButton = new SVGEditorButton();
         openAct       = new OpenFileAction(parent);
         zoomInAction  = new ZoomInViewAction(parent);
         zoomOutAction = new ZoomOutViewAction(parent);

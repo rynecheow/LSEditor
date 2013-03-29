@@ -2,7 +2,7 @@ package rocks6205.svg.engine.events;
 
 //~--- non-JDK imports --------------------------------------------------------
 
-import rocks6205.svg.engine.viewcomponents.SVGViewport;
+import rocks6205.svg.engine.viewcomponents.SVGEditorImageCanvasPanel;
 
 import rocks6205.svgFamily.OSValidator;
 import rocks6205.svgFamily.SVGImageCanvas;
@@ -20,17 +20,17 @@ import java.awt.event.MouseWheelEvent;
  *
  * @since 1.6
  */
-public class SVGViewMouseWheelZoomAdaptor extends MouseAdapter {
+public class SVGEditorMouseWheelZoomAdaptor extends MouseAdapter {
 
     /**
      * {@inheritDoc}<p>
      *
      */
     public void mouseWheelMoved(MouseWheelEvent event) {
-        SVGViewport viewport         = (SVGViewport) event.getSource();
-        boolean     isMacAndMetaDown = OSValidator.isMac() && event.isMetaDown();
-        boolean     isKeyPressed     = ((isMacAndMetaDown || event.isControlDown())
-                                        &&!(isMacAndMetaDown && event.isControlDown()));    // XOR
+        SVGEditorImageCanvasPanel viewport         = (SVGEditorImageCanvasPanel) event.getSource();
+        boolean                isMacAndMetaDown = OSValidator.isMac() && event.isMetaDown();
+        boolean                isKeyPressed     = ((isMacAndMetaDown || event.isControlDown())
+                                                   &&!(isMacAndMetaDown && event.isControlDown()));    // XOR
         boolean isScrolledUp = event.getWheelRotation() < 0;
 
         if (isKeyPressed) {

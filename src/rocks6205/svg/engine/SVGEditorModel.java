@@ -19,7 +19,7 @@ import java.util.Observable;
  * @since 1.0
  *
  */
-public class SVGModel extends Observable {
+public class SVGEditorModel extends Observable {
 
     /**
      * SVG Element to be drawn.
@@ -34,7 +34,7 @@ public class SVGModel extends Observable {
     /**
      * Default constructor.
      */
-    public SVGModel() {}
+    public SVGEditorModel() {}
 
     /*
      * ACCESSOR

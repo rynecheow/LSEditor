@@ -2,7 +2,8 @@ package rocks6205.svg.engine.viewcomponents;
 
 //~--- non-JDK imports --------------------------------------------------------
 
-import rocks6205.svg.engine.SVGView;
+import rocks6205.svg.engine.SVGEditorView;
+
 import rocks6205.svgFamily.SVGEditorTheme;
 
 //~--- JDK imports ------------------------------------------------------------
@@ -18,18 +19,18 @@ import javax.swing.JPanel;
  * @since 1.2
  *
  */
-public class SVGViewDeleteAccessoryPanel extends JPanel {
+public class SVGEditorDeleteAccessoryPanel extends JPanel {
     private static final long serialVersionUID = 4013696005435780830L;
 
     /**
      * Parent component
      */
-    SVGView parent;
+    SVGEditorView parent;
 
     /*
      * GUI COMPONENTS
      */
-    SVGViewButton deleteButton;
+    SVGEditorButton deleteButton;
 
     /*
      * CONSRTUCTOR
@@ -42,7 +43,7 @@ public class SVGViewDeleteAccessoryPanel extends JPanel {
      *
      * @param view Parent component
      */
-    public SVGViewDeleteAccessoryPanel(SVGView view) {
+    public SVGEditorDeleteAccessoryPanel(SVGEditorView view) {
         super();
         parent = view;
         initialise();
@@ -53,7 +54,7 @@ public class SVGViewDeleteAccessoryPanel extends JPanel {
      * Initialisation of GUI components.
      */
     private void initialise() {
-        deleteButton = new SVGViewButton();
+        deleteButton = new SVGEditorButton();
     }
 
     /**
@@ -64,7 +65,7 @@ public class SVGViewDeleteAccessoryPanel extends JPanel {
         setIconsForButtons();
         deleteButton.setEnabled(true);
         setBackground(SVGEditorTheme.MASTER_DEFAULT_COLOR);
-        this.setSize(this.getSize().width,deleteButton.getPreferredSize().height * 2);
+        this.setSize(this.getSize().width, deleteButton.getPreferredSize().height * 2);
     }
 
     /**

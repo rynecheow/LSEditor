@@ -23,7 +23,7 @@ import javax.swing.JViewport;
  * @since 1.4
  *
  */
-public class SVGViewPanMouseAdaptor extends MouseAdapter {
+public class SVGEditPanMouseAdaptor extends MouseAdapter {
 
     /**
      * Panning pivot point

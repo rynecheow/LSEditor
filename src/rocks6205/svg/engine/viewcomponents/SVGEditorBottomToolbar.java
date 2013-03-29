@@ -2,7 +2,8 @@ package rocks6205.svg.engine.viewcomponents;
 
 //~--- non-JDK imports --------------------------------------------------------
 
-import rocks6205.svg.engine.SVGView;
+import rocks6205.svg.engine.SVGEditorView;
+
 import rocks6205.svgFamily.SVGEditorTheme;
 
 //~--- JDK imports ------------------------------------------------------------
@@ -22,23 +23,23 @@ import javax.swing.SwingConstants;
  * @since 1.2
  *
  */
-public class SVGViewBottomToolbar extends JPanel {
+public class SVGEditorBottomToolbar extends JPanel {
     private static final long serialVersionUID = 4968792782186848487L;
 
     /**
      * Parent component
      */
     @SuppressWarnings("unused")
-    private SVGView parent;
+    private SVGEditorView parent;
 
     /*
      * GUI COMPONENTS
      */
-    SVGViewButton insertRectButton, insertCircButton, insertLineButton;    // group 1
-    SVGViewButton fillButton, strokeButton, strokeWidthButton;             // group 2
-    SVGViewButton groupButton, ungroupButton;                              // group 3
-    JPanel        backgroundPanel;
-    JSeparator    separator_1, separator_2;
+    SVGEditorButton insertRectButton, insertCircButton, insertLineButton;    // group 1
+    SVGEditorButton fillButton, strokeButton, strokeWidthButton;             // group 2
+    SVGEditorButton groupButton, ungroupButton;                              // group 3
+    JPanel          backgroundPanel;
+    JSeparator      separator_1, separator_2;
 
     /*
      * ACTION COMPONENTS
@@ -53,7 +54,7 @@ public class SVGViewBottomToolbar extends JPanel {
      * with components initialised and properly customised.
      * @param view Parent component
      */
-    public SVGViewBottomToolbar(SVGView view) {
+    public SVGEditorBottomToolbar(SVGEditorView view) {
         super();
         parent = view;
         initialise();
@@ -64,14 +65,14 @@ public class SVGViewBottomToolbar extends JPanel {
      * Initialisation of GUI components.
      */
     private void initialise() {
-        insertRectButton  = new SVGViewButton();
-        insertCircButton  = new SVGViewButton();
-        insertLineButton  = new SVGViewButton();
-        fillButton        = new SVGViewButton();
-        strokeButton      = new SVGViewButton();
-        strokeWidthButton = new SVGViewButton();
-        groupButton       = new SVGViewButton();
-        ungroupButton     = new SVGViewButton();
+        insertRectButton  = new SVGEditorButton();
+        insertCircButton  = new SVGEditorButton();
+        insertLineButton  = new SVGEditorButton();
+        fillButton        = new SVGEditorButton();
+        strokeButton      = new SVGEditorButton();
+        strokeWidthButton = new SVGEditorButton();
+        groupButton       = new SVGEditorButton();
+        ungroupButton     = new SVGEditorButton();
         backgroundPanel   = new JPanel();
         separator_1       = new JSeparator(SwingConstants.VERTICAL);
         separator_2       = new JSeparator(SwingConstants.VERTICAL);
@@ -81,8 +82,8 @@ public class SVGViewBottomToolbar extends JPanel {
      * Customisation of GUI components.
      */
     private void customise() {
-	setBackground(SVGEditorTheme.MASTER_DEFAULT_COLOR);
-      	setupSeparators();
+        setBackground(SVGEditorTheme.MASTER_DEFAULT_COLOR);
+        setupSeparators();
         layoutBackgroundPanel();
         add(backgroundPanel);
         disableUnused();

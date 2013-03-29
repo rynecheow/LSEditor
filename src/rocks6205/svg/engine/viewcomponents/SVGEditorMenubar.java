@@ -2,12 +2,12 @@ package rocks6205.svg.engine.viewcomponents;
 
 //~--- non-JDK imports --------------------------------------------------------
 
-import rocks6205.svg.engine.SVGView;
-import rocks6205.svg.engine.events.SVGViewMenuAction;
-import rocks6205.svg.engine.events.SVGViewMenuAction.ExitAction;
-import rocks6205.svg.engine.events.SVGViewMenuAction.OpenFileAction;
-import rocks6205.svg.engine.events.SVGViewMenuAction.ZoomInViewAction;
-import rocks6205.svg.engine.events.SVGViewMenuAction.ZoomOutViewAction;
+import rocks6205.svg.engine.SVGEditorView;
+import rocks6205.svg.engine.events.SVGEditorMenuAction;
+import rocks6205.svg.engine.events.SVGEditorMenuAction.ExitAction;
+import rocks6205.svg.engine.events.SVGEditorMenuAction.OpenFileAction;
+import rocks6205.svg.engine.events.SVGEditorMenuAction.ZoomInViewAction;
+import rocks6205.svg.engine.events.SVGEditorMenuAction.ZoomOutViewAction;
 
 //~--- JDK imports ------------------------------------------------------------
 
@@ -25,13 +25,13 @@ import javax.swing.JMenuItem;
  * @since 1.2
  *
  */
-public class SVGViewMenubar extends JMenuBar {
+public class SVGEditorMenubar extends JMenuBar {
     private static final long serialVersionUID = 57709812552137078L;
 
     /**
      * Parent component
      */
-    private SVGView parent;
+    private SVGEditorView parent;
 
     /*
      * GUI COMPONENTS
@@ -61,7 +61,7 @@ public class SVGViewMenubar extends JMenuBar {
      *
      * @param view Parent component
      */
-    public SVGViewMenubar(SVGView view) {
+    public SVGEditorMenubar(SVGEditorView view) {
         super();
         parent = view;
         initialise();
@@ -95,7 +95,7 @@ public class SVGViewMenubar extends JMenuBar {
         faqMenuItem          = new JMenuItem("FAQ");
         aboutMenuItem        = new JMenuItem("About");
         openAct              = new OpenFileAction(parent, "Open File...");
-        exitAct              = new SVGViewMenuAction.ExitAction(parent, "Exit");
+        exitAct              = new SVGEditorMenuAction.ExitAction(parent, "Exit");
         zoomOutAction        = new ZoomOutViewAction(parent, "Zoom Out");
         zoomInAction         = new ZoomInViewAction(parent, "Zoom In");
     }
@@ -205,19 +205,19 @@ public class SVGViewMenubar extends JMenuBar {
         insertMenu.setEnabled(false);
         helpMenu.setEnabled(false);
     }
-    
+
     /**
      * Enable zoom in button after SVG file is opened sucessfully
      */
     public void enableZoomIn() {
-	zoomInMenuItem.setEnabled(true);
+        zoomInMenuItem.setEnabled(true);
     }
-    
+
     /**
      * Disable zoom out button when it has resumed to its original size of image
      */
     public void setZoomOut(boolean flag) {
-	zoomOutMenuItem.setEnabled(flag);
+        zoomOutMenuItem.setEnabled(flag);
     }
 
     /*
@@ -227,9 +227,9 @@ public class SVGViewMenubar extends JMenuBar {
     /**
      * @return Open file action
      */
-    public SVGViewMenuAction.OpenFileAction getOpenAction() {
+    public SVGEditorMenuAction.OpenFileAction getOpenAction() {
         if (openAct == null) {
-            openAct = new SVGViewMenuAction.OpenFileAction(parent, "Open File...");
+            openAct = new SVGEditorMenuAction.OpenFileAction(parent, "Open File...");
         }
 
         return openAct;
@@ -240,7 +240,7 @@ public class SVGViewMenubar extends JMenuBar {
      */
     public ExitAction getExitAct() {
         if (exitAct == null) {
-            exitAct = new SVGViewMenuAction.ExitAction(parent, "Exit");
+            exitAct = new SVGEditorMenuAction.ExitAction(parent, "Exit");
         }
 
         return exitAct;

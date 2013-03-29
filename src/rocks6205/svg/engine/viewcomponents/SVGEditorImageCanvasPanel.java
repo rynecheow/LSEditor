@@ -2,7 +2,7 @@ package rocks6205.svg.engine.viewcomponents;
 
 //~--- non-JDK imports --------------------------------------------------------
 
-import rocks6205.svg.engine.SVGView;
+import rocks6205.svg.engine.SVGEditorView;
 
 import rocks6205.svgFamily.SVGCanvasProperties;
 import rocks6205.svgFamily.SVGImageCanvas;
@@ -24,13 +24,13 @@ import javax.swing.JPanel;
  *
  * @since 1.3
  */
-public class SVGViewport extends JPanel {
+public class SVGEditorImageCanvasPanel extends JPanel {
     private static final long serialVersionUID = -7920677728155693552L;
 
     /**
      * Parent component
      */
-    private SVGView parentView;
+    private SVGEditorView parentView;
 
     /*
      * PROPERTIES
@@ -48,23 +48,23 @@ public class SVGViewport extends JPanel {
      *
      * @param view
      */
-    public SVGViewport(SVGView view) {
-	super();
-	setParentView(view);
-	SVGCanvasProperties.setOutputResolution(Toolkit.getDefaultToolkit().getScreenResolution());
-	SVGCanvasProperties.setFontSize((this.getFont().getSize2D()));
+    public SVGEditorImageCanvasPanel(SVGEditorView view) {
+        super();
+        setParentView(view);
+        SVGCanvasProperties.setOutputResolution(Toolkit.getDefaultToolkit().getScreenResolution());
+        SVGCanvasProperties.setFontSize((this.getFont().getSize2D()));
 
-	/*
-	 * Unfinished implementation
-	 * addMouseWheelListener(new SVGViewMouseWheelZoomAdaptor());
-	 */
+        /*
+         * Unfinished implementation
+         * addMouseWheelListener(new SVGViewMouseWheelZoomAdaptor());
+         */
     }
 
     /**
      * @param canvas Image canvas
      */
     public void setCanvas(SVGImageCanvas canvas) {
-	this.canvas = canvas;
+        this.canvas = canvas;
     }
 
     /**
@@ -72,12 +72,13 @@ public class SVGViewport extends JPanel {
      * {@inheritDoc}
      */
     protected void paintComponent(Graphics g) {
-	super.paintComponent(g);
-	if(canvas!= null){
-	    g.setColor(Color.WHITE);
-	    g.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
-	    g.drawImage(canvas, 0, 0, null);
-	}
+        super.paintComponent(g);
+
+        if (canvas != null) {
+            g.setColor(Color.WHITE);
+            g.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
+            g.drawImage(canvas, 0, 0, null);
+        }
     }
 
     /**
@@ -85,23 +86,23 @@ public class SVGViewport extends JPanel {
      * {@inheritDoc}
      */
     public Dimension getPreferredSize() {
-	if (canvas != null) {
-	    int w = (int) (SVGImageCanvas.getZoomScale() * canvas.getWidth()),
-		    h = (int) (SVGImageCanvas.getZoomScale() * canvas.getHeight());
+        if (canvas != null) {
+            int w = (int) (SVGImageCanvas.getZoomScale() * canvas.getWidth()),
+                h = (int) (SVGImageCanvas.getZoomScale() * canvas.getHeight());
 
-	    return new Dimension(w, h);
-	}
+            return new Dimension(w, h);
+        }
 
-	return super.getPreferredSize();
+        return super.getPreferredSize();
     }
 
-    public SVGView getParentView() {
-	return parentView;
+    public SVGEditorView getParentView() {
+        return parentView;
     }
 
-    public void setParentView(SVGView parentView) {
-	if (parentView != null) {
-	    this.parentView = parentView;
-	}
+    public void setParentView(SVGEditorView parentView) {
+        if (parentView != null) {
+            this.parentView = parentView;
+        }
     }
 }

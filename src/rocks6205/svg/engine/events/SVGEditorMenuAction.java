@@ -2,7 +2,7 @@ package rocks6205.svg.engine.events;
 
 //~--- non-JDK imports --------------------------------------------------------
 
-import rocks6205.svg.engine.SVGView;
+import rocks6205.svg.engine.SVGEditorView;
 
 import rocks6205.svgFamily.OSValidator;
 import rocks6205.svgFamily.SVGImageCanvas;
@@ -29,13 +29,13 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  * @since 1.1
  *
  */
-public abstract class SVGViewMenuAction extends AbstractAction {
+public abstract class SVGEditorMenuAction extends AbstractAction {
     private static final long serialVersionUID = 9085407834848872724L;
 
     /**
      * Parent component (Usually an <code>SVGView</code> object.)
      */
-    private SVGView parent;
+    private SVGEditorView parent;
 
     /*
      * CONSTRUCTOR
@@ -51,7 +51,7 @@ public abstract class SVGViewMenuAction extends AbstractAction {
      * @param keyStroke Key action on the keyboard
      * @param parent Parent component
      */
-    public SVGViewMenuAction(String tooltipText, Integer mnemonic, KeyStroke keyStroke, SVGView parent) {
+    public SVGEditorMenuAction(String tooltipText, Integer mnemonic, KeyStroke keyStroke, SVGEditorView parent) {
         putValue(SHORT_DESCRIPTION, tooltipText);
         putValue(MNEMONIC_KEY, mnemonic);
         putValue(ACCELERATOR_KEY, keyStroke);
@@ -69,7 +69,8 @@ public abstract class SVGViewMenuAction extends AbstractAction {
      * @param keyStroke Key action on the keyboard
      * @param parent Parent component
      */
-    public SVGViewMenuAction(String name, String tooltipText, Integer mnemonic, KeyStroke keyStroke, SVGView parent) {
+    public SVGEditorMenuAction(String name, String tooltipText, Integer mnemonic, KeyStroke keyStroke,
+                               SVGEditorView parent) {
         putValue(Action.NAME, name);
         putValue(SHORT_DESCRIPTION, tooltipText);
         putValue(MNEMONIC_KEY, mnemonic);
@@ -95,7 +96,7 @@ public abstract class SVGViewMenuAction extends AbstractAction {
      * @since 1.1
      *
      */
-    public static class ExitAction extends SVGViewMenuAction {
+    public static class ExitAction extends SVGEditorMenuAction {
         private static final long serialVersionUID = 6507259946341784118L;
 
         /*
@@ -107,7 +108,7 @@ public abstract class SVGViewMenuAction extends AbstractAction {
          * <code>parent</code> and no action name.
          * @param parent Parent component
          */
-        public ExitAction(SVGView parent) {
+        public ExitAction(SVGEditorView parent) {
             super("Exit Program", KeyEvent.VK_X, KeyStroke.getKeyStroke(KeyEvent.VK_F4, ActionEvent.ALT_MASK), parent);
         }
 
@@ -117,7 +118,7 @@ public abstract class SVGViewMenuAction extends AbstractAction {
          * @param parent Parent component
          * @param actionName Name of action component
          */
-        public ExitAction(SVGView parent, String actionName) {
+        public ExitAction(SVGEditorView parent, String actionName) {
             super(actionName, "Exit Program", KeyEvent.VK_X,
                   KeyStroke.getKeyStroke(KeyEvent.VK_F4, ActionEvent.ALT_MASK), parent);
         }
@@ -147,7 +148,7 @@ public abstract class SVGViewMenuAction extends AbstractAction {
      * @since 1.1
      *
      */
-    public static class OpenFileAction extends SVGViewMenuAction {
+    public static class OpenFileAction extends SVGEditorMenuAction {
         private static final long serialVersionUID = -7823707833188816535L;
 
         /*
@@ -160,7 +161,7 @@ public abstract class SVGViewMenuAction extends AbstractAction {
          *
          * @param parent Parent component
          */
-        public OpenFileAction(SVGView parent) {
+        public OpenFileAction(SVGEditorView parent) {
             super("Open a file", KeyEvent.VK_O, KeyStroke.getKeyStroke(KeyEvent.VK_O, getKeyEventMask()), parent);
         }
 
@@ -170,7 +171,7 @@ public abstract class SVGViewMenuAction extends AbstractAction {
          * @param parent Parent component
          * @param actionName Name of action component
          */
-        public OpenFileAction(SVGView parent, String actionName) {
+        public OpenFileAction(SVGEditorView parent, String actionName) {
             super(actionName, "Open a file", KeyEvent.VK_O, KeyStroke.getKeyStroke(KeyEvent.VK_O, getKeyEventMask()),
                   parent);
         }
@@ -206,7 +207,7 @@ public abstract class SVGViewMenuAction extends AbstractAction {
      * @since 1.1
      *
      */
-    public static class ZoomInViewAction extends SVGViewMenuAction {
+    public static class ZoomInViewAction extends SVGEditorMenuAction {
         private static final long serialVersionUID = 1180439021996674018L;
 
         /*
@@ -227,7 +228,7 @@ public abstract class SVGViewMenuAction extends AbstractAction {
          * <code>parent</code> and no action name.
          * @param parent Parent component
          */
-        public ZoomInViewAction(SVGView parent) {
+        public ZoomInViewAction(SVGEditorView parent) {
             super("Zoom In", KeyEvent.VK_I, KeyStroke.getKeyStroke(KeyEvent.VK_EQUALS, getKeyEventMask()), parent);
             this.setEnabled(false);
         }
@@ -237,7 +238,7 @@ public abstract class SVGViewMenuAction extends AbstractAction {
          * <code>parent</code> and no action name.
          * @param parent Parent component
          */
-        public ZoomInViewAction(SVGView parent, String actionName) {
+        public ZoomInViewAction(SVGEditorView parent, String actionName) {
             super(actionName, "Zoom In", KeyEvent.VK_I, KeyStroke.getKeyStroke(KeyEvent.VK_EQUALS, getKeyEventMask()),
                   parent);
             this.setEnabled(false);
@@ -261,6 +262,7 @@ public abstract class SVGViewMenuAction extends AbstractAction {
             super.parent.getModel().render();
             zoomOutPartnerAction.setEnabled(true);
             super.parent.getController().setZoomOut(true);
+
             if (SVGImageCanvas.getZoomScale() > 5) {
                 super.parent.getController().setZoomOut(false);
             }
@@ -278,7 +280,7 @@ public abstract class SVGViewMenuAction extends AbstractAction {
      * @since 1.1
      *
      */
-    public static class ZoomOutViewAction extends SVGViewMenuAction {
+    public static class ZoomOutViewAction extends SVGEditorMenuAction {
         private static final long serialVersionUID = -6578149781110081473L;
 
         /*
@@ -290,7 +292,7 @@ public abstract class SVGViewMenuAction extends AbstractAction {
          * <code>parent</code> and no action name. <p>Disabled by default.
          * @param parent Parent component
          */
-        public ZoomOutViewAction(SVGView parent) {
+        public ZoomOutViewAction(SVGEditorView parent) {
             super("Zoom Out", KeyEvent.VK_O, KeyStroke.getKeyStroke(KeyEvent.VK_MINUS, getKeyEventMask()), parent);
             setEnabled(false);
         }
@@ -300,7 +302,7 @@ public abstract class SVGViewMenuAction extends AbstractAction {
          * <code>parent</code> and no action name. <p>Disabled by default.
          * @param parent Parent component
          */
-        public ZoomOutViewAction(SVGView parent, String actionName) {
+        public ZoomOutViewAction(SVGEditorView parent, String actionName) {
             super(actionName, "Zoom Out", KeyEvent.VK_O, KeyStroke.getKeyStroke(KeyEvent.VK_MINUS, getKeyEventMask()),
                   parent);
             setEnabled(false);
@@ -316,6 +318,7 @@ public abstract class SVGViewMenuAction extends AbstractAction {
             super.parent.getModel().render();
 
             if (SVGImageCanvas.getZoomScale() < 2) {
+
                 // setEnabled(false);
                 super.parent.getController().setZoomOut(false);
             }

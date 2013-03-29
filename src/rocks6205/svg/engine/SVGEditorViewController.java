@@ -27,7 +27,7 @@ import javax.swing.JOptionPane;
  * @since 1.2
  *
  */
-public class SVGViewController {
+public class SVGEditorViewController {
 
     /*
      * PROPERTIES
@@ -36,12 +36,12 @@ public class SVGViewController {
     /**
      * Model object
      */
-    private SVGModel model;
+    private SVGEditorModel model;
 
     /**
      * View object
      */
-    private SVGView view;
+    private SVGEditorView view;
 
     /*
      * CONSTRUCTOR
@@ -53,7 +53,7 @@ public class SVGViewController {
      * @param model  Model object
      * @param view  View object
      */
-    public SVGViewController(SVGModel model, SVGView view) {
+    public SVGEditorViewController(SVGEditorModel model, SVGEditorView view) {
         setModel(model);
         setView(view);
     }
@@ -65,14 +65,14 @@ public class SVGViewController {
     /**
      * @return View object
      */
-    public SVGView getView() {
+    public SVGEditorView getView() {
         return view;
     }
 
     /**
      * @return Model object
      */
-    public SVGModel getModel() {
+    public SVGEditorModel getModel() {
         return model;
     }
 
@@ -83,14 +83,14 @@ public class SVGViewController {
     /**
      * @param model Model object
      */
-    public void setModel(SVGModel model) {
+    public void setModel(SVGEditorModel model) {
         this.model = model;
     }
 
     /**
      * @param view View object
      */
-    public void setView(SVGView view) {
+    public void setView(SVGEditorView view) {
         this.view = view;
     }
 

@@ -2,12 +2,12 @@ package rocks6205.svg.engine;
 
 //~--- non-JDK imports --------------------------------------------------------
 
-import rocks6205.svg.engine.events.SVGViewPanMouseAdaptor;
-import rocks6205.svg.engine.viewcomponents.SVGViewBottomToolbar;
-import rocks6205.svg.engine.viewcomponents.SVGViewDeleteAccessoryPanel;
-import rocks6205.svg.engine.viewcomponents.SVGViewMenubar;
-import rocks6205.svg.engine.viewcomponents.SVGViewTopToolbar;
-import rocks6205.svg.engine.viewcomponents.SVGViewport;
+import rocks6205.svg.engine.events.SVGEditPanMouseAdaptor;
+import rocks6205.svg.engine.viewcomponents.SVGEditorBottomToolbar;
+import rocks6205.svg.engine.viewcomponents.SVGEditorDeleteAccessoryPanel;
+import rocks6205.svg.engine.viewcomponents.SVGEditorImageCanvasPanel;
+import rocks6205.svg.engine.viewcomponents.SVGEditorMenubar;
+import rocks6205.svg.engine.viewcomponents.SVGEditorTopToolbar;
 
 import rocks6205.svgFamily.SVGEditorTheme;
 import rocks6205.svgFamily.SVGImageCanvas;
@@ -40,7 +40,7 @@ import javax.swing.JViewport;
  *
  * @since 1.2
  */
-public class SVGView extends JFrame implements Observer {
+public class SVGEditorView extends JFrame implements Observer {
     private static final long serialVersionUID = 6764861773639452353L;
 
     /*
@@ -50,26 +50,26 @@ public class SVGView extends JFrame implements Observer {
     /**
      * Model object
      */
-    private SVGModel model;
+    private SVGEditorModel model;
 
     /**
      * Controller object
      */
-    private SVGViewController controller;
+    private SVGEditorViewController controller;
 
     /*
      * GUI COMPONENTS
      */
-    SVGViewMenubar              menuBar;
-    SVGViewTopToolbar           topTool;
-    SVGViewBottomToolbar        bottomTool;
-    SVGViewDeleteAccessoryPanel delete;
-    JPanel                      panelTop, panelBottom;
-    SVGViewport                 renderPanel;
-    JViewport                   viewport;
-    Container                   container;
-    JScrollPane                 scrollPane;
-    Dimension                   renderAreaSize;
+    SVGEditorMenubar              menuBar;
+    SVGEditorTopToolbar           topTool;
+    SVGEditorBottomToolbar        bottomTool;
+    SVGEditorDeleteAccessoryPanel delete;
+    JPanel                        panelTop, panelBottom;
+    SVGEditorImageCanvasPanel     renderPanel;
+    JViewport                     viewport;
+    Container                     container;
+    JScrollPane                   scrollPane;
+    Dimension                     renderAreaSize;
 
     /*
      * ACTION COMPONENTS
@@ -78,7 +78,7 @@ public class SVGView extends JFrame implements Observer {
     /**
      * Handle pan events.
      */
-    private SVGViewPanMouseAdaptor panListener;
+    private SVGEditPanMouseAdaptor panListener;
 
     /*
      * CONSTRUCTOR
@@ -88,7 +88,7 @@ public class SVGView extends JFrame implements Observer {
      * Construct an <code>SVGView</code> instance with components initialised
      * and properly customised.
      */
-    public SVGView() {
+    public SVGEditorView() {
         super();
         initialise();
         customise();
@@ -98,19 +98,19 @@ public class SVGView extends JFrame implements Observer {
      * Initialisation of GUI components.
      */
     private void initialise() {
-        menuBar        = new SVGViewMenubar(this);
-        topTool        = new SVGViewTopToolbar(this);
-        bottomTool     = new SVGViewBottomToolbar(this);
-        delete         = new SVGViewDeleteAccessoryPanel(this);
+        menuBar        = new SVGEditorMenubar(this);
+        topTool        = new SVGEditorTopToolbar(this);
+        bottomTool     = new SVGEditorBottomToolbar(this);
+        delete         = new SVGEditorDeleteAccessoryPanel(this);
         panelTop       = new JPanel();
         panelBottom    = new JPanel();
-        renderPanel    = new SVGViewport(this);
+        renderPanel    = new SVGEditorImageCanvasPanel(this);
         viewport       = new JViewport();
         container      = getContentPane();
         renderAreaSize = new Dimension(0, 0);
         scrollPane     = new JScrollPane(renderPanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
                                          JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-        panListener = new SVGViewPanMouseAdaptor();
+        panListener = new SVGEditPanMouseAdaptor();
     }
 
     /**
@@ -166,14 +166,14 @@ public class SVGView extends JFrame implements Observer {
     /**
      * @return Model object
      */
-    public SVGModel getModel() {
+    public SVGEditorModel getModel() {
         return model;
     }
 
     /**
      * @return Controller object
      */
-    public SVGViewController getController() {
+    public SVGEditorViewController getController() {
         return controller;
     }
 
@@ -184,14 +184,14 @@ public class SVGView extends JFrame implements Observer {
     /**
      * @param controller Controller object
      */
-    public void setController(SVGViewController controller) {
+    public void setController(SVGEditorViewController controller) {
         this.controller = controller;
     }
 
     /**
      * @param model Model object
      */
-    public void setModel(SVGModel model) {
+    public void setModel(SVGEditorModel model) {
         this.model = model;
     }
 
@@ -201,9 +201,9 @@ public class SVGView extends JFrame implements Observer {
      * {@inheritDoc}
      */
     public void update(Observable o, Object arg) {
-        if (o instanceof SVGModel) {
-            float w = ((SVGModel) o).getSVGElement().getWidth().getValue();
-            float h = ((SVGModel) o).getSVGElement().getHeight().getValue();
+        if (o instanceof SVGEditorModel) {
+            float w = ((SVGEditorModel) o).getSVGElement().getWidth().getValue();
+            float h = ((SVGEditorModel) o).getSVGElement().getHeight().getValue();
 
             renderAreaSize.height = (int) h;
             renderAreaSize.width  = (int) w;

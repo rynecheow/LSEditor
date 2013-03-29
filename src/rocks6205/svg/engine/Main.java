@@ -21,10 +21,10 @@ import javax.swing.UnsupportedLookAndFeelException;
  */
 public class Main {
     public static void main(String[] rcks) {
-        String            fileURI;
-        SVGModel          m = new SVGModel();
-        SVGView           v = new SVGView();
-        SVGViewController c = new SVGViewController(m, v);
+        String                  fileURI;
+        SVGEditorModel          m = new SVGEditorModel();
+        SVGEditorView           v = new SVGEditorView();
+        SVGEditorViewController c = new SVGEditorViewController(m, v);
 
         setUpLookAndFeel();
         m.addObserver(v);
