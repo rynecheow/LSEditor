@@ -1,4 +1,4 @@
-package rocks6205.svgParser;
+package rocks6205.svg.parser;
 
 //~--- non-JDK imports --------------------------------------------------------
 

@@ -1,10 +1,10 @@
-package rocks6205.svg.engine.viewcomponents;
+package rocks6205.svg.editor.viewcomponents;
 
 //~--- non-JDK imports --------------------------------------------------------
 
-import rocks6205.svg.engine.SVGEditorView;
+import rocks6205.svg.mvc.SVGEditorView;
+import rocks6205.svg.properties.SVGEditorTheme;
 
-import rocks6205.svgFamily.SVGEditorTheme;
 
 //~--- JDK imports ------------------------------------------------------------
 

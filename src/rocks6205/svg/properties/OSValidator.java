@@ -1,4 +1,4 @@
-package rocks6205.svgFamily;
+package rocks6205.svg.properties;
 
 /**
  * Checks the current operating system that the program is currently

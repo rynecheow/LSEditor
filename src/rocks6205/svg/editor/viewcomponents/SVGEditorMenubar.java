@@ -1,13 +1,13 @@
-package rocks6205.svg.engine.viewcomponents;
+package rocks6205.svg.editor.viewcomponents;
 
 //~--- non-JDK imports --------------------------------------------------------
 
-import rocks6205.svg.engine.SVGEditorView;
-import rocks6205.svg.engine.events.SVGEditorMenuAction;
-import rocks6205.svg.engine.events.SVGEditorMenuAction.ExitAction;
-import rocks6205.svg.engine.events.SVGEditorMenuAction.OpenFileAction;
-import rocks6205.svg.engine.events.SVGEditorMenuAction.ZoomInViewAction;
-import rocks6205.svg.engine.events.SVGEditorMenuAction.ZoomOutViewAction;
+import rocks6205.svg.editor.events.SVGEditorMenuAction;
+import rocks6205.svg.editor.events.SVGEditorMenuAction.ExitAction;
+import rocks6205.svg.editor.events.SVGEditorMenuAction.OpenFileAction;
+import rocks6205.svg.editor.events.SVGEditorMenuAction.ZoomInViewAction;
+import rocks6205.svg.editor.events.SVGEditorMenuAction.ZoomOutViewAction;
+import rocks6205.svg.mvc.SVGEditorView;
 
 //~--- JDK imports ------------------------------------------------------------
 

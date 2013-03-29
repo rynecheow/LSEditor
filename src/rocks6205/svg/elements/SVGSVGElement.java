@@ -17,8 +17,8 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
 import rocks6205.svg.adt.SVGLengthUnit;
+import rocks6205.svg.properties.SVGImageCanvas;
 
-import rocks6205.svgFamily.SVGImageCanvas;
 
 //~--- JDK imports ------------------------------------------------------------
 

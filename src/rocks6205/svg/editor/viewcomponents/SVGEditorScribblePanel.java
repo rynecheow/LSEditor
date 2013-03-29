@@ -1,4 +1,4 @@
-package rocks6205.svg.engine.viewcomponents;
+package rocks6205.svg.editor.viewcomponents;
 
 //~--- JDK imports ------------------------------------------------------------
 

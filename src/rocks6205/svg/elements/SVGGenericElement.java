@@ -8,8 +8,8 @@ import rocks6205.svg.adt.SVGColorScheme;
 import rocks6205.svg.adt.SVGLengthUnit;
 import rocks6205.svg.adt.SVGPainting;
 import rocks6205.svg.adt.SVGPaintingType;
+import rocks6205.svg.properties.SVGImageCanvas;
 
-import rocks6205.svgFamily.SVGImageCanvas;
 
 //~--- JDK imports ------------------------------------------------------------
 

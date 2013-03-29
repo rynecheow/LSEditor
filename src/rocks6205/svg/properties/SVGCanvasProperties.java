@@ -1,4 +1,4 @@
-package rocks6205.svgFamily;
+package rocks6205.svg.properties;
 
 /**
  *

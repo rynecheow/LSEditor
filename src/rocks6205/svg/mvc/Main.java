@@ -1,8 +1,8 @@
-package rocks6205.svg.engine;
+package rocks6205.svg.mvc;
 
 //~--- non-JDK imports --------------------------------------------------------
 
-import rocks6205.svgFamily.OSValidator;
+import rocks6205.svg.properties.OSValidator;
 
 //~--- JDK imports ------------------------------------------------------------
 

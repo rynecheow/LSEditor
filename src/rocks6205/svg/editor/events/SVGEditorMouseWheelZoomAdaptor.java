@@ -1,11 +1,11 @@
-package rocks6205.svg.engine.events;
+package rocks6205.svg.editor.events;
 
 //~--- non-JDK imports --------------------------------------------------------
 
-import rocks6205.svg.engine.viewcomponents.SVGEditorImageCanvasPanel;
+import rocks6205.svg.editor.viewcomponents.SVGEditorImageCanvasPanel;
+import rocks6205.svg.properties.OSValidator;
+import rocks6205.svg.properties.SVGImageCanvas;
 
-import rocks6205.svgFamily.OSValidator;
-import rocks6205.svgFamily.SVGImageCanvas;
 
 //~--- JDK imports ------------------------------------------------------------
 

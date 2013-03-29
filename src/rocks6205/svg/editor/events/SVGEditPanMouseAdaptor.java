@@ -1,4 +1,4 @@
-package rocks6205.svg.engine.events;
+package rocks6205.svg.editor.events;
 
 //~--- JDK imports ------------------------------------------------------------
 

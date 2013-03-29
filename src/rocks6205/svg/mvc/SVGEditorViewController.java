@@ -1,4 +1,4 @@
-package rocks6205.svg.engine;
+package rocks6205.svg.mvc;
 
 //~--- non-JDK imports --------------------------------------------------------
 
@@ -7,10 +7,10 @@ import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 
 import rocks6205.svg.elements.SVGSVGElement;
+import rocks6205.svg.parser.XMLParser;
+import rocks6205.svg.properties.SVGImageCanvas;
 
-import rocks6205.svgFamily.SVGImageCanvas;
 
-import rocks6205.svgParser.XMLParser;
 
 //~--- JDK imports ------------------------------------------------------------
 

@@ -4,7 +4,7 @@ package rocks6205.svg.elements;
 
 import org.w3c.dom.Element;
 
-import rocks6205.svgFamily.SVGImageCanvas;
+import rocks6205.svg.properties.SVGImageCanvas;
 
 //~--- JDK imports ------------------------------------------------------------
 
