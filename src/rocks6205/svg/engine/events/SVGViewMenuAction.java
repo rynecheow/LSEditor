@@ -78,11 +78,11 @@ public abstract class SVGViewMenuAction extends AbstractAction {
     }
 
     public static int getKeyEventMask() {
-	if(OSValidator.isMac()){
-	    return ActionEvent.META_MASK;
-	}
-	
-	return ActionEvent.CTRL_MASK;
+        if (OSValidator.isMac()) {
+            return ActionEvent.META_MASK;
+        }
+
+        return ActionEvent.CTRL_MASK;
     }
 
     /**
@@ -171,8 +171,8 @@ public abstract class SVGViewMenuAction extends AbstractAction {
          * @param actionName Name of action component
          */
         public OpenFileAction(SVGView parent, String actionName) {
-            super(actionName, "Open a file", KeyEvent.VK_O,
-                  KeyStroke.getKeyStroke(KeyEvent.VK_O, getKeyEventMask()), parent);
+            super(actionName, "Open a file", KeyEvent.VK_O, KeyStroke.getKeyStroke(KeyEvent.VK_O, getKeyEventMask()),
+                  parent);
         }
 
         /**
@@ -238,8 +238,8 @@ public abstract class SVGViewMenuAction extends AbstractAction {
          * @param parent Parent component
          */
         public ZoomInViewAction(SVGView parent, String actionName) {
-            super(actionName, "Zoom In", KeyEvent.VK_I,
-                  KeyStroke.getKeyStroke(KeyEvent.VK_PLUS, getKeyEventMask()), parent);
+            super(actionName, "Zoom In", KeyEvent.VK_I, KeyStroke.getKeyStroke(KeyEvent.VK_PLUS, getKeyEventMask()),
+                  parent);
             this.setEnabled(false);
         }
 
@@ -298,8 +298,8 @@ public abstract class SVGViewMenuAction extends AbstractAction {
          * @param parent Parent component
          */
         public ZoomOutViewAction(SVGView parent, String actionName) {
-            super(actionName, "Zoom Out", KeyEvent.VK_O,
-                  KeyStroke.getKeyStroke(KeyEvent.VK_MINUS, getKeyEventMask()), parent);
+            super(actionName, "Zoom Out", KeyEvent.VK_O, KeyStroke.getKeyStroke(KeyEvent.VK_MINUS, getKeyEventMask()),
+                  parent);
             setEnabled(false);
         }
 
@@ -313,9 +313,10 @@ public abstract class SVGViewMenuAction extends AbstractAction {
             super.parent.getModel().render();
 
             if (SVGImageCanvas.getZoomScale() < 2) {
-                //setEnabled(false);
+
+                // setEnabled(false);
                 super.parent.getController().setZoomOut(false);
-            } 
+            }
         }
     }
 }

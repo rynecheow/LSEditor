@@ -2,12 +2,12 @@ package rocks6205.svg.engine.viewcomponents;
 
 //~--- non-JDK imports --------------------------------------------------------
 
-import java.awt.Color;
-
 import rocks6205.svg.engine.SVGView;
 import rocks6205.svg.engine.events.SVGViewMenuAction.OpenFileAction;
 import rocks6205.svg.engine.events.SVGViewMenuAction.ZoomInViewAction;
 import rocks6205.svg.engine.events.SVGViewMenuAction.ZoomOutViewAction;
+
+import rocks6205.svgFamily.SVGEditorTheme;
 
 //~--- JDK imports ------------------------------------------------------------
 
@@ -86,7 +86,7 @@ public class SVGViewTopToolbar extends JPanel {
         zoomInAction.setZoomOutPartnerAction(zoomOutAction);
         setActionForButtons();
         setIconsForButtons();
-        setBackground(new Color(0x0A3E54));
+        setBackground(SVGEditorTheme.defaultMasterColor);
     }
 
     /**
@@ -96,19 +96,19 @@ public class SVGViewTopToolbar extends JPanel {
         newButton.setEnabled(false);
         saveButton.setEnabled(false);
     }
-    
+
     /**
      * Enable zoom in button after SVG file is opened sucessfully
      */
     public void enableZoomIn() {
-	zoomInButton.setEnabled(true);
+        zoomInButton.setEnabled(true);
     }
-    
+
     /**
      * Disable zoom out button when it has resumed to its original size of image
      */
     public void setZoomOut(boolean flag) {
-	zoomOutButton.setEnabled(flag);
+        zoomOutButton.setEnabled(flag);
     }
 
     /**
@@ -152,9 +152,10 @@ public class SVGViewTopToolbar extends JPanel {
      * @return Zoom in view action
      */
     private ZoomInViewAction getZoomInAction() {
-	if (zoomInAction == null) {
+        if (zoomInAction == null) {
             zoomInAction = new ZoomInViewAction(parent, "Zoom In");
         }
+
         return zoomInAction;
     }
 
@@ -162,9 +163,10 @@ public class SVGViewTopToolbar extends JPanel {
      * @return Zoom out view action
      */
     private ZoomOutViewAction getZoomOutAction() {
-	 if (zoomOutAction == null) {
-	     zoomOutAction = new ZoomOutViewAction(parent, "Zoom Out");
-	 }
+        if (zoomOutAction == null) {
+            zoomOutAction = new ZoomOutViewAction(parent, "Zoom Out");
+        }
+
         return zoomOutAction;
     }
 }

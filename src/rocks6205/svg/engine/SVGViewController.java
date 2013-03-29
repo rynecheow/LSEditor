@@ -8,6 +8,7 @@ import org.xml.sax.InputSource;
 
 import rocks6205.svg.elements.SVGSVGElement;
 
+import rocks6205.svgFamily.SVGImageCanvas;
 import rocks6205.svgParser.XMLParser;
 
 //~--- JDK imports ------------------------------------------------------------
@@ -115,7 +116,7 @@ public class SVGViewController {
             } catch (NullPointerException npe) {
                 npe.printStackTrace();
             }
-
+            SVGImageCanvas.setZoomScale(1.0);
             if (doc != null) {
                 SVGSVGElement svg_e = SVGSVGElement.parseDocument(doc);
 

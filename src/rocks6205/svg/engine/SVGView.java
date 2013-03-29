@@ -83,13 +83,13 @@ public class SVGView extends JFrame implements Observer {
     /*
      * CONSTRUCTOR
      */
+
     /**
      * Construct an <code>SVGView</code> instance with components initialised
      * and properly customised.
      */
     public SVGView() {
         super();
-        
         initialise();
         customise();
     }
@@ -138,8 +138,8 @@ public class SVGView extends JFrame implements Observer {
         viewport = scrollPane.getViewport();
         viewport.addMouseListener(panListener);
         viewport.addMouseMotionListener(panListener);
-        panelTop.setBackground(SVGEditorTheme.getDefaultMasterColor());
-        panelBottom.setBackground(SVGEditorTheme.getDefaultMasterColor());
+        panelTop.setBackground(SVGEditorTheme.defaultMasterColor);
+        panelBottom.setBackground(SVGEditorTheme.defaultMasterColor);
     }
 
     /**

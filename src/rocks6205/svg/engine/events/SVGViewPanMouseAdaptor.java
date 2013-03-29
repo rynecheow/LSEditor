@@ -7,15 +7,9 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseWheelEvent;
 
 import javax.swing.JComponent;
 import javax.swing.JViewport;
-
-import rocks6205.svg.engine.SVGView;
-import rocks6205.svg.engine.viewcomponents.SVGViewport;
-import rocks6205.svgFamily.OSValidator;
-import rocks6205.svgFamily.SVGImageCanvas;
 
 /**
  *
@@ -42,11 +36,11 @@ public class SVGViewPanMouseAdaptor extends MouseAdapter {
      * current cursor to <code>HAND_CURSOR</code>.
      */
     public void mousePressed(MouseEvent event) {
-	JViewport  viewport  = (JViewport) event.getSource();
-	JComponent component = (JComponent) viewport.getView();
+        JViewport  viewport  = (JViewport) event.getSource();
+        JComponent component = (JComponent) viewport.getView();
 
-	panPoint.setLocation(event.getPoint());
-	component.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        panPoint.setLocation(event.getPoint());
+        component.setCursor(new Cursor(Cursor.HAND_CURSOR));
     }
 
     /**
@@ -54,10 +48,10 @@ public class SVGViewPanMouseAdaptor extends MouseAdapter {
      * Reset cursor to <code>DEFAULT_CURSOR</code>.
      */
     public void mouseReleased(MouseEvent event) {
-	JViewport  viewport  = (JViewport) event.getSource();
-	JComponent component = (JComponent) viewport.getView();
+        JViewport  viewport  = (JViewport) event.getSource();
+        JComponent component = (JComponent) viewport.getView();
 
-	component.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+        component.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
     }
 
     /**
@@ -66,34 +60,13 @@ public class SVGViewPanMouseAdaptor extends MouseAdapter {
      * event cursor location.
      */
     public void mouseDragged(MouseEvent event) {
-	JViewport  viewport     = (JViewport) event.getSource();
-	JComponent component    = (JComponent) viewport.getView();
-	Point      currentPoint = event.getPoint();
-	Point      viewPoint    = viewport.getViewPosition();
+        JViewport  viewport     = (JViewport) event.getSource();
+        JComponent component    = (JComponent) viewport.getView();
+        Point      currentPoint = event.getPoint();
+        Point      viewPoint    = viewport.getViewPosition();
 
-	viewPoint.translate(panPoint.x - currentPoint.x, panPoint.y - currentPoint.y);
-	component.scrollRectToVisible(new Rectangle(viewPoint, viewport.getSize()));
-	panPoint.setLocation(currentPoint);
+        viewPoint.translate(panPoint.x - currentPoint.x, panPoint.y - currentPoint.y);
+        component.scrollRectToVisible(new Rectangle(viewPoint, viewport.getSize()));
+        panPoint.setLocation(currentPoint);
     }
-//    /**
-//     * {@inheritDoc}<p>
-//     * 
-//     * @param event
-//     */
-//    public void mouseWheelMoved(MouseWheelEvent event){
-//	JViewport  viewport  = (JViewport) event.getSource();
-//	JComponent component = (JComponent) viewport.getView();
-//	boolean isMacAndMetaDown = OSValidator.isMac() && event.isMetaDown();
-//	boolean isKeyPressed = ((isMacAndMetaDown || event.isControlDown()) && ! (isMacAndMetaDown && event.isControlDown())); //XOR
-//
-//	boolean isScrolledUp = event.getWheelRotation() < 0;
-//	if(isKeyPressed)
-//	    if(isScrolledUp){
-//		SVGImageCanvas.setZoomScale(SVGImageCanvas.getZoomScale() + 1);
-//		
-//	    }
-//	    else{
-//		SVGImageCanvas.setZoomScale(SVGImageCanvas.getZoomScale() - 1);
-//	    }
-//    }
 }
