@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
  * SVG documents and convert to floating points with respective type to be presented
  * on Java.
  * <p>
- * <code>SVGLengthUnit</code> is used for <code>coordinates</code>, <code>stroke-width</code>, 
+ * <code>SVGLengthUnit</code> is used for <code>coordinates</code>, <code>stroke-width</code>,
  * <code>width</code>, <code>height</code>, etc.
  *
  * @author Cheow Yeong Chi

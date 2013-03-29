@@ -12,8 +12,6 @@ import rocks6205.svgFamily.SVGImageCanvas;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseWheelEvent;
 
-import javax.swing.JViewport;
-
 /**
  * Handles event while user try to zoom image by command-key on Mac OS or
  * CTRL-key paired together with scrolling on other operating systems.

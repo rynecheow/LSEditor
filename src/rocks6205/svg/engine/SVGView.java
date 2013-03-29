@@ -138,8 +138,8 @@ public class SVGView extends JFrame implements Observer {
         viewport = scrollPane.getViewport();
         viewport.addMouseListener(panListener);
         viewport.addMouseMotionListener(panListener);
-        panelTop.setBackground(SVGEditorTheme.defaultMasterColor);
-        panelBottom.setBackground(SVGEditorTheme.defaultMasterColor);
+        panelTop.setBackground(SVGEditorTheme.MASTER_DEFAULT_COLOR);
+        panelBottom.setBackground(SVGEditorTheme.MASTER_DEFAULT_COLOR);
     }
 
     /**

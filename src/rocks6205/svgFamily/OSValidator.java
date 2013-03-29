@@ -9,12 +9,14 @@ package rocks6205.svgFamily;
  * @since 1.6
  */
 public class OSValidator {
+
     /**
      * Operating System Name
      */
     private static String OS = System.getProperty("os.name").toLowerCase();
 
     private OSValidator() {}
+
     /**
      * @return if the current operating system is Windows
      */
@@ -23,7 +25,7 @@ public class OSValidator {
     }
 
     /**
-     * @return if the current operating system is Mac 
+     * @return if the current operating system is Mac
      */
     public static boolean isMac() {
         return (OS.indexOf("mac") >= 0);

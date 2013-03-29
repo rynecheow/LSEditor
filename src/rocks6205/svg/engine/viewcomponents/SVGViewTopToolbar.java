@@ -86,7 +86,7 @@ public class SVGViewTopToolbar extends JPanel {
         zoomInAction.setZoomOutPartnerAction(zoomOutAction);
         setActionForButtons();
         setIconsForButtons();
-        setBackground(SVGEditorTheme.defaultMasterColor);
+        setBackground(SVGEditorTheme.MASTER_DEFAULT_COLOR);
     }
 
     /**

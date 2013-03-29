@@ -81,7 +81,7 @@ public class SVGViewBottomToolbar extends JPanel {
      * Customisation of GUI components.
      */
     private void customise() {
-	setBackground(SVGEditorTheme.defaultMasterColor);
+	setBackground(SVGEditorTheme.MASTER_DEFAULT_COLOR);
       	setupSeparators();
         layoutBackgroundPanel();
         add(backgroundPanel);
@@ -137,7 +137,7 @@ public class SVGViewBottomToolbar extends JPanel {
         backgroundPanel.add(separator_2);
         backgroundPanel.add(groupButton);
         backgroundPanel.add(ungroupButton);
-        backgroundPanel.setBackground(SVGEditorTheme.defaultMasterColor);
+        backgroundPanel.setBackground(SVGEditorTheme.MASTER_DEFAULT_COLOR);
     }
 
     /**

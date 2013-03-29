@@ -63,7 +63,7 @@ public class SVGViewDeleteAccessoryPanel extends JPanel {
         add(deleteButton);
         setIconsForButtons();
         deleteButton.setEnabled(true);
-        setBackground(SVGEditorTheme.defaultMasterColor);
+        setBackground(SVGEditorTheme.MASTER_DEFAULT_COLOR);
         this.setSize(this.getSize().width,deleteButton.getPreferredSize().height * 2);
     }
 
