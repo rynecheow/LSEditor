@@ -9,6 +9,7 @@ import rocks6205.svgFamily.SVGImageCanvas;
 
 //~--- JDK imports ------------------------------------------------------------
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Toolkit;
@@ -48,22 +49,22 @@ public class SVGViewport extends JPanel {
      * @param view
      */
     public SVGViewport(SVGView view) {
-        super();
-        setParentView(view);
-        SVGCanvasProperties.setOutputResolution(Toolkit.getDefaultToolkit().getScreenResolution());
-        SVGCanvasProperties.setFontSize((this.getFont().getSize2D()));
+	super();
+	setParentView(view);
+	SVGCanvasProperties.setOutputResolution(Toolkit.getDefaultToolkit().getScreenResolution());
+	SVGCanvasProperties.setFontSize((this.getFont().getSize2D()));
 
-        /*
-         * Unfinished implementation
-         * addMouseWheelListener(new SVGViewMouseWheelZoomAdaptor());
-         */
+	/*
+	 * Unfinished implementation
+	 * addMouseWheelListener(new SVGViewMouseWheelZoomAdaptor());
+	 */
     }
 
     /**
      * @param canvas Image canvas
      */
     public void setCanvas(SVGImageCanvas canvas) {
-        this.canvas = canvas;
+	this.canvas = canvas;
     }
 
     /**
@@ -71,8 +72,12 @@ public class SVGViewport extends JPanel {
      * {@inheritDoc}
      */
     protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        g.drawImage(canvas, 0, 0, null);
+	super.paintComponent(g);
+	if(canvas!= null){
+	    g.setColor(Color.WHITE);
+	    g.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
+	    g.drawImage(canvas, 0, 0, null);
+	}
     }
 
     /**
@@ -80,23 +85,23 @@ public class SVGViewport extends JPanel {
      * {@inheritDoc}
      */
     public Dimension getPreferredSize() {
-        if (canvas != null) {
-            int w = (int) (SVGImageCanvas.getZoomScale() * canvas.getWidth()),
-                h = (int) (SVGImageCanvas.getZoomScale() * canvas.getHeight());
+	if (canvas != null) {
+	    int w = (int) (SVGImageCanvas.getZoomScale() * canvas.getWidth()),
+		    h = (int) (SVGImageCanvas.getZoomScale() * canvas.getHeight());
 
-            return new Dimension(w, h);
-        }
+	    return new Dimension(w, h);
+	}
 
-        return super.getPreferredSize();
+	return super.getPreferredSize();
     }
 
     public SVGView getParentView() {
-        return parentView;
+	return parentView;
     }
 
     public void setParentView(SVGView parentView) {
-        if (parentView != null) {
-            this.parentView = parentView;
-        }
+	if (parentView != null) {
+	    this.parentView = parentView;
+	}
     }
 }
