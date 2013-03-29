@@ -228,7 +228,7 @@ public abstract class SVGViewMenuAction extends AbstractAction {
          * @param parent Parent component
          */
         public ZoomInViewAction(SVGView parent) {
-            super("Zoom In", KeyEvent.VK_I, KeyStroke.getKeyStroke(KeyEvent.VK_PLUS, getKeyEventMask()), parent);
+            super("Zoom In", KeyEvent.VK_I, KeyStroke.getKeyStroke(KeyEvent.VK_EQUALS, getKeyEventMask()), parent);
             this.setEnabled(false);
         }
 
@@ -238,7 +238,7 @@ public abstract class SVGViewMenuAction extends AbstractAction {
          * @param parent Parent component
          */
         public ZoomInViewAction(SVGView parent, String actionName) {
-            super(actionName, "Zoom In", KeyEvent.VK_I, KeyStroke.getKeyStroke(KeyEvent.VK_PLUS, getKeyEventMask()),
+            super(actionName, "Zoom In", KeyEvent.VK_I, KeyStroke.getKeyStroke(KeyEvent.VK_EQUALS, getKeyEventMask()),
                   parent);
             this.setEnabled(false);
         }
