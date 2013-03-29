@@ -9,7 +9,6 @@ import rocks6205.svg.engine.viewcomponents.SVGViewMenubar;
 import rocks6205.svg.engine.viewcomponents.SVGViewTopToolbar;
 import rocks6205.svg.engine.viewcomponents.SVGViewport;
 
-import rocks6205.svgFamily.OSValidator;
 import rocks6205.svgFamily.SVGEditorTheme;
 import rocks6205.svgFamily.SVGImageCanvas;
 
@@ -31,9 +30,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JViewport;
-import javax.swing.UIManager;
-import javax.swing.UIManager.LookAndFeelInfo;
-import javax.swing.UnsupportedLookAndFeelException;
 
 /**
  * A class defining how the main user interface should look like.
