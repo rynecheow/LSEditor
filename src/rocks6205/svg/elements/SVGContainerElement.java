@@ -49,14 +49,20 @@ public abstract class SVGContainerElement extends SVGGenericElement {
         return descendants.get(index);
     }
 
+    public int indexOf(SVGGenericElement elem) {
+        return descendants.indexOf(elem);
+    }
+
     /**
      * Add descendant to current element and sets itself as the parent element
      *
      * @param e <code>SVGGenericElement</code> object
      */
     public void addDescendant(SVGGenericElement e) {
-        descendants.add(e);
-        e.setAncestorElement(this);
+        if (e != null) {
+            descendants.add(e);
+            e.setAncestorElement(this);
+        }
     }
 
     /**
@@ -64,7 +70,10 @@ public abstract class SVGContainerElement extends SVGGenericElement {
      * @param e Element to be inserted
      * @param atIndex Index for <code>e</code> to be inserted
      */
-    public void insertDescendant(SVGGenericElement e, int atIndex) {}
+    public void insertDescendant(SVGGenericElement e, int atIndex) {
+        descendants.add(atIndex, e);
+        e.setAncestorElement(this);
+    }
 
     /**
      * Replace descendant element <code>e</code>at specific <code>index</code>
@@ -84,11 +93,15 @@ public abstract class SVGContainerElement extends SVGGenericElement {
      * Remove descendant element at specific <code>index</code>
      * @param index Index for element to be removed
      */
-    public void removeDescendant(int index) {}
+    public void removeDescendant(int index) {
+        descendants.remove(index);
+    }
 
     /**
      * Remove descendant element that matches <code>e</code>
      * @param e Element to be removed
      */
-    public void removeDescendant(SVGGenericElement e) {}
+    public void removeDescendant(SVGGenericElement e) {
+        descendants.remove(e);
+    }
 }

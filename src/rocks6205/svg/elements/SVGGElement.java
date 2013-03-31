@@ -4,12 +4,16 @@ package rocks6205.svg.elements;
 
 import org.w3c.dom.Element;
 
+import rocks6205.svg.adt.SVGLengthUnit;
+import rocks6205.svg.adt.SVGPainting;
 import rocks6205.svg.properties.SVGImageCanvas;
 
 //~--- JDK imports ------------------------------------------------------------
 
 import java.awt.Graphics2D;
 import java.awt.geom.Rectangle2D;
+
+import java.util.Vector;
 
 /**
  * The <code>SVGGElement</code> class is a container used to group objects
@@ -32,39 +36,32 @@ public class SVGGElement extends SVGContainerElement {
      */
     public SVGGElement() {}
 
+    public Vector<SVGGenericElement> ungroup() {
+        recurseAttributes(this);
+
+        return getDescendants();
+    }
+
     /**
      * {@inheritDoc}
      */
     public Rectangle2D.Float getBounds() {
-        Rectangle2D.Float descendantRect = null,
-                          rect           = null;
-        float             computedX      = 0;
-        float             computedY      = 0;
-        float             computedWidth  = 0;
-        float             computedHeight = 0;
+        Rectangle2D.Float rect           = null;
+        Rectangle2D.Float descendantRect = null;
 
-        for (SVGGenericElement descendants : getDescendants()) {
-            descendantRect = descendants.getBounds();
+        for (SVGGenericElement descendant : getDescendants()) {
+            descendantRect = descendant.getBounds();
 
-            if (descendantRect != null) {
+            if ((descendantRect.width > 0) && (descendantRect.height > 0)) {
                 if (rect == null) {
                     rect = descendantRect;
                 } else {
                     Rectangle2D.union(descendantRect, rect, rect);
                 }
-
-                computedX      = rect.x;
-                computedY      = rect.y;
-                computedWidth  = rect.width;
-                computedHeight = rect.height;
             }
         }
 
-        if (rect != null) {
-            return new Rectangle2D.Float(computedX, computedY, computedWidth, computedHeight);
-        } else {
-            return null;
-        }
+        return (Rectangle2D.Float) getTransform().createTransformedShape(rect).getBounds2D();
     }
 
     /**
@@ -94,6 +91,53 @@ public class SVGGElement extends SVGContainerElement {
     /*
      * METHODS
      */
+    private static void recurseAttributes(SVGGElement group) {
+        SVGPainting   fill        = group.getFill();
+        SVGPainting   stroke      = group.getStroke();
+        SVGLengthUnit strokeWidth = group.getStrokeWidth();
+        SVGLengthUnit tx          = group.getTranslateX();
+        SVGLengthUnit ty          = group.getTranslateY();
+        SVGLengthUnit descendantTx;
+        SVGLengthUnit descendantTy;
+
+        for (SVGGenericElement descendant : group.getDescendants()) {
+            if (descendant.getFill() == null) {
+                descendant.setFill(fill);
+            }
+
+            if (descendant.getStroke() == null) {
+                descendant.setStroke(stroke);
+            }
+
+            if (descendant.getStrokeWidth() == null) {
+                descendant.setStrokeWidth(strokeWidth);
+            }
+
+            if (tx != null) {
+                descendantTx = descendant.getTranslateX();
+
+                if (descendantTx == null) {
+                    descendantTx = new SVGLengthUnit(tx.getValue());
+                } else {
+                    descendantTx = new SVGLengthUnit(descendantTx.getValue() + tx.getValue());
+                }
+
+                descendant.setTranslateX(descendantTx);
+            }
+
+            if (ty != null) {
+                descendantTy = descendant.getTranslateY();
+
+                if (descendantTy == null) {
+                    descendantTy = new SVGLengthUnit(ty.getValue());
+                } else {
+                    descendantTy = new SVGLengthUnit(descendantTy.getValue() + ty.getValue());
+                }
+
+                descendant.setTranslateY(descendantTy);
+            }
+        }
+    }
 
     /**
      * Parses the attributes on the  <<code>g</code>> element in the SVG document
