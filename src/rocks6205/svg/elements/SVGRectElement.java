@@ -8,13 +8,12 @@ import org.w3c.dom.Element;
 import rocks6205.svg.adt.SVGLengthUnit;
 import rocks6205.svg.adt.SVGLengthUnitType;
 import rocks6205.svg.adt.SVGPaintingType;
-import rocks6205.svg.properties.SVGImageCanvas;
 
 //~--- JDK imports ------------------------------------------------------------
 
 import java.awt.BasicStroke;
 import java.awt.Graphics2D;
-import java.awt.RenderingHints;
+import java.awt.Shape;
 import java.awt.geom.Rectangle2D;
 
 /**
@@ -186,26 +185,19 @@ public class SVGRectElement extends SVGGenericElement {
     /**
      * {@inheritDoc}
      */
-    public SVGImageCanvas draw() {
-        Rectangle2D.Float bounds = getBounds();
-        SVGImageCanvas    canvas = SVGImageCanvas.getBlankCanvas(bounds);
+    public void draw(Graphics2D g) {
+        if ((width.getValue(SVGLengthUnitType.PX) > 0) && (height.getValue(SVGLengthUnitType.PX) > 0)) {
+            Shape rect = new Rectangle2D.Double(x.getValue(SVGLengthUnitType.PX), y.getValue(SVGLengthUnitType.PX),
+                             width.getValue(SVGLengthUnitType.PX), height.getValue(SVGLengthUnitType.PX));
 
-        if (canvas != null) {
-            Graphics2D  graphics = canvas.createGraphics();
-            Rectangle2D rect     = new Rectangle2D.Double(x.getValue() - bounds.x, y.getValue() - bounds.y,
-                                       width.getValue(), height.getValue());
-
-            graphics.scale(SVGImageCanvas.getZoomScale(), SVGImageCanvas.getZoomScale());
-            graphics.setStroke(new BasicStroke((float) getResultantStrokeWidth().getValue(), getStrokeLineCap(),
-                                               getStrokeLineJoin()));
-            graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-            graphics.setPaint(getResultantFill().getPaintColor());
-            graphics.fill(rect);
-            graphics.setPaint(getResultantStroke().getPaintColor());
-            graphics.draw(rect);
+            rect = getTransform().createTransformedShape(rect);
+            g.setPaint(getResultantFill().getPaintColor());
+            g.fill(rect);
+            g.setPaint(getResultantStroke().getPaintColor());
+            g.setStroke(new BasicStroke((float) getResultantStrokeWidth().getValue(SVGLengthUnitType.PX),
+                                        getStrokeLineCap(), getStrokeLineJoin()));
+            g.draw(rect);
         }
-
-        return canvas;
     }
 
     /**

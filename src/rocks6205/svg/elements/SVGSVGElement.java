@@ -19,7 +19,6 @@ import org.w3c.dom.Node;
 
 import rocks6205.svg.adt.SVGLengthUnit;
 import rocks6205.svg.adt.SVGLengthUnitType;
-import rocks6205.svg.properties.SVGImageCanvas;
 
 //~--- JDK imports ------------------------------------------------------------
 
@@ -112,24 +111,10 @@ public class SVGSVGElement extends SVGContainerElement {
     /**
      * {@inheritDoc}
      */
-    public SVGImageCanvas draw() {
-        Rectangle2D.Float childRect;
-        SVGImageCanvas    svgCanvas = SVGImageCanvas.getBlankCanvas(getBounds());
-
-        if (svgCanvas != null) {
-            Graphics2D g = svgCanvas.createGraphics();
-
-            for (SVGGenericElement child : getDescendants()) {
-                childRect = child.getBounds();
-
-                if (childRect != null) {
-                    g.drawImage(child.draw(), null, (int) (SVGImageCanvas.getZoomScale() * childRect.x),
-                                (int) (SVGImageCanvas.getZoomScale() * childRect.y));
-                }
-            }
+    public void draw(Graphics2D g) {
+        for (SVGGenericElement child : getDescendants()) {
+            child.draw(g);
         }
-
-        return svgCanvas;
     }
 
     /**
@@ -155,7 +140,6 @@ public class SVGSVGElement extends SVGContainerElement {
                 case "svg" :
                     SVGLengthUnit width     = null;
                     SVGLengthUnit height    = null;
-                    
                     Attr          widthAttr = e.getAttributeNodeNS(null, "width");
 
                     if (widthAttr != null) {

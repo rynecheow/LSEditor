@@ -6,11 +6,12 @@ import org.w3c.dom.Element;
 
 import rocks6205.svg.adt.SVGLengthUnit;
 import rocks6205.svg.adt.SVGPainting;
-import rocks6205.svg.properties.SVGImageCanvas;
 
 //~--- JDK imports ------------------------------------------------------------
 
 import java.awt.Graphics2D;
+import java.awt.geom.AffineTransform;
+import java.awt.geom.NoninvertibleTransformException;
 import java.awt.geom.Rectangle2D;
 
 import java.util.Vector;
@@ -67,25 +68,22 @@ public class SVGGElement extends SVGContainerElement {
     /**
      * {@inheritDoc}
      */
-    public SVGImageCanvas draw() {
-        Rectangle2D.Float bounds = getBounds(), descendantRect;
-        SVGImageCanvas    canvas = SVGImageCanvas.getBlankCanvas(bounds);
+    public void draw(Graphics2D g) {
+        AffineTransform affTrans = getTransform();
 
-        if (canvas != null) {
-            Graphics2D g = canvas.createGraphics();
+        g.transform(affTrans);
 
-            for (SVGGenericElement descendants : getDescendants()) {
-                descendantRect = descendants.getBounds();
-
-                if (descendantRect != null) {
-                    g.drawImage(descendants.draw(), null,
-                                (int) (SVGImageCanvas.getZoomScale() * (descendantRect.x - bounds.x)),
-                                (int) (SVGImageCanvas.getZoomScale() * (descendantRect.y - bounds.y)));
-                }
-            }
+        for (SVGGenericElement descendant : getDescendants()) {
+            descendant.draw(g);
         }
 
-        return canvas;
+        try {
+            affTrans.invert();
+        } catch (NoninvertibleTransformException e) {
+            e.printStackTrace();
+        }
+
+        g.transform(affTrans);
     }
 
     /*

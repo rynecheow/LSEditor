@@ -8,13 +8,12 @@ import org.w3c.dom.Element;
 import rocks6205.svg.adt.SVGLengthUnit;
 import rocks6205.svg.adt.SVGLengthUnitType;
 import rocks6205.svg.adt.SVGPaintingType;
-import rocks6205.svg.properties.SVGImageCanvas;
 
 //~--- JDK imports ------------------------------------------------------------
 
 import java.awt.BasicStroke;
 import java.awt.Graphics2D;
-import java.awt.RenderingHints;
+import java.awt.Shape;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
 
@@ -160,28 +159,22 @@ public class SVGCircleElement extends SVGGenericElement {
     /**
      * {@inheritDoc}
      */
-    public SVGImageCanvas draw() {
-        Rectangle2D.Float bounds = getBounds();
-        SVGImageCanvas    canvas = SVGImageCanvas.getBlankCanvas(bounds);
-        float             r      = radius.getValue();
-        float             xPos   = cx.getValue();
-        float             yPos   = cy.getValue();
+    public void draw(Graphics2D g) {
+        if (radius.getValue(SVGLengthUnitType.PX) > 0) {
+            Shape ellipse = new Ellipse2D.Double(cx.getValue(SVGLengthUnitType.PX)
+                                - radius.getValue(SVGLengthUnitType.PX), cy.getValue(SVGLengthUnitType.PX)
+                                    - radius.getValue(SVGLengthUnitType.PX), 2
+                                      * radius.getValue(SVGLengthUnitType.PX), 2
+                                          * radius.getValue(SVGLengthUnitType.PX));
 
-        if (canvas != null) {
-            Graphics2D       graphics = canvas.createGraphics();
-            Ellipse2D.Double circle   = new Ellipse2D.Double(xPos - r - bounds.x, yPos - r - bounds.y, r * 2, r * 2);
-
-            graphics.scale(SVGImageCanvas.getZoomScale(), SVGImageCanvas.getZoomScale());
-            graphics.setStroke(new BasicStroke(getResultantStrokeWidth().getValue(), getStrokeLineCap(),
-                                               getStrokeLineJoin()));
-            graphics.setPaint(getResultantFill().getPaintColor());
-            graphics.fill(circle);
-            graphics.setPaint(getResultantStroke().getPaintColor());
-            graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-            graphics.draw(circle);
+            ellipse = getTransform().createTransformedShape(ellipse);
+            g.setPaint(getResultantFill().getPaintColor());
+            g.fill(ellipse);
+            g.setPaint(getResultantStroke().getPaintColor());
+            g.setStroke(new BasicStroke((float) getResultantStrokeWidth().getValue(SVGLengthUnitType.PX),
+                                        getStrokeLineCap(), getStrokeLineJoin()));
+            g.draw(ellipse);
         }
-
-        return canvas;
     }
 
     /*
@@ -221,3 +214,6 @@ public class SVGCircleElement extends SVGGenericElement {
         return circ;
     }
 }
+
+
+//~ Formatted by Jindent --- http://www.jindent.com

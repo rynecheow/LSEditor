@@ -9,11 +9,11 @@ import rocks6205.svg.adt.SVGLengthUnit;
 import rocks6205.svg.adt.SVGLengthUnitType;
 import rocks6205.svg.adt.SVGPainting;
 import rocks6205.svg.adt.SVGPaintingType;
-import rocks6205.svg.properties.SVGImageCanvas;
 
 //~--- JDK imports ------------------------------------------------------------
 
 import java.awt.BasicStroke;
+import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
 
@@ -120,10 +120,10 @@ public abstract class SVGGenericElement {
     public abstract Rectangle2D.Float getBounds();
 
     /**
-     * Draw the shape on the canvas accordingly with the attributes correctly parsed
-     * @return <code>SVGImageCanvas</code> object
+     * Draw the shape on the canvas accordingly with the attributes correctly parsed.
+     * @param g Graphics to be drawn
      */
-    public abstract SVGImageCanvas draw();
+    public abstract void draw(Graphics2D g);
 
     /*
      * ACCESSORS

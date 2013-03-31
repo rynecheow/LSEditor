@@ -8,13 +8,12 @@ import org.w3c.dom.Element;
 import rocks6205.svg.adt.SVGLengthUnit;
 import rocks6205.svg.adt.SVGLengthUnitType;
 import rocks6205.svg.adt.SVGPaintingType;
-import rocks6205.svg.properties.SVGImageCanvas;
 
 //~--- JDK imports ------------------------------------------------------------
 
 import java.awt.BasicStroke;
 import java.awt.Graphics2D;
-import java.awt.RenderingHints;
+import java.awt.Shape;
 import java.awt.geom.Line2D;
 import java.awt.geom.Rectangle2D;
 
@@ -185,24 +184,15 @@ public class SVGLineElement extends SVGGenericElement {
     /**
      * {@inheritDoc}
      */
-    public SVGImageCanvas draw() {
-        Rectangle2D.Float bounds = getBounds();
-        SVGImageCanvas    canvas = SVGImageCanvas.getBlankCanvas(bounds);
+    public void draw(Graphics2D g) {
+        Shape line = new Line2D.Double(x1.getValue(SVGLengthUnitType.PX), y1.getValue(SVGLengthUnitType.PX),
+                                       x2.getValue(SVGLengthUnitType.PX), y2.getValue(SVGLengthUnitType.PX));
 
-        if (canvas != null) {
-            Graphics2D    graphics = canvas.createGraphics();
-            Line2D.Double line     = new Line2D.Double(x1.getValue() - bounds.x, y1.getValue() - bounds.y,
-                                         x2.getValue() - bounds.x, y2.getValue() - bounds.y);
-
-            graphics.scale(SVGImageCanvas.getZoomScale(), SVGImageCanvas.getZoomScale());
-            graphics.setPaint(getResultantStroke().getPaintColor());
-            graphics.setStroke(new BasicStroke((float) getResultantStrokeWidth().getValue(), getStrokeLineCap(),
-                                               getStrokeLineJoin()));
-            graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-            graphics.draw(line);
-        }
-
-        return canvas;
+        line = getTransform().createTransformedShape(line);
+        g.setPaint(getResultantStroke().getPaintColor());
+        g.setStroke(new BasicStroke((float) getResultantStrokeWidth().getValue(SVGLengthUnitType.PX),
+                                    getStrokeLineCap(), getStrokeLineJoin()));
+        g.draw(line);
     }
 
     /*
