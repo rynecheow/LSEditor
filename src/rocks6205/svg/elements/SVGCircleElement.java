@@ -2,6 +2,7 @@ package rocks6205.svg.elements;
 
 //~--- non-JDK imports --------------------------------------------------------
 
+import org.w3c.dom.Attr;
 import org.w3c.dom.Element;
 
 import rocks6205.svg.adt.SVGLengthUnit;
@@ -144,7 +145,7 @@ public class SVGCircleElement extends SVGGenericElement {
 
         if (r > 0) {
             if (getResultantStroke().getPaintType() != SVGPaintingType.NONE) {
-                padding = getResulantStrokeWidth().getValue(SVGLengthUnitType.PX) / 2;
+                padding = getResultantStrokeWidth().getValue(SVGLengthUnitType.PX) / 2;
             }
 
             bounds.x      = xPos - r - padding;
@@ -171,7 +172,8 @@ public class SVGCircleElement extends SVGGenericElement {
             Ellipse2D.Double circle   = new Ellipse2D.Double(xPos - r - bounds.x, yPos - r - bounds.y, r * 2, r * 2);
 
             graphics.scale(SVGImageCanvas.getZoomScale(), SVGImageCanvas.getZoomScale());
-            graphics.setStroke(new BasicStroke(getResulantStrokeWidth().getValue(), getStrokeLineCap(), getStrokeLineJoin()));
+            graphics.setStroke(new BasicStroke(getResultantStrokeWidth().getValue(), getStrokeLineCap(),
+                                               getStrokeLineJoin()));
             graphics.setPaint(getResultantFill().getPaintColor());
             graphics.fill(circle);
             graphics.setPaint(getResultantStroke().getPaintColor());
@@ -195,11 +197,25 @@ public class SVGCircleElement extends SVGGenericElement {
      * @return <code>SVGCircleElement</code> object
      */
     public static SVGCircleElement parseElement(Element element) {
-        SVGCircleElement circ = new SVGCircleElement();
+        SVGCircleElement circ        = new SVGCircleElement();
+        Attr             centreXAttr = element.getAttributeNodeNS(null, "cx");
 
-        circ.setCx(SVGLengthUnit.parse(element.getAttributeNS(null, "cx")));
-        circ.setCy(SVGLengthUnit.parse(element.getAttributeNS(null, "cy")));
-        circ.setRadius(SVGLengthUnit.parse(element.getAttributeNS(null, "r")));
+        if (centreXAttr != null) {
+            circ.setCx(SVGLengthUnit.parse(centreXAttr.getValue()));
+        }
+
+        Attr centreYAttr = element.getAttributeNodeNS(null, "cy");
+
+        if (centreYAttr != null) {
+            circ.setCy(SVGLengthUnit.parse(centreYAttr.getValue()));
+        }
+
+        Attr radiusAttr = element.getAttributeNodeNS(null, "r");
+
+        if (radiusAttr != null) {
+            circ.setRadius(SVGLengthUnit.parse(radiusAttr.getValue()));
+        }
+
         circ.parseAttributes(element);
 
         return circ;

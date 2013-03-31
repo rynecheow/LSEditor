@@ -230,7 +230,7 @@ public abstract class SVGGenericElement {
      *
      * @return <<code>strokeWidth</code>> property of current instance.
      */
-    public SVGLengthUnit getResulantStrokeWidth() {
+    public SVGLengthUnit getResultantStrokeWidth() {
         SVGLengthUnit strokeWidth       = this.strokeWidth;
         boolean       isStrokeWidthNull = (strokeWidth == null);
 
@@ -240,8 +240,8 @@ public abstract class SVGGenericElement {
 
         for (SVGContainerElement origin = getAncestorElement(); isStrokeWidthNull && (origin != null);
                 origin = origin.getAncestorElement()) {
-            if (origin.getResulantStrokeWidth() != null) {
-                return origin.getResulantStrokeWidth();
+            if (origin.getResultantStrokeWidth() != null) {
+                return origin.getResultantStrokeWidth();
             }
         }
 

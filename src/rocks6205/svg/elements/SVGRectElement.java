@@ -2,12 +2,13 @@ package rocks6205.svg.elements;
 
 //~--- non-JDK imports --------------------------------------------------------
 
+import org.w3c.dom.Attr;
 import org.w3c.dom.Element;
 
 import rocks6205.svg.adt.SVGLengthUnit;
+import rocks6205.svg.adt.SVGLengthUnitType;
 import rocks6205.svg.adt.SVGPaintingType;
 import rocks6205.svg.properties.SVGImageCanvas;
-
 
 //~--- JDK imports ------------------------------------------------------------
 
@@ -161,22 +162,25 @@ public class SVGRectElement extends SVGGenericElement {
      * {@inheritDoc}
      */
     public Rectangle2D.Float getBounds() {
-        float   w     = width.getValue();
-        float   h     = height.getValue();
-        boolean valid = (w > 0) && (h > 0);
+        float             xVal      = x.getValue(SVGLengthUnitType.PX);
+        float             yVal      = y.getValue(SVGLengthUnitType.PX);
+        float             widthVal  = width.getValue(SVGLengthUnitType.PX);
+        float             heightVal = height.getValue(SVGLengthUnitType.PX);
+        float             padding   = 0;
+        Rectangle2D.Float bounds    = new Rectangle2D.Float();
 
-        if (valid) {
-            float padding = 0;
-
+        if ((widthVal > 0) && (heightVal > 0)) {
             if (getResultantStroke().getPaintType() != SVGPaintingType.NONE) {
-                padding = getResulantStrokeWidth().getValue() / 2;
+                padding = getResultantStrokeWidth().getValue(SVGLengthUnitType.PX) / 2;
             }
 
-            return new Rectangle2D.Float(x.getValue() - padding, y.getValue() - padding, w + 2 * padding,
-                                         h + 2 * padding);
-        } else {
-            return null;
+            bounds.x      = xVal - padding;
+            bounds.y      = yVal - padding;
+            bounds.width  = widthVal + 2 * padding;
+            bounds.height = heightVal + 2 * padding;
         }
+
+        return (Rectangle2D.Float) getTransform().createTransformedShape(bounds).getBounds2D();
     }
 
     /**
@@ -192,7 +196,7 @@ public class SVGRectElement extends SVGGenericElement {
                                        width.getValue(), height.getValue());
 
             graphics.scale(SVGImageCanvas.getZoomScale(), SVGImageCanvas.getZoomScale());
-            graphics.setStroke(new BasicStroke((float) getResulantStrokeWidth().getValue(), getStrokeLineCap(),
+            graphics.setStroke(new BasicStroke((float) getResultantStrokeWidth().getValue(), getStrokeLineCap(),
                                                getStrokeLineJoin()));
             graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
             graphics.setPaint(getResultantFill().getPaintColor());
@@ -211,12 +215,28 @@ public class SVGRectElement extends SVGGenericElement {
      * @return          Rectangle element to be drawn parsed from <code>e</code>
      */
     public static SVGRectElement parseElement(Element element) {
-        SVGRectElement rect = new SVGRectElement();
+        Attr widthAttr  = element.getAttributeNodeNS(null, "width");
+        Attr heightAttr = element.getAttributeNodeNS(null, "height");
 
-        rect.setX(SVGLengthUnit.parse(element.getAttributeNS(null, "x")));
-        rect.setY(SVGLengthUnit.parse(element.getAttributeNS(null, "y")));
-        rect.setWidth(SVGLengthUnit.parse(element.getAttributeNS(null, "width")));
-        rect.setHeight(SVGLengthUnit.parse(element.getAttributeNS(null, "height")));
+        if ((widthAttr == null) || (heightAttr == null)) {
+            return null;
+        }
+
+        SVGRectElement rect  = new SVGRectElement();
+        Attr           xAttr = element.getAttributeNodeNS(null, "x");
+
+        if (xAttr != null) {
+            rect.setX(SVGLengthUnit.parse(xAttr.getValue()));
+        }
+
+        Attr yAttr = element.getAttributeNodeNS(null, "y");
+
+        if (xAttr != null) {
+            rect.setY(SVGLengthUnit.parse(yAttr.getValue()));
+        }
+
+        rect.setWidth(SVGLengthUnit.parse(widthAttr.getValue()));
+        rect.setHeight(SVGLengthUnit.parse(heightAttr.getValue()));
         rect.parseAttributes(element);
 
         return rect;

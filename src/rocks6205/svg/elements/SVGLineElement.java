@@ -2,12 +2,13 @@ package rocks6205.svg.elements;
 
 //~--- non-JDK imports --------------------------------------------------------
 
+import org.w3c.dom.Attr;
 import org.w3c.dom.Element;
 
 import rocks6205.svg.adt.SVGLengthUnit;
+import rocks6205.svg.adt.SVGLengthUnitType;
 import rocks6205.svg.adt.SVGPaintingType;
 import rocks6205.svg.properties.SVGImageCanvas;
-
 
 //~--- JDK imports ------------------------------------------------------------
 
@@ -160,18 +161,25 @@ public class SVGLineElement extends SVGGenericElement {
      * {@inheritDoc}
      */
     public Rectangle2D.Float getBounds() {
-        float padding = 0;
+        Rectangle2D.Float bounds;
+        double            padding = 0;
 
         if (getResultantStroke().getPaintType() != SVGPaintingType.NONE) {
-            padding = getResulantStrokeWidth().getValue() / 2;
+            padding = getResultantStrokeWidth().getValue(SVGLengthUnitType.PX) / 2;
         }
 
-        float computedX      = Math.min(x1.getValue(), x2.getValue()) - padding;
-        float computedY      = Math.min(y1.getValue(), y2.getValue()) - padding;
-        float computedWidth  = Math.abs(x2.getValue() - x1.getValue()) + 2 * padding;
-        float computedHeight = Math.abs(y2.getValue() - y1.getValue()) + 2 * padding;
+        float computedX = (float) (Math.min(x1.getValue(SVGLengthUnitType.PX), x2.getValue(SVGLengthUnitType.PX))
+                                   - padding);
+        float computedY = (float) (Math.min(y1.getValue(SVGLengthUnitType.PX), y2.getValue(SVGLengthUnitType.PX))
+                                   - padding);
+        float computedWidth = (float) (Math.abs(x2.getValue(SVGLengthUnitType.PX) - x1.getValue(SVGLengthUnitType.PX))
+                                       + 2 * padding);
+        float computedHeight = (float) (Math.abs(y2.getValue(SVGLengthUnitType.PX) - y1.getValue(SVGLengthUnitType.PX))
+                                        + 2 * padding);
 
-        return new Rectangle2D.Float(computedX, computedY, computedWidth, computedHeight);
+        bounds = new Rectangle2D.Float(computedX, computedY, computedWidth, computedHeight);
+
+        return (Rectangle2D.Float) getTransform().createTransformedShape(bounds).getBounds2D();
     }
 
     /**
@@ -188,7 +196,7 @@ public class SVGLineElement extends SVGGenericElement {
 
             graphics.scale(SVGImageCanvas.getZoomScale(), SVGImageCanvas.getZoomScale());
             graphics.setPaint(getResultantStroke().getPaintColor());
-            graphics.setStroke(new BasicStroke((float) getResulantStrokeWidth().getValue(), getStrokeLineCap(),
+            graphics.setStroke(new BasicStroke((float) getResultantStrokeWidth().getValue(), getStrokeLineCap(),
                                                getStrokeLineJoin()));
             graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
             graphics.draw(line);
@@ -208,12 +216,31 @@ public class SVGLineElement extends SVGGenericElement {
      * @return                Line element parsed from Element to be drawn
      */
     public static SVGLineElement parseElement(Element element) {
-        SVGLineElement line = new SVGLineElement();
+        SVGLineElement line   = new SVGLineElement();
+        Attr           x1Attr = element.getAttributeNodeNS(null, "x1");
 
-        line.setX1(SVGLengthUnit.parse(element.getAttributeNS(null, "x1")));
-        line.setY1(SVGLengthUnit.parse(element.getAttributeNS(null, "y1")));
-        line.setX2(SVGLengthUnit.parse(element.getAttributeNS(null, "x2")));
-        line.setY2(SVGLengthUnit.parse(element.getAttributeNS(null, "y2")));
+        if (x1Attr != null) {
+            SVGLengthUnit.parse(x1Attr.getValue());
+        }
+
+        Attr y1Attr = element.getAttributeNodeNS(null, "y1");
+
+        if (y1Attr != null) {
+            SVGLengthUnit.parse(y1Attr.getValue());
+        }
+
+        Attr x2Attr = element.getAttributeNodeNS(null, "x2");
+
+        if (x2Attr != null) {
+            SVGLengthUnit.parse(x2Attr.getValue());
+        }
+
+        Attr y2Attr = element.getAttributeNodeNS(null, "y2");
+
+        if (y2Attr != null) {
+            SVGLengthUnit.parse(y2Attr.getValue());
+        }
+
         line.parseAttributes(element);
 
         return line;
