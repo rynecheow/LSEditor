@@ -5,9 +5,9 @@ package rocks6205.svg.elements;
 import org.w3c.dom.Element;
 
 import rocks6205.svg.adt.SVGLengthUnit;
+import rocks6205.svg.adt.SVGLengthUnitType;
 import rocks6205.svg.adt.SVGPaintingType;
 import rocks6205.svg.properties.SVGImageCanvas;
-
 
 //~--- JDK imports ------------------------------------------------------------
 
@@ -71,9 +71,9 @@ public class SVGCircleElement extends SVGGenericElement {
      * @param radius radius of the centre of the circle
      */
     public SVGCircleElement(SVGLengthUnit cx, SVGLengthUnit cy, SVGLengthUnit radius) {
-        this.cx     = cx;
-        this.cy     = cy;
-        this.radius = radius;
+        setCx(cx);
+        setCy(cy);
+        setRadius(radius);
     }
 
     /*
@@ -109,43 +109,51 @@ public class SVGCircleElement extends SVGGenericElement {
      * @param x-coordinate of the centre of the circle
      */
     public void setCx(SVGLengthUnit cx) {
-        this.cx = cx;
+        if (cx != null) {
+            this.cx = cx;
+        }
     }
 
     /**
      * @param cy y-coordinate of the centre of the circle
      */
     public void setCy(SVGLengthUnit cy) {
-        this.cy = cy;
+        if (cy != null) {
+            this.cy = cy;
+        }
     }
 
     /**
      * @param radius radius of the centre of the circle
      */
     public void setRadius(SVGLengthUnit radius) {
-        this.radius = radius;
+        if ((radius != null) && (radius.getValue() >= 0)) {
+            this.radius = radius;
+        }
     }
 
     /**
      * {@inheritDoc}
      */
     public Rectangle2D.Float getBounds() {
-        float r    = radius.getValue();
-        float xPos = cx.getValue();
-        float yPos = cy.getValue();
+        float             r       = radius.getValue(SVGLengthUnitType.PX);
+        float             xPos    = cx.getValue(SVGLengthUnitType.PX);
+        float             yPos    = cy.getValue(SVGLengthUnitType.PX);
+        float             padding = 0;
+        Rectangle2D.Float bounds  = new Rectangle2D.Float();
 
         if (r > 0) {
-            float padding = 0;
-
-            if (getStroke().getPaintType() != SVGPaintingType.NONE) {
-                padding = getStrokeWidth().getValue() / 2;
+            if (getResultantStroke().getPaintType() != SVGPaintingType.NONE) {
+                padding = getResulantStrokeWidth().getValue(SVGLengthUnitType.PX) / 2;
             }
 
-            return new Rectangle2D.Float(xPos - r - padding, yPos - r - padding, 2 * r + 2 * padding,
-                                         2 * r + 2 * padding);
-        } else {
-            return null;
+            bounds.x      = xPos - r - padding;
+            bounds.y      = yPos - r - padding;
+            bounds.width  = 2 * r + 2 * padding;
+            bounds.height = 2 * r + 2 * padding;
         }
+
+        return (Rectangle2D.Float) getTransform().createTransformedShape(bounds).getBounds2D();
     }
 
     /**
@@ -163,10 +171,10 @@ public class SVGCircleElement extends SVGGenericElement {
             Ellipse2D.Double circle   = new Ellipse2D.Double(xPos - r - bounds.x, yPos - r - bounds.y, r * 2, r * 2);
 
             graphics.scale(SVGImageCanvas.getZoomScale(), SVGImageCanvas.getZoomScale());
-            graphics.setStroke(new BasicStroke(getStrokeWidth().getValue(), getStrokeLineCap(), getStrokeLineJoin()));
-            graphics.setPaint(getFill().getPaintColor());
+            graphics.setStroke(new BasicStroke(getResulantStrokeWidth().getValue(), getStrokeLineCap(), getStrokeLineJoin()));
+            graphics.setPaint(getResultantFill().getPaintColor());
             graphics.fill(circle);
-            graphics.setPaint(getStroke().getPaintColor());
+            graphics.setPaint(getResultantStroke().getPaintColor());
             graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
             graphics.draw(circle);
         }

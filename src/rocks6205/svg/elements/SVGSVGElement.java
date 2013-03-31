@@ -12,13 +12,14 @@ package rocks6205.svg.elements;
 
 //~--- non-JDK imports --------------------------------------------------------
 
+import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
 import rocks6205.svg.adt.SVGLengthUnit;
+import rocks6205.svg.adt.SVGLengthUnitType;
 import rocks6205.svg.properties.SVGImageCanvas;
-
 
 //~--- JDK imports ------------------------------------------------------------
 
@@ -76,9 +77,11 @@ public class SVGSVGElement extends SVGContainerElement {
      * @param width Width of SVG fragment
      */
     public final void setWidth(SVGLengthUnit width) {
-        if (width != null) {
-            this.width = width;
+        if (width.getValue() < 0) {
+            throw new IllegalArgumentException("Width must not be negative.");
         }
+
+        this.width = width;
     }
 
     /**
@@ -92,16 +95,18 @@ public class SVGSVGElement extends SVGContainerElement {
      * @param height Height of SVG fragment
      */
     public final void setHeight(SVGLengthUnit height) {
-        if (height != null) {
-            this.height = height;
+        if (height.getValue() < 0) {
+            throw new IllegalArgumentException("Height must not be negative");
         }
+
+        this.height = height;
     }
 
     /**
      * {@inheritDoc}
      */
     public Rectangle2D.Float getBounds() {
-        return new Rectangle2D.Float(0, 0, width.getValue(), height.getValue());
+        return new Rectangle2D.Float(0, 0, width.getValue(SVGLengthUnitType.PX), height.getValue(SVGLengthUnitType.PX));
     }
 
     /**
@@ -148,8 +153,24 @@ public class SVGSVGElement extends SVGContainerElement {
 
                 switch (e.getTagName()) {
                 case "svg" :
-                    SVGLengthUnit width  = SVGLengthUnit.parse(e.getAttributeNS(null, "width"));
-                    SVGLengthUnit height = SVGLengthUnit.parse(e.getAttributeNS(null, "height"));
+                    SVGLengthUnit width     = null;
+                    SVGLengthUnit height    = null;
+                    
+                    Attr          widthAttr = e.getAttributeNodeNS(null, "width");
+
+                    if (widthAttr != null) {
+                        width = SVGLengthUnit.parse(widthAttr.getValue());
+                    }
+
+                    Attr heightAttr = e.getAttributeNodeNS(null, "height");
+
+                    if (heightAttr != null) {
+                        height = SVGLengthUnit.parse(heightAttr.getValue());
+                    }
+
+                    if ((width == null) || (height == null)) {
+                        break;
+                    }
 
                     svg_e           = new SVGSVGElement(width, height);
                     ancestorElement = svg_e;

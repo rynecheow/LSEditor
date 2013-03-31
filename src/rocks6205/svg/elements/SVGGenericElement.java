@@ -6,14 +6,15 @@ import org.w3c.dom.Element;
 
 import rocks6205.svg.adt.SVGColorScheme;
 import rocks6205.svg.adt.SVGLengthUnit;
+import rocks6205.svg.adt.SVGLengthUnitType;
 import rocks6205.svg.adt.SVGPainting;
 import rocks6205.svg.adt.SVGPaintingType;
 import rocks6205.svg.properties.SVGImageCanvas;
 
-
 //~--- JDK imports ------------------------------------------------------------
 
 import java.awt.BasicStroke;
+import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
 
 /**
@@ -98,6 +99,16 @@ public abstract class SVGGenericElement {
      */
     private int strokeLineJoin;
 
+    /**
+     * <<code>translateX</code>> property of current instance
+     */
+    private SVGLengthUnit translateX;
+
+    /**
+     * <<code>translateY</code>> property of current instance
+     */
+    private SVGLengthUnit translateY;
+
     /*
      * ABSTRACT METHODS
      */
@@ -126,12 +137,38 @@ public abstract class SVGGenericElement {
     }
 
     /**
+     * Create an affine transform for current element instance if any.
+     * @return Translate instance of current element
+     */
+    public AffineTransform getTransform() {
+        double tx = 0;
+        double ty = 0;
+
+        if (translateX != null) {
+            tx = translateX.getValue();
+        }
+
+        if (translateY != null) {
+            ty = translateY.getValue();
+        }
+
+        return AffineTransform.getTranslateInstance(tx, ty);
+    }
+
+    /**
+     * @return <<code>fill</code>> property of current instance.
+     */
+    public SVGPainting getFill() {
+        return this.fill;
+    }
+
+    /**
      * Get the effective <<code>fill</code>> as ancestor elements might have defined
      * for.
      *
      * @return <<code>fill</code>> property of current instance.
      */
-    public SVGPainting getFill() {
+    public SVGPainting getResultantFill() {
         SVGPainting fill       = this.fill;
         boolean     isFillNull = (fill == null);
 
@@ -141,12 +178,19 @@ public abstract class SVGGenericElement {
 
         for (SVGContainerElement origin = getAncestorElement(); isFillNull && (origin != null);
                 origin = origin.getAncestorElement()) {
-            if (origin.getFill() != null) {
-                return origin.getFill();
+            if (origin.getResultantFill() != null) {
+                return origin.getResultantFill();
             }
         }
 
         return SVG_FILL_DEFAULT;
+    }
+
+    /**
+     * @return <<code>stroke</code>> property of current instance.
+     */
+    public SVGPainting getStroke() {
+        return this.stroke;
     }
 
     /**
@@ -155,7 +199,7 @@ public abstract class SVGGenericElement {
      *
      * @return <<code>stroke</code>> property of current instance.
      */
-    public SVGPainting getStroke() {
+    public SVGPainting getResultantStroke() {
         SVGPainting stroke       = this.stroke;
         boolean     isStrokeNull = (stroke == null);
 
@@ -165,12 +209,19 @@ public abstract class SVGGenericElement {
 
         for (SVGContainerElement origin = getAncestorElement(); isStrokeNull && (origin != null);
                 origin = origin.getAncestorElement()) {
-            if (origin.getStroke() != null) {
-                return origin.getStroke();
+            if (origin.getResultantStroke() != null) {
+                return origin.getResultantStroke();
             }
         }
 
         return SVG_STROKE_DEFAULT;
+    }
+
+    /**
+     * @return <<code>strokeWidth</code>> property of current instance.
+     */
+    public SVGLengthUnit getStrokeWidth() {
+        return this.strokeWidth;
     }
 
     /**
@@ -179,7 +230,7 @@ public abstract class SVGGenericElement {
      *
      * @return <<code>strokeWidth</code>> property of current instance.
      */
-    public SVGLengthUnit getStrokeWidth() {
+    public SVGLengthUnit getResulantStrokeWidth() {
         SVGLengthUnit strokeWidth       = this.strokeWidth;
         boolean       isStrokeWidthNull = (strokeWidth == null);
 
@@ -189,8 +240,8 @@ public abstract class SVGGenericElement {
 
         for (SVGContainerElement origin = getAncestorElement(); isStrokeWidthNull && (origin != null);
                 origin = origin.getAncestorElement()) {
-            if (origin.getStrokeWidth() != null) {
-                return origin.getStrokeWidth();
+            if (origin.getResulantStrokeWidth() != null) {
+                return origin.getResulantStrokeWidth();
             }
         }
 
@@ -209,6 +260,20 @@ public abstract class SVGGenericElement {
      */
     public int getStrokeLineJoin() {
         return strokeLineJoin;
+    }
+
+    /**
+     * @return <<code>translateY</code>> property of current instance.
+     */
+    public SVGLengthUnit getTranslateX() {
+        return translateX;
+    }
+
+    /**
+     * @return <<code>translateY</code>> property of current instance.
+     */
+    public SVGLengthUnit getTranslateY() {
+        return translateY;
     }
 
     /*
@@ -273,6 +338,28 @@ public abstract class SVGGenericElement {
         if (valid) {
             this.strokeLineJoin = strokeLineJoin;
         }
+    }
+
+    /**
+     * @param translateX <code>translateX</code>> property of current instance.
+     */
+    public void setTranslateX(SVGLengthUnit translateX) {
+        if (translateX.getUnitType() != SVGLengthUnitType.NUMBER) {
+            throw new IllegalArgumentException("tx must be in user units");
+        }
+
+        this.translateX = translateX;
+    }
+
+    /**
+     * @param translateY <code>translateY</code>> property of current instance.
+     */
+    public void setTranslateY(SVGLengthUnit translateY) {
+        if (translateY.getUnitType() != SVGLengthUnitType.NUMBER) {
+            throw new IllegalArgumentException("ty must be in user units");
+        }
+
+        this.translateY = translateY;
     }
 
     /*

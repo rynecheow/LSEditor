@@ -168,8 +168,8 @@ public class SVGRectElement extends SVGGenericElement {
         if (valid) {
             float padding = 0;
 
-            if (getStroke().getPaintType() != SVGPaintingType.NONE) {
-                padding = getStrokeWidth().getValue() / 2;
+            if (getResultantStroke().getPaintType() != SVGPaintingType.NONE) {
+                padding = getResulantStrokeWidth().getValue() / 2;
             }
 
             return new Rectangle2D.Float(x.getValue() - padding, y.getValue() - padding, w + 2 * padding,
@@ -192,12 +192,12 @@ public class SVGRectElement extends SVGGenericElement {
                                        width.getValue(), height.getValue());
 
             graphics.scale(SVGImageCanvas.getZoomScale(), SVGImageCanvas.getZoomScale());
-            graphics.setStroke(new BasicStroke((float) getStrokeWidth().getValue(), getStrokeLineCap(),
+            graphics.setStroke(new BasicStroke((float) getResulantStrokeWidth().getValue(), getStrokeLineCap(),
                                                getStrokeLineJoin()));
             graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-            graphics.setPaint(getFill().getPaintColor());
+            graphics.setPaint(getResultantFill().getPaintColor());
             graphics.fill(rect);
-            graphics.setPaint(getStroke().getPaintColor());
+            graphics.setPaint(getResultantStroke().getPaintColor());
             graphics.draw(rect);
         }
 

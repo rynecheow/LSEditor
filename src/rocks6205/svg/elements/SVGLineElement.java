@@ -162,8 +162,8 @@ public class SVGLineElement extends SVGGenericElement {
     public Rectangle2D.Float getBounds() {
         float padding = 0;
 
-        if (getStroke().getPaintType() != SVGPaintingType.NONE) {
-            padding = getStrokeWidth().getValue() / 2;
+        if (getResultantStroke().getPaintType() != SVGPaintingType.NONE) {
+            padding = getResulantStrokeWidth().getValue() / 2;
         }
 
         float computedX      = Math.min(x1.getValue(), x2.getValue()) - padding;
@@ -187,8 +187,8 @@ public class SVGLineElement extends SVGGenericElement {
                                          x2.getValue() - bounds.x, y2.getValue() - bounds.y);
 
             graphics.scale(SVGImageCanvas.getZoomScale(), SVGImageCanvas.getZoomScale());
-            graphics.setPaint(getStroke().getPaintColor());
-            graphics.setStroke(new BasicStroke((float) getStrokeWidth().getValue(), getStrokeLineCap(),
+            graphics.setPaint(getResultantStroke().getPaintColor());
+            graphics.setStroke(new BasicStroke((float) getResulantStrokeWidth().getValue(), getStrokeLineCap(),
                                                getStrokeLineJoin()));
             graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
             graphics.draw(line);
