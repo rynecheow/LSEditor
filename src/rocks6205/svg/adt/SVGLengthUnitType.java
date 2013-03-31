@@ -106,4 +106,20 @@ public enum SVGLengthUnitType {
 
         return SVGLengthUnitType.NUMBER;
     }
+
+    /**
+     *
+     * @return
+     */
+    public static String[] getSymbols() {
+        SVGLengthUnitType[] types     = values();
+        int                 typeCount = types.length;
+        String[]            symbols   = new String[typeCount];
+
+        for (int i = 0; i < typeCount; i++) {
+            symbols[i] = types[i].getUnitSymbol();
+        }
+
+        return symbols;
+    }
 }

@@ -43,7 +43,7 @@ public class SVGLengthUnit {
      * and gives a float value of 0.
      */
     public SVGLengthUnit() {
-        setSVGLengthUnit(SVGLengthUnitType.UNKNOWN, 0.0f);
+        this(SVGLengthUnitType.UNKNOWN, Float.NaN);
     }
 
     /**
@@ -53,7 +53,7 @@ public class SVGLengthUnit {
      * @param val Value of length unit in <code>float</code>
      */
     public SVGLengthUnit(float val) {
-        setSVGLengthUnit(val);
+        this(SVGLengthUnitType.NUMBER, val);
     }
 
     /**
@@ -64,7 +64,21 @@ public class SVGLengthUnit {
      * @param val Value of length unit in <code>float</code>
      */
     public SVGLengthUnit(SVGLengthUnitType type, float val) {
-        setSVGLengthUnit(type, val);
+        if (Float.isNaN(value)) {
+            throw new IllegalArgumentException("Length value must not be NaN");
+        }
+
+        setValue(val);
+
+        if (type == SVGLengthUnitType.UNKNOWN) {
+            throw new IllegalArgumentException("Length type must not be UNKNOWN");
+        }
+
+        if (type == null) {
+            throw new IllegalArgumentException("Length type must not be null");
+        }
+
+        setUnitType(type);
     }
 
     /*
@@ -82,24 +96,24 @@ public class SVGLengthUnit {
      * @return Length unit value
      */
     public float getValue() {
-        return getValue("");
+        return this.value;
     }
 
     /**
-     * Get the value of length unit by specific unit symbols.
-     * @param sym Unit symbol string
-     * @return Length unit value with respect to symbol string
+     * Get the value of length unit by specific unit type.
+     * @param sym Target conversion type
+     * @return Length unit value with respect to the target type
      */
-    public float getValue(String sym) {
-        SVGLengthUnitType target = SVGLengthUnitType.getType(sym);
-
-        if (this.unitType == target) {
-            return this.value;
-        } else if (this.unitType != SVGLengthUnitType.UNKNOWN) {
-            return value * this.unitType.getUnitScalingFactor() / target.getUnitScalingFactor();
+    public float getValue(SVGLengthUnitType target) {
+        if (target == null) {
+            throw new NullPointerException("Target type must not be null");
         }
 
-        return 0;
+        if (Float.isNaN(this.value) || (this.unitType == target)) {
+            return this.value;
+        }
+
+        return value * this.unitType.getUnitScalingFactor() / target.getUnitScalingFactor();
     }
 
     /*
@@ -130,6 +144,10 @@ public class SVGLengthUnit {
     public static SVGLengthUnit parse(String lengthAttributeValue) {
         lengthAttributeValue = lengthAttributeValue.trim();
 
+        if (lengthAttributeValue == null) {
+            return null;
+        }
+
         // initialise variables
         SVGLengthUnit length      = null;
         Pattern       pattern     = null,
@@ -138,14 +156,11 @@ public class SVGLengthUnit {
         String        numberStr   = "";
         String        unitStr     = "",
                       unitSym     = "";
-        String        symbol      = "";
         int           u           = 0;
 
         // search
-        for (SVGLengthUnitType type : SVGLengthUnitType.values()) {
-            symbol = type.getUnitSymbol();
-
-            if ((type != SVGLengthUnitType.UNKNOWN) && (type != SVGLengthUnitType.NUMBER)) {
+        for (String symbol : SVGLengthUnitType.getSymbols()) {
+            if ((symbol != null) &&!symbol.isEmpty()) {
                 if (u != 0) {
                     symbol = "|" + symbol;
                 }
@@ -175,28 +190,5 @@ public class SVGLengthUnit {
         }
 
         return length;
-    }
-
-    /**
-     * Setting the type and value of the length unit object.
-     *
-     * @param type      Length unit type
-     * @param val       Length unit value
-     */
-    public final void setSVGLengthUnit(SVGLengthUnitType type, float val) {
-        if (type != null) {
-            setUnitType(type);
-        }
-
-        setValue(val);
-    }
-
-    /**
-     * Variant. Default unit type set to 'NUMBER'.
-     *
-     * @param val       Length unit value
-     */
-    public final void setSVGLengthUnit(float val) {
-        setSVGLengthUnit(SVGLengthUnitType.NUMBER, val);
     }
 }
