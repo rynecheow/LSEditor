@@ -2,6 +2,8 @@ package rocks6205.svg.editor.viewcomponents;
 
 //~--- non-JDK imports --------------------------------------------------------
 
+import rocks6205.svg.editor.events.*;
+import rocks6205.svg.editor.events.SVGEditorMenuAction.FillAction;
 import rocks6205.svg.mvc.SVGEditorView;
 import rocks6205.svg.properties.SVGEditorTheme;
 
@@ -19,6 +21,7 @@ import javax.swing.SwingConstants;
  * Toolbar containing all the SVG editing functions as required in for editing.
  *
  * @author Toh Huey Jing
+ * @author Sugar CheeSheen Chan
  *
  * @since 1.2
  *
@@ -44,6 +47,7 @@ public class SVGEditorBottomToolbar extends JPanel {
     /*
      * ACTION COMPONENTS
      */
+    private FillAction fillAction;
 
     /*
      * CONSTRUCTOR
@@ -76,6 +80,7 @@ public class SVGEditorBottomToolbar extends JPanel {
         backgroundPanel   = new JPanel();
         separator_1       = new JSeparator(SwingConstants.VERTICAL);
         separator_2       = new JSeparator(SwingConstants.VERTICAL);
+        fillAction        = new FillAction(parent, "selectColor");
     }
 
     /**
@@ -87,6 +92,7 @@ public class SVGEditorBottomToolbar extends JPanel {
         layoutBackgroundPanel();
         add(backgroundPanel);
         disableUnused();
+        setActionForButtons();
         setIconsForButtons();
     }
 
@@ -148,10 +154,27 @@ public class SVGEditorBottomToolbar extends JPanel {
         insertRectButton.setEnabled(false);
         insertCircButton.setEnabled(false);
         insertLineButton.setEnabled(false);
-        fillButton.setEnabled(false);
         strokeButton.setEnabled(false);
         strokeWidthButton.setEnabled(false);
         groupButton.setEnabled(false);
         ungroupButton.setEnabled(false);
+    }
+    
+    /**
+     * Setup actions for button.
+     */
+    private void setActionForButtons() {
+	fillButton.setAction(getFillAction());
+    }
+    
+    /**
+     * @return Zoom in view action
+     */
+    private FillAction getFillAction() {
+        if (fillAction == null) {
+            fillAction = new FillAction(parent, "selectColor");
+        }
+
+        return fillAction;
     }
 }

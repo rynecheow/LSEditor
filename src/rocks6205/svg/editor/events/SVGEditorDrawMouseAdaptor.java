@@ -25,6 +25,8 @@ public class SVGEditorDrawMouseAdaptor {
      * 
      */
     public void mousePressed(MouseEvent event) {
+	System.out.printf("Pressed at x:%d y:%d" , 
+		event.getX() , event.getY() );
     }
 
     /**
@@ -32,6 +34,8 @@ public class SVGEditorDrawMouseAdaptor {
      * 
      */
     public void mouseReleased(MouseEvent event) {
+	System.out.printf("Released at x:%d y:%d" , 
+		event.getX() , event.getY() );
     }
 
     /**
@@ -39,6 +43,8 @@ public class SVGEditorDrawMouseAdaptor {
      * 
      */
     public void mouseDragged(MouseEvent event) {
+	System.out.printf("Dragged at x:%d y:%d" , 
+		event.getX() , event.getY() );
     }
 
 }
