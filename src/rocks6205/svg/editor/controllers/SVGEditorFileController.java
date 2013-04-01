@@ -46,7 +46,7 @@ public interface SVGEditorFileController {
      * @param file
      * @return If file is successfully loaded
      */
-    public boolean fileLoad(File file);
+    public boolean fileLoad(File file) throws IOException;
 
     /**
      * Saves current file

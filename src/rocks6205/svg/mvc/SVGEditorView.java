@@ -217,4 +217,9 @@ public class SVGEditorView extends JFrame implements Observer {
             scrollPane.repaint();
         }
     }
+
+    public void update() {
+	// TODO Auto-generated method stub
+	
+    }
 }

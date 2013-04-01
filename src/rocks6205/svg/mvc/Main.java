@@ -7,6 +7,7 @@ import rocks6205.svg.properties.OSValidator;
 //~--- JDK imports ------------------------------------------------------------
 
 import java.io.File;
+import java.io.IOException;
 
 import javax.swing.JFrame;
 import javax.swing.UIManager;
@@ -21,21 +22,21 @@ import javax.swing.UnsupportedLookAndFeelException;
  */
 public class Main {
     public static void main(String[] rcks) {
-        String                  fileURI;
-        SVGEditorModel          m = new SVGEditorModel();
         SVGEditorView           v = new SVGEditorView();
-        SVGEditorViewController c = new SVGEditorViewController(m, v);
+        SVGEditorViewController c = new SVGEditorViewController();
 
         setUpLookAndFeel();
-        m.addObserver(v);
-        v.setModel(m);
         v.setController(c);
         v.setVisible(true);
         v.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 
         if (rcks.length > 0) {
-            fileURI = rcks[0];
-            c.fileLoad(new File(fileURI));
+            try {
+                c.fileLoad(new File(rcks[0]));
+            } catch (IOException e) {
+
+                // TODO: Display/log error message
+            }
         }
     }
 
