@@ -58,9 +58,9 @@ public class SVGEditorViewController
                 return 0;
             }
 
-            SVGContainerElement parent = e1.getAncestorElement();
+            SVGContainerElement ancestor = e1.getAncestorElement();
 
-            return parent.indexOf(e1) - parent.indexOf(e2);
+            return ancestor.indexOf(e1) - ancestor.indexOf(e2);
         }
     };
 
@@ -74,9 +74,9 @@ public class SVGEditorViewController
                 return 0;
             }
 
-            SVGContainerElement parent = e1.getAncestorElement();
+            SVGContainerElement ancestor = e1.getAncestorElement();
 
-            return parent.indexOf(e2) - parent.indexOf(e1);
+            return ancestor.indexOf(e2) - ancestor.indexOf(e1);
         }
     };
     private static final File NEW_DOCUMENT = null;
@@ -272,14 +272,14 @@ public class SVGEditorViewController
 
     /**
      * {@inheritDoc}
-     * 
-     * @author 
+     *
+     * @author
      */
     public void addElement(SVGGenericElement e) {
 
         // TODO Auto-generated method stub
     }
-
+    
     /**
      * {@inheritDoc}
      * 
@@ -287,7 +287,7 @@ public class SVGEditorViewController
      */
     public void setElementFill(SVGGenericElement e, SVGPainting fill) {
 
-        // TODO Auto-generated method stub
+	// TODO Auto-generated method stub
     }
 
     /**
@@ -297,7 +297,7 @@ public class SVGEditorViewController
      */
     public void setElementStroke(SVGGenericElement e, SVGPainting stroke) {
 
-        // TODO Auto-generated method stub
+	// TODO Auto-generated method stub
     }
 
     /**
@@ -307,7 +307,7 @@ public class SVGEditorViewController
      */
     public void setElementStrokeWidth(SVGGenericElement e, SVGLengthUnit strokeWidth) {
 
-        // TODO Auto-generated method stub
+	// TODO Auto-generated method stub
     }
 
     /**
@@ -317,7 +317,7 @@ public class SVGEditorViewController
      */
     public void resizeRect(SVGRectElement rect, float changeWidth, float changeHeight) {
 
-        // TODO Auto-generated method stub
+	// TODO Auto-generated method stub
     }
 
     /**
@@ -327,7 +327,7 @@ public class SVGEditorViewController
      */
     public void resizeCircle(SVGCircleElement circle, float changedRadius) {
 
-        // TODO Auto-generated method stub
+	// TODO Auto-generated method stub
     }
 
     /**
@@ -337,7 +337,7 @@ public class SVGEditorViewController
      */
     public void resizeLine(SVGLineElement line, int endpoint, float changeX, float changeY) {
 
-        // TODO Auto-generated method stub
+	// TODO Auto-generated method stub
     }
 
     /**
@@ -347,8 +347,8 @@ public class SVGEditorViewController
      */
     public boolean fileLoad(File file) throws IOException{
 
-        // TODO Auto-generated method stub
-        return false;
+	// TODO Auto-generated method stub
+	return false;
     }
 
     /**
@@ -358,8 +358,8 @@ public class SVGEditorViewController
      */
     public boolean saveFile() throws IOException {
 
-        // TODO Auto-generated method stub
-        return false;
+	// TODO Auto-generated method stub
+	return false;
     }
 
     /**
@@ -369,8 +369,8 @@ public class SVGEditorViewController
      */
     public boolean saveFile(File file) throws IOException {
 
-        // TODO Auto-generated method stub
-        return false;
+	// TODO Auto-generated method stub
+	return false;
     }
 
     /**
@@ -380,7 +380,7 @@ public class SVGEditorViewController
      */
     public void closeFile() {
 
-        // TODO Auto-generated method stub
+	// TODO Auto-generated method stub
     }
 
     /**
@@ -390,7 +390,7 @@ public class SVGEditorViewController
      */
     public void endFileModification() {
 
-        // TODO Auto-generated method stub
+	// TODO Auto-generated method stub
     }
 
     /**
@@ -400,8 +400,8 @@ public class SVGEditorViewController
      */
     public boolean isPointSelected(Point2D point) {
 
-        // TODO Auto-generated method stub
-        return false;
+	// TODO Auto-generated method stub
+	return false;
     }
 
     /**
@@ -411,8 +411,8 @@ public class SVGEditorViewController
      */
     public LinkedHashSet<SVGGenericElement> getSelections() {
 
-        // TODO Auto-generated method stub
-        return null;
+	// TODO Auto-generated method stub
+	return null;
     }
 
     /**
@@ -422,7 +422,7 @@ public class SVGEditorViewController
      */
     public void addToSelection(SVGGenericElement e) {
 
-        // TODO Auto-generated method stub
+	// TODO Auto-generated method stub
     }
 
     /**
@@ -432,7 +432,7 @@ public class SVGEditorViewController
      */
     public void addToSelection(Point2D point) {
 
-        // TODO Auto-generated method stub
+	// TODO Auto-generated method stub
     }
 
     /**
@@ -442,7 +442,7 @@ public class SVGEditorViewController
      */
     public void addToSelection(Rectangle2D rect) {
 
-        // TODO Auto-generated method stub
+	// TODO Auto-generated method stub
     }
 
     /**
@@ -452,7 +452,7 @@ public class SVGEditorViewController
      */
     public void removeFromSelection(Point point) {
 
-        // TODO Auto-generated method stub
+	// TODO Auto-generated method stub
     }
 
     /**
@@ -462,7 +462,7 @@ public class SVGEditorViewController
      */
     public void removeFromSelection(Rectangle rect) {
 
-        // TODO Auto-generated method stub
+	// TODO Auto-generated method stub
     }
 
     /**
@@ -472,7 +472,7 @@ public class SVGEditorViewController
      */
     public void selectAll() {
 
-        // TODO Auto-generated method stub
+	// TODO Auto-generated method stub
     }
 
     /**
@@ -482,7 +482,7 @@ public class SVGEditorViewController
      */
     public void clearSelection() {
 
-        // TODO Auto-generated method stub
+	// TODO Auto-generated method stub
     }
 
     /**
@@ -492,7 +492,7 @@ public class SVGEditorViewController
      */
     public void group() {
 
-        // TODO Auto-generated method stub
+	// TODO Auto-generated method stub
     }
 
     /**
@@ -502,7 +502,7 @@ public class SVGEditorViewController
      */
     public void ungroup() {
 
-        // TODO Auto-generated method stub
+	// TODO Auto-generated method stub
     }
 
     /**
@@ -512,7 +512,7 @@ public class SVGEditorViewController
      */
     public void deleteSelectedElement() {
 
-        // TODO Auto-generated method stub
+	// TODO Auto-generated method stub
     }
 
     /**
@@ -521,7 +521,7 @@ public class SVGEditorViewController
      * @author 
      */
     public void moveSelectedElement(float tx, float ty) {
-
-        // TODO Auto-generated method stub
+	
+	// TODO Auto-generated method stub
     }
 }
