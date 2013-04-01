@@ -324,4 +324,42 @@ public abstract class SVGEditorMenuAction extends AbstractAction {
             }
         }
     }
+    
+    /**
+     * The <code>FillAction</code> is a class which create an <code>Action</code>
+     * instance. This action handles event by setting the color used for painting shapes
+     * 
+     *
+     * @author Sugar CheeSheen Chan
+     *
+     * @since 1.0
+     *
+     */
+    public static class FillAction extends SVGEditorMenuAction {
+        private static final long serialVersionUID = -6578149781110081473L;
+        
+        private SVGColorScheme color;
+
+        /*
+         * CONSTRUCTOR
+         */
+
+        /**
+         * Construct a <code>ZoomOutViewAction</code> instance with parent component
+         * <code>parent</code> and no action name. <p>Disabled by default.
+         * @param parent Parent component
+         */
+        public FillAction(SVGEditorView parent) {
+            super("Fill Color", KeyEvent.VK_F, KeyStroke.getKeyStroke(KeyEvent.VK_F, getKeyEventMask()), parent);
+            setEnabled(false);
+        }
+        public void actionPerformed(ActionEvent event) {
+            color = (SVGColorScheme) JColorChooser.showDialog( super.parent , "Choose a color", color );
+            
+            if( color == null ) {
+        	super.parent.
+            }
+        
+        }
+    }
 }
