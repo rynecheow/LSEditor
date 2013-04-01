@@ -31,11 +31,6 @@ import java.awt.geom.Rectangle2D;
  */
 public abstract class SVGGenericElement {
 
-    /**
-     * Default namespace for SVG documents.
-     */
-    public static final String SVGDefaultNamespace = "http://www.w3.org/2000/svg";
-
     /*
      * DEFAULT ATTRIBUTES FOR PRESENTATION
      */
@@ -134,6 +129,22 @@ public abstract class SVGGenericElement {
      */
     public SVGContainerElement getAncestorElement() {
         return this.ancestorElement;
+    }
+
+    /**
+     * Returns the sibling element of the same ancestor element/parent node.
+     * @return Sibling element
+     */
+    public SVGGenericElement getNextSiblingElement() {
+        if (ancestorElement != null) {
+            int index = ancestorElement.indexOf(this) + 1;
+
+            if (index < ancestorElement.getDescendantCount()) {
+                return ancestorElement.getDescendant(index);
+            }
+        }
+
+        return null;
     }
 
     /**

@@ -49,6 +49,14 @@ public abstract class SVGContainerElement extends SVGGenericElement {
         return descendants.get(index);
     }
 
+    public boolean hasDescendant() {
+        return !descendants.isEmpty();
+    }
+
+    public int getDescendantCount() {
+        return descendants.size();
+    }
+
     public int indexOf(SVGGenericElement elem) {
         return descendants.indexOf(elem);
     }
@@ -105,3 +113,6 @@ public abstract class SVGContainerElement extends SVGGenericElement {
         descendants.remove(e);
     }
 }
+
+
+//~ Formatted by Jindent --- http://www.jindent.com

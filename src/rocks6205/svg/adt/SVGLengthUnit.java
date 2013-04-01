@@ -191,4 +191,16 @@ public class SVGLengthUnit {
 
         return length;
     }
+
+    /**
+     * Convert the existing length unit to different type
+     * @param length Length unit
+     * @param targetType type of length unit
+     * @return Converted length unit with type set to target type
+     */
+    public static SVGLengthUnit convert(SVGLengthUnit length, SVGLengthUnitType targetType) {
+        float value = length.getValue(targetType);
+
+        return new SVGLengthUnit(targetType, value);
+    }
 }
