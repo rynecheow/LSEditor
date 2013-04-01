@@ -2,6 +2,13 @@ package rocks6205.svg.mvc;
 
 //~--- non-JDK imports --------------------------------------------------------
 
+import org.w3c.dom.Attr;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+
+import org.xml.sax.InputSource;
+
 import rocks6205.svg.adt.SVGLengthUnit;
 import rocks6205.svg.adt.SVGLengthUnitType;
 import rocks6205.svg.adt.SVGPainting;
@@ -10,10 +17,12 @@ import rocks6205.svg.editor.controllers.SVGEditorFileController;
 import rocks6205.svg.editor.controllers.SVGEditorSelectionsController;
 import rocks6205.svg.elements.SVGCircleElement;
 import rocks6205.svg.elements.SVGContainerElement;
+import rocks6205.svg.elements.SVGGElement;
 import rocks6205.svg.elements.SVGGenericElement;
 import rocks6205.svg.elements.SVGLineElement;
 import rocks6205.svg.elements.SVGRectElement;
 import rocks6205.svg.elements.SVGSVGElement;
+import rocks6205.svg.parser.XMLParser;
 
 //~--- JDK imports ------------------------------------------------------------
 
@@ -30,6 +39,17 @@ import java.io.IOException;
 
 import java.util.Comparator;
 import java.util.LinkedHashSet;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 
 /**
  * The <code>SVGViewController</code> class defines a MVC module and plays as
@@ -279,35 +299,35 @@ public class SVGEditorViewController
 
         // TODO Auto-generated method stub
     }
-    
+
     /**
      * {@inheritDoc}
-     * 
-     * @author 
+     *
+     * @author
      */
     public void setElementFill(SVGGenericElement e, SVGPainting fill) {
 
-	// TODO Auto-generated method stub
+        // TODO Auto-generated method stub
     }
 
     /**
      * {@inheritDoc}
-     * 
-     * @author 
+     *
+     * @author
      */
     public void setElementStroke(SVGGenericElement e, SVGPainting stroke) {
 
-	// TODO Auto-generated method stub
+        // TODO Auto-generated method stub
     }
 
     /**
      * {@inheritDoc}
-     * 
-     * @author 
+     *
+     * @author
      */
     public void setElementStrokeWidth(SVGGenericElement e, SVGLengthUnit strokeWidth) {
 
-	// TODO Auto-generated method stub
+        // TODO Auto-generated method stub
     }
 
     /**
@@ -346,9 +366,21 @@ public class SVGEditorViewController
      * @author 
      */
     public boolean fileLoad(File file) throws IOException{
+        if ((file != null) && file.getName().endsWith(".svg")) {
+            Document doc = XMLParser.parseXml(new InputSource(file.toURI().toString()));
 
-	// TODO Auto-generated method stub
-	return false;
+            if (doc != null) {
+                SVGSVGElement svg_e = SVGSVGElement.parseDocument(doc);
+                if (svg_e != null) {
+                    model.setSVGElement(svg_e);
+                    currentFile        = file;
+                    isDocumentModified = false;
+                    updateViews();
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     /**
@@ -357,9 +389,7 @@ public class SVGEditorViewController
      * @author 
      */
     public boolean saveFile() throws IOException {
-
-	// TODO Auto-generated method stub
-	return false;
+	return saveFile(currentFile);
     }
 
     /**
@@ -368,160 +398,373 @@ public class SVGEditorViewController
      * @author 
      */
     public boolean saveFile(File file) throws IOException {
+	if (file != null) {
+            try {
+                DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 
-	// TODO Auto-generated method stub
-	return false;
+                factory.setNamespaceAware(true);
+
+                DocumentBuilder     builder  = factory.newDocumentBuilder();
+                Document            doc      = builder.newDocument();
+                Node                ancestor = doc;
+                Element             e        = null;
+                Attr                attr;
+                SVGGenericElement   svg_e = model.getSVGElement();
+                SVGContainerElement svgAncestor;
+
+                while (svg_e != null) {
+                    if (svg_e instanceof SVGSVGElement) {
+                        SVGSVGElement root = (SVGSVGElement) svg_e;
+
+                        e = doc.createElementNS(SVGDefaultNamespace, "svg");
+                        ancestor.appendChild(e);
+                        attr = doc.createAttributeNS(null, "width");
+                        attr.setValue(root.getWidth().toString());
+                        e.setAttributeNodeNS(attr);
+                        attr = doc.createAttributeNS(null, "height");
+                        attr.setValue(root.getHeight().toString());
+                        e.setAttributeNodeNS(attr);
+
+                        if (root.hasDescendant()) {
+                            ancestor  = e;
+                            svg_e     = root.getDescendant(0);
+                            svgAncestor = root;
+
+                            continue;
+                        }
+                    } else {
+                        Attr        fillAttr        = null;
+                        Attr        strokeAttr      = null;
+                        Attr        strokeWidthAttr = null;
+                        Attr        transformAttr   = null;
+                        SVGPainting fill            = svg_e.getFill();
+
+                        if (fill != null) {
+                            fillAttr = doc.createAttributeNS(null, "fill");
+                            fillAttr.setValue(fill.toString());
+                        }
+
+                        SVGPainting stroke = svg_e.getStroke();
+
+                        if (stroke != null) {
+                            strokeAttr = doc.createAttributeNS(null, "stroke");
+                            strokeAttr.setValue(stroke.toString());
+                        }
+
+                        SVGLengthUnit strokeWidth = svg_e.getStrokeWidth();
+
+                        if (strokeWidth != null) {
+                            strokeWidthAttr = doc.createAttributeNS(null, "stroke-width");
+                            strokeWidthAttr.setValue(strokeWidth.toString());
+                        }
+
+                        SVGLengthUnit translateX = svg_e.getTranslateX();
+                        SVGLengthUnit translateY = svg_e.getTranslateY();
+
+                        if (translateX != null) {
+                            transformAttr = doc.createAttributeNS(null, "transform");
+
+                            String value = "translate(" + translateX.getValue();
+
+                            if (translateY != null) {
+                                value += "," + translateY.getValue();
+                            }
+
+                            value += ")";
+                            transformAttr.setValue(value);
+                        }
+
+                        if (svg_e instanceof SVGGElement) {
+                            SVGGElement group = (SVGGElement) svg_e;
+
+                            e = doc.createElementNS(SVGDefaultNamespace, "g");
+
+                            if (fillAttr != null) {
+                                e.setAttributeNode(fillAttr);
+                            }
+
+                            if (strokeAttr != null) {
+                                e.setAttributeNode(strokeAttr);
+                            }
+
+                            if (strokeWidthAttr != null) {
+                                e.setAttributeNode(strokeWidthAttr);
+                            }
+
+                            if (transformAttr != null) {
+                                e.setAttributeNode(transformAttr);
+                            }
+
+                            ancestor.appendChild(e);
+
+                            if (group.hasDescendant()) {
+                                ancestor  = e;
+                                svg_e     = group.getDescendant(0);
+                                svgAncestor = group;
+
+                                continue;
+                            }
+                        } else if (svg_e instanceof SVGRectElement) {
+                            SVGRectElement rect = (SVGRectElement) svg_e;
+
+                            e    = doc.createElementNS(SVGDefaultNamespace, "rect");
+                            attr = doc.createAttributeNS(null, "x");
+                            attr.setValue(rect.getX().toString());
+                            e.setAttributeNodeNS(attr);
+                            attr = doc.createAttributeNS(null, "y");
+                            attr.setValue(rect.getY().toString());
+                            e.setAttributeNodeNS(attr);
+                            attr = doc.createAttributeNS(null, "width");
+                            attr.setValue(rect.getWidth().toString());
+                            e.setAttributeNodeNS(attr);
+                            attr = doc.createAttributeNS(null, "height");
+                            attr.setValue(rect.getHeight().toString());
+                            e.setAttributeNodeNS(attr);
+                            ancestor.appendChild(e);
+                        } else if (svg_e instanceof SVGCircleElement) {
+                            SVGCircleElement circle = (SVGCircleElement) svg_e;
+
+                            e    = doc.createElementNS(SVGDefaultNamespace, "circle");
+                            attr = doc.createAttributeNS(null, "cx");
+                            attr.setValue(circle.getCx().toString());
+                            e.setAttributeNodeNS(attr);
+                            attr = doc.createAttributeNS(null, "cy");
+                            attr.setValue(circle.getCy().toString());
+                            e.setAttributeNodeNS(attr);
+                            attr = doc.createAttributeNS(null, "r");
+                            attr.setValue(circle.getRadius().toString());
+                            e.setAttributeNodeNS(attr);
+                            ancestor.appendChild(e);
+                        } else if (svg_e instanceof SVGLineElement) {
+                            SVGLineElement line = (SVGLineElement) svg_e;
+
+                            e    = doc.createElementNS(SVGDefaultNamespace, "line");
+                            attr = doc.createAttributeNS(null, "x1");
+                            attr.setValue(line.getX1().toString());
+                            e.setAttributeNodeNS(attr);
+                            attr = doc.createAttributeNS(null, "y1");
+                            attr.setValue(line.getY1().toString());
+                            e.setAttributeNodeNS(attr);
+                            attr = doc.createAttributeNS(null, "x2");
+                            attr.setValue(line.getX2().toString());
+                            e.setAttributeNodeNS(attr);
+                            attr = doc.createAttributeNS(null, "y2");
+                            attr.setValue(line.getY2().toString());
+                            e.setAttributeNodeNS(attr);
+                            ancestor.appendChild(e);
+                        }
+
+                        if (fillAttr != null) {
+                            e.setAttributeNode(fillAttr);
+                        }
+
+                        if (strokeAttr != null) {
+                            e.setAttributeNode(strokeAttr);
+                        }
+
+                        if (strokeWidthAttr != null) {
+                            e.setAttributeNode(strokeWidthAttr);
+                        }
+
+                        if (transformAttr != null) {
+                            e.setAttributeNode(transformAttr);
+                        }
+                    }
+
+                    svgAncestor = svg_e.getAncestorElement();
+                    svg_e     = svg_e.getNextSiblingElement();
+
+                    while ((svg_e == null) && (svgAncestor != null)) {
+                        ancestor  = ancestor.getParentNode();
+                        svg_e     = svgAncestor.getNextSiblingElement();
+                        svgAncestor = svgAncestor.getAncestorElement();
+                    }
+                }
+
+                TransformerFactory tFact       = TransformerFactory.newInstance();
+                Transformer        transformer = tFact.newTransformer();
+
+                transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+                transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
+
+                DOMSource    source = new DOMSource(doc);
+                StreamResult result = new StreamResult(file);
+
+                transformer.transform(source, result);
+            } catch (ParserConfigurationException e) {
+                e.printStackTrace();
+            } catch (TransformerConfigurationException e) {
+                e.printStackTrace();
+            } catch (TransformerException e) {
+                Throwable exception = e.getException();
+
+                if ((exception != null) && (exception instanceof IOException)) {
+                    throw(IOException) exception;
+                }
+
+                e.printStackTrace();
+            }
+
+            isDocumentModified = false;
+
+            return true;
+        }
+
+        return false;
     }
 
     /**
      * {@inheritDoc}
-     * 
-     * @author 
+     *
+     * @author
      */
     public void closeFile() {
 
-	// TODO Auto-generated method stub
+        // TODO Auto-generated method stub
     }
 
     /**
      * {@inheritDoc}
-     * 
-     * @author 
+     *
+     * @author
      */
     public void endFileModification() {
 
-	// TODO Auto-generated method stub
+        // TODO Auto-generated method stub
     }
 
     /**
      * {@inheritDoc}
-     * 
-     * @author 
+     *
+     * @author
      */
     public boolean isPointSelected(Point2D point) {
 
-	// TODO Auto-generated method stub
-	return false;
+        // TODO Auto-generated method stub
+        return false;
     }
 
     /**
      * {@inheritDoc}
-     * 
-     * @author 
+     *
+     * @author
      */
     public LinkedHashSet<SVGGenericElement> getSelections() {
 
-	// TODO Auto-generated method stub
-	return null;
+        // TODO Auto-generated method stub
+        return null;
     }
 
     /**
      * {@inheritDoc}
-     * 
-     * @author 
+     *
+     * @author
      */
     public void addToSelection(SVGGenericElement e) {
 
-	// TODO Auto-generated method stub
+        // TODO Auto-generated method stub
     }
 
     /**
      * {@inheritDoc}
-     * 
-     * @author 
+     *
+     * @author
      */
     public void addToSelection(Point2D point) {
 
-	// TODO Auto-generated method stub
+        // TODO Auto-generated method stub
     }
 
     /**
      * {@inheritDoc}
-     * 
-     * @author 
+     *
+     * @author
      */
     public void addToSelection(Rectangle2D rect) {
 
-	// TODO Auto-generated method stub
+        // TODO Auto-generated method stub
     }
 
     /**
      * {@inheritDoc}
-     * 
-     * @author 
+     *
+     * @author
      */
     public void removeFromSelection(Point point) {
 
-	// TODO Auto-generated method stub
+        // TODO Auto-generated method stub
     }
 
     /**
      * {@inheritDoc}
-     * 
-     * @author 
+     *
+     * @author
      */
     public void removeFromSelection(Rectangle rect) {
 
-	// TODO Auto-generated method stub
+        // TODO Auto-generated method stub
     }
 
     /**
      * {@inheritDoc}
-     * 
-     * @author 
+     *
+     * @author
      */
     public void selectAll() {
 
-	// TODO Auto-generated method stub
+        // TODO Auto-generated method stub
     }
 
     /**
      * {@inheritDoc}
-     * 
-     * @author 
+     *
+     * @author
      */
     public void clearSelection() {
 
-	// TODO Auto-generated method stub
+        // TODO Auto-generated method stub
     }
 
     /**
      * {@inheritDoc}
-     * 
-     * @author 
+     *
+     * @author
      */
     public void group() {
 
-	// TODO Auto-generated method stub
+        // TODO Auto-generated method stub
     }
 
     /**
      * {@inheritDoc}
-     * 
-     * @author 
+     *
+     * @author
      */
     public void ungroup() {
 
-	// TODO Auto-generated method stub
+        // TODO Auto-generated method stub
     }
 
     /**
      * {@inheritDoc}
-     * 
-     * @author 
+     *
+     * @author
      */
     public void deleteSelectedElement() {
 
-	// TODO Auto-generated method stub
+        // TODO Auto-generated method stub
     }
 
     /**
      * {@inheritDoc}
-     * 
-     * @author 
+     *
+     * @author
      */
     public void moveSelectedElement(float tx, float ty) {
-	
-	// TODO Auto-generated method stub
+
+        // TODO Auto-generated method stub
     }
 }
+
+
+//~ Formatted by Jindent --- http://www.jindent.com
