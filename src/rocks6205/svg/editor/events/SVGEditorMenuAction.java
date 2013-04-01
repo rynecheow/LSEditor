@@ -335,7 +335,7 @@ public abstract class SVGEditorMenuAction extends AbstractAction {
      *
     * @author Sugar CheeSheen Chan
      *
-     * @since 2.1
+     * @since 1.0
      *
      */
     public static class FillAction extends SVGEditorMenuAction {
@@ -380,6 +380,133 @@ public abstract class SVGEditorMenuAction extends AbstractAction {
             //super.parent.getModel().getSVGElement()
             System.out.println(svgColorScheme);
         
+        }
+    }
+    
+    /**
+     * The <code>DrawLineAction</code> is a class which create an <code>Action</code>
+     * instance. This action handles event by setting the color used for painting shapes
+     * 
+     *
+    * @author Sugar CheeSheen Chan
+     *
+     * @since 1.0
+     *
+     */
+    public static class DrawLineAction extends SVGEditorMenuAction {
+        private static final long serialVersionUID = -6578149781110081473L;
+
+        /*
+         * CONSTRUCTOR
+         */
+
+        /**
+         * Construct a <code>DrawLineAction</code> instance with parent component
+         * <code>parent</code> and no action name. <p>Disabled by default.
+         * @param parent Parent component
+         */
+        public DrawLineAction(SVGEditorView parent) {
+            super("Draw Line", KeyEvent.VK_L, KeyStroke.getKeyStroke(KeyEvent.VK_L, getKeyEventMask()), parent);
+            setEnabled(false);
+        }
+        /**
+         * Construct a <code>FillAction</code> instance with parent component
+         * <code>parent</code>.
+         * @param parent Parent component
+         * @param actionName Name of action component
+         */
+        public DrawLineAction(SVGEditorView parent, String actionName) {
+            super(actionName, "Draw Line", KeyEvent.VK_L, KeyStroke.getKeyStroke(KeyEvent.VK_L, getKeyEventMask()),
+                  parent);
+        }
+        
+        public void actionPerformed(ActionEvent event) {
+            
+        
+        }
+    }
+    
+    /**
+     * The <code>DrawRectAction</code> is a class which create an <code>Action</code>
+     * instance. This action handles event by setting the color used for painting shapes
+     * 
+     *
+    * @author Sugar CheeSheen Chan
+     *
+     * @since 1.0
+     *
+     */
+    public static class DrawRectAction extends SVGEditorMenuAction {
+        private static final long serialVersionUID = -6578149781110081473L;
+
+        /*
+         * CONSTRUCTOR
+         */
+
+        /**
+         * Construct a <code>DrawLineAction</code> instance with parent component
+         * <code>parent</code> and no action name. <p>Disabled by default.
+         * @param parent Parent component
+         */
+        public DrawRectAction(SVGEditorView parent) {
+            super("Draw Rect", KeyEvent.VK_R, KeyStroke.getKeyStroke(KeyEvent.VK_R, getKeyEventMask()), parent);
+            setEnabled(false);
+        }
+        /**
+         * Construct a <code>FillAction</code> instance with parent component
+         * <code>parent</code>.
+         * @param parent Parent component
+         * @param actionName Name of action component
+         */
+        public DrawRectAction(SVGEditorView parent, String actionName) {
+            super(actionName, "Draw Rect", KeyEvent.VK_R, KeyStroke.getKeyStroke(KeyEvent.VK_R, getKeyEventMask()),
+                  parent);
+        }
+        
+        public void actionPerformed(ActionEvent event) {
+            
+        
+        }
+    }
+    
+    /**
+     * The <code>DrawCircleAction</code> is a class which create an <code>Action</code>
+     * instance. This action handles event by setting the color used for painting shapes
+     * 
+     *
+    * @author Sugar CheeSheen Chan
+     *
+     * @since 1.0
+     *
+     */
+    public static class DrawCircleAction extends SVGEditorMenuAction {
+        private static final long serialVersionUID = -6578149781110081473L;
+
+        /*
+         * CONSTRUCTOR
+         */
+
+        /**
+         * Construct a <code>DrawCircleAction</code> instance with parent component
+         * <code>parent</code> and no action name. <p>Disabled by default.
+         * @param parent Parent component
+         */
+        public DrawCircleAction(SVGEditorView parent) {
+            super("Draw Circle", KeyEvent.VK_C, KeyStroke.getKeyStroke(KeyEvent.VK_C, getKeyEventMask()), parent);
+            setEnabled(false);
+        }
+        /**
+         * Construct a <code>FillAction</code> instance with parent component
+         * <code>parent</code>.
+         * @param parent Parent component
+         * @param actionName Name of action component
+         */
+        public DrawCircleAction(SVGEditorView parent, String actionName) {
+            super(actionName, "Draw Circle", KeyEvent.VK_C, KeyStroke.getKeyStroke(KeyEvent.VK_C, getKeyEventMask()),
+                  parent);
+        }
+        
+        public void actionPerformed(ActionEvent event) {
         }
     }
 }
