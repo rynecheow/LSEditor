@@ -2,6 +2,7 @@ package rocks6205.svg.editor.events;
 
 //~--- non-JDK imports --------------------------------------------------------
 
+import rocks6205.svg.adt.SVGColorScheme;
 import rocks6205.svg.mvc.SVGEditorView;
 import rocks6205.svg.properties.OSValidator;
 import rocks6205.svg.properties.SVGImageCanvas;
@@ -14,6 +15,7 @@ import java.awt.event.KeyEvent;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
+import javax.swing.JColorChooser;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
@@ -190,9 +192,9 @@ public abstract class SVGEditorMenuAction extends AbstractAction {
 
             fileChoooser.setFileFilter(extFilter);
 
-            if (fileChoooser.showOpenDialog(super.parent) == JFileChooser.APPROVE_OPTION) {
-                super.parent.getController().fileLoad(fileChoooser.getSelectedFile());
-            }
+//            if (fileChoooser.showOpenDialog(super.parent) == JFileChooser.APPROVE_OPTION) {
+//                super.parent.getController().fileLoad(fileChoooser.getSelectedFile());
+//            }
         }
     }
 
@@ -259,12 +261,12 @@ public abstract class SVGEditorMenuAction extends AbstractAction {
          */
         public void actionPerformed(ActionEvent event) {
             SVGImageCanvas.setZoomScale(SVGImageCanvas.getZoomScale() + 1);
-            super.parent.getModel().render();
+//            super.parent.getModel().render();
             zoomOutPartnerAction.setEnabled(true);
-            super.parent.getController().setZoomOut(true);
+//            super.parent.getController().setZoomOut(true);
 
             if (SVGImageCanvas.getZoomScale() > 5) {
-                super.parent.getController().setZoomOut(false);
+//                super.parent.getController().setZoomOut(false);
             }
         }
     }
@@ -315,51 +317,51 @@ public abstract class SVGEditorMenuAction extends AbstractAction {
          */
         public void actionPerformed(ActionEvent event) {
             SVGImageCanvas.setZoomScale(SVGImageCanvas.getZoomScale() - 1);
-            super.parent.getModel().render();
+//            super.parent.getModel().render();
 
             if (SVGImageCanvas.getZoomScale() < 2) {
 
                 // setEnabled(false);
-                super.parent.getController().setZoomOut(false);
+//                super.parent.getController().setZoomOut(false);
             }
         }
     }
     
-    /**
-     * The <code>FillAction</code> is a class which create an <code>Action</code>
-     * instance. This action handles event by setting the color used for painting shapes
-     * 
-     *
-     * @author Sugar CheeSheen Chan
-     *
-     * @since 1.0
-     *
-     */
-    public static class FillAction extends SVGEditorMenuAction {
-        private static final long serialVersionUID = -6578149781110081473L;
-        
-        private SVGColorScheme color;
-
-        /*
-         * CONSTRUCTOR
-         */
-
-        /**
-         * Construct a <code>ZoomOutViewAction</code> instance with parent component
-         * <code>parent</code> and no action name. <p>Disabled by default.
-         * @param parent Parent component
-         */
-        public FillAction(SVGEditorView parent) {
-            super("Fill Color", KeyEvent.VK_F, KeyStroke.getKeyStroke(KeyEvent.VK_F, getKeyEventMask()), parent);
-            setEnabled(false);
-        }
-        public void actionPerformed(ActionEvent event) {
-            color = (SVGColorScheme) JColorChooser.showDialog( super.parent , "Choose a color", color );
-            
-            if( color == null ) {
-        	super.parent.
-            }
-        
-        }
-    }
+//    /**
+//     * The <code>FillAction</code> is a class which create an <code>Action</code>
+//     * instance. This action handles event by setting the color used for painting shapes
+//     * 
+//     *
+//     * @author Sugar CheeSheen Chan
+//     *
+//     * @since 2.1
+//     *
+//     */
+//    public static class FillAction extends SVGEditorMenuAction {
+//        private static final long serialVersionUID = -6578149781110081473L;
+//        
+//        private SVGColorScheme color;
+//
+//        /*
+//         * CONSTRUCTOR
+//         */
+//
+//        /**
+//         * Construct a <code>ZoomOutViewAction</code> instance with parent component
+//         * <code>parent</code> and no action name. <p>Disabled by default.
+//         * @param parent Parent component
+//         */
+//        public FillAction(SVGEditorView parent) {
+//            super("Fill Color", KeyEvent.VK_F, KeyStroke.getKeyStroke(KeyEvent.VK_F, getKeyEventMask()), parent);
+//            setEnabled(false);
+//        }
+//        public void actionPerformed(ActionEvent event) {
+//            color = (SVGColorScheme) JColorChooser.showDialog( super.parent , "Choose a color", color );
+//            
+//            if( color == null ) {
+//        	super.parent.
+//            }
+//        
+//        }
+//    }
 }
