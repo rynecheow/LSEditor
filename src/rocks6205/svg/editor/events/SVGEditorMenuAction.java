@@ -10,6 +10,7 @@ import rocks6205.svg.properties.SVGImageCanvas;
 
 //~--- JDK imports ------------------------------------------------------------
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
@@ -340,7 +341,8 @@ public abstract class SVGEditorMenuAction extends AbstractAction {
     public static class FillAction extends SVGEditorMenuAction {
         private static final long serialVersionUID = -6578149781110081473L;
         
-        private SVGColorScheme color;
+        private Color color;
+        private SVGColorScheme svgColorScheme;
 
         /*
          * CONSTRUCTOR
@@ -367,11 +369,16 @@ public abstract class SVGEditorMenuAction extends AbstractAction {
         }
         
         public void actionPerformed(ActionEvent event) {
-            color = (SVGColorScheme) JColorChooser.showDialog( super.parent , "Choose a color", color );
+            color = JColorChooser.showDialog( super.parent , "Choose a color", color );
             
             if( color == null ) {
-        	//super.parent.
+        	svgColorScheme = SVGColorScheme.getColorFromKeyword("black");
+            }else{
+        	svgColorScheme = new SVGColorScheme( color.getRed() , 
+            	    color.getGreen() , color.getBlue() );
             }
+            //super.parent.getModel().getSVGElement()
+            System.out.println(svgColorScheme);
         
         }
     }
