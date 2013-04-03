@@ -6,13 +6,13 @@ import rocks6205.svg.mvc.SVGEditorView;
 import rocks6205.svg.properties.SVGCanvasProperties;
 import rocks6205.svg.properties.SVGImageCanvas;
 
-
 //~--- JDK imports ------------------------------------------------------------
 
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Toolkit;
+import java.awt.image.BufferedImage;
 
 import javax.swing.JPanel;
 
@@ -24,7 +24,7 @@ import javax.swing.JPanel;
  *
  * @since 1.3
  */
-public class SVGEditorImageCanvasPanel extends JPanel {
+public class SVGEditorCanvasViewport extends JPanel {
     private static final long serialVersionUID = -7920677728155693552L;
 
     /**
@@ -39,7 +39,7 @@ public class SVGEditorImageCanvasPanel extends JPanel {
     /**
      * Image canvas
      */
-    private SVGImageCanvas canvas;
+    private BufferedImage canvas;
 
     /**
      * Constructs an <code>SVGViewport</code> instance with parent
@@ -48,7 +48,7 @@ public class SVGEditorImageCanvasPanel extends JPanel {
      *
      * @param view
      */
-    public SVGEditorImageCanvasPanel(SVGEditorView view) {
+    public SVGEditorCanvasViewport(SVGEditorView view) {
         super();
         setParentView(view);
         SVGCanvasProperties.setOutputResolution(Toolkit.getDefaultToolkit().getScreenResolution());

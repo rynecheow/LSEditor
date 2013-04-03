@@ -131,8 +131,8 @@ public class SVGColorScheme extends Color {
          */
 
         /**
-         * Creates <code>SVGColorKeyword</code> from specified value of <code>r</code> , <code>g</code>, and <code>b</code>
-         * from the color keywords
+         * Creates <code>SVGColorKeyword</code> from specified value of <code>r</code> , <code>g</code>,
+         * and <code>b</code> from the color keywords
          *
          * @param r Red integer value
          * @param g Green integer value
@@ -149,10 +149,11 @@ public class SVGColorScheme extends Color {
          */
 
         /**
-         * Returns a <code>SVGColorScheme</code> from a color keyword as listed in {@link SVGColorKeyword} enumerator provided
+         * Returns a <code>SVGColorScheme</code> from a color keyword as listed in {@link SVGColorKeyword}
+         * enumerator provided
          *
-         * @return <code>SVGColorScheme</code> value in respective specified value of <code>r</code> , <code>g</code>,
-         * and <code>b</code>
+         * @return <code>SVGColorScheme</code> value in respective specified value of <code>r</code> ,
+         * <code>g</code>, and <code>b</code>
          */
         public SVGColorScheme getSVGColorScheme() {
             return new SVGColorScheme(red, green, blue);
