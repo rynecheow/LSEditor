@@ -4,10 +4,6 @@ package rocks6205.svg.mvc;
 
 import rocks6205.svg.elements.SVGSVGElement;
 
-//~--- JDK imports ------------------------------------------------------------
-
-import java.util.Observable;
-
 /**
  * SVG Viewer model which consist the current SVG parent fragment/object.
  *
@@ -16,7 +12,7 @@ import java.util.Observable;
  * @since 1.0
  *
  */
-public class SVGEditorModel extends Observable {
+public class SVGEditorModel {
 
     /**
      * SVG Element to be drawn.

@@ -2,7 +2,7 @@ package rocks6205.svg.editor.events;
 
 //~--- non-JDK imports --------------------------------------------------------
 
-import rocks6205.svg.editor.viewcomponents.SVGEditorImageCanvasPanel;
+import rocks6205.svg.editor.viewcomponents.SVGEditorCanvasViewport;
 import rocks6205.svg.properties.OSValidator;
 import rocks6205.svg.properties.SVGImageCanvas;
 
@@ -27,7 +27,7 @@ public class SVGEditorMouseWheelZoomAdaptor extends MouseAdapter {
      *
      */
     public void mouseWheelMoved(MouseWheelEvent event) {
-        SVGEditorImageCanvasPanel viewport         = (SVGEditorImageCanvasPanel) event.getSource();
+        SVGEditorCanvasViewport viewport         = (SVGEditorCanvasViewport) event.getSource();
         boolean                isMacAndMetaDown = OSValidator.isMac() && event.isMetaDown();
         boolean                isKeyPressed     = ((isMacAndMetaDown || event.isControlDown())
                                                    &&!(isMacAndMetaDown && event.isControlDown()));    // XOR

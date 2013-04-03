@@ -5,12 +5,10 @@ package rocks6205.svg.mvc;
 import rocks6205.svg.editor.events.SVGEditPanMouseAdaptor;
 import rocks6205.svg.editor.viewcomponents.SVGEditorBottomToolbar;
 import rocks6205.svg.editor.viewcomponents.SVGEditorDeleteAccessoryPanel;
-import rocks6205.svg.editor.viewcomponents.SVGEditorImageCanvasPanel;
+import rocks6205.svg.editor.viewcomponents.SVGEditorCanvasViewport;
 import rocks6205.svg.editor.viewcomponents.SVGEditorMenubar;
 import rocks6205.svg.editor.viewcomponents.SVGEditorTopToolbar;
 import rocks6205.svg.properties.SVGEditorTheme;
-import rocks6205.svg.properties.SVGImageCanvas;
-
 
 //~--- JDK imports ------------------------------------------------------------
 
@@ -21,9 +19,6 @@ import java.awt.Dimension;
 import java.awt.Rectangle;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-
-import java.util.Observable;
-import java.util.Observer;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -40,7 +35,7 @@ import javax.swing.JViewport;
  *
  * @since 1.2
  */
-public class SVGEditorView extends JFrame implements Observer {
+public class SVGEditorView extends JFrame {
     private static final long serialVersionUID = 6764861773639452353L;
 
     /*
@@ -65,7 +60,7 @@ public class SVGEditorView extends JFrame implements Observer {
     SVGEditorBottomToolbar        bottomTool;
     SVGEditorDeleteAccessoryPanel delete;
     JPanel                        panelTop, panelBottom;
-    SVGEditorImageCanvasPanel     renderPanel;
+    SVGEditorCanvasViewport     renderPanel;
     JViewport                     viewport;
     Container                     container;
     JScrollPane                   scrollPane;
@@ -104,7 +99,7 @@ public class SVGEditorView extends JFrame implements Observer {
         delete         = new SVGEditorDeleteAccessoryPanel(this);
         panelTop       = new JPanel();
         panelBottom    = new JPanel();
-        renderPanel    = new SVGEditorImageCanvasPanel(this);
+        renderPanel    = new SVGEditorCanvasViewport(this);
         viewport       = new JViewport();
         container      = getContentPane();
         renderAreaSize = new Dimension(0, 0);
@@ -200,26 +195,26 @@ public class SVGEditorView extends JFrame implements Observer {
      * which is the <code>SVGModel.</code></p>
      * {@inheritDoc}
      */
-    public void update(Observable o, Object arg) {
-        if (o instanceof SVGEditorModel) {
-            float w = ((SVGEditorModel) o).getSVGElement().getWidth().getValue();
-            float h = ((SVGEditorModel) o).getSVGElement().getHeight().getValue();
 
-            renderAreaSize.height = (int) h;
-            renderAreaSize.width  = (int) w;
-            scrollPane.setPreferredSize(renderAreaSize);
-            renderPanel.setPreferredSize(renderAreaSize);
-            renderPanel.setCanvas((SVGImageCanvas) arg);
-            renderPanel.revalidate();
-            renderPanel.repaint();
-            scrollPane.setViewportView(renderPanel);
-            scrollPane.revalidate();
-            scrollPane.repaint();
-        }
-    }
-
+//  public void update(Observable o, Object arg) {
+//      if (o instanceof SVGEditorModel) {
+//          float w = ((SVGEditorModel) o).getSVGElement().getWidth().getValue();
+//          float h = ((SVGEditorModel) o).getSVGElement().getHeight().getValue();
+//
+//          renderAreaSize.height = (int) h;
+//          renderAreaSize.width  = (int) w;
+//          scrollPane.setPreferredSize(renderAreaSize);
+//          renderPanel.setPreferredSize(renderAreaSize);
+//          renderPanel.setCanvas((SVGImageCanvas) arg);
+//          renderPanel.revalidate();
+//          renderPanel.repaint();
+//          scrollPane.setViewportView(renderPanel);
+//          scrollPane.revalidate();
+//          scrollPane.repaint();
+//      }
+//  }
     public void update() {
-	// TODO Auto-generated method stub
-	
+
+        // TODO Auto-generated method stub
     }
 }

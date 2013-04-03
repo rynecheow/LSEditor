@@ -293,77 +293,117 @@ public class SVGEditorViewController
     /**
      * {@inheritDoc}
      *
-     * @author
+     * @author Cheow Yeong Chi
      */
+    @Override
     public void addElement(SVGGenericElement e) {
+        model.getSVGElement().addDescendant(e);
+        touchDocument();
 
-        // TODO Auto-generated method stub
     }
 
     /**
      * {@inheritDoc}
      *
-     * @author
+     * @author Cheow Yeong Chi
      */
     public void setElementFill(SVGGenericElement e, SVGPainting fill) {
-
-        // TODO Auto-generated method stub
+        e.setFill(fill);
+        touchDocument();
     }
 
     /**
      * {@inheritDoc}
      *
-     * @author
+     * @author  Cheow Yeong Chi
      */
     public void setElementStroke(SVGGenericElement e, SVGPainting stroke) {
-
-        // TODO Auto-generated method stub
+        e.setStroke(stroke);
+        touchDocument();
     }
 
     /**
      * {@inheritDoc}
      *
-     * @author
+     * @author Cheow Yeong Chi
      */
     public void setElementStrokeWidth(SVGGenericElement e, SVGLengthUnit strokeWidth) {
-
-        // TODO Auto-generated method stub
+        e.setStrokeWidth(strokeWidth);
+        touchDocument();
     }
 
     /**
      * {@inheritDoc}
      * 
-     * @author 
+     * @author Cheow Yeong Chi
      */
     public void resizeRect(SVGRectElement rect, float changeWidth, float changeHeight) {
+        if (Float.isNaN(changeWidth)) {
+            throw new IllegalArgumentException("Change in width cannot be NaN");
+        }
 
-	// TODO Auto-generated method stub
+        if (Float.isNaN(changeHeight)) {
+            throw new IllegalArgumentException("Change in height cannot be NaN");
+        }
+
+        SVGLengthUnit w = new SVGLengthUnit(rect.getWidth().getValue(SVGLengthUnitType.PX) + changeWidth);
+        SVGLengthUnit h = new SVGLengthUnit(rect.getHeight().getValue(SVGLengthUnitType.PX) + changeHeight);
+
+        rect.setWidth(SVGLengthUnit.convert(w, rect.getWidth().getUnitType()));
+        rect.setHeight(SVGLengthUnit.convert(h, rect.getHeight().getUnitType()));
+        touchDocument();
     }
 
     /**
      * {@inheritDoc}
      * 
-     * @author 
+     * @author Cheow Yeong Chi
      */
     public void resizeCircle(SVGCircleElement circle, float changedRadius) {
+        if (Float.isNaN(changedRadius)) {
+            throw new IllegalArgumentException("Change in radius cannot be NaN");
+        }
 
-	// TODO Auto-generated method stub
+        SVGLengthUnit r = new SVGLengthUnit(circle.getRadius().getValue(SVGLengthUnitType.PX) + changedRadius);
+
+        circle.setRadius(SVGLengthUnit.convert(r, circle.getRadius().getUnitType()));
+        touchDocument();
     }
 
     /**
      * {@inheritDoc}
      * 
-     * @author 
+     * @author Cheow Yeong Chi
      */
     public void resizeLine(SVGLineElement line, int endpoint, float changeX, float changeY) {
+        switch (endpoint) {
+        case 1 :
+            SVGLengthUnit x1 = new SVGLengthUnit(line.getX1().getValue(SVGLengthUnitType.PX) + changeX);
+            SVGLengthUnit y1 = new SVGLengthUnit(line.getY1().getValue(SVGLengthUnitType.PX) + changeY);
 
-	// TODO Auto-generated method stub
+            line.setX1(SVGLengthUnit.convert(x1, line.getX1().getUnitType()));
+            line.setY1(SVGLengthUnit.convert(y1, line.getY1().getUnitType()));
+
+            break;
+
+        case 2 :
+            SVGLengthUnit x2 = new SVGLengthUnit(line.getX2().getValue(SVGLengthUnitType.PX) + changeX);
+            SVGLengthUnit y2 = new SVGLengthUnit(line.getY2().getValue(SVGLengthUnitType.PX) + changeY);
+
+            line.setX2(SVGLengthUnit.convert(x2, line.getX2().getUnitType()));
+            line.setY2(SVGLengthUnit.convert(y2, line.getY2().getUnitType()));
+
+            break;
+
+        default :
+            throw new IllegalArgumentException("Invalid endpoint number");
+        }
     }
 
     /**
      * {@inheritDoc}
      * 
-     * @author 
+     * @author Cheow Yeong Chi
      */
     public boolean fileLoad(File file) throws IOException{
         if ((file != null) && file.getName().endsWith(".svg")) {
@@ -765,6 +805,3 @@ public class SVGEditorViewController
         // TODO Auto-generated method stub
     }
 }
-
-
-//~ Formatted by Jindent --- http://www.jindent.com
