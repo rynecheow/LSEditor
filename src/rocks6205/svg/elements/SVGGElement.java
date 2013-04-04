@@ -14,7 +14,7 @@ import java.awt.geom.AffineTransform;
 import java.awt.geom.NoninvertibleTransformException;
 import java.awt.geom.Rectangle2D;
 
-import java.util.Vector;
+import java.util.ArrayList;
 
 /**
  * The <code>SVGGElement</code> class is a container used to group objects
@@ -37,7 +37,7 @@ public class SVGGElement extends SVGContainerElement {
      */
     public SVGGElement() {}
 
-    public Vector<SVGGenericElement> ungroup() {
+    public ArrayList<SVGGenericElement> ungroup() {
         recurseAttributes(this);
 
         return getDescendants();

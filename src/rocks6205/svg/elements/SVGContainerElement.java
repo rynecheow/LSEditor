@@ -2,7 +2,7 @@ package rocks6205.svg.elements;
 
 //~--- JDK imports ------------------------------------------------------------
 
-import java.util.Vector;
+import java.util.ArrayList;
 
 /**
  * The <code>SVGContainerElement</code> class is an abstract class that defines a
@@ -19,13 +19,13 @@ public abstract class SVGContainerElement extends SVGGenericElement {
     /**
      * List of SVG element object descendants
      */
-    private Vector<SVGGenericElement> descendants;
+    private ArrayList<SVGGenericElement> descendants;
 
     /**
      * Default constructor
      */
     public SVGContainerElement() {
-        descendants = new Vector<SVGGenericElement>();
+        descendants = new ArrayList<>();
     }
 
     /*
@@ -35,7 +35,7 @@ public abstract class SVGContainerElement extends SVGGenericElement {
     /**
      * @return List of SVG element object descendants
      */
-    public Vector<SVGGenericElement> getDescendants() {
+    public ArrayList<SVGGenericElement> getDescendants() {
         return descendants;
     }
 
@@ -113,6 +113,3 @@ public abstract class SVGContainerElement extends SVGGenericElement {
         descendants.remove(e);
     }
 }
-
-
-//~ Formatted by Jindent --- http://www.jindent.com

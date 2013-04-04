@@ -217,4 +217,8 @@ public class SVGEditorView extends JFrame {
 
         // TODO Auto-generated method stub
     }
+
+    public float getZoom() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

@@ -21,6 +21,7 @@ public class OSValidator {
      * @return if the current operating system is Windows
      */
     public static boolean isWindows() {
+        System.out.println(OS);
         return (OS.indexOf("win") >= 0);
     }
 
@@ -28,6 +29,7 @@ public class OSValidator {
      * @return if the current operating system is Mac
      */
     public static boolean isMac() {
+        System.out.println(OS);
         return (OS.indexOf("mac") >= 0);
     }
 }

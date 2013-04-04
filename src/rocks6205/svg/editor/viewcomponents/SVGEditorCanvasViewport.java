@@ -63,7 +63,7 @@ public class SVGEditorCanvasViewport extends JPanel {
     /**
      * @param canvas Image canvas
      */
-    public void setCanvas(SVGImageCanvas canvas) {
+    public void setCanvas(BufferedImage canvas) {
         this.canvas = canvas;
     }
 
