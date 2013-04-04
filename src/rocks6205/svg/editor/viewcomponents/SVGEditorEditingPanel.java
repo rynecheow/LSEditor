@@ -38,19 +38,19 @@ import javax.swing.OverlayLayout;
  *
  */
 public class SVGEditorEditingPanel extends JPanel {
-    private static final long         serialVersionUID = 523971636492120974L;
-    private SVGEditorViewController   controller;
-    private SVGEditorView             parent;
-    private SVGGenericElement         activeElement, newElement;
-    private SVGEditorScribblePanel    scribbleArea;
-    private SVGEditorCanvasViewport   viewArea;
-    private SVGPainting               fill, stroke;
-    private SVGLengthUnit             strokeWidth;
-    private Rectangle                 selectionRect, activeRect, previousActiveRect;
-    private Point2D.Float             startPoint;
+    private static final long            serialVersionUID = 523971636492120974L;
+    private SVGEditorViewController      controller;
+    private SVGEditorView                parent;
+    private SVGGenericElement            activeElement, newElement;
+    private SVGEditorScribblePanel       scribbleArea;
+    private SVGEditorCanvasViewport      viewArea;
+    private SVGPainting                  fill, stroke;
+    private SVGLengthUnit                strokeWidth;
+    private Rectangle                    selectionRect, activeRect, previousActiveRect;
+    private Point2D.Float                startPoint;
     private ArrayList<Rectangle2D.Float> resizeHandlers;
-    private Rectangle2D.Float         activeResizeHandler;
-    private EditModeScheme            editingMode;
+    private Rectangle2D.Float            activeResizeHandler;
+    private EditModeScheme               editingMode;
 
     /**
      *
@@ -124,8 +124,8 @@ public class SVGEditorEditingPanel extends JPanel {
 
     public void setSelections(ArrayList<SVGGenericElement> selections) {
         ArrayList<Rectangle2D.Float> selectionRects = new ArrayList<>(selections.size());
-        Rectangle2D.Float         bounds;
-        float                     zoomScale = parent.getZoom();
+        Rectangle2D.Float            bounds;
+        float                        zoomScale = parent.getZoom();
 
         for (SVGGenericElement e : selections) {
             bounds        = e.getBounds();
@@ -267,5 +267,6 @@ public class SVGEditorEditingPanel extends JPanel {
 
         activeRect.setBounds(xPos, yPos, width, height);
     }
-
+    
+    
 }

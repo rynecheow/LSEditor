@@ -4,7 +4,6 @@ package rocks6205.svg.editor.events;
 
 import rocks6205.svg.editor.viewcomponents.SVGEditorCanvasViewport;
 import rocks6205.svg.properties.OSValidator;
-import rocks6205.svg.properties.SVGImageCanvas;
 
 
 //~--- JDK imports ------------------------------------------------------------
@@ -35,10 +34,10 @@ public class SVGEditorMouseWheelZoomAdaptor extends MouseAdapter {
 
         if (isKeyPressed) {
             if (isScrolledUp) {
-                SVGImageCanvas.setZoomScale(SVGImageCanvas.getZoomScale() + 1);
+//                SVGImageCanvas.setZoomScale(SVGImageCanvas.getZoomScale() + 1);
 //                viewport.getParentView().getModel().render();
             } else {
-                SVGImageCanvas.setZoomScale(SVGImageCanvas.getZoomScale() - 1);
+//                SVGImageCanvas.setZoomScale(SVGImageCanvas.getZoomScale() - 1);
 //                viewport.getParentView().getModel().render();
             }
         }

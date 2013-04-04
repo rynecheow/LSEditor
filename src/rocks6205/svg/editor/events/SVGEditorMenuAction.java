@@ -5,8 +5,6 @@ package rocks6205.svg.editor.events;
 import rocks6205.svg.adt.SVGColorScheme;
 import rocks6205.svg.mvc.SVGEditorView;
 import rocks6205.svg.properties.OSValidator;
-import rocks6205.svg.properties.SVGImageCanvas;
-
 
 //~--- JDK imports ------------------------------------------------------------
 
@@ -261,14 +259,14 @@ public abstract class SVGEditorMenuAction extends AbstractAction {
          * {@inheritDoc}
          */
         public void actionPerformed(ActionEvent event) {
-            SVGImageCanvas.setZoomScale(SVGImageCanvas.getZoomScale() + 1);
+//            SVGImageCanvas.setZoomScale(SVGImageCanvas.getZoomScale() + 1);
 //            super.parent.getModel().render();
             zoomOutPartnerAction.setEnabled(true);
 //            super.parent.getController().setZoomOut(true);
 
-            if (SVGImageCanvas.getZoomScale() > 5) {
+//            if (SVGImageCanvas.getZoomScale() > 5) {
 //                super.parent.getController().setZoomOut(false);
-            }
+//            }
         }
     }
 
@@ -317,14 +315,14 @@ public abstract class SVGEditorMenuAction extends AbstractAction {
          * {@inheritDoc}
          */
         public void actionPerformed(ActionEvent event) {
-            SVGImageCanvas.setZoomScale(SVGImageCanvas.getZoomScale() - 1);
+//            SVGImageCanvas.setZoomScale(SVGImageCanvas.getZoomScale() - 1);
 //            super.parent.getModel().render();
 
-            if (SVGImageCanvas.getZoomScale() < 2) {
+//            if (SVGImageCanvas.getZoomScale() < 2) {
 
                 // setEnabled(false);
 //                super.parent.getController().setZoomOut(false);
-            }
+//            }
         }
     }
     

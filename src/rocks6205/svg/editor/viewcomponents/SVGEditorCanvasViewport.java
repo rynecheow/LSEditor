@@ -4,7 +4,6 @@ package rocks6205.svg.editor.viewcomponents;
 
 import rocks6205.svg.mvc.SVGEditorView;
 import rocks6205.svg.properties.SVGCanvasProperties;
-import rocks6205.svg.properties.SVGImageCanvas;
 
 //~--- JDK imports ------------------------------------------------------------
 
@@ -85,17 +84,17 @@ public class SVGEditorCanvasViewport extends JPanel {
      * Handles zoom in and out by resizing canvas.<p>
      * {@inheritDoc}
      */
-    public Dimension getPreferredSize() {
-        if (canvas != null) {
-            int w = (int) (SVGImageCanvas.getZoomScale() * canvas.getWidth()),
-                h = (int) (SVGImageCanvas.getZoomScale() * canvas.getHeight());
-
-            return new Dimension(w, h);
-        }
-
-        return super.getPreferredSize();
-    }
-
+//    public Dimension getPreferredSize() {
+//        if (canvas != null) {
+//            int w = (int) (SVGImageCanvas.getZoomScale() * canvas.getWidth()),
+//                h = (int) (SVGImageCanvas.getZoomScale() * canvas.getHeight());
+//
+//            return new Dimension(w, h);
+//        }
+//
+//        return super.getPreferredSize();
+//    }
+//
     public SVGEditorView getParentView() {
         return parentView;
     }
