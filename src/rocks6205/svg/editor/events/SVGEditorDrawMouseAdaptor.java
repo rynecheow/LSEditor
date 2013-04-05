@@ -13,7 +13,7 @@ import javax.swing.JViewport;
  * Handles event for drawing 3 different shapes on canvas
  * <p>
  *
- * @author: Suagr CheeSheen Chan
+ * @author: Sugar CheeSheen Chan
  *
  * @since 1.0
  *

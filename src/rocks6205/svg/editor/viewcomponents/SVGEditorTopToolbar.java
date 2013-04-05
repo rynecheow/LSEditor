@@ -82,19 +82,10 @@ public class SVGEditorTopToolbar extends JPanel {
         add(saveButton);
         add(zoomInButton);
         add(zoomOutButton);
-        disableUnused();
         zoomInAction.setZoomOutPartnerAction(zoomOutAction);
         setActionForButtons();
         setIconsForButtons();
         setBackground(SVGEditorTheme.MASTER_DEFAULT_COLOR);
-    }
-
-    /**
-     * Disable temporarily unused buttons.
-     */
-    private void disableUnused() {
-        newButton.setEnabled(false);
-        saveButton.setEnabled(false);
     }
 
     /**

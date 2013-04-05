@@ -90,7 +90,6 @@ public class SVGEditorBottomToolbar extends JPanel {
         setupSeparators();
         layoutBackgroundPanel();
         add(backgroundPanel);
-        disableUnused();
         setActionForButtons();
         setIconsForButtons();
     }
@@ -146,19 +145,6 @@ public class SVGEditorBottomToolbar extends JPanel {
         backgroundPanel.setBackground(SVGEditorTheme.MASTER_DEFAULT_COLOR);
     }
 
-    /**
-     * Disable temporarily unused buttons.
-     */
-    private void disableUnused() {
-        insertRectButton.setEnabled(false);
-        insertCircButton.setEnabled(false);
-        insertLineButton.setEnabled(false);
-        strokeButton.setEnabled(false);
-        strokeWidthButton.setEnabled(false);
-        groupButton.setEnabled(false);
-        ungroupButton.setEnabled(false);
-    }
-    
     /**
      * Setup actions for button.
      */
