@@ -353,7 +353,7 @@ public abstract class SVGEditorMenuAction extends AbstractAction {
          */
         public FillAction(SVGEditorView parent) {
             super("Fill Color", KeyEvent.VK_F, KeyStroke.getKeyStroke(KeyEvent.VK_F, getKeyEventMask()), parent);
-            setEnabled(false);
+//            setEnabled(false);
         }
         /**
          * Construct a <code>FillAction</code> instance with parent component

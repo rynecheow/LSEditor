@@ -79,7 +79,7 @@ public class SVGEditorBottomToolbar extends JPanel {
         backgroundPanel   = new JPanel();
         separator_1       = new JSeparator(SwingConstants.VERTICAL);
         separator_2       = new JSeparator(SwingConstants.VERTICAL);
-        fillAction        = new FillAction(parent, "selectColor");
+        fillAction        = new FillAction(parent);
     }
 
     /**
@@ -157,7 +157,7 @@ public class SVGEditorBottomToolbar extends JPanel {
      */
     private FillAction getFillAction() {
         if (fillAction == null) {
-            fillAction = new FillAction(parent, "selectColor");
+            fillAction = new FillAction(parent);
         }
 
         return fillAction;
