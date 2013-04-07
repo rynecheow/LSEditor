@@ -1,12 +1,12 @@
 package rocks6205.svg.editor.events;
 
-import java.awt.Cursor;
-import java.awt.Point;
-import java.awt.Rectangle;
-import java.awt.event.MouseEvent;
+//~--- non-JDK imports --------------------------------------------------------
 
-import javax.swing.JComponent;
-import javax.swing.JViewport;
+import rocks6205.svg.editor.viewcomponents.SVGEditorEditingPanel;
+
+//~--- JDK imports ------------------------------------------------------------
+
+import java.awt.event.MouseEvent;
 
 /**
  *
@@ -15,36 +15,38 @@ import javax.swing.JViewport;
  *
  * @author: Sugar CheeSheen Chan
  *
- * @since 1.0
+ * @since 2.1
  *
  */
 public class SVGEditorDrawMouseAdaptor {
-    
+
     /**
      * {@inheritDoc}<p>
-     * 
+     *
      */
     public void mousePressed(MouseEvent event) {
-	System.out.printf("Pressed at x:%d y:%d" , 
-		event.getX() , event.getY() );
+        SVGEditorEditingPanel editor = (SVGEditorEditingPanel) event.getSource();
+
+        System.out.printf("Pressed at x:%d y:%d", event.getX(), event.getY());
     }
 
     /**
      * {@inheritDoc}<p>
-     * 
+     *
      */
     public void mouseReleased(MouseEvent event) {
-	System.out.printf("Released at x:%d y:%d" , 
-		event.getX() , event.getY() );
+        SVGEditorEditingPanel editor = (SVGEditorEditingPanel) event.getSource();
+
+        System.out.printf("Released at x:%d y:%d", event.getX(), event.getY());
     }
 
     /**
      * {@inheritDoc}<p>
-     * 
+     *
      */
     public void mouseDragged(MouseEvent event) {
-	System.out.printf("Dragged at x:%d y:%d" , 
-		event.getX() , event.getY() );
-    }
+        SVGEditorEditingPanel editor = (SVGEditorEditingPanel) event.getSource();
 
+        System.out.printf("Dragged at x:%d y:%d", event.getX(), event.getY());
+    }
 }
