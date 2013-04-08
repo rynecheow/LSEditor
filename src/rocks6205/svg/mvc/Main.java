@@ -2,7 +2,8 @@ package rocks6205.svg.mvc;
 
 //~--- non-JDK imports --------------------------------------------------------
 
-import rocks6205.svg.properties.OSValidator;
+import rocks6205.svg.editor.viewcomponents.LSSplashScreen;
+import rocks6205.properties.OSValidator;
 
 //~--- JDK imports ------------------------------------------------------------
 
@@ -22,6 +23,10 @@ import javax.swing.UnsupportedLookAndFeelException;
  */
 public class Main {
     public static void main(String[] rcks) {
+        LSSplashScreen splash = new LSSplashScreen(5000);
+
+        splash.showSplash();
+
         SVGEditorView           v = new SVGEditorView();
         SVGEditorViewController c = new SVGEditorViewController();
 
