@@ -1,15 +1,14 @@
-package rocks6205.svg.mvc;
+package rocks6205.editor.mvc;
 
 //~--- non-JDK imports --------------------------------------------------------
 
-import rocks6205.svg.editor.events.SVGEditPanMouseAdaptor;
-import rocks6205.svg.editor.viewcomponents.LSTabbedPane;
-import rocks6205.svg.editor.viewcomponents.SVGEditorBottomToolbar;
-import rocks6205.svg.editor.viewcomponents.SVGEditorDeleteAccessoryPanel;
-import rocks6205.svg.editor.viewcomponents.SVGEditorEditingPanel;
-import rocks6205.svg.editor.viewcomponents.SVGEditorMenubar;
-import rocks6205.svg.editor.viewcomponents.SVGEditorTopToolbar;
-import rocks6205.svg.properties.SVGEditorTheme;
+import rocks6205.editor.events.SVGEditPanMouseAdaptor;
+import rocks6205.editor.viewcomponents.SVGEditorBottomToolbar;
+import rocks6205.editor.viewcomponents.SVGEditorDeleteAccessoryPanel;
+import rocks6205.editor.viewcomponents.SVGEditorCanvasViewport;
+import rocks6205.editor.viewcomponents.SVGEditorMenubar;
+import rocks6205.editor.viewcomponents.SVGEditorTopToolbar;
+import rocks6205.system.properties.SVGEditorTheme;
 
 //~--- JDK imports ------------------------------------------------------------
 

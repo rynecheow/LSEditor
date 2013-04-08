@@ -1,9 +1,9 @@
-package rocks6205.svg.editor.events;
+package rocks6205.editor.events;
 
 //~--- non-JDK imports --------------------------------------------------------
 
-import rocks6205.svg.editor.viewcomponents.SVGEditorCanvasViewport;
-import rocks6205.svg.properties.OSValidator;
+import rocks6205.editor.viewcomponents.SVGEditorCanvasViewport;
+import rocks6205.system.properties.OSValidator;
 
 
 //~--- JDK imports ------------------------------------------------------------

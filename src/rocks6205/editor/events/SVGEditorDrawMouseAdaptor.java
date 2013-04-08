@@ -1,8 +1,8 @@
-package rocks6205.svg.editor.events;
+package rocks6205.editor.events;
 
 //~--- non-JDK imports --------------------------------------------------------
 
-import rocks6205.svg.editor.viewcomponents.SVGEditorEditingPanel;
+import rocks6205.editor.viewcomponents.SVGEditorEditingPanel;
 
 //~--- JDK imports ------------------------------------------------------------
 

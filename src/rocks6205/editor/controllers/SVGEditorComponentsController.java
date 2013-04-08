@@ -1,4 +1,4 @@
-package rocks6205.svg.editor.controllers;
+package rocks6205.editor.controllers;
 
 import rocks6205.svg.adt.SVGLengthUnit;
 import rocks6205.svg.adt.SVGPainting;

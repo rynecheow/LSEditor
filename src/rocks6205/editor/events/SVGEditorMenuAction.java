@@ -1,10 +1,10 @@
-package rocks6205.svg.editor.events;
+package rocks6205.editor.events;
 
 //~--- non-JDK imports --------------------------------------------------------
 
 import rocks6205.svg.adt.SVGColorScheme;
-import rocks6205.svg.mvc.SVGEditorView;
-import rocks6205.svg.properties.OSValidator;
+import rocks6205.editor.mvc.SVGEditorView;
+import rocks6205.system.properties.OSValidator;
 
 //~--- JDK imports ------------------------------------------------------------
 

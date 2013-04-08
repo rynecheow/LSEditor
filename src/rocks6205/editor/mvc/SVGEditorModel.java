@@ -1,4 +1,4 @@
-package rocks6205.svg.mvc;
+package rocks6205.editor.mvc;
 
 //~--- non-JDK imports --------------------------------------------------------
 

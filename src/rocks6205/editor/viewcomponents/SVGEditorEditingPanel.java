@@ -1,4 +1,4 @@
-package rocks6205.svg.editor.viewcomponents;
+package rocks6205.editor.viewcomponents;
 
 //~--- non-JDK imports --------------------------------------------------------
 
@@ -9,8 +9,8 @@ import rocks6205.svg.elements.SVGCircleElement;
 import rocks6205.svg.elements.SVGGenericElement;
 import rocks6205.svg.elements.SVGLineElement;
 import rocks6205.svg.elements.SVGRectElement;
-import rocks6205.svg.mvc.SVGEditorView;
-import rocks6205.svg.mvc.SVGEditorViewController;
+import rocks6205.editor.mvc.SVGEditorView;
+import rocks6205.editor.mvc.SVGEditorViewController;
 
 //~--- JDK imports ------------------------------------------------------------
 

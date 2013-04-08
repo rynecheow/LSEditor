@@ -1,4 +1,4 @@
-package rocks6205.svg.mvc;
+package rocks6205.editor.mvc;
 
 //~--- non-JDK imports --------------------------------------------------------
 
@@ -12,9 +12,9 @@ import org.xml.sax.InputSource;
 import rocks6205.svg.adt.SVGLengthUnit;
 import rocks6205.svg.adt.SVGLengthUnitType;
 import rocks6205.svg.adt.SVGPainting;
-import rocks6205.svg.editor.controllers.SVGEditorComponentsController;
-import rocks6205.svg.editor.controllers.SVGEditorFileController;
-import rocks6205.svg.editor.controllers.SVGEditorSelectionsController;
+import rocks6205.editor.controllers.SVGEditorComponentsController;
+import rocks6205.editor.controllers.SVGEditorFileController;
+import rocks6205.editor.controllers.SVGEditorSelectionsController;
 import rocks6205.svg.elements.SVGCircleElement;
 import rocks6205.svg.elements.SVGContainerElement;
 import rocks6205.svg.elements.SVGGElement;

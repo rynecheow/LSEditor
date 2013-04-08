@@ -1,4 +1,4 @@
-package rocks6205.svg.editor.viewcomponents;
+package rocks6205.editor.viewcomponents;
 
 import java.awt.*;
 import javax.swing.*;

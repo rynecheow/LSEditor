@@ -1,4 +1,4 @@
-package rocks6205.svg.editor.controllers;
+package rocks6205.editor.controllers;
 
 //~--- non-JDK imports --------------------------------------------------------
 
