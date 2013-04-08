@@ -9,7 +9,7 @@ import rocks6205.editor.viewcomponents.SVGEditorEditingPanel;
 import rocks6205.editor.viewcomponents.SVGEditorMenubar;
 import rocks6205.editor.viewcomponents.SVGEditorTopToolbar;
 
-import rocks6205.svg.editor.viewcomponents.LSTabbedPane;
+import rocks6205.editor.viewcomponents.LSTabbedPane;
 
 import rocks6205.system.properties.SVGEditorTheme;
 
