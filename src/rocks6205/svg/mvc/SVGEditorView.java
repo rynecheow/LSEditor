@@ -3,9 +3,10 @@ package rocks6205.svg.mvc;
 //~--- non-JDK imports --------------------------------------------------------
 
 import rocks6205.svg.editor.events.SVGEditPanMouseAdaptor;
+import rocks6205.svg.editor.viewcomponents.LSTabbedPane;
 import rocks6205.svg.editor.viewcomponents.SVGEditorBottomToolbar;
 import rocks6205.svg.editor.viewcomponents.SVGEditorDeleteAccessoryPanel;
-import rocks6205.svg.editor.viewcomponents.SVGEditorCanvasViewport;
+import rocks6205.svg.editor.viewcomponents.SVGEditorEditingPanel;
 import rocks6205.svg.editor.viewcomponents.SVGEditorMenubar;
 import rocks6205.svg.editor.viewcomponents.SVGEditorTopToolbar;
 import rocks6205.svg.properties.SVGEditorTheme;
@@ -41,6 +42,7 @@ public class SVGEditorView extends JFrame {
     /*
      * PROPERTIES
      */
+    private float zoomScale;
 
     /**
      * Model object
@@ -60,11 +62,12 @@ public class SVGEditorView extends JFrame {
     SVGEditorBottomToolbar        bottomTool;
     SVGEditorDeleteAccessoryPanel delete;
     JPanel                        panelTop, panelBottom;
-    SVGEditorCanvasViewport     renderPanel;
+    SVGEditorEditingPanel         editPanel;
     JViewport                     viewport;
     Container                     container;
     JScrollPane                   scrollPane;
     Dimension                     renderAreaSize;
+    LSTabbedPane                  tabbedPane;
 
     /*
      * ACTION COMPONENTS
@@ -99,12 +102,13 @@ public class SVGEditorView extends JFrame {
         delete         = new SVGEditorDeleteAccessoryPanel(this);
         panelTop       = new JPanel();
         panelBottom    = new JPanel();
-        renderPanel    = new SVGEditorCanvasViewport(this);
+        editPanel      = new SVGEditorEditingPanel(this);
         viewport       = new JViewport();
         container      = getContentPane();
         renderAreaSize = new Dimension(0, 0);
-        scrollPane     = new JScrollPane(renderPanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+        scrollPane     = new JScrollPane(editPanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
                                          JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+        tabbedPane  = new LSTabbedPane();
         panListener = new SVGEditPanMouseAdaptor();
     }
 
@@ -115,8 +119,9 @@ public class SVGEditorView extends JFrame {
     private void customise() {
         setSize(1000, 1000);
         setTitle("SVG Editor");
+        setupTabbedPane();
         scrollPane.setBounds(new Rectangle(renderAreaSize));
-        renderPanel.setBackground(Color.WHITE);
+        editPanel.setBackground(Color.WHITE);
         container.setLayout(new BorderLayout());
         panelTop.setLayout(new BorderLayout());
         panelBottom.setLayout(new BorderLayout());
@@ -218,7 +223,11 @@ public class SVGEditorView extends JFrame {
         // TODO Auto-generated method stub
     }
 
-    public float getZoom() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public float getZoomScale() {
+        return zoomScale;
+    }
+
+    private void setupTabbedPane() {
+        
     }
 }

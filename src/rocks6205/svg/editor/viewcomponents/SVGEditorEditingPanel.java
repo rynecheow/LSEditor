@@ -125,7 +125,7 @@ public class SVGEditorEditingPanel extends JPanel {
     public void setSelections(ArrayList<SVGGenericElement> selections) {
         ArrayList<Rectangle2D.Float> selectionRects = new ArrayList<>(selections.size());
         Rectangle2D.Float            bounds;
-        float                        zoomScale = parent.getZoom();
+        float                        zoomScale = parent.getZoomScale();
 
         for (SVGGenericElement e : selections) {
             bounds        = e.getBounds();
