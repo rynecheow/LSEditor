@@ -46,7 +46,6 @@ public class SVGEditorView extends JFrame {
     /**
      * Handle pan events.
      */
-    private SVGEditPanMouseAdaptor panListener;
 
     /*
      * CONSTRUCTOR
