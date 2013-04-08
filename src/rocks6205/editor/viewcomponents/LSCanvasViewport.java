@@ -23,7 +23,7 @@ import javax.swing.JPanel;
  *
  * @since 1.3
  */
-public class SVGEditorCanvasViewport extends JPanel {
+public class LSCanvasViewport extends JPanel {
     private static final long serialVersionUID = -7920677728155693552L;
 
     /**
@@ -47,7 +47,7 @@ public class SVGEditorCanvasViewport extends JPanel {
      *
      * @param view
      */
-    public SVGEditorCanvasViewport(SVGEditorView view) {
+    public LSCanvasViewport(SVGEditorView view) {
         super();
         setParentView(view);
         SVGCanvasProperties.setOutputResolution(Toolkit.getDefaultToolkit().getScreenResolution());

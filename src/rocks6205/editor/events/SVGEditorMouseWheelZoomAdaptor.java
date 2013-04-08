@@ -2,7 +2,7 @@ package rocks6205.editor.events;
 
 //~--- non-JDK imports --------------------------------------------------------
 
-import rocks6205.editor.viewcomponents.SVGEditorCanvasViewport;
+import rocks6205.editor.viewcomponents.LSCanvasViewport;
 import rocks6205.system.properties.OSValidator;
 
 
@@ -26,7 +26,7 @@ public class SVGEditorMouseWheelZoomAdaptor extends MouseAdapter {
      *
      */
     public void mouseWheelMoved(MouseWheelEvent event) {
-        SVGEditorCanvasViewport viewport         = (SVGEditorCanvasViewport) event.getSource();
+        LSCanvasViewport viewport         = (LSCanvasViewport) event.getSource();
         boolean                isMacAndMetaDown = OSValidator.isMac() && event.isMetaDown();
         boolean                isKeyPressed     = ((isMacAndMetaDown || event.isControlDown())
                                                    &&!(isMacAndMetaDown && event.isControlDown()));    // XOR

@@ -25,7 +25,7 @@ import javax.swing.JMenuItem;
  * @since 1.2
  *
  */
-public class SVGEditorMenubar extends JMenuBar {
+public class LSUIMenubar extends JMenuBar {
     private static final long serialVersionUID = 57709812552137078L;
 
     /**
@@ -61,7 +61,7 @@ public class SVGEditorMenubar extends JMenuBar {
      *
      * @param view Parent component
      */
-    public SVGEditorMenubar(SVGEditorView view) {
+    public LSUIMenubar(SVGEditorView view) {
         super();
         parent = view;
         initialise();

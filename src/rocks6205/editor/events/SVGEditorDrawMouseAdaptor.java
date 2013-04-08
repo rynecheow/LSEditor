@@ -2,7 +2,7 @@ package rocks6205.editor.events;
 
 //~--- non-JDK imports --------------------------------------------------------
 
-import rocks6205.editor.viewcomponents.SVGEditorEditingPanel;
+import rocks6205.editor.viewcomponents.LSUIEditingPanel;
 
 //~--- JDK imports ------------------------------------------------------------
 
@@ -25,7 +25,7 @@ public class SVGEditorDrawMouseAdaptor {
      *
      */
     public void mousePressed(MouseEvent event) {
-        SVGEditorEditingPanel editor = (SVGEditorEditingPanel) event.getSource();
+        LSUIEditingPanel editor = (LSUIEditingPanel) event.getSource();
 
         System.out.printf("Pressed at x:%d y:%d", event.getX(), event.getY());
     }
@@ -35,7 +35,7 @@ public class SVGEditorDrawMouseAdaptor {
      *
      */
     public void mouseReleased(MouseEvent event) {
-        SVGEditorEditingPanel editor = (SVGEditorEditingPanel) event.getSource();
+        LSUIEditingPanel editor = (LSUIEditingPanel) event.getSource();
 
         System.out.printf("Released at x:%d y:%d", event.getX(), event.getY());
     }
@@ -45,7 +45,7 @@ public class SVGEditorDrawMouseAdaptor {
      *
      */
     public void mouseDragged(MouseEvent event) {
-        SVGEditorEditingPanel editor = (SVGEditorEditingPanel) event.getSource();
+        LSUIEditingPanel editor = (LSUIEditingPanel) event.getSource();
 
         System.out.printf("Dragged at x:%d y:%d", event.getX(), event.getY());
     }

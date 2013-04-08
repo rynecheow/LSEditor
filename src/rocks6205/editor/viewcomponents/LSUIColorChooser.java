@@ -14,7 +14,7 @@ import rocks6205.svg.adt.*;
  *
  */
 
-public class SVGEditorColorChooser extends JFrame {
+public class LSUIColorChooser extends JFrame {
 
     private static final long serialVersionUID = 4003671910607353797L;
     private SVGColorScheme color;

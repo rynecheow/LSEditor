@@ -37,13 +37,13 @@ import javax.swing.OverlayLayout;
  * @since 2.0
  *
  */
-public class SVGEditorEditingPanel extends JPanel {
+public class LSUIEditingPanel extends JPanel {
     private static final long            serialVersionUID = 523971636492120974L;
     private SVGEditorViewController      controller;
     private SVGEditorView                parent;
     private SVGGenericElement            activeElement, newElement;
-    private SVGEditorScribblePanel       scribbleArea;
-    private SVGEditorCanvasViewport      viewArea;
+    private LSScribblePanel       scribbleArea;
+    private LSCanvasViewport      viewArea;
     private SVGPainting                  fill, stroke;
     private SVGLengthUnit                strokeWidth;
     private Rectangle                    selectionRect, activeRect, previousActiveRect;
@@ -62,7 +62,7 @@ public class SVGEditorEditingPanel extends JPanel {
     /**
      * Default constructor.
      */
-    public SVGEditorEditingPanel(SVGEditorView view) {
+    public LSUIEditingPanel(SVGEditorView view) {
         super();
         parent     = view;
         controller = view.getController();
@@ -70,10 +70,10 @@ public class SVGEditorEditingPanel extends JPanel {
         LayoutManager overlay = new OverlayLayout(this);
 
         setLayout(overlay);
-        scribbleArea = new SVGEditorScribblePanel();
+        scribbleArea = new LSScribblePanel();
         scribbleArea.setOpaque(false);
         add(scribbleArea);
-        viewArea = new SVGEditorCanvasViewport(view);
+        viewArea = new LSCanvasViewport(view);
         add(viewArea);
         setAutoscrolls(true);
     }

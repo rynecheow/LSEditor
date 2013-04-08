@@ -21,7 +21,7 @@ import javax.swing.JPanel;
  * @since 2.0
  *
  */
-public class SVGEditorScribblePanel extends JPanel {
+public class LSScribblePanel extends JPanel {
     private static final long                serialVersionUID = -8306121661640569510L;
     private Rectangle                        selectionBox;
     private ArrayList<? extends Rectangle2D> selectionRectangles;
@@ -30,7 +30,7 @@ public class SVGEditorScribblePanel extends JPanel {
     /**
      * Default constructor.
      */
-    public SVGEditorScribblePanel() {}
+    public LSScribblePanel() {}
 
     public void setSelectionBox(Rectangle box) {
         selectionBox = box;

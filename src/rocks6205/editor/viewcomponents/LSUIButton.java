@@ -19,7 +19,7 @@ import javax.swing.JButton;
  * @since 1.3
  *
  */
-public class SVGEditorButton extends JButton {
+public class LSUIButton extends JButton {
     private static final long serialVersionUID = -7348665839241378305L;
 
     /*
@@ -30,7 +30,7 @@ public class SVGEditorButton extends JButton {
      * Default constructor.<p>
      * Set border of button to <code>null</code>.
      */
-    public SVGEditorButton() {
+    public LSUIButton() {
         setBorder(null);
         setBackground(null);
     }
@@ -40,7 +40,7 @@ public class SVGEditorButton extends JButton {
      *
      * @param a Action component
      */
-    public SVGEditorButton(Action a) {
+    public LSUIButton(Action a) {
         super(a);
         setBorder(null);
     }
@@ -50,7 +50,7 @@ public class SVGEditorButton extends JButton {
      *
      * @param icon Button icon
      */
-    public SVGEditorButton(Icon icon) {
+    public LSUIButton(Icon icon) {
         super(icon);
         setBorder(null);
     }
@@ -60,7 +60,7 @@ public class SVGEditorButton extends JButton {
      *
      * @param text Title text
      */
-    public SVGEditorButton(String text) {
+    public LSUIButton(String text) {
         super(text);
         setBorder(null);
     }
@@ -72,7 +72,7 @@ public class SVGEditorButton extends JButton {
      * @param text Title text
      * @param icon Button icon
      */
-    public SVGEditorButton(String text, Icon icon) {
+    public LSUIButton(String text, Icon icon) {
         super(text, icon);
         setBorder(null);
     }
@@ -83,7 +83,7 @@ public class SVGEditorButton extends JButton {
      * @param text Title text
      * @param iconPath Path to icon image
      */
-    public SVGEditorButton(String text, String iconPath) {
+    public LSUIButton(String text, String iconPath) {
         super(text, createIcon(iconPath));
         setBorder(null);
     }
@@ -96,7 +96,7 @@ public class SVGEditorButton extends JButton {
      * @param iconPath Path to icon image
      * @param action Action component
      */
-    public SVGEditorButton(String text, String iconPath, AbstractAction action) {
+    public LSUIButton(String text, String iconPath, AbstractAction action) {
         super(text, createIcon(iconPath));
         setAction(action);
         setBorder(null);
@@ -114,7 +114,7 @@ public class SVGEditorButton extends JButton {
      * @return <code>ImageIcon</code> object
      */
     protected static ImageIcon createIcon(String path) {
-        URL imgURL = SVGEditorButton.class.getResource(path);
+        URL imgURL = LSUIButton.class.getResource(path);
 
         if (imgURL != null) {
             return new ImageIcon(imgURL);
