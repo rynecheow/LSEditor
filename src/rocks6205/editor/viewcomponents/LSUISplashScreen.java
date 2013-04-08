@@ -21,10 +21,10 @@ import javax.swing.JWindow;
  * 
  * @since 2.1
  */
-public class LSSplashScreen extends JWindow {
+public class LSUISplashScreen extends JWindow {
     private int duration;
 
-    public LSSplashScreen(int d) {
+    public LSUISplashScreen(int d) {
         duration = d;
     }
 

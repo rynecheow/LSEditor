@@ -2,7 +2,7 @@ package rocks6205.editor.mvc;
 
 //~--- non-JDK imports --------------------------------------------------------
 
-import rocks6205.editor.viewcomponents.LSSplashScreen;
+import rocks6205.editor.viewcomponents.LSUISplashScreen;
 
 import rocks6205.system.properties.OSValidator;
 
@@ -24,7 +24,7 @@ import javax.swing.UnsupportedLookAndFeelException;
  */
 public class Main {
     public static void main(String[] rcks) {
-        LSSplashScreen splash = new LSSplashScreen(5000);
+        LSUISplashScreen splash = new LSUISplashScreen(5000);
 
         splash.showSplash();
 

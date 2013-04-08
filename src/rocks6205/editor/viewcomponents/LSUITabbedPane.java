@@ -12,12 +12,12 @@ import javax.swing.SwingConstants;
  *
  * @since 2.1
  */
-public class LSTabbedPane extends JTabbedPane {
+public class LSUITabbedPane extends JTabbedPane {
 
     /**
      * Default constructor.
      */
-    public LSTabbedPane() {
+    public LSUITabbedPane() {
         this.setTabPlacement(SwingConstants.LEFT);
     }
 }
