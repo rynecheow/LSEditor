@@ -20,21 +20,21 @@ public interface SVGEditorComponentsController {
      * @param e Target element
      * @param fill <code>SVGPainting</code> fill object
      */
-    public void setElementFill(SVGGenericElement e, SVGPainting fill);
+    public void setFillForElement(SVGPainting fill, SVGGenericElement e);
 
     /**
      * Set element <code>e</code>'s stroke as <code>stroke</code>.
      * @param e Target element
      * @param stroke <code>SVGPainting</code> stroke object
      */
-    public void setElementStroke(SVGGenericElement e, SVGPainting stroke);
+    public void setStrokeForElement(SVGPainting stroke, SVGGenericElement e);
 
     /**
      * Set element <code>e</code>'s stroke width as <code>strokeWidth</code>.
      * @param e Target element
      * @param strokeWidth <code>SVGLengthUnit</code> object
      */
-    public void setElementStrokeWidth(SVGGenericElement e, SVGLengthUnit strokeWidth);
+    public void setStrokeWidthForElement(SVGLengthUnit strokeWidth, SVGGenericElement e);
 
     /**
      * Resizes rectangle element with <code>changeWidth</code> and <code>changeHeight</code>.
