@@ -80,7 +80,7 @@ public class SVGEditorEditingPanel extends JPanel {
 
     public void setFill(SVGPainting fill) {
         if (activeElement != null) {
-            controller.setElementFill(activeElement, fill);
+            controller.setFillForElement(fill, activeElement);
         }
 
         this.fill = fill;
@@ -88,7 +88,7 @@ public class SVGEditorEditingPanel extends JPanel {
 
     public void setStroke(SVGPainting stroke) {
         if (activeElement != null) {
-            controller.setElementStroke(activeElement, stroke);
+            controller.setStrokeForElement(stroke, activeElement);
         }
 
         this.stroke = stroke;
@@ -96,7 +96,7 @@ public class SVGEditorEditingPanel extends JPanel {
 
     public void setStrokeWidth(SVGLengthUnit strokeWidth) {
         if (activeElement != null) {
-            controller.setElementStrokeWidth(activeElement, strokeWidth);
+            controller.setStrokeWidthForElement(strokeWidth, activeElement);
         }
 
         this.strokeWidth = strokeWidth;

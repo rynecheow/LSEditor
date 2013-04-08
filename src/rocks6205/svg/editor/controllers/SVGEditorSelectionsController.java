@@ -70,16 +70,6 @@ public interface SVGEditorSelectionsController {
     public void clearSelection();
 
     /**
-     * Groups all selected elements under <code>SVGGElement</code>.
-     */
-    public void group();
-
-    /**
-     * Ungroups all <code>SVGGElement</code> into individual elements.
-     */
-    public void ungroup();
-
-    /**
      * Delete the selected element from selection and clears selection.
      */
     public void deleteSelectedElement();
@@ -91,4 +81,16 @@ public interface SVGEditorSelectionsController {
      * @param ty Unit vertical translation
      */
     public void moveSelectedElement(float tx, float ty);
+    
+    /**
+     * Groups all selected elements under <code>SVGGElement</code>.
+     */
+    public void group();
+
+    /**
+     * Ungroups all <code>SVGGElement</code> into individual elements.
+     */
+    public void ungroup();
+
+    
 }

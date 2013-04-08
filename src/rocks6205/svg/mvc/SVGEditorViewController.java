@@ -37,6 +37,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.LinkedHashSet;
 
@@ -143,8 +144,8 @@ public class SVGEditorViewController
      * Default constructor.
      */
     public SVGEditorViewController() {
-        views              = new LinkedHashSet<SVGEditorView>(1);
-        selections         = new LinkedHashSet<SVGGenericElement>();
+        views              = new LinkedHashSet<>(1);
+        selections         = new LinkedHashSet<>();
         isDocumentModified = false;
     }
 
@@ -190,10 +191,18 @@ public class SVGEditorViewController
         this.model = model;
     }
 
+    public void modifyDocument() {
+        isDocumentModified = true;
+    }
+
+    public void unmodifyDocument() {
+        isDocumentModified = false;
+    }
+
     public void touchDocument() {
         if (!isDocumentModified) {
             modificationStart_t = System.currentTimeMillis();
-            isDocumentModified  = true;
+            modifyDocument();
         }
 
         updateViews();
@@ -234,8 +243,8 @@ public class SVGEditorViewController
 
     public void createBlankDocument() {
         model.setSVGElement(new SVGSVGElement(SVGLengthUnit.parse("500px"), SVGLengthUnit.parse("500px")));
-        currentFile        = NEW_DOCUMENT;
-        isDocumentModified = false;
+        currentFile = NEW_DOCUMENT;
+        unmodifyDocument();
         updateViews();
     }
 
@@ -278,7 +287,7 @@ public class SVGEditorViewController
      * @return Set of views
      */
     public LinkedHashSet<SVGEditorView> getViews() {
-        return new LinkedHashSet<SVGEditorView>(views);
+        return new LinkedHashSet<>(views);
     }
 
     /**
@@ -299,7 +308,6 @@ public class SVGEditorViewController
     public void addElement(SVGGenericElement e) {
         model.getSVGElement().addDescendant(e);
         touchDocument();
-
     }
 
     /**
@@ -307,7 +315,8 @@ public class SVGEditorViewController
      *
      * @author Cheow Yeong Chi
      */
-    public void setElementFill(SVGGenericElement e, SVGPainting fill) {
+    @Override
+    public void setFillForElement(SVGPainting fill, SVGGenericElement e) {
         e.setFill(fill);
         touchDocument();
     }
@@ -317,7 +326,8 @@ public class SVGEditorViewController
      *
      * @author  Cheow Yeong Chi
      */
-    public void setElementStroke(SVGGenericElement e, SVGPainting stroke) {
+    @Override
+    public void setStrokeForElement(SVGPainting stroke, SVGGenericElement e) {
         e.setStroke(stroke);
         touchDocument();
     }
@@ -327,16 +337,18 @@ public class SVGEditorViewController
      *
      * @author Cheow Yeong Chi
      */
-    public void setElementStrokeWidth(SVGGenericElement e, SVGLengthUnit strokeWidth) {
+    @Override
+    public void setStrokeWidthForElement(SVGLengthUnit strokeWidth, SVGGenericElement e) {
         e.setStrokeWidth(strokeWidth);
         touchDocument();
     }
 
     /**
      * {@inheritDoc}
-     * 
+     *
      * @author Cheow Yeong Chi
      */
+    @Override
     public void resizeRect(SVGRectElement rect, float changeWidth, float changeHeight) {
         if (Float.isNaN(changeWidth)) {
             throw new IllegalArgumentException("Change in width cannot be NaN");
@@ -356,9 +368,10 @@ public class SVGEditorViewController
 
     /**
      * {@inheritDoc}
-     * 
+     *
      * @author Cheow Yeong Chi
      */
+    @Override
     public void resizeCircle(SVGCircleElement circle, float changedRadius) {
         if (Float.isNaN(changedRadius)) {
             throw new IllegalArgumentException("Change in radius cannot be NaN");
@@ -372,9 +385,10 @@ public class SVGEditorViewController
 
     /**
      * {@inheritDoc}
-     * 
+     *
      * @author Cheow Yeong Chi
      */
+    @Override
     public void resizeLine(SVGLineElement line, int endpoint, float changeX, float changeY) {
         switch (endpoint) {
         case 1 :
@@ -402,42 +416,48 @@ public class SVGEditorViewController
 
     /**
      * {@inheritDoc}
-     * 
+     *
      * @author Cheow Yeong Chi
      */
-    public boolean fileLoad(File file) throws IOException{
+    @Override
+    public boolean fileLoad(File file) throws IOException {
         if ((file != null) && file.getName().endsWith(".svg")) {
             Document doc = XMLParser.parseXml(new InputSource(file.toURI().toString()));
 
             if (doc != null) {
                 SVGSVGElement svg_e = SVGSVGElement.parseDocument(doc);
+
                 if (svg_e != null) {
                     model.setSVGElement(svg_e);
                     currentFile        = file;
                     isDocumentModified = false;
                     updateViews();
+
                     return true;
                 }
             }
         }
+
         return false;
     }
 
     /**
      * {@inheritDoc}
-     * 
-     * @author 
+     *
+     * @author
      */
-    public boolean saveFile() throws IOException {
-	return saveFile(currentFile);
+    @Override
+    public boolean fileSave() throws IOException {
+        return fileSave(currentFile);
     }
 
     /**
      * {@inheritDoc}
-     * 
-     * @author 
+     *
+     * @author
      */
-    public boolean saveFile(File file) throws IOException {
+       @Override
+    public boolean fileSave(File file) throws IOException {
 	if (file != null) {
             try {
                 DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -631,23 +651,60 @@ public class SVGEditorViewController
                 StreamResult result = new StreamResult(file);
 
                 transformer.transform(source, result);
-            } catch (ParserConfigurationException e) {
-                e.printStackTrace();
-            } catch (TransformerConfigurationException e) {
-                e.printStackTrace();
+            } catch (ParserConfigurationException | TransformerConfigurationException e) {
+                System.err.println(e.getMessage());
             } catch (TransformerException e) {
                 Throwable exception = e.getException();
 
                 if ((exception != null) && (exception instanceof IOException)) {
                     throw(IOException) exception;
                 }
-
-                e.printStackTrace();
             }
 
-            isDocumentModified = false;
-
+            unmodifyDocument();
             return true;
+        }
+        return false;
+    }
+       
+    /**
+     * {@inheritDoc}
+     *
+     * @author Cheow Yeong Chi
+     */
+    @Override
+    public void fileClose() {
+        endFileModification();
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @author Cheow Yeong Chi
+     */
+    @Override
+    public void endFileModification() {
+        model.setSVGElement(null);
+        selections.clear();
+        currentFile = null;
+        unmodifyDocument();
+    }
+
+    /**
+     * SVGEditorFileController  
+     */
+
+    /**
+     * {@inheritDoc}
+     *
+     * @author Cheow Yeong Chi
+     */
+    @Override
+    public boolean isPointSelected(Point2D point) {
+        for (SVGGenericElement e : selections) {
+            if (e.getBounds().contains(point)) {
+                return true;
+            }
         }
 
         return false;
@@ -656,120 +713,211 @@ public class SVGEditorViewController
     /**
      * {@inheritDoc}
      *
-     * @author
+     * @author Cheow Yeong Chi
      */
-    public void closeFile() {
-
-        // TODO Auto-generated method stub
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * @author
-     */
-    public void endFileModification() {
-
-        // TODO Auto-generated method stub
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * @author
-     */
-    public boolean isPointSelected(Point2D point) {
-
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * @author
-     */
+    @Override
     public LinkedHashSet<SVGGenericElement> getSelections() {
-
-        // TODO Auto-generated method stub
-        return null;
+        return new LinkedHashSet<>(selections);
     }
 
     /**
      * {@inheritDoc}
      *
-     * @author
+     * @author Cheow Yeong Chi
      */
+    @Override
     public void addToSelection(SVGGenericElement e) {
+        if (e != null) {
+            selections.add(e);
+        }
 
-        // TODO Auto-generated method stub
+        updateViews();
     }
 
     /**
      * {@inheritDoc}
      *
-     * @author
+     * @author Cheow Yeong Chi
      */
+    @Override
     public void addToSelection(Point2D point) {
+        ArrayList<SVGGenericElement> elements = model.getSVGElement().getDescendants();
+        SVGGenericElement            e;
 
-        // TODO Auto-generated method stub
+        for (int u = elements.size() - 1; u >= 0; u--) {
+            e = elements.get(u);
+
+            if (e.getBounds().contains(point)) {
+                selections.add(e);
+
+                break;
+            }
+        }
+
+        updateViews();
     }
 
     /**
      * {@inheritDoc}
      *
-     * @author
+     * @author Cheow Yeong Chi
      */
+    @Override
     public void addToSelection(Rectangle2D rect) {
+        for (SVGGenericElement e : model.getSVGElement().getDescendants()) {
+            if (e.getBounds().intersects(rect)) {
+                selections.add(e);
+            }
+        }
 
-        // TODO Auto-generated method stub
+        updateViews();
     }
 
     /**
      * {@inheritDoc}
      *
-     * @author
+     * @author Cheow Yeong Chi
      */
+    @Override
     public void removeFromSelection(Point point) {
+        ArrayList<SVGGenericElement> elements = model.getSVGElement().getDescendants();
+        SVGGenericElement            e;
 
-        // TODO Auto-generated method stub
+        for (int u = elements.size() - 1; u >= 0; u--) {
+            e = elements.get(u);
+
+            if (e.getBounds().contains(point)) {
+                selections.remove(e);
+
+                break;
+            }
+        }
+
+        updateViews();
     }
 
     /**
      * {@inheritDoc}
      *
-     * @author
+     * @author Cheow Yeong Chi
      */
+    @Override
     public void removeFromSelection(Rectangle rect) {
-
-        // TODO Auto-generated method stub
+        for (SVGGenericElement elem : model.getSVGElement().getDescendants()) {
+            if (rect.contains(elem.getBounds())) {
+                selections.remove(elem);
+            }
+        }
+        updateViews();
     }
 
     /**
      * {@inheritDoc}
      *
-     * @author
+     * @author Cheow Yeong Chi
      */
+    @Override
     public void selectAll() {
-
-        // TODO Auto-generated method stub
+        selections = new LinkedHashSet<>(model.getSVGElement().getDescendants());
+        updateViews();
     }
 
     /**
      * {@inheritDoc}
      *
-     * @author
+     * @author Cheow Yeong Chi
      */
+    @Override
     public void clearSelection() {
-
-        // TODO Auto-generated method stub
+        selections.clear();
+        updateViews();
     }
 
     /**
      * {@inheritDoc}
      *
-     * @author
+     * @author Cheow Yeong Chi
      */
+    @Override
+    public void deleteSelectedElement() {
+        if (selections.isEmpty()) {
+            return;
+        }
+
+        for (SVGGenericElement e : selections) {
+            model.getSVGElement().removeDescendant(e);
+        }
+
+        selections.clear();
+        touchDocument();
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @author Cheow Yeong Chi
+     */
+    @Override
+    public void moveSelectedElement(float tx, float ty) {
+        SVGLengthUnit x;
+        SVGLengthUnit y;
+
+        for (SVGGenericElement e : selections) {
+            if (e instanceof SVGRectElement) {
+                SVGRectElement rect = (SVGRectElement) e;
+
+                x = new SVGLengthUnit(rect.getX().getValue(SVGLengthUnitType.NUMBER) + tx);
+                y = new SVGLengthUnit(rect.getY().getValue(SVGLengthUnitType.NUMBER) + ty);
+                rect.setX(SVGLengthUnit.convert(x, rect.getX().getUnitType()));
+                rect.setY(SVGLengthUnit.convert(y, rect.getY().getUnitType()));
+            } else if (e instanceof SVGCircleElement) {
+                SVGCircleElement circle = (SVGCircleElement) e;
+
+                x = new SVGLengthUnit(circle.getCx().getValue(SVGLengthUnitType.NUMBER) + tx);
+                y = new SVGLengthUnit(circle.getCy().getValue(SVGLengthUnitType.NUMBER) + ty);
+                circle.setCx(SVGLengthUnit.convert(x, circle.getCx().getUnitType()));
+                circle.setCy(SVGLengthUnit.convert(y, circle.getCy().getUnitType()));
+            } else if (e instanceof SVGLineElement) {
+                SVGLineElement line = (SVGLineElement) e;
+
+                x = new SVGLengthUnit(line.getX1().getValue(SVGLengthUnitType.NUMBER) + tx);
+                y = new SVGLengthUnit(line.getY1().getValue(SVGLengthUnitType.NUMBER) + ty);
+                line.setX1(SVGLengthUnit.convert(x, line.getX1().getUnitType()));
+                line.setY1(SVGLengthUnit.convert(y, line.getY1().getUnitType()));
+                x = new SVGLengthUnit(line.getX2().getValue(SVGLengthUnitType.NUMBER) + tx);
+                y = new SVGLengthUnit(line.getY2().getValue(SVGLengthUnitType.NUMBER) + ty);
+                line.setX2(SVGLengthUnit.convert(x, line.getX2().getUnitType()));
+                line.setY2(SVGLengthUnit.convert(y, line.getY2().getUnitType()));
+            } else if (e instanceof SVGGElement) {
+                x = e.getTranslateX();
+                y = e.getTranslateY();
+
+                if (x == null) {
+                    x = new SVGLengthUnit(tx);
+                } else {
+                    x = new SVGLengthUnit(x.getValue() + tx);
+                }
+
+                if (y == null) {
+                    y = new SVGLengthUnit(ty);
+                } else {
+                    y = new SVGLengthUnit(y.getValue() + ty);
+                }
+
+                e.setTranslateX(x);
+                e.setTranslateY(y);
+            }
+        }
+
+        touchDocument();
+    }
+    
+    /**
+     * {@inheritDoc}
+     *
+     * @author Komalah Nair
+     */
+    @Override
     public void group() {
 
         // TODO Auto-generated method stub
@@ -778,29 +926,10 @@ public class SVGEditorViewController
     /**
      * {@inheritDoc}
      *
-     * @author
+     * @author Komalah Nair
      */
+    @Override
     public void ungroup() {
-
-        // TODO Auto-generated method stub
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * @author
-     */
-    public void deleteSelectedElement() {
-
-        // TODO Auto-generated method stub
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * @author
-     */
-    public void moveSelectedElement(float tx, float ty) {
 
         // TODO Auto-generated method stub
     }

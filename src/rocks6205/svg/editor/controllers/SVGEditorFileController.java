@@ -24,7 +24,7 @@ public interface SVGEditorFileController {
      * @return True if file is successfully saved, false otherwise.
      * @throws IOException
      */
-    public boolean saveFile() throws IOException;
+    public boolean fileSave() throws IOException;
     
     /**
      * 
@@ -32,12 +32,12 @@ public interface SVGEditorFileController {
      * @return
      * @throws IOException
      */
-    public boolean saveFile(File file) throws IOException;
+    public boolean fileSave(File file) throws IOException;
     
     /**
      * 
      */
-    public void closeFile();
+    public void fileClose();
     
     public void endFileModification();
     
