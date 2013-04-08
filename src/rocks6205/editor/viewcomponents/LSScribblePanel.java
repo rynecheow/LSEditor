@@ -48,6 +48,7 @@ public class LSScribblePanel extends JPanel {
      *
      * @param g
      */
+    @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
