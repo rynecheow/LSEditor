@@ -5,9 +5,12 @@ package rocks6205.editor.mvc;
 import rocks6205.editor.events.SVGEditPanMouseAdaptor;
 import rocks6205.editor.viewcomponents.SVGEditorBottomToolbar;
 import rocks6205.editor.viewcomponents.SVGEditorDeleteAccessoryPanel;
-import rocks6205.editor.viewcomponents.SVGEditorCanvasViewport;
+import rocks6205.editor.viewcomponents.SVGEditorEditingPanel;
 import rocks6205.editor.viewcomponents.SVGEditorMenubar;
 import rocks6205.editor.viewcomponents.SVGEditorTopToolbar;
+
+import rocks6205.svg.editor.viewcomponents.LSTabbedPane;
+
 import rocks6205.system.properties.SVGEditorTheme;
 
 //~--- JDK imports ------------------------------------------------------------
@@ -226,7 +229,5 @@ public class SVGEditorView extends JFrame {
         return zoomScale;
     }
 
-    private void setupTabbedPane() {
-        
-    }
+    private void setupTabbedPane() {}
 }
