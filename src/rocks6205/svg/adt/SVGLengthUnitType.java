@@ -2,7 +2,7 @@ package rocks6205.svg.adt;
 
 //~--- non-JDK imports --------------------------------------------------------
 
-import rocks6205.svg.properties.SVGCanvasProperties;
+import rocks6205.system.properties.SVGCanvasProperties;
 
 /**
  * <p>List of SVG length types</p>
