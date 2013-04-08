@@ -3,7 +3,7 @@ package rocks6205.svg.mvc;
 //~--- non-JDK imports --------------------------------------------------------
 
 import rocks6205.svg.editor.viewcomponents.LSSplashScreen;
-import rocks6205.properties.OSValidator;
+import rocks6205.svg.properties.OSValidator;
 
 //~--- JDK imports ------------------------------------------------------------
 
