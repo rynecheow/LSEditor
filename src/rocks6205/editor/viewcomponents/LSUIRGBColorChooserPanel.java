@@ -28,8 +28,12 @@ import javax.swing.JSpinner;
  */
 public class LSUIRGBColorChooserPanel extends JPanel {
     private static final long  serialVersionUID = 4003671910607353797L;
-    private SVGColorScheme     color;
+    /*
+     * PARENT COMPONENT
+     */
     private SVGEditorView      parent;
+    
+    private SVGColorScheme     color;
     private JPanel             blueIndicator;
     private JSlider            blueSlider;
     private JSpinner           blueSpinner;
@@ -43,12 +47,14 @@ public class LSUIRGBColorChooserPanel extends JPanel {
     private GridBagConstraints gbConstraint;
 
     public LSUIRGBColorChooserPanel(SVGEditorView view) {
+        super();
         parent = view;
         initialise();
         customise();
     }
 
     private void initialise() {
+        finalColorIndicator = new JPanel();
         redSlider           = new JSlider();
         greenSlider         = new JSlider();
         blueSlider          = new JSlider();
@@ -58,10 +64,27 @@ public class LSUIRGBColorChooserPanel extends JPanel {
         redIndicator        = new JPanel();
         greenIndicator      = new JPanel();
         blueIndicator       = new JPanel();
-        finalColorIndicator = new JPanel();
     }
 
     private void customise() {
+        layoutComponents();
+    }
+
+    public SVGEditorView getParentView() {
+        return parent;
+    }
+
+    public void setColor(SVGColorScheme color) {
+        if (color != null) {
+            this.color = color;
+        }
+    }
+    
+    public SVGColorScheme getColor(){
+        return color;
+    }
+
+    private void layoutComponents() {
         setMaximumSize(new Dimension(385, 135));
         setMinimumSize(new Dimension(385, 135));
         setLayout(new GridBagLayout());
@@ -163,19 +186,5 @@ public class LSUIRGBColorChooserPanel extends JPanel {
         gbConstraint.anchor     = GridBagConstraints.NORTHWEST;
         gbConstraint.insets     = new Insets(30, 12, 0, 0);
         add(finalColorIndicator, gbConstraint);
-    }
-
-    public SVGEditorView getParentView() {
-        return parent;
-    }
-
-    public void setColor(SVGColorScheme color) {
-        if (color != null) {
-            this.color = color;
-        }
-    }
-    
-    public SVGColorScheme getColor(){
-        return color;
     }
 }
