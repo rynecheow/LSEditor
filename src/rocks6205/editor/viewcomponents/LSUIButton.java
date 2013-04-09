@@ -12,8 +12,6 @@ import javax.swing.JButton;
 
 /**
  *
- * Class: SVGViewButton
- * Description:
  *
  * @author Komalah Nair
  * @since 1.3
@@ -33,6 +31,7 @@ public class LSUIButton extends JButton {
     public LSUIButton() {
         setBorder(null);
         setBackground(null);
+        setBorderPainted(false);
     }
 
     /**
@@ -43,6 +42,7 @@ public class LSUIButton extends JButton {
     public LSUIButton(Action a) {
         super(a);
         setBorder(null);
+        setBorderPainted(false);
     }
 
     /**
@@ -53,6 +53,7 @@ public class LSUIButton extends JButton {
     public LSUIButton(Icon icon) {
         super(icon);
         setBorder(null);
+        setBorderPainted(false);
     }
 
     /**
@@ -63,6 +64,7 @@ public class LSUIButton extends JButton {
     public LSUIButton(String text) {
         super(text);
         setBorder(null);
+        setBorderPainted(false);
     }
 
     /**
@@ -75,6 +77,7 @@ public class LSUIButton extends JButton {
     public LSUIButton(String text, Icon icon) {
         super(text, icon);
         setBorder(null);
+        setBorderPainted(false);
     }
 
     /**
@@ -86,6 +89,7 @@ public class LSUIButton extends JButton {
     public LSUIButton(String text, String iconPath) {
         super(text, createIcon(iconPath));
         setBorder(null);
+        setBorderPainted(false);
     }
 
     /**
@@ -100,6 +104,7 @@ public class LSUIButton extends JButton {
         super(text, createIcon(iconPath));
         setAction(action);
         setBorder(null);
+        setBorderPainted(false);
     }
 
     /*
@@ -135,5 +140,6 @@ public class LSUIButton extends JButton {
 
         super.setIcon(icon);
         setBorder(null);
+        setBorderPainted(false);
     }
 }
