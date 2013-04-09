@@ -110,7 +110,6 @@ public class LSUIMenubar extends JMenuBar {
         layoutInsertMenuItemList();
         layoutWindowMenuItemList();
         layoutHelpMenuItemList();
-        disableUnused();
         add(fileMenu);
         add(editMenu);
         add(insertMenu);
@@ -191,19 +190,6 @@ public class LSUIMenubar extends JMenuBar {
         exitMenuItem.setAction(getExitAct());
         zoomInMenuItem.setAction(getZoomInAction());
         zoomOutMenuItem.setAction(getZoomOutAction());
-    }
-
-    /**
-     * Disables unused buttons
-     */
-    private void disableUnused() {
-        newMenuItem.setEnabled(false);
-        saveMenuItem.setEnabled(false);
-        saveAsMenuItem.setEnabled(false);
-        docPropMenuItem.setEnabled(false);
-        editMenu.setEnabled(false);
-        insertMenu.setEnabled(false);
-        helpMenu.setEnabled(false);
     }
 
     /**

@@ -17,6 +17,8 @@ import java.awt.Insets;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.JSpinner;
+import javax.swing.SpinnerModel;
+import javax.swing.SpinnerNumberModel;
 
 /**
  * Color Chooser for SVGEditor
@@ -27,12 +29,12 @@ import javax.swing.JSpinner;
  *
  */
 public class LSUIRGBColorChooserPanel extends JPanel {
-    private static final long  serialVersionUID = 4003671910607353797L;
+    private static final long serialVersionUID = 4003671910607353797L;
+
     /*
      * PARENT COMPONENT
      */
     private SVGEditorView      parent;
-    
     private SVGColorScheme     color;
     private JPanel             blueIndicator;
     private JSlider            blueSlider;
@@ -45,6 +47,9 @@ public class LSUIRGBColorChooserPanel extends JPanel {
     private JSlider            redSlider;
     private JSpinner           redSpinner;
     private GridBagConstraints gbConstraint;
+    private SpinnerModel       redSpinnerModel;
+    private SpinnerModel       greenSpinnerModel;
+    private SpinnerModel       blueSpinnerModel;
 
     public LSUIRGBColorChooserPanel(SVGEditorView view) {
         super();
@@ -54,13 +59,16 @@ public class LSUIRGBColorChooserPanel extends JPanel {
     }
 
     private void initialise() {
+        redSpinnerModel     = new SpinnerNumberModel(0, 0, 255, 1);
+        greenSpinnerModel   = new SpinnerNumberModel(0, 0, 255, 1);
+        blueSpinnerModel    = new SpinnerNumberModel(0, 0, 255, 1);
         finalColorIndicator = new JPanel();
         redSlider           = new JSlider();
         greenSlider         = new JSlider();
         blueSlider          = new JSlider();
-        redSpinner          = new JSpinner();
-        greenSpinner        = new JSpinner();
-        blueSpinner         = new JSpinner();
+        redSpinner          = new JSpinner(redSpinnerModel);
+        greenSpinner        = new JSpinner(greenSpinnerModel);
+        blueSpinner         = new JSpinner(blueSpinnerModel);
         redIndicator        = new JPanel();
         greenIndicator      = new JPanel();
         blueIndicator       = new JPanel();
@@ -79,8 +87,8 @@ public class LSUIRGBColorChooserPanel extends JPanel {
             this.color = color;
         }
     }
-    
-    public SVGColorScheme getColor(){
+
+    public SVGColorScheme getColor() {
         return color;
     }
 
