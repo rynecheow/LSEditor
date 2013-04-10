@@ -59,14 +59,7 @@ public final class LSUIBottomToolbar extends JToolBar implements LSUIProtocol {
 
     @Override
     public void customise() {
-        add(insertRectButton);
-        add(insertCircButton);
-        add(insertLineButton);
-        add(fillButton);
-        add(strokeButton);
-        add(strokeWidthButton);
-        add(groupButton);
-        add(ungroupButton);
+        layoutView();
         setActionForButtons();
         setIconsForButtons();
     }
@@ -114,5 +107,16 @@ public final class LSUIBottomToolbar extends JToolBar implements LSUIProtocol {
         }
 
         return fillAction;
+    }
+
+    private void layoutView() {
+        add(insertRectButton);
+        add(insertCircButton);
+        add(insertLineButton);
+        add(fillButton);
+        add(strokeButton);
+        add(strokeWidthButton);
+        add(groupButton);
+        add(ungroupButton);
     }
 }

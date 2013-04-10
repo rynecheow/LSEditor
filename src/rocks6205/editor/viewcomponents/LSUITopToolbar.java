@@ -59,12 +59,7 @@ public final class LSUITopToolbar extends JToolBar implements LSUIProtocol {
 
     @Override
     public void customise() {
-        add(newButton);
-        add(openButton);
-        add(saveButton);
-        add(zoomInButton);
-        add(zoomOutButton);
-        zoomInAction.setZoomOutPartnerAction(zoomOutAction);
+        layoutView();
         setActionForButtons();
         setIconsForButtons();
     }
@@ -80,6 +75,7 @@ public final class LSUITopToolbar extends JToolBar implements LSUIProtocol {
         openButton.setAction(getOpenAction());
         zoomInButton.setAction(getZoomInAction());
         zoomOutButton.setAction(getZoomOutAction());
+        zoomInAction.setZoomOutPartnerAction(zoomOutAction);
     }
 
     /**
@@ -130,5 +126,13 @@ public final class LSUITopToolbar extends JToolBar implements LSUIProtocol {
         }
 
         return zoomOutAction;
+    }
+
+    private void layoutView() {
+        add(newButton);
+        add(openButton);
+        add(saveButton);
+        add(zoomInButton);
+        add(zoomOutButton);
     }
 }
