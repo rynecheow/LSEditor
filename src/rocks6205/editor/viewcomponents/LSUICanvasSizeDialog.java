@@ -8,6 +8,7 @@ import rocks6205.editor.mvc.SVGEditorView;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Toolkit;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -24,8 +25,8 @@ public final class LSUICanvasSizeDialog extends JDialog implements LSUIProtocol 
     /*
      * SIZE PROPERTIES
      */
-    int       width  = 600;
-    int       height = 450;
+    int       width  = 480;
+    int       height = 340;
     Dimension screen;
     int       x;
     int       y;
@@ -68,6 +69,7 @@ public final class LSUICanvasSizeDialog extends JDialog implements LSUIProtocol 
 
     @Override
     public void initialise() {
+        setUpProperties();
         backPanel             = new JPanel();
         documentNameLabel     = new JLabel();
         documentNameTextField = new JTextField();
@@ -89,32 +91,38 @@ public final class LSUICanvasSizeDialog extends JDialog implements LSUIProtocol 
         cancelButton          = new JButton();
     }
 
+    private void setUpProperties() {
+        screen = Toolkit.getDefaultToolkit().getScreenSize();
+        x      = (screen.width - width) / 2;
+        y      = (screen.height - height) / 2;
+    }
+    
     @Override
     public void customise() {
         layoutView();
         layoutChildComponents();
         getContentPane().add(backPanel);
-        backPanel.setBounds(0, 0, 480, 340);
+        backPanel.setBounds(x, y, width, height);
         pack();
         setLocationRelativeTo(null);
     }
 
     private void layoutView() {
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        setMaximumSize(new Dimension(480, 340));
-        setMinimumSize(new Dimension(480, 340));
+        setMaximumSize(new Dimension(width, height));
+        setMinimumSize(new Dimension(width, height));
         setModal(true);
         setUndecorated(true);
-        setPreferredSize(new Dimension(480, 340));
-        setSize(new Dimension(480, 340));
+        setPreferredSize(new Dimension(width, height));
+        setSize(new Dimension(width, height));
         getContentPane().setLayout(null);
     }
 
     private void layoutChildComponents() {
         backPanel.setBackground(new Color(30, 30, 30));
-        backPanel.setMaximumSize(new Dimension(480, 340));
-        backPanel.setMinimumSize(new Dimension(480, 340));
-        backPanel.setPreferredSize(new Dimension(480, 340));
+        backPanel.setMaximumSize(new Dimension(width, height));
+        backPanel.setMinimumSize(new Dimension(width, height));
+        backPanel.setPreferredSize(new Dimension(width, height));
         backPanel.setLayout(null);
         documentNameLabel.setBackground(new Color(255, 255, 255));
         documentNameLabel.setForeground(new Color(255, 255, 255));

@@ -1,12 +1,12 @@
 package rocks6205.editor.controllers;
 
+//~--- JDK imports ------------------------------------------------------------
+
 import java.io.File;
 import java.io.IOException;
 
-
 public interface SVGEditorFileController {
 
-    
     /**
      * Loads file from two ways:<p>
      * 1) Read directly from <code>JFileChooser</code>.<br>
@@ -25,20 +25,19 @@ public interface SVGEditorFileController {
      * @throws IOException
      */
     public boolean fileSave() throws IOException;
-    
+
     /**
-     * 
+     *
      * @param file
      * @return
      * @throws IOException
      */
     public boolean fileSave(File file) throws IOException;
-    
+
     /**
-     * 
+     *
      */
     public void fileClose();
-    
+
     public void endFileModification();
-    
 }
