@@ -22,6 +22,7 @@ public class OSValidator {
      */
     public static boolean isWindows() {
         System.out.println(OS);
+
         return (OS.indexOf("win") >= 0);
     }
 
@@ -30,6 +31,7 @@ public class OSValidator {
      */
     public static boolean isMac() {
         System.out.println(OS);
+
         return (OS.indexOf("mac") >= 0);
     }
 }

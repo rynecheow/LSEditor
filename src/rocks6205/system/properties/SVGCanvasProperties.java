@@ -23,8 +23,9 @@ public class SVGCanvasProperties {
      * Resolution in DPI
      */
     private static int DOTS_PER_INCH = 72;
-/**
-     * Default minimum zoom scale
+
+    /**
+     *     Default minimum zoom scale
      */
     public static final int DEFAULT_MIN_ZOOM_LEVEL = -20;
 
@@ -42,6 +43,7 @@ public class SVGCanvasProperties {
      * Zoom scale of current instance
      */
     private static double zoomScale = DEFAULT_ZOOM_MULTIPLICATION_FACTOR;
+
     /*
      * CONSTRUCTOR
      */

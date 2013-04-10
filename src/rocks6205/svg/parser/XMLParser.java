@@ -57,15 +57,15 @@ public class XMLParser {
 
             // Prevent loading external DTD
             builder.setEntityResolver(new EntityResolver() {
+                @Override
                 public InputSource resolveEntity(String publicId, String systemId) throws SAXException, IOException {
                     return new InputSource(new StringReader(""));
                 }
             });
             doc = builder.parse(XMLInputSource);
-        } catch (IOException ioe) {}
-        catch (SAXException sae) {}
-        catch (ParserConfigurationException pce) {}
-        catch (NullPointerException npe) {}
+        } catch (IOException | SAXException | ParserConfigurationException | NullPointerException e) {
+            System.err.println(e.getMessage());
+        }
 
         return doc;
     }
