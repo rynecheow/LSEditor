@@ -40,8 +40,7 @@ public class Main {
             try {
                 c.fileLoad(new File(rcks[0]));
             } catch (IOException e) {
-
-                // TODO: Display/log error message
+                System.err.println(e.getMessage());
             }
         }
     }
@@ -62,7 +61,9 @@ public class Main {
                     }
                 }
             } catch (ClassNotFoundException | InstantiationException | IllegalAccessException
-                     | UnsupportedLookAndFeelException e) {}
+                     | UnsupportedLookAndFeelException e) {
+                System.err.println(e.getMessage());
+            }
         }
     }
 }
