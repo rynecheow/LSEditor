@@ -37,7 +37,7 @@ import javax.swing.OverlayLayout;
  * @since 2.0
  *
  */
-public class LSUIEditingPanel extends JPanel {
+public final class LSUIEditingPanel extends JPanel {
     private static final long            serialVersionUID = 523971636492120974L;
     private SVGEditorViewController      controller;
     private SVGEditorView                parent;

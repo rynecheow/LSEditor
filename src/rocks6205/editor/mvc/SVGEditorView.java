@@ -23,7 +23,7 @@ import javax.swing.JOptionPane;
  *
  * @since 1.2
  */
-public class SVGEditorView extends JFrame implements LSUIProtocol {
+public final class SVGEditorView extends JFrame implements LSUIProtocol {
     private static final long serialVersionUID = 6764861773639452353L;
 
     /*
@@ -73,7 +73,7 @@ public class SVGEditorView extends JFrame implements LSUIProtocol {
      * {@inheritDoc}
      */
     @Override
-    public final void initialise() {
+    public void initialise() {
         colorChooserPanel = new LSUIRGBColorChooserPanel(this);
     }
 
@@ -81,7 +81,7 @@ public class SVGEditorView extends JFrame implements LSUIProtocol {
      * {@inheritDoc}
      */
     @Override
-    public final void customise() {
+    public void customise() {
         layoutFrame();
     }
 

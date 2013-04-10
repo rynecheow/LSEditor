@@ -15,7 +15,7 @@ import javax.swing.GroupLayout;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 
-public class LSUIWelcomeDialog extends JDialog implements LSUIProtocol {
+public final class LSUIWelcomeDialog extends JDialog implements LSUIProtocol {
 
     /*
      * SIZE PROPERTIES
