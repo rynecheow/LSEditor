@@ -32,7 +32,7 @@ import javax.swing.OverlayLayout;
  * Editor panel that acts as a central view for user to edit, select, add
  * components and perform actions to the canvas.
  *
- * @author Cheow Yeong Chi
+ * @author Toh Huey Jing
  *
  * @since 2.0
  *

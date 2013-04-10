@@ -70,6 +70,7 @@ public class LSCanvasViewport extends JPanel {
      * <p>Paint components on canvas</p>.
      * {@inheritDoc}
      */
+    @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
@@ -99,7 +100,7 @@ public class LSCanvasViewport extends JPanel {
         return parentView;
     }
 
-    public void setParentView(SVGEditorView parentView) {
+    public final void setParentView(SVGEditorView parentView) {
         if (parentView != null) {
             this.parentView = parentView;
         }
