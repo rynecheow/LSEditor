@@ -21,7 +21,7 @@ import javax.swing.KeyStroke;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
- * The <code>SVGViewMenuAction</code> is an abstract class which create <code>Action</code>
+ * The <code>LSAction</code> is an abstract class which create <code>Action</code>
  * instances. Instances can carry out similar handling of event is enabled without redefining
  * the <code>actionPerformed()</code> function in different classes.
  *
@@ -30,7 +30,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  * @since 1.1
  *
  */
-public abstract class SVGEditorMenuAction extends AbstractAction {
+public abstract class LSAction extends AbstractAction {
     private static final long serialVersionUID = 9085407834848872724L;
 
     /**
@@ -52,7 +52,7 @@ public abstract class SVGEditorMenuAction extends AbstractAction {
      * @param keyStroke Key action on the keyboard
      * @param parent Parent component
      */
-    public SVGEditorMenuAction(String tooltipText, Integer mnemonic, KeyStroke keyStroke, SVGEditorView parent) {
+    public LSAction(String tooltipText, Integer mnemonic, KeyStroke keyStroke, SVGEditorView parent) {
         putValue(SHORT_DESCRIPTION, tooltipText);
         putValue(MNEMONIC_KEY, mnemonic);
         putValue(ACCELERATOR_KEY, keyStroke);
@@ -70,7 +70,7 @@ public abstract class SVGEditorMenuAction extends AbstractAction {
      * @param keyStroke Key action on the keyboard
      * @param parent Parent component
      */
-    public SVGEditorMenuAction(String name, String tooltipText, Integer mnemonic, KeyStroke keyStroke,
+    public LSAction(String name, String tooltipText, Integer mnemonic, KeyStroke keyStroke,
                                SVGEditorView parent) {
         putValue(Action.NAME, name);
         putValue(SHORT_DESCRIPTION, tooltipText);
@@ -97,7 +97,7 @@ public abstract class SVGEditorMenuAction extends AbstractAction {
      * @since 1.1
      *
      */
-    public static class ExitAction extends SVGEditorMenuAction {
+    public static class ExitAction extends LSAction {
         private static final long serialVersionUID = 6507259946341784118L;
 
         /*
@@ -149,7 +149,7 @@ public abstract class SVGEditorMenuAction extends AbstractAction {
      * @since 1.1
      *
      */
-    public static class OpenFileAction extends SVGEditorMenuAction {
+    public static class OpenFileAction extends LSAction {
         private static final long serialVersionUID = -7823707833188816535L;
 
         /*
@@ -208,7 +208,7 @@ public abstract class SVGEditorMenuAction extends AbstractAction {
      * @since 1.1
      *
      */
-    public static class ZoomInViewAction extends SVGEditorMenuAction {
+    public static class ZoomInViewAction extends LSAction {
         private static final long serialVersionUID = 1180439021996674018L;
 
         /*
@@ -281,7 +281,7 @@ public abstract class SVGEditorMenuAction extends AbstractAction {
      * @since 1.1
      *
      */
-    public static class ZoomOutViewAction extends SVGEditorMenuAction {
+    public static class ZoomOutViewAction extends LSAction {
         private static final long serialVersionUID = -6578149781110081473L;
 
         /*
@@ -336,7 +336,7 @@ public abstract class SVGEditorMenuAction extends AbstractAction {
      * @since 1.0
      *
      */
-    public static class FillAction extends SVGEditorMenuAction {
+    public static class FillAction extends LSAction {
         private static final long serialVersionUID = -6578149781110081473L;
         
         private Color color;
@@ -391,7 +391,7 @@ public abstract class SVGEditorMenuAction extends AbstractAction {
      * @since 1.0
      *
      */
-    public static class DrawLineAction extends SVGEditorMenuAction {
+    public static class DrawLineAction extends LSAction {
         private static final long serialVersionUID = -6578149781110081473L;
 
         /*
@@ -434,7 +434,7 @@ public abstract class SVGEditorMenuAction extends AbstractAction {
      * @since 1.0
      *
      */
-    public static class DrawRectAction extends SVGEditorMenuAction {
+    public static class DrawRectAction extends LSAction {
         private static final long serialVersionUID = -6578149781110081473L;
 
         /*
@@ -477,7 +477,7 @@ public abstract class SVGEditorMenuAction extends AbstractAction {
      * @since 1.0
      *
      */
-    public static class DrawCircleAction extends SVGEditorMenuAction {
+    public static class DrawCircleAction extends LSAction {
         private static final long serialVersionUID = -6578149781110081473L;
 
         /*

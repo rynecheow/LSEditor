@@ -2,11 +2,11 @@ package rocks6205.editor.viewcomponents;
 
 //~--- non-JDK imports --------------------------------------------------------
 
-import rocks6205.editor.events.SVGEditorMenuAction;
-import rocks6205.editor.events.SVGEditorMenuAction.ExitAction;
-import rocks6205.editor.events.SVGEditorMenuAction.OpenFileAction;
-import rocks6205.editor.events.SVGEditorMenuAction.ZoomInViewAction;
-import rocks6205.editor.events.SVGEditorMenuAction.ZoomOutViewAction;
+import rocks6205.editor.events.LSAction;
+import rocks6205.editor.events.LSAction.ExitAction;
+import rocks6205.editor.events.LSAction.OpenFileAction;
+import rocks6205.editor.events.LSAction.ZoomInViewAction;
+import rocks6205.editor.events.LSAction.ZoomOutViewAction;
 import rocks6205.editor.mvc.SVGEditorView;
 
 //~--- JDK imports ------------------------------------------------------------
@@ -112,7 +112,7 @@ public final class LSUIMenubar extends JMenuBar implements LSUIProtocol {
         faqMenuItem          = new JMenuItem("FAQ");
         aboutMenuItem        = new JMenuItem("About");
         openAct              = new OpenFileAction(parent, "Open File...");
-        exitAct              = new SVGEditorMenuAction.ExitAction(parent, "Exit");
+        exitAct              = new LSAction.ExitAction(parent, "Exit");
         zoomOutAction        = new ZoomOutViewAction(parent, "Zoom Out");
         zoomInAction         = new ZoomInViewAction(parent, "Zoom In");
     }
@@ -231,9 +231,9 @@ public final class LSUIMenubar extends JMenuBar implements LSUIProtocol {
     /**
      * @return Open file action
      */
-    public SVGEditorMenuAction.OpenFileAction getOpenAction() {
+    public LSAction.OpenFileAction getOpenAction() {
         if (openAct == null) {
-            openAct = new SVGEditorMenuAction.OpenFileAction(parent, "Open File...");
+            openAct = new LSAction.OpenFileAction(parent, "Open File...");
         }
 
         return openAct;
@@ -244,7 +244,7 @@ public final class LSUIMenubar extends JMenuBar implements LSUIProtocol {
      */
     public ExitAction getExitAct() {
         if (exitAct == null) {
-            exitAct = new SVGEditorMenuAction.ExitAction(parent, "Exit");
+            exitAct = new LSAction.ExitAction(parent, "Exit");
         }
 
         return exitAct;

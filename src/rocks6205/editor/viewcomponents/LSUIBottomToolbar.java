@@ -2,7 +2,7 @@ package rocks6205.editor.viewcomponents;
 
 //~--- non-JDK imports --------------------------------------------------------
 
-import rocks6205.editor.events.SVGEditorMenuAction.FillAction;
+import rocks6205.editor.events.LSAction.FillAction;
 import rocks6205.editor.mvc.SVGEditorView;
 
 //~--- JDK imports ------------------------------------------------------------
