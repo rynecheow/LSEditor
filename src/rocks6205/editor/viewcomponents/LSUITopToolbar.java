@@ -22,16 +22,16 @@ public final class LSUITopToolbar extends JToolBar implements LSUIProtocol {
     /*
      * PARENT COMPONENT
      */
-    SVGEditorView parentView;
+    private SVGEditorView parentView;
 
     /*
      * GUI COMPONENTS
      */
-    LSUIButton newButton;
-    LSUIButton openButton;
-    LSUIButton saveButton;
-    LSUIButton zoomInButton;
-    LSUIButton zoomOutButton;
+    private LSUIButton newButton;
+    private LSUIButton openButton;
+    private LSUIButton saveButton;
+    private LSUIButton zoomInButton;
+    private LSUIButton zoomOutButton;
 
     /*
      * ACTION COMPONENTS

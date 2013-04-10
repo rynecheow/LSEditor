@@ -20,19 +20,19 @@ public final class LSUIBottomToolbar extends JToolBar implements LSUIProtocol {
     /*
      * PARENT COMPONENT
      */
-    SVGEditorView parentView;
+    private SVGEditorView parentView;
 
     /*
      * GUI COMPONENTS
      */
-    LSUIButton insertRectButton;
-    LSUIButton insertCircButton;
-    LSUIButton insertLineButton;     // group 1
-    LSUIButton fillButton;
-    LSUIButton strokeButton;
-    LSUIButton strokeWidthButton;    // group 2
-    LSUIButton groupButton;
-    LSUIButton ungroupButton;        // group 3
+    private LSUIButton insertRectButton;
+    private LSUIButton insertCircButton;
+    private LSUIButton insertLineButton;     // group 1
+    private LSUIButton fillButton;
+    private LSUIButton strokeButton;
+    private LSUIButton strokeWidthButton;    // group 2
+    private LSUIButton groupButton;
+    private LSUIButton ungroupButton;        // group 3
 
     /*
      * ACTION COMPONENTS

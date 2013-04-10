@@ -13,6 +13,8 @@ import java.awt.event.WindowEvent;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import rocks6205.editor.viewcomponents.LSUIBottomToolbar;
+import rocks6205.editor.viewcomponents.LSUITopToolbar;
 
 /**
  * A class defining how the main user interface should look like.
@@ -45,7 +47,8 @@ public final class SVGEditorView extends JFrame implements LSUIProtocol {
      * GUI COMPONENTS
      */
     private LSUIRGBColorChooserPanel colorChooserPanel;
-
+    private LSUITopToolbar topToolbar;
+    private LSUIBottomToolbar btmToolbar;
     /*
      * ACTION COMPONENTS
      */
@@ -75,6 +78,8 @@ public final class SVGEditorView extends JFrame implements LSUIProtocol {
     @Override
     public void initialise() {
         colorChooserPanel = new LSUIRGBColorChooserPanel(this);
+        topToolbar = new LSUITopToolbar("Editing Tools",this);
+        btmToolbar = new LSUIBottomToolbar("Selection Tools",this);
     }
 
     /**
