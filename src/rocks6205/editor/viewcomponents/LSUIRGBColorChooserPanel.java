@@ -28,7 +28,7 @@ import javax.swing.SpinnerNumberModel;
  * @since 2.2
  *
  */
-public class LSUIRGBColorChooserPanel extends JPanel {
+public final class LSUIRGBColorChooserPanel extends JPanel implements LSUIProtocol{
     private static final long serialVersionUID = 4003671910607353797L;
 
     /*
@@ -58,7 +58,8 @@ public class LSUIRGBColorChooserPanel extends JPanel {
         customise();
     }
 
-    private void initialise() {
+    @Override
+    public void initialise() {
         redSpinnerModel     = new SpinnerNumberModel(0, 0, 255, 1);
         greenSpinnerModel   = new SpinnerNumberModel(0, 0, 255, 1);
         blueSpinnerModel    = new SpinnerNumberModel(0, 0, 255, 1);
@@ -74,7 +75,8 @@ public class LSUIRGBColorChooserPanel extends JPanel {
         blueIndicator       = new JPanel();
     }
 
-    private void customise() {
+    @Override
+    public void customise() {
         layoutComponents();
     }
 

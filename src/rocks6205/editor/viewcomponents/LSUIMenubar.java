@@ -25,7 +25,7 @@ import javax.swing.JMenuItem;
  * @since 1.2
  *
  */
-public class LSUIMenubar extends JMenuBar {
+public final class LSUIMenubar extends JMenuBar implements LSUIProtocol {
     private static final long serialVersionUID = 57709812552137078L;
 
     /**
@@ -36,12 +36,28 @@ public class LSUIMenubar extends JMenuBar {
     /*
      * GUI COMPONENTS
      */
-    JMenu     fileMenu, editMenu, insertMenu, windowMenu, helpMenu;
-    JMenuItem newMenuItem, openMenuItem, saveMenuItem, saveAsMenuItem, docPropMenuItem, exitMenuItem;
-    JMenuItem selectAllMenuItem, groupMenuItem, ungroupMenuItem, deleteMenuItem;
-    JMenuItem insertRectMenuItem, insertCircleMenuItem, insertLineMenuItem;
-    JMenuItem zoomInMenuItem, zoomOutMenuItem;
-    JMenuItem faqMenuItem, aboutMenuItem;
+    private JMenu     fileMenu;
+    private JMenu     editMenu;
+    private JMenu     insertMenu;
+    private JMenu     windowMenu;
+    private JMenu     helpMenu;
+    private JMenuItem newMenuItem;
+    private JMenuItem openMenuItem;
+    private JMenuItem saveMenuItem;
+    private JMenuItem saveAsMenuItem;
+    private JMenuItem docPropMenuItem;
+    private JMenuItem exitMenuItem;
+    private JMenuItem selectAllMenuItem;
+    private JMenuItem groupMenuItem;
+    private JMenuItem ungroupMenuItem;
+    private JMenuItem deleteMenuItem;
+    private JMenuItem insertRectMenuItem;
+    private JMenuItem insertCircleMenuItem;
+    private JMenuItem insertLineMenuItem;
+    private JMenuItem zoomInMenuItem;
+    private JMenuItem zoomOutMenuItem;
+    private JMenuItem faqMenuItem;
+    private JMenuItem aboutMenuItem;
 
     /*
      * ACTION COMPONENTS
@@ -71,7 +87,8 @@ public class LSUIMenubar extends JMenuBar {
     /**
      * Initialisation of GUI components.
      */
-    private void initialise() {
+    @Override
+    public void initialise() {
         fileMenu             = new JMenu("File");
         editMenu             = new JMenu("Edit");
         insertMenu           = new JMenu("Insert");
@@ -103,7 +120,8 @@ public class LSUIMenubar extends JMenuBar {
     /**
      * Customisation of GUI Components
      */
-    private void customise() {
+    @Override
+    public void customise() {
         setMnemonicForMenus();
         layoutFileMenuItemList();
         layoutEditMenuItemList();

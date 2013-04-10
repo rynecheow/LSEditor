@@ -15,7 +15,7 @@ import javax.swing.GroupLayout;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 
-public class LSUIWelcomeDialog extends JDialog {
+public class LSUIWelcomeDialog extends JDialog implements LSUIProtocol {
 
     /*
      * SIZE PROPERTIES
@@ -49,7 +49,8 @@ public class LSUIWelcomeDialog extends JDialog {
         bindEventActions();
     }
 
-    private void initialise() {
+    @Override
+    public void initialise() {
         setUpProperties();
         drawPanel      = drawNewWelcomePanel();
         openFileAction = new OpenFileAction(parentView);
@@ -68,7 +69,8 @@ public class LSUIWelcomeDialog extends JDialog {
         };
     }
 
-    private void customise() {
+    @Override
+    public void customise() {
         layoutView();
         layoutDrawPanel();
         getContentPane().add(drawPanel);

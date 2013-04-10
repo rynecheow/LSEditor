@@ -1,5 +1,11 @@
 package rocks6205.editor.mvc;
 
+//~--- non-JDK imports --------------------------------------------------------
+
+import rocks6205.editor.viewcomponents.LSUIProtocol;
+import rocks6205.editor.viewcomponents.LSUIRGBColorChooserPanel;
+import rocks6205.editor.viewcomponents.LSUIWelcomeDialog;
+
 //~--- JDK imports ------------------------------------------------------------
 
 import java.awt.event.WindowAdapter;
@@ -7,7 +13,6 @@ import java.awt.event.WindowEvent;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import rocks6205.editor.viewcomponents.LSUIWelcomeDialog;
 
 /**
  * A class defining how the main user interface should look like.
@@ -18,7 +23,7 @@ import rocks6205.editor.viewcomponents.LSUIWelcomeDialog;
  *
  * @since 1.2
  */
-public class SVGEditorView extends JFrame {
+public class SVGEditorView extends JFrame implements LSUIProtocol {
     private static final long serialVersionUID = 6764861773639452353L;
 
     /*
@@ -39,7 +44,8 @@ public class SVGEditorView extends JFrame {
     /*
      * GUI COMPONENTS
      */
-    
+    private LSUIRGBColorChooserPanel colorChooserPanel;
+
     /*
      * ACTION COMPONENTS
      */
@@ -64,17 +70,19 @@ public class SVGEditorView extends JFrame {
     }
 
     /**
-     * Initialisation of GUI components.
+     * {@inheritDoc}
      */
-    private void initialise() {
+    @Override
+    public final void initialise() {
+        colorChooserPanel = new LSUIRGBColorChooserPanel(this);
     }
 
     /**
-     * Customisation of GUI components.
-     *
+     * {@inheritDoc}
      */
-    private void customise() {
-        
+    @Override
+    public final void customise() {
+        layoutFrame();
     }
 
     /**
@@ -140,6 +148,14 @@ public class SVGEditorView extends JFrame {
     }
 
     private void showWelcomeScreen() {
-       new LSUIWelcomeDialog(this).display();
+        new LSUIWelcomeDialog(this).display();
+    }
+
+    public void layoutFrame() {
+        throw new UnsupportedOperationException("Not supported yet.");    // To change body of generated methods, choose Tools | Templates.
+    }
+
+    public void layoutChildComponents() {
+        throw new UnsupportedOperationException("Not supported yet.");    // To change body of generated methods, choose Tools | Templates.
     }
 }
