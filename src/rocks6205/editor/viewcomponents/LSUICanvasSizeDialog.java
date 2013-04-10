@@ -19,6 +19,12 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
+/**
+ * 
+ * @author Cheow Yeong Chi
+ * 
+ * @since 2.2
+ */
 public final class LSUICanvasSizeDialog extends JDialog implements LSUIProtocol {
     private static final long serialVersionUID = 4595939286877280108L;
 

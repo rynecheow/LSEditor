@@ -15,6 +15,12 @@ import javax.swing.GroupLayout;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 
+/**
+ * 
+ * @author Cheow Yeong Chi
+ * 
+ * @since 2.2
+ */
 public final class LSUIWelcomeDialog extends JDialog implements LSUIProtocol {
 
     /*
