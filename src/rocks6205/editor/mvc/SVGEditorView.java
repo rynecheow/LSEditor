@@ -7,6 +7,7 @@ import java.awt.event.WindowEvent;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import rocks6205.editor.viewcomponents.LSUIWelcomeDialog;
 
 /**
  * A class defining how the main user interface should look like.
@@ -38,7 +39,7 @@ public class SVGEditorView extends JFrame {
     /*
      * GUI COMPONENTS
      */
-
+    
     /*
      * ACTION COMPONENTS
      */
@@ -59,18 +60,22 @@ public class SVGEditorView extends JFrame {
         super();
         initialise();
         customise();
+        showWelcomeScreen();
     }
 
     /**
      * Initialisation of GUI components.
      */
-    private void initialise() {}
+    private void initialise() {
+    }
 
     /**
      * Customisation of GUI components.
      *
      */
-    private void customise() {}
+    private void customise() {
+        
+    }
 
     /**
      * Prompt exit confirmation while user clicks on 'x' button on the window
@@ -134,5 +139,7 @@ public class SVGEditorView extends JFrame {
         return zoomScale;
     }
 
-    private void setupTabbedPane() {}
+    private void showWelcomeScreen() {
+       new LSUIWelcomeDialog(this).display();
+    }
 }

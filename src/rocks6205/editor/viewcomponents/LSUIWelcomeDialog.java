@@ -2,6 +2,7 @@ package rocks6205.editor.viewcomponents;
 
 //~--- non-JDK imports --------------------------------------------------------
 
+import rocks6205.editor.events.SVGEditorMenuAction.OpenFileAction;
 import rocks6205.editor.mvc.SVGEditorView;
 
 //~--- JDK imports ------------------------------------------------------------
@@ -13,7 +14,6 @@ import java.awt.Toolkit;
 import javax.swing.GroupLayout;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
-import javax.swing.WindowConstants;
 
 public class LSUIWelcomeDialog extends JDialog {
 
@@ -36,16 +36,23 @@ public class LSUIWelcomeDialog extends JDialog {
      */
     SVGEditorView parentView;
 
+    /*
+     * ACTION COMPONENTS
+     */
+    OpenFileAction openFileAction;
+
     public LSUIWelcomeDialog(SVGEditorView parent) {
         super(parent, "Welcome Screen", true);
         parentView = parent;
         initialise();
         customise();
+        bindEventActions();
     }
 
     private void initialise() {
         setUpProperties();
-        drawPanel = drawNewWelcomePanel();
+        drawPanel      = drawNewWelcomePanel();
+        openFileAction = new OpenFileAction(parentView);
     }
 
     private void setUpProperties() {
@@ -90,4 +97,10 @@ public class LSUIWelcomeDialog extends JDialog {
         drawPanelLayout.setVerticalGroup(drawPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING).addGap(0,
                 height, Short.MAX_VALUE));
     }
+
+    public void display() {
+        setVisible(true);
+    }
+
+    private void bindEventActions() {}
 }
