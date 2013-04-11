@@ -2,8 +2,10 @@ package rocks6205.editor.events;
 
 //~--- non-JDK imports --------------------------------------------------------
 
-import rocks6205.svg.adt.SVGColorScheme;
 import rocks6205.editor.mvc.SVGEditorView;
+
+import rocks6205.svg.adt.SVGColorScheme;
+
 import rocks6205.system.properties.OSValidator;
 
 //~--- JDK imports ------------------------------------------------------------
@@ -19,6 +21,10 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 import javax.swing.filechooser.FileNameExtensionFilter;
+
+import static javax.swing.Action.ACCELERATOR_KEY;
+import static javax.swing.Action.MNEMONIC_KEY;
+import static javax.swing.Action.SHORT_DESCRIPTION;
 
 /**
  * The <code>LSAction</code> is an abstract class which create <code>Action</code>
@@ -70,8 +76,7 @@ public abstract class LSAction extends AbstractAction {
      * @param keyStroke Key action on the keyboard
      * @param parent Parent component
      */
-    public LSAction(String name, String tooltipText, Integer mnemonic, KeyStroke keyStroke,
-                               SVGEditorView parent) {
+    public LSAction(String name, String tooltipText, Integer mnemonic, KeyStroke keyStroke, SVGEditorView parent) {
         putValue(Action.NAME, name);
         putValue(SHORT_DESCRIPTION, tooltipText);
         putValue(MNEMONIC_KEY, mnemonic);
@@ -86,6 +91,135 @@ public abstract class LSAction extends AbstractAction {
 
         return ActionEvent.CTRL_MASK;
     }
+
+    /**
+     * The <code>DrawCircleAction</code> is a class which create an <code>Action</code>
+     * instance. This action handles event by setting the color used for painting shapes
+     *
+     *
+     * @author Sugar CheeSheen Chan
+     *
+     * @since 2.0
+     *
+     */
+    public static class DrawCircleAction extends LSAction {
+        private static final long serialVersionUID = -6578149781110081473L;
+
+        /*
+         * CONSTRUCTOR
+         */
+
+        /**
+         * Construct a <code>DrawCircleAction</code> instance with parent component
+         * <code>parent</code> and no action name. <p>Disabled by default.
+         * @param parent Parent component
+         */
+        public DrawCircleAction(SVGEditorView parent) {
+            super("Draw Circle", KeyEvent.VK_C, KeyStroke.getKeyStroke(KeyEvent.VK_C, getKeyEventMask()), parent);
+            setEnabled(false);
+        }
+
+        /**
+         * Construct a <code>FillAction</code> instance with parent component
+         * <code>parent</code>.
+         * @param parent Parent component
+         * @param actionName Name of action component
+         */
+        public DrawCircleAction(SVGEditorView parent, String actionName) {
+            super(actionName, "Draw Circle", KeyEvent.VK_C, KeyStroke.getKeyStroke(KeyEvent.VK_C, getKeyEventMask()),
+                  parent);
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent event) {}
+    }
+
+
+    /**
+     * The <code>DrawLineAction</code> is a class which create an <code>Action</code>
+     * instance. This action handles event by setting the color used for painting shapes
+     *
+     *
+     * @author Sugar CheeSheen Chan
+     *
+     * @since 2.0
+     *
+     */
+    public static class DrawLineAction extends LSAction {
+        private static final long serialVersionUID = -6578149781110081473L;
+
+        /*
+         * CONSTRUCTOR
+         */
+
+        /**
+         * Construct a <code>DrawLineAction</code> instance with parent component
+         * <code>parent</code> and no action name. <p>Disabled by default.
+         * @param parent Parent component
+         */
+        public DrawLineAction(SVGEditorView parent) {
+            super("Draw Line", KeyEvent.VK_L, KeyStroke.getKeyStroke(KeyEvent.VK_L, getKeyEventMask()), parent);
+            setEnabled(false);
+        }
+
+        /**
+         * Construct a <code>FillAction</code> instance with parent component
+         * <code>parent</code>.
+         * @param parent Parent component
+         * @param actionName Name of action component
+         */
+        public DrawLineAction(SVGEditorView parent, String actionName) {
+            super(actionName, "Draw Line", KeyEvent.VK_L, KeyStroke.getKeyStroke(KeyEvent.VK_L, getKeyEventMask()),
+                  parent);
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent event) {}
+    }
+
+
+    /**
+     * The <code>DrawRectAction</code> is a class which create an <code>Action</code>
+     * instance. This action handles event by setting the color used for painting shapes
+     *
+     *
+     * @author Sugar CheeSheen Chan
+     *
+     * @since 2.0
+     *
+     */
+    public static class DrawRectAction extends LSAction {
+        private static final long serialVersionUID = -6578149781110081473L;
+
+        /*
+         * CONSTRUCTOR
+         */
+
+        /**
+         * Construct a <code>DrawLineAction</code> instance with parent component
+         * <code>parent</code> and no action name. <p>Disabled by default.
+         * @param parent Parent component
+         */
+        public DrawRectAction(SVGEditorView parent) {
+            super("Draw Rect", KeyEvent.VK_R, KeyStroke.getKeyStroke(KeyEvent.VK_R, getKeyEventMask()), parent);
+            setEnabled(false);
+        }
+
+        /**
+         * Construct a <code>FillAction</code> instance with parent component
+         * <code>parent</code>.
+         * @param parent Parent component
+         * @param actionName Name of action component
+         */
+        public DrawRectAction(SVGEditorView parent, String actionName) {
+            super(actionName, "Draw Rect", KeyEvent.VK_R, KeyStroke.getKeyStroke(KeyEvent.VK_R, getKeyEventMask()),
+                  parent);
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent event) {}
+    }
+
 
     /**
      * The <code>ExitAction</code> is a class which create an <code>Action</code>
@@ -128,6 +262,7 @@ public abstract class LSAction extends AbstractAction {
          * <p>Calls a <code>JOptionPane</code> dialog and prompts user to confirm program exit.</p>
          * {@inheritDoc}
          */
+        @Override
         public void actionPerformed(ActionEvent event) {
             int closeCf = JOptionPane.showConfirmDialog(null, "Exit SVG Editor?", "Confirm exit",
                               JOptionPane.WARNING_MESSAGE);
@@ -136,6 +271,96 @@ public abstract class LSAction extends AbstractAction {
                 System.exit(0);
             }
         }
+    }
+
+
+    /**
+     * The <code>FillAction</code> is a class which create an <code>Action</code>
+     * instance. This action handles event by setting the color used for painting shapes
+     *
+     *
+     * @author Sugar CheeSheen Chan
+     *
+     * @since 2.0
+     *
+     */
+    public static class FillAction extends LSAction {
+        private static final long serialVersionUID = -6578149781110081473L;
+        private Color             color;
+        private SVGColorScheme    svgColorScheme;
+
+        /*
+         * CONSTRUCTOR
+         */
+
+        /**
+         * Construct a <code>FillAction</code> instance with parent component
+         * <code>parent</code> and no action name. <p>Disabled by default.
+         * @param parent Parent component
+         */
+        public FillAction(SVGEditorView parent) {
+            super("Fill Color", KeyEvent.VK_F, KeyStroke.getKeyStroke(KeyEvent.VK_F, getKeyEventMask()), parent);
+        }
+
+        /**
+         * Construct a <code>FillAction</code> instance with parent component
+         * <code>parent</code>.
+         * @param parent Parent component
+         * @param actionName Name of action component
+         */
+        public FillAction(SVGEditorView parent, String actionName) {
+            super(actionName, "Fill Color", KeyEvent.VK_F, KeyStroke.getKeyStroke(KeyEvent.VK_F, getKeyEventMask()),
+                  parent);
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent event) {
+            color = JColorChooser.showDialog(super.parent, "Choose a color", color);
+
+            if (color == null) {
+                svgColorScheme = SVGColorScheme.getColorFromKeyword("black");
+            } else {
+                svgColorScheme = new SVGColorScheme(color.getRed(), color.getGreen(), color.getBlue());
+            }
+        }
+    }
+
+
+    /**
+     * The <code>NewDocumentAction</code> is a class which create an <code>Action</code>
+     * instance. This action handles event by creating a new document according to user
+     * settings.
+     * @author Cheow Yeong Chi
+     *
+     * @since 2.2
+     */
+    public static class NewDocumentAction extends LSAction {
+
+        /*
+         * CONSTRUCTOR
+         */
+
+        /**
+         * Construct a <code>NewDocumentAction</code> instance with parent component
+         * <code>parent</code> and no action name.
+         * @param parent Parent component
+         */
+        public NewDocumentAction(SVGEditorView parent) {
+            super("New..", KeyEvent.VK_N, KeyStroke.getKeyStroke(KeyEvent.VK_N, getKeyEventMask()), parent);
+        }
+
+        /**
+         * Construct a <code>NewDocumentAction</code> instance with parent component
+         * <code>parent</code> and action name.
+         * @param parent Parent component
+         * @param actionName Name of action component
+         */
+        public NewDocumentAction(SVGEditorView parent, String actionName) {
+            super(actionName, "New..", KeyEvent.VK_N, KeyStroke.getKeyStroke(KeyEvent.VK_N, getKeyEventMask()), parent);
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {}
     }
 
 
@@ -181,6 +406,7 @@ public abstract class LSAction extends AbstractAction {
          * <p>Calls a <code>JFileChooser</code> dialog and prompts user to select an SVG file.</p>
          * {@inheritDoc}
          */
+        @Override
         public void actionPerformed(ActionEvent event) {
             JFileChooser fileChoooser = new JFileChooser();
 
@@ -191,9 +417,9 @@ public abstract class LSAction extends AbstractAction {
 
             fileChoooser.setFileFilter(extFilter);
 
-//            if (fileChoooser.showOpenDialog(super.parent) == JFileChooser.APPROVE_OPTION) {
-//                super.parent.getController().fileLoad(fileChoooser.getSelectedFile());
-//            }
+//          if (fileChoooser.showOpenDialog(super.parent) == JFileChooser.APPROVE_OPTION) {
+//              super.parent.getController().fileLoad(fileChoooser.getSelectedFile());
+//          }
         }
     }
 
@@ -236,8 +462,9 @@ public abstract class LSAction extends AbstractAction {
 
         /**
          * Construct a <code>ZoomOutViewAction</code> instance with parent component
-         * <code>parent</code> and no action name.
+         * <code>parent</code> and action name.
          * @param parent Parent component
+         * @param actionName Name of action component
          */
         public ZoomInViewAction(SVGEditorView parent, String actionName) {
             super(actionName, "Zoom In", KeyEvent.VK_I, KeyStroke.getKeyStroke(KeyEvent.VK_EQUALS, getKeyEventMask()),
@@ -258,19 +485,10 @@ public abstract class LSAction extends AbstractAction {
          * to be enabled.</p>
          * {@inheritDoc}
          */
-        public void actionPerformed(ActionEvent event) {
-//            SVGImageCanvas.setZoomScale(SVGImageCanvas.getZoomScale() + 1);
-//            super.parent.getModel().render();
-            zoomOutPartnerAction.setEnabled(true);
-//            super.parent.getController().setZoomOut(true);
-
-//            if (SVGImageCanvas.getZoomScale() > 5) {
-//                super.parent.getController().setZoomOut(false);
-//            }
-        }
+        @Override
+        public void actionPerformed(ActionEvent event) {}
     }
-
-
+    
     /**
      * The <code>ZoomOutViewAction</code> is a class which create an <code>Action</code>
      * instance. This action handles event by setting the zoom scale of the canvas view to be
@@ -300,8 +518,9 @@ public abstract class LSAction extends AbstractAction {
 
         /**
          * Construct a <code>ZoomOutViewAction</code> instance with parent component
-         * <code>parent</code> and no action name. <p>Disabled by default.
+         * <code>parent</code> and action name. <p>Disabled by default.
          * @param parent Parent component
+         * @param actionName Name of action component
          */
         public ZoomOutViewAction(SVGEditorView parent, String actionName) {
             super(actionName, "Zoom Out", KeyEvent.VK_O, KeyStroke.getKeyStroke(KeyEvent.VK_MINUS, getKeyEventMask()),
@@ -314,197 +533,7 @@ public abstract class LSAction extends AbstractAction {
          * to be enabled.</p>
          * {@inheritDoc}
          */
-        public void actionPerformed(ActionEvent event) {
-//            SVGImageCanvas.setZoomScale(SVGImageCanvas.getZoomScale() - 1);
-//            super.parent.getModel().render();
-
-//            if (SVGImageCanvas.getZoomScale() < 2) {
-
-                // setEnabled(false);
-//                super.parent.getController().setZoomOut(false);
-//            }
-        }
-    }
-    
-    /**
-     * The <code>FillAction</code> is a class which create an <code>Action</code>
-     * instance. This action handles event by setting the color used for painting shapes
-     * 
-     *
-    * @author Sugar CheeSheen Chan
-     *
-     * @since 1.0
-     *
-     */
-    public static class FillAction extends LSAction {
-        private static final long serialVersionUID = -6578149781110081473L;
-        
-        private Color color;
-        private SVGColorScheme svgColorScheme;
-
-        /*
-         * CONSTRUCTOR
-         */
-
-        /**
-         * Construct a <code>FillAction</code> instance with parent component
-         * <code>parent</code> and no action name. <p>Disabled by default.
-         * @param parent Parent component
-         */
-        public FillAction(SVGEditorView parent) {
-            super("Fill Color", KeyEvent.VK_F, KeyStroke.getKeyStroke(KeyEvent.VK_F, getKeyEventMask()), parent);
-//            setEnabled(false);
-        }
-        /**
-         * Construct a <code>FillAction</code> instance with parent component
-         * <code>parent</code>.
-         * @param parent Parent component
-         * @param actionName Name of action component
-         */
-        public FillAction(SVGEditorView parent, String actionName) {
-            super(actionName, "Fill Color", KeyEvent.VK_F, KeyStroke.getKeyStroke(KeyEvent.VK_F, getKeyEventMask()),
-                  parent);
-        }
-        
-        public void actionPerformed(ActionEvent event) {
-            color = JColorChooser.showDialog( super.parent , "Choose a color", color );
-            
-            if( color == null ) {
-        	svgColorScheme = SVGColorScheme.getColorFromKeyword("black");
-            }else{
-        	svgColorScheme = new SVGColorScheme( color.getRed() , 
-            	    color.getGreen() , color.getBlue() );
-            }
-            //super.parent.getModel().getSVGElement()
-            System.out.println(svgColorScheme);
-        
-        }
-    }
-    
-    /**
-     * The <code>DrawLineAction</code> is a class which create an <code>Action</code>
-     * instance. This action handles event by setting the color used for painting shapes
-     * 
-     *
-    * @author Sugar CheeSheen Chan
-     *
-     * @since 1.0
-     *
-     */
-    public static class DrawLineAction extends LSAction {
-        private static final long serialVersionUID = -6578149781110081473L;
-
-        /*
-         * CONSTRUCTOR
-         */
-
-        /**
-         * Construct a <code>DrawLineAction</code> instance with parent component
-         * <code>parent</code> and no action name. <p>Disabled by default.
-         * @param parent Parent component
-         */
-        public DrawLineAction(SVGEditorView parent) {
-            super("Draw Line", KeyEvent.VK_L, KeyStroke.getKeyStroke(KeyEvent.VK_L, getKeyEventMask()), parent);
-            setEnabled(false);
-        }
-        /**
-         * Construct a <code>FillAction</code> instance with parent component
-         * <code>parent</code>.
-         * @param parent Parent component
-         * @param actionName Name of action component
-         */
-        public DrawLineAction(SVGEditorView parent, String actionName) {
-            super(actionName, "Draw Line", KeyEvent.VK_L, KeyStroke.getKeyStroke(KeyEvent.VK_L, getKeyEventMask()),
-                  parent);
-        }
-        
-        public void actionPerformed(ActionEvent event) {
-            
-        
-        }
-    }
-    
-    /**
-     * The <code>DrawRectAction</code> is a class which create an <code>Action</code>
-     * instance. This action handles event by setting the color used for painting shapes
-     * 
-     *
-    * @author Sugar CheeSheen Chan
-     *
-     * @since 1.0
-     *
-     */
-    public static class DrawRectAction extends LSAction {
-        private static final long serialVersionUID = -6578149781110081473L;
-
-        /*
-         * CONSTRUCTOR
-         */
-
-        /**
-         * Construct a <code>DrawLineAction</code> instance with parent component
-         * <code>parent</code> and no action name. <p>Disabled by default.
-         * @param parent Parent component
-         */
-        public DrawRectAction(SVGEditorView parent) {
-            super("Draw Rect", KeyEvent.VK_R, KeyStroke.getKeyStroke(KeyEvent.VK_R, getKeyEventMask()), parent);
-            setEnabled(false);
-        }
-        /**
-         * Construct a <code>FillAction</code> instance with parent component
-         * <code>parent</code>.
-         * @param parent Parent component
-         * @param actionName Name of action component
-         */
-        public DrawRectAction(SVGEditorView parent, String actionName) {
-            super(actionName, "Draw Rect", KeyEvent.VK_R, KeyStroke.getKeyStroke(KeyEvent.VK_R, getKeyEventMask()),
-                  parent);
-        }
-        
-        public void actionPerformed(ActionEvent event) {
-            
-        
-        }
-    }
-    
-    /**
-     * The <code>DrawCircleAction</code> is a class which create an <code>Action</code>
-     * instance. This action handles event by setting the color used for painting shapes
-     * 
-     *
-    * @author Sugar CheeSheen Chan
-     *
-     * @since 1.0
-     *
-     */
-    public static class DrawCircleAction extends LSAction {
-        private static final long serialVersionUID = -6578149781110081473L;
-
-        /*
-         * CONSTRUCTOR
-         */
-
-        /**
-         * Construct a <code>DrawCircleAction</code> instance with parent component
-         * <code>parent</code> and no action name. <p>Disabled by default.
-         * @param parent Parent component
-         */
-        public DrawCircleAction(SVGEditorView parent) {
-            super("Draw Circle", KeyEvent.VK_C, KeyStroke.getKeyStroke(KeyEvent.VK_C, getKeyEventMask()), parent);
-            setEnabled(false);
-        }
-        /**
-         * Construct a <code>FillAction</code> instance with parent component
-         * <code>parent</code>.
-         * @param parent Parent component
-         * @param actionName Name of action component
-         */
-        public DrawCircleAction(SVGEditorView parent, String actionName) {
-            super(actionName, "Draw Circle", KeyEvent.VK_C, KeyStroke.getKeyStroke(KeyEvent.VK_C, getKeyEventMask()),
-                  parent);
-        }
-        
-        public void actionPerformed(ActionEvent event) {
-        }
+        @Override
+        public void actionPerformed(ActionEvent event) {}
     }
 }
