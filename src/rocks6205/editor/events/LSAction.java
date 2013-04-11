@@ -12,6 +12,7 @@ import rocks6205.system.properties.OSValidator;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
+import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 
 import javax.swing.AbstractAction;
@@ -91,6 +92,87 @@ public abstract class LSAction extends AbstractAction {
 
         return ActionEvent.CTRL_MASK;
     }
+
+     /**
+     * The <code>DeleteAction</code> is a class which create an <code>Action</code>
+     * instance. This action handles event by removing elements from the model.
+     *
+     * @author Cheow Yeong Chi
+     *
+     * @since 2.2
+     *
+     */
+    public static class DeleteAction extends LSAction {
+
+        /*
+         * CONSTRUCTOR
+         */
+
+        /**
+         * Construct a <code>DeleteAction</code> instance with parent component
+         * <code>parent</code> and no action name.
+         * @param parent Parent component
+         */
+        public DeleteAction(SVGEditorView parent) {
+            super("Delete", KeyEvent.VK_E, KeyStroke.getKeyStroke(KeyEvent.VK_DELETE, 0), parent);
+        }
+
+        /**
+         * Construct a <code>DeleteAction</code> instance with parent component
+         * <code>parent</code> and action name.
+         * @param parent Parent component
+         * @param actionName Name of action component
+         */
+        public DeleteAction(SVGEditorView parent, String actionName) {
+            super(actionName, "Delete", KeyEvent.VK_E, KeyStroke.getKeyStroke(KeyEvent.VK_DELETE, 0), parent);
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {}
+    }
+
+
+    /**
+     * The <code>DeselectAllAction</code> is a class which create an <code>Action</code>
+     * instance. This action handles event by removing every element on view from selection
+     * set.
+     *
+     * @author Cheow Yeong Chi
+     *
+     * @since 2.2
+     *
+     */
+    public static class DeselectAllAction extends LSAction {
+
+        /*
+         * CONSTRUCTOR
+         */
+
+        /**
+         * Construct a <code>DeselectAllAction</code> instance with parent component
+         * <code>parent</code> and no action name.
+         * @param parent Parent component
+         */
+        public DeselectAllAction(SVGEditorView parent) {
+            super("Deselect All", KeyEvent.VK_D,
+                  KeyStroke.getKeyStroke(KeyEvent.VK_A, getKeyEventMask() + InputEvent.SHIFT_DOWN_MASK), parent);
+        }
+
+        /**
+         * Construct a <code>DeselectAllAction</code> instance with parent component
+         * <code>parent</code> and action name.
+         * @param parent Parent component
+         * @param actionName Name of action component
+         */
+        public DeselectAllAction(SVGEditorView parent, String actionName) {
+            super(actionName, "Deselect All", KeyEvent.VK_D,
+                  KeyStroke.getKeyStroke(KeyEvent.VK_A, getKeyEventMask() + InputEvent.SHIFT_DOWN_MASK), parent);
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {}
+    }
+
 
     /**
      * The <code>DrawCircleAction</code> is a class which create an <code>Action</code>
@@ -327,6 +409,44 @@ public abstract class LSAction extends AbstractAction {
 
 
     /**
+     * The <code>GroupAction</code> is a class which create an <code>Action</code>
+     * instance. This action handles event by grouping elements in selection.
+     *
+     * @author Cheow Yeong Chi
+     *
+     * @since 2.2
+     */
+    public static class GroupAction extends LSAction {
+
+        /*
+         * CONSTRUCTOR
+         */
+
+        /**
+         * Construct a <code>GroupAction</code> instance with parent component
+         * <code>parent</code> and no action name.
+         * @param parent Parent component
+         */
+        public GroupAction(SVGEditorView parent) {
+            super("Group", KeyEvent.VK_G, KeyStroke.getKeyStroke(KeyEvent.VK_G, getKeyEventMask()), parent);
+        }
+
+        /**
+         * Construct a <code>GroupAction</code> instance with parent component
+         * <code>parent</code> and action name.
+         * @param parent Parent component
+         * @param actionName Name of action component
+         */
+        public GroupAction(SVGEditorView parent, String actionName) {
+            super(actionName, "Group", KeyEvent.VK_G, KeyStroke.getKeyStroke(KeyEvent.VK_G, getKeyEventMask()), parent);
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {}
+    }
+
+
+    /**
      * The <code>NewDocumentAction</code> is a class which create an <code>Action</code>
      * instance. This action handles event by creating a new document according to user
      * settings.
@@ -362,8 +482,7 @@ public abstract class LSAction extends AbstractAction {
         @Override
         public void actionPerformed(ActionEvent e) {}
     }
-
-
+    
     /**
      * The <code>OpenFileAction</code> is a class which create an <code>Action</code>
      * instance. This action handles event by prompting user to select an SVG document
@@ -421,6 +540,169 @@ public abstract class LSAction extends AbstractAction {
 //              super.parent.getController().fileLoad(fileChoooser.getSelectedFile());
 //          }
         }
+    }
+
+
+    /**
+     * The <code>SaveFileAction</code> is a class which create an <code>Action</code>
+     * instance. This action handles event by saving the current file as it is on the
+     * user view.
+     *
+     * @author Cheow Yeong Chi
+     *
+     * @since 2.2
+     *
+     */
+    public static class SaveFileAction extends LSAction {
+
+        /*
+         * CONSTRUCTOR
+         */
+
+        /**
+         * Construct a <code>SaveFileAction</code> instance with parent component
+         * <code>parent</code> and no action name.
+         * @param parent Parent component
+         */
+        public SaveFileAction(SVGEditorView parent) {
+            super("Save", KeyEvent.VK_S, KeyStroke.getKeyStroke(KeyEvent.VK_S, getKeyEventMask()), parent);
+        }
+
+        /**
+         * Construct a <code>SaveFileAction</code> instance with parent component
+         * <code>parent</code> and action name.
+         * @param parent Parent component
+         * @param actionName Name of action component
+         */
+        public SaveFileAction(SVGEditorView parent, String actionName) {
+            super(actionName, "Save", KeyEvent.VK_S, KeyStroke.getKeyStroke(KeyEvent.VK_S, getKeyEventMask()), parent);
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {}
+    }
+
+
+    /**
+     * The <code>SaveFileAsAction</code> is a class which create an <code>Action</code>
+     * instance. This action handles event by saving the file as it is on the
+     * user view as some other file other than the currently editing file.
+     *
+     * @author Cheow Yeong Chi
+     *
+     * @since 2.2
+     *
+     */
+    public static class SaveFileAsAction extends LSAction {
+
+        /*
+         * CONSTRUCTOR
+         */
+
+        /**
+         * Construct a <code>SaveFileAsAction</code> instance with parent component
+         * <code>parent</code> and no action name.
+         * @param parent Parent component
+         */
+        public SaveFileAsAction(SVGEditorView parent) {
+            super("Save As", KeyEvent.VK_A,
+                  KeyStroke.getKeyStroke(KeyEvent.VK_S, getKeyEventMask() + InputEvent.SHIFT_DOWN_MASK), parent);
+        }
+
+        /**
+         * Construct a <code>SaveFileAsAction</code> instance with parent component
+         * <code>parent</code> and action name.
+         * @param parent Parent component
+         * @param actionName Name of action component
+         */
+        public SaveFileAsAction(SVGEditorView parent, String actionName) {
+            super(actionName, "Save As", KeyEvent.VK_A,
+                  KeyStroke.getKeyStroke(KeyEvent.VK_S, getKeyEventMask() + InputEvent.SHIFT_DOWN_MASK), parent);
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {}
+    }
+
+
+    /**
+     * The <code>SelectAllAction</code> is a class which create an <code>Action</code>
+     * instance. This action handles event by adding every element on view into selection
+     * set.
+     *
+     * @author Cheow Yeong Chi
+     *
+     * @since 2.2
+     *
+     */
+    public static class SelectAllAction extends LSAction {
+
+        /*
+         * CONSTRUCTOR
+         */
+
+        /**
+         * Construct a <code>SelectAllAction</code> instance with parent component
+         * <code>parent</code> and no action name.
+         * @param parent Parent component
+         */
+        public SelectAllAction(SVGEditorView parent) {
+            super("Select All", KeyEvent.VK_A, KeyStroke.getKeyStroke(KeyEvent.VK_A, getKeyEventMask()), parent);
+        }
+
+        /**
+         * Construct a <code>SelectAllAction</code> instance with parent component
+         * <code>parent</code> and action name.
+         * @param parent Parent component
+         * @param actionName Name of action component
+         */
+        public SelectAllAction(SVGEditorView parent, String actionName) {
+            super(actionName, "Select All", KeyEvent.VK_A, KeyStroke.getKeyStroke(KeyEvent.VK_A, getKeyEventMask()),
+                  parent);
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {}
+    }
+
+
+    /**
+     * The <code>UngroupAction</code> is a class which create an <code>Action</code>
+     * instance. This action handles event by grouping elements in selection.
+     *
+     * @author Cheow Yeong Chi
+     *
+     * @since 2.2
+     */
+    public static class UngroupAction extends LSAction {
+
+        /*
+         * CONSTRUCTOR
+         */
+
+        /**
+         * Construct a <code>UngroupAction</code> instance with parent component
+         * <code>parent</code> and no action name.
+         * @param parent Parent component
+         */
+        public UngroupAction(SVGEditorView parent) {
+            super("Ungroup", KeyEvent.VK_U,
+                  KeyStroke.getKeyStroke(KeyEvent.VK_G, getKeyEventMask() + InputEvent.SHIFT_DOWN_MASK), parent);
+        }
+
+        /**
+         * Construct a <code>UngroupAction</code> instance with parent component
+         * <code>parent</code> and action name.
+         * @param parent Parent component
+         * @param actionName Name of action component
+         */
+        public UngroupAction(SVGEditorView parent, String actionName) {
+            super(actionName, "Ungroup", KeyEvent.VK_U,
+                  KeyStroke.getKeyStroke(KeyEvent.VK_G, getKeyEventMask() + InputEvent.SHIFT_DOWN_MASK), parent);
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {}
     }
 
 
@@ -488,7 +770,8 @@ public abstract class LSAction extends AbstractAction {
         @Override
         public void actionPerformed(ActionEvent event) {}
     }
-    
+
+
     /**
      * The <code>ZoomOutViewAction</code> is a class which create an <code>Action</code>
      * instance. This action handles event by setting the zoom scale of the canvas view to be
@@ -537,3 +820,6 @@ public abstract class LSAction extends AbstractAction {
         public void actionPerformed(ActionEvent event) {}
     }
 }
+
+
+//~ Formatted by Jindent --- http://www.jindent.com
