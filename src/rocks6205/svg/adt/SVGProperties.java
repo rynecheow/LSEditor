@@ -16,10 +16,8 @@ public class SVGProperties {
     private final SVGStyleSet mSVGStyleSet;
     private final Attributes mAttributes;
     private final SVGProperties mParentSVGProperties;
-
-    // ===========================================================
+ 
     // Constructors
-    // ===========================================================
 
     public SVGProperties(final Attributes pAttributes, final SVGProperties pParentSVGProperties) {
             this.mAttributes = pAttributes;
@@ -32,17 +30,7 @@ public class SVGProperties {
             }
     }
 
-    // ===========================================================
     // Getter & Setter
-    // ===========================================================
-
-    // ===========================================================
-    // Methods for/from SuperClass/Interfaces
-    // ===========================================================
-
-    // ===========================================================
-    // Methods
-    // ===========================================================
 
     public String getStringProperty(final String pPropertyName) {
             String s = null;
