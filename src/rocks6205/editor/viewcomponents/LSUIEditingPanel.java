@@ -5,12 +5,13 @@ package rocks6205.editor.viewcomponents;
 import rocks6205.svg.adt.SVGLengthUnit;
 import rocks6205.svg.adt.SVGLengthUnitType;
 import rocks6205.svg.adt.SVGPainting;
-import rocks6205.svg.editor.events.SVGEditPanMouseAdaptor;
-import rocks6205.svg.editor.events.SVGEditorDrawMouseAdaptor;
+//import rocks6205.svg.editor.events.SVGEditPanMouseAdaptor;
+//import rocks6205.svg.editor.events.SVGEditorDrawMouseAdaptor;
 import rocks6205.svg.elements.SVGCircleElement;
 import rocks6205.svg.elements.SVGGenericElement;
 import rocks6205.svg.elements.SVGLineElement;
 import rocks6205.svg.elements.SVGRectElement;
+import rocks6205.editor.events.SVGEditorDrawMouseAdaptor;
 import rocks6205.editor.mvc.SVGEditorView;
 import rocks6205.editor.mvc.SVGEditorViewController;
 
@@ -61,7 +62,22 @@ public final class LSUIEditingPanel extends JPanel {
      *
      */
     private enum EditModeScheme {
-        MODE_PAN, MODE_SELECT, MODE_MOVE, MODE_RESIZE, DRAW_RECTANGLE, DRAW_CIRCLE, DRAW_LINE
+        MODE_PAN("pan"), MODE_SELECT("select"), MODE_MOVE("move"), MODE_RESIZE("resize"), 
+        DRAW_RECTANGLE("drawRect") , DRAW_CIRCLE("drawCircle"), DRAW_LINE("drawLine");
+        
+        private String string;
+        
+        /*
+         * CONSTRUCTOR
+         */
+
+        /**
+         * 
+         * @param string
+         */
+        EditModeScheme( String string ) {
+            this.string = string;
+        }
     }
 
     /**
@@ -127,6 +143,10 @@ public final class LSUIEditingPanel extends JPanel {
         }
 
         setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
+    }
+    
+    public String getEditMode() {
+	return editingMode.toString();
     }
 
     public void setSelections(ArrayList<SVGGenericElement> selections) {

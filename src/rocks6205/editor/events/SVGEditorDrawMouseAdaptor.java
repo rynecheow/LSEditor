@@ -6,6 +6,8 @@ import rocks6205.editor.viewcomponents.LSUIEditingPanel;
 
 //~--- JDK imports ------------------------------------------------------------
 
+import java.awt.Cursor;
+import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -39,7 +41,13 @@ public class SVGEditorDrawMouseAdaptor extends MouseAdapter {
      */
     public void mouseReleased(MouseEvent event) {
         LSUIEditingPanel editor = (LSUIEditingPanel) event.getSource();
-
+        if( editor.getEditMode().equals("drawRect") ) {
+            editor.repaint();
+        }else if( editor.getEditMode().equals("drawCircle") ) {
+            editor.repaint();
+        }else if( editor.getEditMode().equals("drawLine") ) {
+            editor.repaint();
+        }
         System.out.printf("Released at x:%d y:%d", event.getX(), event.getY());
     }
 
@@ -49,7 +57,35 @@ public class SVGEditorDrawMouseAdaptor extends MouseAdapter {
      */
     public void mouseDragged(MouseEvent event) {
         LSUIEditingPanel editor = (LSUIEditingPanel) event.getSource();
+        int points = 0;
+        Point pointsArray[] = new Point[ 10000 ];
+        
+        if ( points < pointsArray.length ) {
+           pointsArray[ points ] = event.getPoint();
+           points++;
+           editor.repaint();
+        }
 
         System.out.printf("Dragged at x:%d y:%d", event.getX(), event.getY());
+    }
+    
+    /**
+     * {@inheritDoc}<p>
+     *
+     */
+    public void mouseEntered(MouseEvent event) {
+        LSUIEditingPanel editor = (LSUIEditingPanel) event.getSource();
+        editor.setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
+        System.out.printf("Dragged at x:%d y:%d", event.getX(), event.getY());
+    }
+    
+    /**
+     * {@inheritDoc}<p>
+     *
+     */
+    public void mouseExit(MouseEvent event) {
+        LSUIEditingPanel editor = (LSUIEditingPanel) event.getSource();
+
+        editor.setCursor(Cursor.getDefaultCursor());
     }
 }

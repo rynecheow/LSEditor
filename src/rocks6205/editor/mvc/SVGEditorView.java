@@ -68,7 +68,7 @@ public final class SVGEditorView extends JFrame implements LSUIProtocol {
     public SVGEditorView() {
         super();
         initialise();
-        customise();
+        //customise();
         showWelcomeScreen();
     }
 
