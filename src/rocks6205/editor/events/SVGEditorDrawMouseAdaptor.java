@@ -6,7 +6,10 @@ import rocks6205.editor.viewcomponents.LSUIEditingPanel;
 
 //~--- JDK imports ------------------------------------------------------------
 
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+
+import javax.swing.JComponent;
 
 /**
  *
@@ -18,7 +21,7 @@ import java.awt.event.MouseEvent;
  * @since 2.1
  *
  */
-public class SVGEditorDrawMouseAdaptor {
+public class SVGEditorDrawMouseAdaptor extends MouseAdapter {
 
     /**
      * {@inheritDoc}<p>

@@ -5,6 +5,8 @@ package rocks6205.editor.viewcomponents;
 import rocks6205.svg.adt.SVGLengthUnit;
 import rocks6205.svg.adt.SVGLengthUnitType;
 import rocks6205.svg.adt.SVGPainting;
+import rocks6205.svg.editor.events.SVGEditPanMouseAdaptor;
+import rocks6205.svg.editor.events.SVGEditorDrawMouseAdaptor;
 import rocks6205.svg.elements.SVGCircleElement;
 import rocks6205.svg.elements.SVGGenericElement;
 import rocks6205.svg.elements.SVGLineElement;
@@ -51,6 +53,9 @@ public final class LSUIEditingPanel extends JPanel {
     private ArrayList<Rectangle2D.Float> resizeHandlers;
     private Rectangle2D.Float            activeResizeHandler;
     private EditModeScheme               editingMode;
+    
+    
+    private SVGEditorDrawMouseAdaptor drawListener;
 
     /**
      *
@@ -76,6 +81,8 @@ public final class LSUIEditingPanel extends JPanel {
         viewArea = new LSCanvasViewport(view);
         add(viewArea);
         setAutoscrolls(true);
+        drawListener = new SVGEditorDrawMouseAdaptor();
+        scribbleArea.addMouseListener(drawListener);
     }
 
     public void setFill(SVGPainting fill) {
