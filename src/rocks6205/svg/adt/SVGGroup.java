@@ -5,6 +5,7 @@ package rocks6205.svg.adt;
 
 /**
  * @author Komalah
+ * This class is under modification..
  *
  */
 public class SVGGroup {
