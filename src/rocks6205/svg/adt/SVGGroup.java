@@ -1,5 +1,6 @@
+
 /**
- * 
+ *
  */
 package rocks6205.svg.adt;
 
@@ -9,29 +10,21 @@ package rocks6205.svg.adt;
  *
  */
 public class SVGGroup {
-    
     private final SVGProperties mSVGProperties;
-    private final boolean mHasTransform;
+    private final boolean       mHasTransform;
 
- 
     // Constructors
-
-
     public SVGGroup(final SVGProperties pSVGProperties, final boolean pHasTransform) {
-            this.mSVGProperties = pSVGProperties;
-            this.mHasTransform = pHasTransform;
+        this.mSVGProperties = pSVGProperties;
+        this.mHasTransform  = pHasTransform;
     }
 
-
     // Getter & Setter
-   
-
     public boolean hasTransform() {
-            return this.mHasTransform;
+        return this.mHasTransform;
     }
 
     public SVGProperties getSVGProperties() {
-            return this.mSVGProperties;
+        return this.mSVGProperties;
     }
-
 }
