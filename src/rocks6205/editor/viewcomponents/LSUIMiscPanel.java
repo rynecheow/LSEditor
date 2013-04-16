@@ -4,8 +4,11 @@ package rocks6205.editor.viewcomponents;
 
 import rocks6205.editor.mvc.SVGEditorView;
 
+import rocks6205.system.properties.SVGEditorTheme;
+
 //~--- JDK imports ------------------------------------------------------------
 
+import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
 /**
@@ -30,5 +33,7 @@ public final class LSUIMiscPanel extends JPanel implements LSUIProtocol {
     public void initialise() {}
 
     @Override
-    public void customise() {}
+    public void customise() {
+        setBorder(SVGEditorTheme.MASTER_DEFAULT_PANEL_BORDER);
+    }
 }

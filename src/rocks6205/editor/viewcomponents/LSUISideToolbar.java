@@ -5,8 +5,11 @@ package rocks6205.editor.viewcomponents;
 import rocks6205.editor.events.LSAction.FillAction;
 import rocks6205.editor.mvc.SVGEditorView;
 
+import rocks6205.system.properties.SVGEditorTheme;
+
 //~--- JDK imports ------------------------------------------------------------
 
+import javax.swing.BorderFactory;
 import javax.swing.JToolBar;
 import javax.swing.SwingConstants;
 
@@ -68,6 +71,7 @@ public final class LSUISideToolbar extends JToolBar implements LSUIProtocol {
         setFloatable(false);
         setRollover(true);
         setOrientation(SwingConstants.VERTICAL);
+        setBorder(SVGEditorTheme.MASTER_DEFAULT_PANEL_BORDER);
     }
 
     private void setParentView(SVGEditorView parent) {

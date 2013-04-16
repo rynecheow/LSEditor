@@ -2,6 +2,7 @@ package rocks6205.editor.viewcomponents;
 
 //~--- non-JDK imports --------------------------------------------------------
 
+import javax.swing.BorderFactory;
 import rocks6205.editor.events.LSAction.OpenFileAction;
 import rocks6205.editor.events.LSAction.ZoomInViewAction;
 import rocks6205.editor.events.LSAction.ZoomOutViewAction;
@@ -10,6 +11,7 @@ import rocks6205.editor.mvc.SVGEditorView;
 //~--- JDK imports ------------------------------------------------------------
 
 import javax.swing.JToolBar;
+import rocks6205.system.properties.SVGEditorTheme;
 
 /**
  *
@@ -66,6 +68,7 @@ public final class LSUITopToolbar extends JToolBar implements LSUIProtocol {
         setIconsForButtons();
         setFloatable(false);
         setRollover(true);
+        setBorder(SVGEditorTheme.MASTER_DEFAULT_PANEL_BORDER);
     }
 
     private void setParentView(SVGEditorView parent) {

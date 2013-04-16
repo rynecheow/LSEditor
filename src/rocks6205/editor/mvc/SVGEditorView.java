@@ -14,24 +14,18 @@ import rocks6205.editor.viewcomponents.LSUITopToolbar;
 import rocks6205.editor.viewcomponents.LSUIWelcomeDialog;
 
 import rocks6205.system.properties.OSValidator;
+import rocks6205.system.properties.SVGEditorTheme;
 
 //~--- JDK imports ------------------------------------------------------------
 
-import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
-import javax.swing.SwingConstants;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.WindowConstants;
 
 /**
@@ -123,6 +117,7 @@ public final class SVGEditorView extends JFrame implements LSUIProtocol {
      */
     @Override
     public void customise() {
+        layoutChildComponents();
         layoutFrame();
         setClosingEvent();
     }
@@ -194,33 +189,35 @@ public final class SVGEditorView extends JFrame implements LSUIProtocol {
     }
 
     public void layoutFrame() {
-        int margin = OSValidator.isMac() ? -21 : 0;
+        int margin = OSValidator.isMac()
+                     ? -21
+                     : 0;
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setMaximumSize(new Dimension(1180, 830 + margin));
         setMinimumSize(new Dimension(1180, 830 + margin));
-        topBar.setBackground(new Color(0, 51, 51));
-        sideBar.setBackground(new Color(51, 51, 51));
-        statusPanel.setBackground(new Color(0, 0, 51));
-        navPanel.setBackground(new Color(0, 51, 0));
-        miscPanel.setBackground(new Color(51, 0, 0));
-        c.setLayout(null);
+        setLayout(null);
         c.add(topBar);
-        topBar.setBounds(0, 0, 1180, 35);
         c.add(sideBar);
-        sideBar.setBounds(0, 35, 35, 760);
         c.add(statusPanel);
-        statusPanel.setBounds(35, 35, 920, 20);
         c.add(navPanel);
-        navPanel.setBounds(955, 35, 225, 752);
         c.add(miscPanel);
-        miscPanel.setBounds(35, 555 + 81, 920, 151);
         c.add(scrollPane);
-        scrollPane.setBounds(35, 55, 920, 581);
         setJMenuBar(menuBar);
-        scrollPane.setViewportView(editPanel);
         pack();
     }
 
-    public void layoutChildComponents() {}
+    public void layoutChildComponents() {
+        scrollPane.setViewportView(editPanel);
+        topBar.setBounds(0, 0, 1180, 35);
+        sideBar.setBounds(0, 35, 35, 760);
+        statusPanel.setBounds(35, 35, 920, 20);
+        navPanel.setBounds(955, 35, 225, 752);
+        miscPanel.setBounds(35, 555 + 81, 920, 151);
+        scrollPane.setBounds(35, 55, 920, 582);
+        topBar.setBackground(SVGEditorTheme.MASTER_DEFAULT_BACKGROUND_COLOR);
+        sideBar.setBackground(SVGEditorTheme.MASTER_DEFAULT_BACKGROUND_COLOR);
+        navPanel.setBackground(SVGEditorTheme.MASTER_DEFAULT_BACKGROUND_COLOR);
+        miscPanel.setBackground(SVGEditorTheme.MASTER_DEFAULT_BACKGROUND_COLOR);
+    }
 }

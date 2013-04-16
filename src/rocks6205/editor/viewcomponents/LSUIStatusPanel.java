@@ -2,6 +2,7 @@ package rocks6205.editor.viewcomponents;
 
 //~--- non-JDK imports --------------------------------------------------------
 
+import java.awt.Color;
 import rocks6205.editor.mvc.SVGEditorView;
 
 //~--- JDK imports ------------------------------------------------------------
@@ -30,5 +31,7 @@ public final class LSUIStatusPanel extends JPanel implements LSUIProtocol {
     public void initialise() {}
 
     @Override
-    public void customise() {}
+    public void customise() {
+        setBackground(new Color(0x2e2c2c));
+    }
 }
