@@ -85,7 +85,7 @@ public abstract class LSAction extends AbstractAction {
         this.parent = parent;
     }
 
-    public static int getKeyEventMask() {
+    private static int getKeyEventMask() {
         if (OSValidator.isMac()) {
             return ActionEvent.META_MASK;
         }

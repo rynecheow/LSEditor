@@ -8,6 +8,7 @@ import rocks6205.editor.mvc.SVGEditorView;
 //~--- JDK imports ------------------------------------------------------------
 
 import javax.swing.JToolBar;
+import javax.swing.SwingConstants;
 
 /**
  *
@@ -15,7 +16,7 @@ import javax.swing.JToolBar;
  *
  * @since 2.2
  */
-public final class LSUIBottomToolbar extends JToolBar implements LSUIProtocol {
+public final class LSUISideToolbar extends JToolBar implements LSUIProtocol {
 
     /*
      * PARENT COMPONENT
@@ -39,9 +40,11 @@ public final class LSUIBottomToolbar extends JToolBar implements LSUIProtocol {
      */
     private FillAction fillAction;
 
-    public LSUIBottomToolbar(String name, SVGEditorView parent) {
+    public LSUISideToolbar(String name, SVGEditorView parent) {
         super(name);
         setParentView(parent);
+        initialise();
+        customise();
     }
 
     @Override
@@ -62,6 +65,9 @@ public final class LSUIBottomToolbar extends JToolBar implements LSUIProtocol {
         layoutView();
         setActionForButtons();
         setIconsForButtons();
+        setFloatable(false);
+        setRollover(true);
+        setOrientation(SwingConstants.VERTICAL);
     }
 
     private void setParentView(SVGEditorView parent) {
@@ -113,9 +119,12 @@ public final class LSUIBottomToolbar extends JToolBar implements LSUIProtocol {
         add(insertRectButton);
         add(insertCircButton);
         add(insertLineButton);
+        addSeparator();
         add(fillButton);
         add(strokeButton);
+        addSeparator();
         add(strokeWidthButton);
+        addSeparator();
         add(groupButton);
         add(ungroupButton);
     }

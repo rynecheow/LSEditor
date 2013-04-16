@@ -43,6 +43,8 @@ public final class LSUITopToolbar extends JToolBar implements LSUIProtocol {
     public LSUITopToolbar(String name, SVGEditorView parent) {
         super(name);
         setParentView(parent);
+        initialise();
+        customise();
     }
 
     @Override
@@ -62,6 +64,8 @@ public final class LSUITopToolbar extends JToolBar implements LSUIProtocol {
         layoutView();
         setActionForButtons();
         setIconsForButtons();
+        setFloatable(false);
+        setRollover(true);
     }
 
     private void setParentView(SVGEditorView parent) {
@@ -132,6 +136,7 @@ public final class LSUITopToolbar extends JToolBar implements LSUIProtocol {
         add(newButton);
         add(openButton);
         add(saveButton);
+        addSeparator();
         add(zoomInButton);
         add(zoomOutButton);
     }

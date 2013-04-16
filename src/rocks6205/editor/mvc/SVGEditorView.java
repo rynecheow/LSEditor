@@ -2,19 +2,37 @@ package rocks6205.editor.mvc;
 
 //~--- non-JDK imports --------------------------------------------------------
 
+import rocks6205.editor.viewcomponents.LSUIEditingPanel;
+import rocks6205.editor.viewcomponents.LSUIMenubar;
+import rocks6205.editor.viewcomponents.LSUIMiscPanel;
+import rocks6205.editor.viewcomponents.LSUINavigationPanel;
 import rocks6205.editor.viewcomponents.LSUIProtocol;
 import rocks6205.editor.viewcomponents.LSUIRGBColorChooserPanel;
+import rocks6205.editor.viewcomponents.LSUISideToolbar;
+import rocks6205.editor.viewcomponents.LSUIStatusPanel;
+import rocks6205.editor.viewcomponents.LSUITopToolbar;
 import rocks6205.editor.viewcomponents.LSUIWelcomeDialog;
+
+import rocks6205.system.properties.OSValidator;
 
 //~--- JDK imports ------------------------------------------------------------
 
+import java.awt.Color;
+import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import rocks6205.editor.viewcomponents.LSUIBottomToolbar;
-import rocks6205.editor.viewcomponents.LSUITopToolbar;
+import javax.swing.JScrollPane;
+import javax.swing.SwingConstants;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.WindowConstants;
 
 /**
  * A class defining how the main user interface should look like.
@@ -27,6 +45,11 @@ import rocks6205.editor.viewcomponents.LSUITopToolbar;
  */
 public final class SVGEditorView extends JFrame implements LSUIProtocol {
     private static final long serialVersionUID = 6764861773639452353L;
+
+    /*
+     * GUI COMPONENTS
+     */
+    private Container c = getContentPane();
 
     /*
      * PROPERTIES
@@ -46,9 +69,16 @@ public final class SVGEditorView extends JFrame implements LSUIProtocol {
     /*
      * GUI COMPONENTS
      */
+    private JScrollPane              scrollPane;
+    private LSUIEditingPanel         editPanel;
+    private LSUIMenubar              menuBar;
     private LSUIRGBColorChooserPanel colorChooserPanel;
-    private LSUITopToolbar topToolbar;
-    private LSUIBottomToolbar btmToolbar;
+    private LSUITopToolbar           topBar;
+    private LSUISideToolbar          sideBar;
+    private LSUIStatusPanel          statusPanel;
+    private LSUINavigationPanel      navPanel;
+    private LSUIMiscPanel            miscPanel;
+
     /*
      * ACTION COMPONENTS
      */
@@ -68,8 +98,9 @@ public final class SVGEditorView extends JFrame implements LSUIProtocol {
     public SVGEditorView() {
         super();
         initialise();
-        //customise();
-        showWelcomeScreen();
+        customise();
+
+//      showWelcomeScreen();
     }
 
     /**
@@ -77,9 +108,14 @@ public final class SVGEditorView extends JFrame implements LSUIProtocol {
      */
     @Override
     public void initialise() {
+        menuBar           = new LSUIMenubar(this);
         colorChooserPanel = new LSUIRGBColorChooserPanel(this);
-        topToolbar = new LSUITopToolbar("Editing Tools",this);
-        btmToolbar = new LSUIBottomToolbar("Selection Tools",this);
+        topBar            = new LSUITopToolbar("Editing Tools", this);
+        sideBar           = new LSUISideToolbar("Selection Tools", this);
+        statusPanel       = new LSUIStatusPanel(this);
+        navPanel          = new LSUINavigationPanel(this);
+        miscPanel         = new LSUIMiscPanel(this);
+        scrollPane        = new JScrollPane();
     }
 
     /**
@@ -88,6 +124,7 @@ public final class SVGEditorView extends JFrame implements LSUIProtocol {
     @Override
     public void customise() {
         layoutFrame();
+        setClosingEvent();
     }
 
     /**
@@ -157,10 +194,33 @@ public final class SVGEditorView extends JFrame implements LSUIProtocol {
     }
 
     public void layoutFrame() {
-        throw new UnsupportedOperationException("Not supported yet.");    // To change body of generated methods, choose Tools | Templates.
+        int margin = OSValidator.isMac() ? -21 : 0;
+
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setMaximumSize(new Dimension(1180, 830 + margin));
+        setMinimumSize(new Dimension(1180, 830 + margin));
+        topBar.setBackground(new Color(0, 51, 51));
+        sideBar.setBackground(new Color(51, 51, 51));
+        statusPanel.setBackground(new Color(0, 0, 51));
+        navPanel.setBackground(new Color(0, 51, 0));
+        miscPanel.setBackground(new Color(51, 0, 0));
+        c.setLayout(null);
+        c.add(topBar);
+        topBar.setBounds(0, 0, 1180, 35);
+        c.add(sideBar);
+        sideBar.setBounds(0, 35, 35, 760);
+        c.add(statusPanel);
+        statusPanel.setBounds(35, 35, 920, 20);
+        c.add(navPanel);
+        navPanel.setBounds(955, 35, 225, 752);
+        c.add(miscPanel);
+        miscPanel.setBounds(35, 555 + 81, 920, 151);
+        c.add(scrollPane);
+        scrollPane.setBounds(35, 55, 920, 581);
+        setJMenuBar(menuBar);
+        scrollPane.setViewportView(editPanel);
+        pack();
     }
 
-    public void layoutChildComponents() {
-        throw new UnsupportedOperationException("Not supported yet.");    // To change body of generated methods, choose Tools | Templates.
-    }
+    public void layoutChildComponents() {}
 }

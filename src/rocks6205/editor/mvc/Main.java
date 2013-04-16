@@ -11,6 +11,9 @@ import rocks6205.system.properties.OSValidator;
 import java.io.File;
 import java.io.IOException;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import javax.swing.JFrame;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -24,14 +27,14 @@ import javax.swing.UnsupportedLookAndFeelException;
  */
 public class Main {
     public static void main(String[] rcks) {
-        LSUISplashScreen splash = new LSUISplashScreen(5000);
 
-        splash.showSplash();
-
+//      LSUISplashScreen splash = new LSUISplashScreen(5000);
+//
+//      splash.showSplash();
+        setUpLookAndFeel();
         SVGEditorView           v = new SVGEditorView();
         SVGEditorViewController c = new SVGEditorViewController();
 
-        setUpLookAndFeel();
         v.setController(c);
         v.setVisible(true);
         v.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -63,6 +66,18 @@ public class Main {
             } catch (ClassNotFoundException | InstantiationException | IllegalAccessException
                      | UnsupportedLookAndFeelException e) {
                 System.err.println(e.getMessage());
+            }
+        }
+
+        if (OSValidator.isMac()) {
+            System.setProperty("apple.laf.useScreenMenuBar", "true");
+            System.setProperty("com.apple.mrj.application.apple.menu.about.name", "My Application");
+
+            try {
+                UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            } catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+                     | UnsupportedLookAndFeelException ex) {
+                System.err.println(ex.getMessage());
             }
         }
     }
