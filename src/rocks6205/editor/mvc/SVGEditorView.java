@@ -13,7 +13,7 @@ import rocks6205.editor.viewcomponents.LSUITopToolbar;
 import rocks6205.editor.viewcomponents.LSUIWelcomeDialog;
 
 import rocks6205.system.properties.OSValidator;
-import rocks6205.system.properties.SVGEditorTheme;
+import rocks6205.system.properties.LSSVGEditorGUITheme;
 
 //~--- JDK imports ------------------------------------------------------------
 
@@ -212,9 +212,9 @@ public final class SVGEditorView extends JFrame implements LSUIProtocol {
         navPanel.setBounds(955, 35, 225, 752);
         miscPanel.setBounds(35, 555 + 81, 920, 151);
         scrollPane.setBounds(35, 55, 920, 582);
-        topBar.setBackground(SVGEditorTheme.MASTER_DEFAULT_BACKGROUND_COLOR);
-        sideBar.setBackground(SVGEditorTheme.MASTER_DEFAULT_BACKGROUND_COLOR);
-        navPanel.setBackground(SVGEditorTheme.MASTER_DEFAULT_BACKGROUND_COLOR);
-        miscPanel.setBackground(SVGEditorTheme.MASTER_DEFAULT_BACKGROUND_COLOR);
+        topBar.setBackground(LSSVGEditorGUITheme.MASTER_DEFAULT_BACKGROUND_COLOR);
+        sideBar.setBackground(LSSVGEditorGUITheme.MASTER_DEFAULT_BACKGROUND_COLOR);
+        navPanel.setBackground(LSSVGEditorGUITheme.MASTER_DEFAULT_BACKGROUND_COLOR);
+        miscPanel.setBackground(LSSVGEditorGUITheme.MASTER_DEFAULT_BACKGROUND_COLOR);
     }
 }

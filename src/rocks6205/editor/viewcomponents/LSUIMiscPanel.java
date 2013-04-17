@@ -4,7 +4,7 @@ package rocks6205.editor.viewcomponents;
 
 import rocks6205.editor.mvc.SVGEditorView;
 
-import rocks6205.system.properties.SVGEditorTheme;
+import rocks6205.system.properties.LSSVGEditorGUITheme;
 
 //~--- JDK imports ------------------------------------------------------------
 
@@ -55,7 +55,7 @@ public final class LSUIMiscPanel extends JPanel implements LSUIProtocol {
     }
 
     private void layoutView() {
-        setBorder(SVGEditorTheme.MASTER_DEFAULT_PANEL_BORDER);
+        setBorder(LSSVGEditorGUITheme.MASTER_DEFAULT_PANEL_BORDER);
         setLayout(null);
     }
 

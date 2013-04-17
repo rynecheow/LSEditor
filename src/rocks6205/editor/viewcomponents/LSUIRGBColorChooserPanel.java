@@ -6,13 +6,12 @@ import rocks6205.editor.mvc.SVGEditorView;
 
 import rocks6205.svg.adt.SVGColorScheme;
 
-import rocks6205.system.properties.SVGEditorTheme;
+import rocks6205.system.properties.LSSVGEditorGUITheme;
 
 //~--- JDK imports ------------------------------------------------------------
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.GridBagConstraints;
 
 import javax.swing.BorderFactory;
 import javax.swing.GroupLayout;
@@ -38,25 +37,21 @@ public final class LSUIRGBColorChooserPanel extends JPanel implements LSUIProtoc
     /*
      * PARENT COMPONENT
      */
-    private SVGEditorView      parent;
-    private SVGColorScheme     color;
-    private JPanel             blueIndicator;
-    private JSlider            blueSlider;
-    private JSpinner           blueSpinner;
-    private JPanel             finalColorIndicator;
-    private JPanel             greenIndicator;
-    private JSlider            greenSlider;
-    private JSpinner           greenSpinner;
-    private JPanel             redIndicator;
-    private JSlider            redSlider;
-    private JSpinner           redSpinner;
-    private GridBagConstraints gbConstraint;
-    private SpinnerModel       redSpinnerModel;
-    private SpinnerModel       greenSpinnerModel;
-    private SpinnerModel       blueSpinnerModel;
-    private JLabel             redLabel;
-    private JLabel             greenLabel;
-    private JLabel             blueLabel;
+    private SVGEditorView  parent;
+    private SVGColorScheme color;
+    private JSlider        blueSlider;
+    private JSpinner       blueSpinner;
+    private JPanel         finalColorIndicator;
+    private JSlider        greenSlider;
+    private JSpinner       greenSpinner;
+    private JSlider        redSlider;
+    private JSpinner       redSpinner;
+    private SpinnerModel   redSpinnerModel;
+    private SpinnerModel   greenSpinnerModel;
+    private SpinnerModel   blueSpinnerModel;
+    private JLabel         redLabel;
+    private JLabel         greenLabel;
+    private JLabel         blueLabel;
 
     public LSUIRGBColorChooserPanel(SVGEditorView view) {
         super();
@@ -103,7 +98,7 @@ public final class LSUIRGBColorChooserPanel extends JPanel implements LSUIProtoc
     }
 
     private void layoutView() {
-        setBackground(SVGEditorTheme.MASTER_DEFAULT_BACKGROUND_COLOR);
+        setBackground(LSSVGEditorGUITheme.MASTER_DEFAULT_BACKGROUND_COLOR);
         setMaximumSize(new Dimension(335, 114));
         setMinimumSize(new Dimension(335, 114));
         setMainLayout();

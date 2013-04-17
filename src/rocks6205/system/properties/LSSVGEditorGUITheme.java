@@ -16,7 +16,7 @@ import javax.swing.border.Border;
  * @since 1.6
  *
  */
-public interface SVGEditorTheme {
+public interface LSSVGEditorGUITheme {
 
     /**
      * Default master color for background

@@ -11,7 +11,7 @@ import rocks6205.editor.mvc.SVGEditorView;
 //~--- JDK imports ------------------------------------------------------------
 
 import javax.swing.JToolBar;
-import rocks6205.system.properties.SVGEditorTheme;
+import rocks6205.system.properties.LSSVGEditorGUITheme;
 
 /**
  *
@@ -68,7 +68,7 @@ public final class LSUITopToolbar extends JToolBar implements LSUIProtocol {
         setIconsForButtons();
         setFloatable(false);
         setRollover(true);
-        setBorder(SVGEditorTheme.MASTER_DEFAULT_PANEL_BORDER);
+        setBorder(LSSVGEditorGUITheme.MASTER_DEFAULT_PANEL_BORDER);
     }
 
     private void setParentView(SVGEditorView parent) {
