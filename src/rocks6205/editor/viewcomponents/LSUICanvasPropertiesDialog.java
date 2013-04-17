@@ -25,7 +25,7 @@ import javax.swing.WindowConstants;
  *
  * @since 2.2
  */
-public final class LSUICanvasSizeDialog extends JDialog implements LSUIProtocol {
+public final class LSUICanvasPropertiesDialog extends JDialog implements LSUIProtocol {
 
     /*
      * SIZE PROPERTIES
@@ -64,7 +64,7 @@ public final class LSUICanvasSizeDialog extends JDialog implements LSUIProtocol 
      */
     SVGEditorView parentView;
 
-    public LSUICanvasSizeDialog(SVGEditorView parent) {
+    public LSUICanvasPropertiesDialog(SVGEditorView parent) {
         super(parent, "Welcome Screen", true);
         this.height = 340;
         this.width = 480;
@@ -201,6 +201,3 @@ public final class LSUICanvasSizeDialog extends JDialog implements LSUIProtocol 
 
     private void bindEventActions() {}
 }
-
-
-//~ Formatted by Jindent --- http://www.jindent.com
