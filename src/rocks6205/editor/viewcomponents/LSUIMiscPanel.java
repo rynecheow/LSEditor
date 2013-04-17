@@ -40,7 +40,27 @@ public final class LSUIMiscPanel extends JPanel implements LSUIProtocol {
 
     @Override
     public void customise() {
-        setBorder(SVGEditorTheme.MASTER_DEFAULT_PANEL_BORDER);
+        layoutView();
+        layoutComponents();
+    }
+
+    public void disableColorChooserInView() {
+        remove(colorChooserPanel);
+        colorChooserPanel.setVisible(false);
+    }
+
+    public void enableColorChooserInView() {
         add(colorChooserPanel);
+        colorChooserPanel.setVisible(true);
+    }
+
+    private void layoutView() {
+        setBorder(SVGEditorTheme.MASTER_DEFAULT_PANEL_BORDER);
+        setLayout(null);
+    }
+
+    private void layoutComponents() {
+        colorChooserPanel.setBounds(10, 10, 335, 114);
+        enableColorChooserInView();
     }
 }

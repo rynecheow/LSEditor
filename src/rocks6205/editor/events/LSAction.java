@@ -43,7 +43,7 @@ public abstract class LSAction extends AbstractAction {
     /**
      * Parent component (Usually an <code>SVGView</code> object.)
      */
-    private SVGEditorView parent;
+    protected SVGEditorView parent;
 
     /*
      * CONSTRUCTOR

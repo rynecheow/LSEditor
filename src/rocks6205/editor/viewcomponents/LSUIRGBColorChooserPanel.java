@@ -15,12 +15,17 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import javax.swing.BorderFactory;
 
+import javax.swing.GroupLayout;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.JSpinner;
+import javax.swing.LayoutStyle;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.WindowConstants;
 
 /**
  * Color Chooser for SVGEditor
@@ -52,6 +57,9 @@ public final class LSUIRGBColorChooserPanel extends JPanel implements LSUIProtoc
     private SpinnerModel       redSpinnerModel;
     private SpinnerModel       greenSpinnerModel;
     private SpinnerModel       blueSpinnerModel;
+    private JLabel             redLabel;
+    private JLabel             greenLabel;
+    private JLabel             blueLabel;
 
     public LSUIRGBColorChooserPanel(SVGEditorView view) {
         super();
@@ -72,13 +80,14 @@ public final class LSUIRGBColorChooserPanel extends JPanel implements LSUIProtoc
         redSpinner          = new JSpinner(redSpinnerModel);
         greenSpinner        = new JSpinner(greenSpinnerModel);
         blueSpinner         = new JSpinner(blueSpinnerModel);
-        redIndicator        = new JPanel();
-        greenIndicator      = new JPanel();
-        blueIndicator       = new JPanel();
+        redLabel            = new JLabel();
+        greenLabel          = new JLabel();
+        blueLabel           = new JLabel();
     }
 
     @Override
     public void customise() {
+        layoutView();
         layoutComponents();
     }
 
@@ -96,100 +105,117 @@ public final class LSUIRGBColorChooserPanel extends JPanel implements LSUIProtoc
         return color;
     }
 
-    private void layoutComponents() {
-        setBounds(100, 0, 385, 135);
+    private void layoutView() {
         setBackground(SVGEditorTheme.MASTER_DEFAULT_BACKGROUND_COLOR);
-        setMaximumSize(new Dimension(385, 135));
-        setMinimumSize(new Dimension(385, 135));
-        setLayout(new GridBagLayout());
-        gbConstraint            = new GridBagConstraints();
-        gbConstraint.gridx      = 1;
-        gbConstraint.gridy      = 0;
-        gbConstraint.gridheight = 3;
-        gbConstraint.ipadx      = 154;
-        gbConstraint.anchor     = GridBagConstraints.NORTHWEST;
-        gbConstraint.insets     = new Insets(6, 6, 0, 0);
-        add(redSlider, gbConstraint);
-        gbConstraint            = new GridBagConstraints();
-        gbConstraint.gridx      = 1;
-        gbConstraint.gridy      = 3;
-        gbConstraint.gridheight = 3;
-        gbConstraint.ipadx      = 154;
-        gbConstraint.anchor     = GridBagConstraints.NORTHWEST;
-        gbConstraint.insets     = new Insets(6, 6, 0, 0);
-        add(greenSlider, gbConstraint);
-        gbConstraint            = new GridBagConstraints();
-        gbConstraint.gridx      = 1;
-        gbConstraint.gridy      = 6;
-        gbConstraint.gridheight = 10;
-        gbConstraint.ipadx      = 154;
-        gbConstraint.anchor     = GridBagConstraints.NORTHWEST;
-        gbConstraint.insets     = new Insets(6, 6, 7, 0);
-        add(blueSlider, gbConstraint);
-        gbConstraint            = new GridBagConstraints();
-        gbConstraint.gridx      = 3;
-        gbConstraint.gridy      = 0;
-        gbConstraint.gridheight = 2;
-        gbConstraint.ipadx      = 21;
-        gbConstraint.anchor     = GridBagConstraints.NORTHWEST;
-        gbConstraint.insets     = new Insets(6, 12, 0, 12);
-        add(redSpinner, gbConstraint);
-        gbConstraint            = new GridBagConstraints();
-        gbConstraint.gridx      = 3;
-        gbConstraint.gridy      = 3;
-        gbConstraint.gridheight = 2;
-        gbConstraint.ipadx      = 21;
-        gbConstraint.anchor     = GridBagConstraints.NORTHWEST;
-        gbConstraint.insets     = new Insets(6, 12, 0, 12);
-        add(greenSpinner, gbConstraint);
-        gbConstraint            = new GridBagConstraints();
-        gbConstraint.gridx      = 3;
-        gbConstraint.gridy      = 6;
-        gbConstraint.gridheight = 9;
-        gbConstraint.ipadx      = 21;
-        gbConstraint.anchor     = GridBagConstraints.NORTHWEST;
-        gbConstraint.insets     = new Insets(6, 12, 0, 12);
-        add(blueSpinner, gbConstraint);
-        redIndicator.setBackground(new Color(255, 51, 51));
-        gbConstraint        = new GridBagConstraints();
-        gbConstraint.gridx  = 2;
-        gbConstraint.gridy  = 0;
-        gbConstraint.ipadx  = 25;
-        gbConstraint.ipady  = 25;
-        gbConstraint.anchor = GridBagConstraints.NORTHWEST;
-        gbConstraint.insets = new Insets(6, 6, 0, 0);
-        add(redIndicator, gbConstraint);
-        greenIndicator.setBackground(new Color(102, 255, 102));
-        greenIndicator.setPreferredSize(new Dimension(25, 25));
-        gbConstraint        = new GridBagConstraints();
-        gbConstraint.gridx  = 2;
-        gbConstraint.gridy  = 3;
-        gbConstraint.ipadx  = 25;
-        gbConstraint.ipady  = 25;
-        gbConstraint.anchor = GridBagConstraints.NORTHWEST;
-        gbConstraint.insets = new Insets(6, 6, 0, 0);
-        add(greenIndicator, gbConstraint);
-        blueIndicator.setBackground(new Color(51, 0, 255));
-        blueIndicator.setPreferredSize(new Dimension(25, 25));
-        gbConstraint       = new GridBagConstraints();
-        gbConstraint.gridx = 2;
-        gbConstraint.gridy = 6;
+        setMaximumSize(new Dimension(335, 114));
+        setMinimumSize(new Dimension(335, 114));
+        setMainLayout();
+    }
 
-//      gbConstraint.gridheight = 8;
-        gbConstraint.ipadx  = 25;
-        gbConstraint.ipady  = 25;
-        gbConstraint.anchor = GridBagConstraints.NORTHWEST;
-        gbConstraint.insets = new Insets(6, 6, 0, 0);
-        add(blueIndicator, gbConstraint);
-        finalColorIndicator.setBackground(new Color(0, 102, 51));
-        gbConstraint            = new GridBagConstraints();
-        gbConstraint.gridx      = 0;
-        gbConstraint.gridy      = 0;
-        gbConstraint.gridheight = 7;
-        gbConstraint.ipadx      = 50;
-        gbConstraint.ipady      = 50;
-        gbConstraint.anchor     = GridBagConstraints.NORTHWEST;
-        gbConstraint.insets     = new Insets(30, 12, 0, 0);
-        add(finalColorIndicator, gbConstraint);
+    private void layoutComponents() {
+        redSlider.setMajorTickSpacing(32);
+        redSlider.setMaximum(255);
+        redSlider.setMinorTickSpacing(1);
+        redSlider.setValue(0);
+        greenSlider.setMajorTickSpacing(32);
+        greenSlider.setMaximum(255);
+        greenSlider.setMinorTickSpacing(1);
+        greenSlider.setValue(0);
+        blueSlider.setMajorTickSpacing(32);
+        blueSlider.setMaximum(255);
+        blueSlider.setMinorTickSpacing(1);
+        blueSlider.setValue(0);
+        redLabel.setText("R:");
+        redLabel.setForeground(new Color(255, 255, 255));
+        greenLabel.setText("G:");
+        greenLabel.setForeground(new Color(255, 255, 255));
+        blueLabel.setText("B:");
+        blueLabel.setForeground(new Color(255, 255, 255));
+        finalColorIndicator.setBackground(new Color(0, 222, 0));
+        finalColorIndicator.setBorder(BorderFactory.createLineBorder(Color.black));
+        setFinalColorIndicatorLayout();
+    }
+
+    private void setMainLayout() {
+        GroupLayout layout = new GroupLayout(this);
+
+        setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(GroupLayout.Alignment.LEADING).addGroup(
+                GroupLayout.Alignment.TRAILING, layout.createSequentialGroup().addGroup(
+                    layout.createParallelGroup(GroupLayout.Alignment.LEADING).addGroup(
+                        GroupLayout.Alignment.TRAILING, layout.createSequentialGroup().addGap(
+                            0, 0, Short.MAX_VALUE).addComponent(
+                            blueSlider, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)).addGroup(
+                                GroupLayout.Alignment.TRAILING, layout.createSequentialGroup().addContainerGap(
+                                    18, Short.MAX_VALUE).addGroup(
+                                    layout.createParallelGroup(GroupLayout.Alignment.LEADING).addGroup(
+                                        GroupLayout.Alignment.TRAILING, layout.createSequentialGroup().addComponent(
+                                            finalColorIndicator, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE).addPreferredGap(
+                                                LayoutStyle.ComponentPlacement.RELATED).addComponent(
+                                                    greenSlider, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)).addComponent(
+                                                        redSlider, GroupLayout.Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))).addPreferredGap(
+                                                            LayoutStyle.ComponentPlacement.RELATED).addGroup(
+                                                                layout.createParallelGroup(
+                                                                    GroupLayout.Alignment.LEADING).addComponent(
+                                                                        redLabel).addComponent(greenLabel).addComponent(
+                                                                            blueLabel, GroupLayout.Alignment.TRAILING)).addPreferredGap(
+                                                                                LayoutStyle.ComponentPlacement.RELATED).addGroup(
+                                                                                    layout.createParallelGroup(
+                                                                                        GroupLayout.Alignment.LEADING).addComponent(
+                                                                                            redSpinner, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE).addComponent(
+                                                                                                blueSpinner, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE).addComponent(
+                                                                                                    greenSpinner, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE)).addContainerGap()));
+        layout.setVerticalGroup(
+            layout.createParallelGroup(GroupLayout.Alignment.LEADING).addGroup(
+                layout.createSequentialGroup().addGap(7, 7, 7).addGroup(
+                    layout.createParallelGroup(GroupLayout.Alignment.TRAILING).addComponent(
+                        redSlider, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+                        GroupLayout.PREFERRED_SIZE).addGroup(
+                            layout.createParallelGroup(GroupLayout.Alignment.BASELINE).addComponent(
+                                redSpinner, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+                                GroupLayout.PREFERRED_SIZE).addComponent(redLabel))).addGap(7, 7, 7).addGroup(
+                                    layout.createParallelGroup(GroupLayout.Alignment.LEADING).addGroup(
+                                        layout.createParallelGroup(GroupLayout.Alignment.TRAILING).addComponent(
+                                            greenSlider, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+                                                GroupLayout.PREFERRED_SIZE).addGroup(
+                                                    layout.createParallelGroup(
+                                                        GroupLayout.Alignment.BASELINE).addComponent(
+                                                            blueSpinner, GroupLayout.PREFERRED_SIZE,
+                                                                GroupLayout.DEFAULT_SIZE,
+                                                                    GroupLayout.PREFERRED_SIZE).addComponent(
+                                                                        greenLabel))).addComponent(
+                                                                            finalColorIndicator,
+                                                                                GroupLayout.PREFERRED_SIZE,
+                                                                                    GroupLayout.DEFAULT_SIZE,
+                                                                                        GroupLayout.PREFERRED_SIZE)).addPreferredGap(
+                                                                                            LayoutStyle.ComponentPlacement.RELATED).addGroup(
+                                                                                                layout.createParallelGroup(
+                                                                                                    GroupLayout.Alignment.TRAILING).addGroup(
+                                                                                                        layout.createParallelGroup(
+                                                                                                            GroupLayout.Alignment.BASELINE).addComponent(
+                                                                                                                greenSpinner,
+                                                                                                                    GroupLayout.PREFERRED_SIZE,
+                                                                                                                        GroupLayout.DEFAULT_SIZE,
+                                                                                                                            GroupLayout.PREFERRED_SIZE).addComponent(
+                                                                                                                                blueLabel)).addComponent(
+                                                                                                                                    blueSlider,
+                                                                                                                                        GroupLayout.PREFERRED_SIZE,
+                                                                                                                                            GroupLayout.DEFAULT_SIZE,
+                                                                                                                                                GroupLayout.PREFERRED_SIZE)).addContainerGap(
+                                                                                                                                                    GroupLayout.DEFAULT_SIZE,
+                                                                                                                                                        Short.MAX_VALUE)));
+    }
+
+    private void setFinalColorIndicatorLayout() {
+        GroupLayout finalColorIndicatorLayout = new GroupLayout(finalColorIndicator);
+
+        finalColorIndicator.setLayout(finalColorIndicatorLayout);
+        finalColorIndicatorLayout.setHorizontalGroup(
+            finalColorIndicatorLayout.createParallelGroup(GroupLayout.Alignment.LEADING).addGap(
+                0, 30, Short.MAX_VALUE));
+        finalColorIndicatorLayout.setVerticalGroup(
+            finalColorIndicatorLayout.createParallelGroup(GroupLayout.Alignment.LEADING).addGap(
+                0, 30, Short.MAX_VALUE));
     }
 }
