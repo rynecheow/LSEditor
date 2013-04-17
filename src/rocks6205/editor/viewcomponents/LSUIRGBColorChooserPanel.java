@@ -13,10 +13,8 @@ import rocks6205.system.properties.SVGEditorTheme;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
-import javax.swing.BorderFactory;
 
+import javax.swing.BorderFactory;
 import javax.swing.GroupLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -25,7 +23,6 @@ import javax.swing.JSpinner;
 import javax.swing.LayoutStyle;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
-import javax.swing.WindowConstants;
 
 /**
  * Color Chooser for SVGEditor

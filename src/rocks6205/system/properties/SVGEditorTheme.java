@@ -3,6 +3,7 @@ package rocks6205.system.properties;
 //~--- JDK imports ------------------------------------------------------------
 
 import java.awt.Color;
+import java.awt.Cursor;
 import javax.swing.BorderFactory;
 import javax.swing.border.Border;
 
@@ -31,4 +32,6 @@ public interface SVGEditorTheme {
     public static Color MASTER_DEFAULT_BORDER_COLOR = new Color(0x211e1e);
     
     public static Border MASTER_DEFAULT_PANEL_BORDER = BorderFactory.createLineBorder(MASTER_DEFAULT_BORDER_COLOR, 1);
+    
+//    public static Cursor EDITING_MOVE_CURSOR = new Cursor();
 }
