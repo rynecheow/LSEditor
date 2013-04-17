@@ -11,9 +11,6 @@ import rocks6205.system.properties.OSValidator;
 import java.io.File;
 import java.io.IOException;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import javax.swing.JFrame;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -25,13 +22,14 @@ import javax.swing.UnsupportedLookAndFeelException;
  * @since 1.0
  *
  */
-public class Main {
+public class LSSVGEditor {
     public static void main(String[] rcks) {
 
 //      LSUISplashScreen splash = new LSUISplashScreen(5000);
 //
 //      splash.showSplash();
         setUpLookAndFeel();
+
         SVGEditorView           v = new SVGEditorView();
         SVGEditorViewController c = new SVGEditorViewController();
 
@@ -53,7 +51,17 @@ public class Main {
      * @param style <code>String</code> containing the name
      */
     private static void setUpLookAndFeel() {
-        if (OSValidator.isWindows()) {
+        if (OSValidator.isMac()) {
+            System.setProperty("apple.laf.useScreenMenuBar", "true");
+            System.setProperty("com.apple.mrj.application.apple.menu.about.name", "My Application");
+
+            try {
+                UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            } catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+                     | UnsupportedLookAndFeelException ex) {
+                System.err.println(ex.getMessage());
+            }
+        } else {
             try {
                 for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
                     if ("Nimbus".equals(info.getName())) {
@@ -66,18 +74,6 @@ public class Main {
             } catch (ClassNotFoundException | InstantiationException | IllegalAccessException
                      | UnsupportedLookAndFeelException e) {
                 System.err.println(e.getMessage());
-            }
-        }
-
-        if (OSValidator.isMac()) {
-            System.setProperty("apple.laf.useScreenMenuBar", "true");
-            System.setProperty("com.apple.mrj.application.apple.menu.about.name", "My Application");
-
-            try {
-                UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-            } catch (ClassNotFoundException | InstantiationException | IllegalAccessException
-                     | UnsupportedLookAndFeelException ex) {
-                System.err.println(ex.getMessage());
             }
         }
     }
