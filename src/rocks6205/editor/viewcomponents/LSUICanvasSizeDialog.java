@@ -20,19 +20,18 @@ import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
 /**
- * 
+ *
  * @author Cheow Yeong Chi
- * 
+ *
  * @since 2.2
  */
 public final class LSUICanvasSizeDialog extends JDialog implements LSUIProtocol {
-    private static final long serialVersionUID = 4595939286877280108L;
 
     /*
      * SIZE PROPERTIES
      */
-    int       width  = 480;
-    int       height = 340;
+    int       width;
+    int       height;
     Dimension screen;
     int       x;
     int       y;
@@ -67,6 +66,8 @@ public final class LSUICanvasSizeDialog extends JDialog implements LSUIProtocol 
 
     public LSUICanvasSizeDialog(SVGEditorView parent) {
         super(parent, "Welcome Screen", true);
+        this.height = 340;
+        this.width = 480;
         parentView = parent;
         initialise();
         customise();
@@ -102,7 +103,7 @@ public final class LSUICanvasSizeDialog extends JDialog implements LSUIProtocol 
         x      = (screen.width - width) / 2;
         y      = (screen.height - height) / 2;
     }
-    
+
     @Override
     public void customise() {
         layoutView();
@@ -200,3 +201,6 @@ public final class LSUICanvasSizeDialog extends JDialog implements LSUIProtocol 
 
     private void bindEventActions() {}
 }
+
+
+//~ Formatted by Jindent --- http://www.jindent.com
