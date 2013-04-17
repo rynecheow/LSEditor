@@ -6,6 +6,8 @@ import rocks6205.editor.mvc.SVGEditorView;
 
 import rocks6205.svg.adt.SVGColorScheme;
 
+import rocks6205.system.properties.SVGEditorTheme;
+
 //~--- JDK imports ------------------------------------------------------------
 
 import java.awt.Color;
@@ -28,7 +30,7 @@ import javax.swing.SpinnerNumberModel;
  * @since 2.2
  *
  */
-public final class LSUIRGBColorChooserPanel extends JPanel implements LSUIProtocol{
+public final class LSUIRGBColorChooserPanel extends JPanel implements LSUIProtocol {
     private static final long serialVersionUID = 4003671910607353797L;
 
     /*
@@ -95,10 +97,11 @@ public final class LSUIRGBColorChooserPanel extends JPanel implements LSUIProtoc
     }
 
     private void layoutComponents() {
+        setBounds(100, 0, 385, 135);
+        setBackground(SVGEditorTheme.MASTER_DEFAULT_BACKGROUND_COLOR);
         setMaximumSize(new Dimension(385, 135));
         setMinimumSize(new Dimension(385, 135));
         setLayout(new GridBagLayout());
-        
         gbConstraint            = new GridBagConstraints();
         gbConstraint.gridx      = 1;
         gbConstraint.gridy      = 0;
@@ -107,7 +110,6 @@ public final class LSUIRGBColorChooserPanel extends JPanel implements LSUIProtoc
         gbConstraint.anchor     = GridBagConstraints.NORTHWEST;
         gbConstraint.insets     = new Insets(6, 6, 0, 0);
         add(redSlider, gbConstraint);
-        
         gbConstraint            = new GridBagConstraints();
         gbConstraint.gridx      = 1;
         gbConstraint.gridy      = 3;
@@ -116,7 +118,6 @@ public final class LSUIRGBColorChooserPanel extends JPanel implements LSUIProtoc
         gbConstraint.anchor     = GridBagConstraints.NORTHWEST;
         gbConstraint.insets     = new Insets(6, 6, 0, 0);
         add(greenSlider, gbConstraint);
-        
         gbConstraint            = new GridBagConstraints();
         gbConstraint.gridx      = 1;
         gbConstraint.gridy      = 6;
@@ -125,7 +126,6 @@ public final class LSUIRGBColorChooserPanel extends JPanel implements LSUIProtoc
         gbConstraint.anchor     = GridBagConstraints.NORTHWEST;
         gbConstraint.insets     = new Insets(6, 6, 7, 0);
         add(blueSlider, gbConstraint);
-        
         gbConstraint            = new GridBagConstraints();
         gbConstraint.gridx      = 3;
         gbConstraint.gridy      = 0;
@@ -134,7 +134,6 @@ public final class LSUIRGBColorChooserPanel extends JPanel implements LSUIProtoc
         gbConstraint.anchor     = GridBagConstraints.NORTHWEST;
         gbConstraint.insets     = new Insets(6, 12, 0, 12);
         add(redSpinner, gbConstraint);
-        
         gbConstraint            = new GridBagConstraints();
         gbConstraint.gridx      = 3;
         gbConstraint.gridy      = 3;
@@ -143,7 +142,6 @@ public final class LSUIRGBColorChooserPanel extends JPanel implements LSUIProtoc
         gbConstraint.anchor     = GridBagConstraints.NORTHWEST;
         gbConstraint.insets     = new Insets(6, 12, 0, 12);
         add(greenSpinner, gbConstraint);
-        
         gbConstraint            = new GridBagConstraints();
         gbConstraint.gridx      = 3;
         gbConstraint.gridy      = 6;
@@ -152,7 +150,6 @@ public final class LSUIRGBColorChooserPanel extends JPanel implements LSUIProtoc
         gbConstraint.anchor     = GridBagConstraints.NORTHWEST;
         gbConstraint.insets     = new Insets(6, 12, 0, 12);
         add(blueSpinner, gbConstraint);
-        
         redIndicator.setBackground(new Color(255, 51, 51));
         gbConstraint        = new GridBagConstraints();
         gbConstraint.gridx  = 2;
@@ -162,7 +159,6 @@ public final class LSUIRGBColorChooserPanel extends JPanel implements LSUIProtoc
         gbConstraint.anchor = GridBagConstraints.NORTHWEST;
         gbConstraint.insets = new Insets(6, 6, 0, 0);
         add(redIndicator, gbConstraint);
-        
         greenIndicator.setBackground(new Color(102, 255, 102));
         greenIndicator.setPreferredSize(new Dimension(25, 25));
         gbConstraint        = new GridBagConstraints();
@@ -173,19 +169,18 @@ public final class LSUIRGBColorChooserPanel extends JPanel implements LSUIProtoc
         gbConstraint.anchor = GridBagConstraints.NORTHWEST;
         gbConstraint.insets = new Insets(6, 6, 0, 0);
         add(greenIndicator, gbConstraint);
-        
         blueIndicator.setBackground(new Color(51, 0, 255));
         blueIndicator.setPreferredSize(new Dimension(25, 25));
-        gbConstraint            = new GridBagConstraints();
-        gbConstraint.gridx      = 2;
-        gbConstraint.gridy      = 6;
-        gbConstraint.gridheight = 8;
-        gbConstraint.ipadx      = 25;
-        gbConstraint.ipady      = 25;
-        gbConstraint.anchor     = GridBagConstraints.NORTHWEST;
-        gbConstraint.insets     = new Insets(6, 6, 0, 0);
+        gbConstraint       = new GridBagConstraints();
+        gbConstraint.gridx = 2;
+        gbConstraint.gridy = 6;
+
+//      gbConstraint.gridheight = 8;
+        gbConstraint.ipadx  = 25;
+        gbConstraint.ipady  = 25;
+        gbConstraint.anchor = GridBagConstraints.NORTHWEST;
+        gbConstraint.insets = new Insets(6, 6, 0, 0);
         add(blueIndicator, gbConstraint);
-        
         finalColorIndicator.setBackground(new Color(0, 102, 51));
         gbConstraint            = new GridBagConstraints();
         gbConstraint.gridx      = 0;

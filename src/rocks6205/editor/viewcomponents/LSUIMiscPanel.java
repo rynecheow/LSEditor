@@ -8,7 +8,6 @@ import rocks6205.system.properties.SVGEditorTheme;
 
 //~--- JDK imports ------------------------------------------------------------
 
-import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
 /**
@@ -22,6 +21,11 @@ public final class LSUIMiscPanel extends JPanel implements LSUIProtocol {
      */
     private SVGEditorView parentView;
 
+    /*
+     * GUI COMPONENTS
+     */
+    private LSUIRGBColorChooserPanel colorChooserPanel;
+
     public LSUIMiscPanel(SVGEditorView parent) {
         super();
         parentView = parent;
@@ -30,10 +34,13 @@ public final class LSUIMiscPanel extends JPanel implements LSUIProtocol {
     }
 
     @Override
-    public void initialise() {}
+    public void initialise() {
+        colorChooserPanel = new LSUIRGBColorChooserPanel(parentView);
+    }
 
     @Override
     public void customise() {
         setBorder(SVGEditorTheme.MASTER_DEFAULT_PANEL_BORDER);
+        add(colorChooserPanel);
     }
 }

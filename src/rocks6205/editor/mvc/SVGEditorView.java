@@ -7,7 +7,6 @@ import rocks6205.editor.viewcomponents.LSUIMenubar;
 import rocks6205.editor.viewcomponents.LSUIMiscPanel;
 import rocks6205.editor.viewcomponents.LSUINavigationPanel;
 import rocks6205.editor.viewcomponents.LSUIProtocol;
-import rocks6205.editor.viewcomponents.LSUIRGBColorChooserPanel;
 import rocks6205.editor.viewcomponents.LSUISideToolbar;
 import rocks6205.editor.viewcomponents.LSUIStatusPanel;
 import rocks6205.editor.viewcomponents.LSUITopToolbar;
@@ -63,15 +62,14 @@ public final class SVGEditorView extends JFrame implements LSUIProtocol {
     /*
      * GUI COMPONENTS
      */
-    private JScrollPane              scrollPane;
-    private LSUIEditingPanel         editPanel;
-    private LSUIMenubar              menuBar;
-    private LSUIRGBColorChooserPanel colorChooserPanel;
-    private LSUITopToolbar           topBar;
-    private LSUISideToolbar          sideBar;
-    private LSUIStatusPanel          statusPanel;
-    private LSUINavigationPanel      navPanel;
-    private LSUIMiscPanel            miscPanel;
+    private JScrollPane         scrollPane;
+    private LSUIEditingPanel    editPanel;
+    private LSUIMenubar         menuBar;
+    private LSUITopToolbar      topBar;
+    private LSUISideToolbar     sideBar;
+    private LSUIStatusPanel     statusPanel;
+    private LSUINavigationPanel navPanel;
+    private LSUIMiscPanel       miscPanel;
 
     /*
      * ACTION COMPONENTS
@@ -102,14 +100,13 @@ public final class SVGEditorView extends JFrame implements LSUIProtocol {
      */
     @Override
     public void initialise() {
-        menuBar           = new LSUIMenubar(this);
-        colorChooserPanel = new LSUIRGBColorChooserPanel(this);
-        topBar            = new LSUITopToolbar("Editing Tools", this);
-        sideBar           = new LSUISideToolbar("Selection Tools", this);
-        statusPanel       = new LSUIStatusPanel(this);
-        navPanel          = new LSUINavigationPanel(this);
-        miscPanel         = new LSUIMiscPanel(this);
-        scrollPane        = new JScrollPane();
+        menuBar     = new LSUIMenubar(this);
+        topBar      = new LSUITopToolbar("Editing Tools", this);
+        sideBar     = new LSUISideToolbar("Selection Tools", this);
+        statusPanel = new LSUIStatusPanel(this);
+        navPanel    = new LSUINavigationPanel(this);
+        miscPanel   = new LSUIMiscPanel(this);
+        scrollPane  = new JScrollPane();
     }
 
     /**
