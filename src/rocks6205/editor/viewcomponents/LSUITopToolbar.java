@@ -136,11 +136,13 @@ public final class LSUITopToolbar extends JToolBar implements LSUIProtocol {
     }
 
     private void layoutView() {
+        addSeparator();
         add(newButton);
         add(openButton);
         add(saveButton);
         addSeparator();
         add(zoomInButton);
         add(zoomOutButton);
+        addSeparator();
     }
 }

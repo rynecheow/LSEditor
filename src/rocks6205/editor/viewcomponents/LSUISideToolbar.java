@@ -29,13 +29,13 @@ public final class LSUISideToolbar extends JToolBar implements LSUIProtocol {
      * GUI COMPONENTS
      */
     private LSUIButton panButton;
-    private LSUIButton selectButton;
+    private LSUIButton moveButton;
+    private LSUIButton selectButton;        // group 1
     private LSUIButton insertRectButton;
     private LSUIButton insertCircButton;
-    private LSUIButton insertLineButton;     // group 1
-    private LSUIButton strokeWidthButton;    // group 2
+    private LSUIButton insertLineButton;    // group 2
     private LSUIButton groupButton;
-    private LSUIButton ungroupButton;        // group 3
+    private LSUIButton ungroupButton;       // group 3
 
     /*
      * ACTION COMPONENTS
@@ -51,15 +51,15 @@ public final class LSUISideToolbar extends JToolBar implements LSUIProtocol {
 
     @Override
     public void initialise() {
-        panButton         = new LSUIButton();
-        selectButton      = new LSUIButton();
-        insertRectButton  = new LSUIButton();
-        insertCircButton  = new LSUIButton();
-        insertLineButton  = new LSUIButton();
-        strokeWidthButton = new LSUIButton();
-        groupButton       = new LSUIButton();
-        ungroupButton     = new LSUIButton();
-        fillAction        = new FillAction(parentView);
+        panButton        = new LSUIButton();
+        moveButton       = new LSUIButton();
+        selectButton     = new LSUIButton();
+        insertRectButton = new LSUIButton();
+        insertCircButton = new LSUIButton();
+        insertLineButton = new LSUIButton();
+        groupButton      = new LSUIButton();
+        ungroupButton    = new LSUIButton();
+        fillAction       = new FillAction(parentView);
     }
 
     @Override
@@ -81,28 +81,29 @@ public final class LSUISideToolbar extends JToolBar implements LSUIProtocol {
      * Setup actions for button.
      */
     private void setActionForButtons() {
-//        fillButton.setAction(getFillAction());
+
+//      fillButton.setAction(getFillAction());
     }
 
     /**
      * Setup icons for button.
      */
     private void setIconsForButtons() {
-        String panIconPath         = "imageicon/move.png";
-        String selectIconPath      = "imageicon/select.png";
-        String rectangleIconPath   = "imageicon/rectangle.png";
-        String circleIconPath      = "imageicon/circle.png";
-        String lineIconPath        = "imageicon/line.png";
-        String strokeWidthIconPath = "imageicon/width.png";
-        String groupIconPath       = "imageicon/grouped.png";
-        String ungroupIconPath     = "imageicon/ungrp.png";
+        String panIconPath       = "imageicon/pan.png";
+        String moveIconPath      = "imageicon/move.png";
+        String selectIconPath    = "imageicon/select.png";
+        String rectangleIconPath = "imageicon/rectangle.png";
+        String circleIconPath    = "imageicon/circle.png";
+        String lineIconPath      = "imageicon/line.png";
+        String groupIconPath     = "imageicon/group.png";
+        String ungroupIconPath   = "imageicon/ungroup.png";
 
         panButton.setIcon(panIconPath);
+        moveButton.setIcon(moveIconPath);
         selectButton.setIcon(selectIconPath);
         insertRectButton.setIcon(rectangleIconPath);
         insertCircButton.setIcon(circleIconPath);
         insertLineButton.setIcon(lineIconPath);
-        strokeWidthButton.setIcon(strokeWidthIconPath);
         groupButton.setIcon(groupIconPath);
         ungroupButton.setIcon(ungroupIconPath);
     }
@@ -119,16 +120,17 @@ public final class LSUISideToolbar extends JToolBar implements LSUIProtocol {
     }
 
     private void layoutView() {
+        addSeparator();
         add(panButton);
+        add(moveButton);
         add(selectButton);
         addSeparator();
         add(insertRectButton);
         add(insertCircButton);
         add(insertLineButton);
         addSeparator();
-        add(strokeWidthButton);
-        addSeparator();
         add(groupButton);
         add(ungroupButton);
+        addSeparator();
     }
 }

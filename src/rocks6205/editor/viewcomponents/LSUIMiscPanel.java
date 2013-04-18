@@ -32,7 +32,10 @@ public final class LSUIMiscPanel extends JPanel implements LSUIProtocol {
         initialise();
         customise();
     }
-
+    
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void initialise() {
         colorChooserPanel = new LSUIRGBColorChooserPanel(parentView);
