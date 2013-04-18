@@ -16,9 +16,9 @@ import javax.swing.JWindow;
 
 /**
  * Splash screen.
- * 
+ *
  * @author Cheow Yeong Chi
- * 
+ *
  * @since 2.1
  */
 public final class LSUISplashScreen extends JWindow {
@@ -60,7 +60,9 @@ public final class LSUISplashScreen extends JWindow {
         // Wait a little while, maybe while loading resources
         try {
             Thread.sleep(duration);
-        } catch (Exception e) {}
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
 
         setVisible(false);
         dispose();

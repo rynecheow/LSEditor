@@ -641,6 +641,10 @@ public final class LSUIEditingPanel extends JPanel {
                     line.setY2(new SVGLengthUnit(SVGLengthUnitType.PX, endPoint.y));
 
                     break;
+                    case MODE_PAN:
+                        break;
+                    case MODE_SELECT:
+                        break;
 
                 default :
                     throw new AssertionError("Invalid edit mode");
@@ -676,6 +680,3 @@ public final class LSUIEditingPanel extends JPanel {
         }
     }
 }
-
-
-//~ Formatted by Jindent --- http://www.jindent.com

@@ -12,13 +12,14 @@ import rocks6205.editor.viewcomponents.LSUIStatusPanel;
 import rocks6205.editor.viewcomponents.LSUITopToolbar;
 import rocks6205.editor.viewcomponents.LSUIWelcomeDialog;
 
-import rocks6205.system.properties.OSValidator;
 import rocks6205.system.properties.LSSVGEditorGUITheme;
+import rocks6205.system.properties.OSValidator;
 
 //~--- JDK imports ------------------------------------------------------------
 
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -43,6 +44,17 @@ public final class SVGEditorView extends JFrame implements LSUIProtocol {
      * GUI COMPONENTS
      */
     private Container c = getContentPane();
+
+    /*
+     * SIZE PROPERTIES
+     */
+    private int       width;
+    private int       height;
+    private Dimension screen;
+    private int       x;
+    private int       y;
+    private int       margin;
+    private Dimension frameDim;
 
     /*
      * PROPERTIES
@@ -100,6 +112,7 @@ public final class SVGEditorView extends JFrame implements LSUIProtocol {
      */
     @Override
     public void initialise() {
+        setUpProperties();
         menuBar     = new LSUIMenubar(this);
         topBar      = new LSUITopToolbar("Editing Tools", this);
         sideBar     = new LSUISideToolbar("Selection Tools", this);
@@ -186,13 +199,9 @@ public final class SVGEditorView extends JFrame implements LSUIProtocol {
     }
 
     public void layoutFrame() {
-        int margin = OSValidator.isMac()
-                     ? -21
-                     : 0;
-
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new Dimension(1180, 830 + margin));
-        setMinimumSize(new Dimension(1180, 830 + margin));
+        setMaximumSize(frameDim);
+        setMinimumSize(frameDim);
         setLayout(null);
         c.add(topBar);
         c.add(sideBar);
@@ -216,5 +225,18 @@ public final class SVGEditorView extends JFrame implements LSUIProtocol {
         sideBar.setBackground(LSSVGEditorGUITheme.MASTER_DEFAULT_BACKGROUND_COLOR);
         navPanel.setBackground(LSSVGEditorGUITheme.MASTER_DEFAULT_BACKGROUND_COLOR);
         miscPanel.setBackground(LSSVGEditorGUITheme.MASTER_DEFAULT_BACKGROUND_COLOR);
+    }
+
+    private void setUpProperties() {
+        margin   = OSValidator.isMac()
+                   ? -21
+                   : 0;
+        width    = 1180;
+        height   = 830 + margin;
+        frameDim = new Dimension(width, height);
+        screen   = Toolkit.getDefaultToolkit().getScreenSize();
+        x        = (screen.width - width) / 2;
+        y        = (screen.height - height) / 2;
+        this.setLocation(x, y);
     }
 }

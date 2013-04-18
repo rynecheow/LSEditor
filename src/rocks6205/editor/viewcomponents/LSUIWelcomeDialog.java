@@ -16,9 +16,9 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 
 /**
- * 
+ *
  * @author Cheow Yeong Chi
- * 
+ *
  * @since 2.2
  */
 public final class LSUIWelcomeDialog extends JDialog implements LSUIProtocol {
@@ -26,11 +26,11 @@ public final class LSUIWelcomeDialog extends JDialog implements LSUIProtocol {
     /*
      * SIZE PROPERTIES
      */
-    int       width  = 600;
-    int       height = 450;
-    Dimension screen;
-    int       x;
-    int       y;
+    private int       width;
+    private int       height;
+    private Dimension screen;
+    private int       x;
+    private int       y;
 
     /*
      * GUI COMPONENTS
@@ -40,16 +40,18 @@ public final class LSUIWelcomeDialog extends JDialog implements LSUIProtocol {
     /*
      * PARENT COMPONENT
      */
-    SVGEditorView parentView;
+    private SVGEditorView parentView;
 
     /*
      * ACTION COMPONENTS
      */
-    OpenFileAction openFileAction;
+    private OpenFileAction openFileAction;
 
     public LSUIWelcomeDialog(SVGEditorView parent) {
         super(parent, "Welcome Screen", true);
-        parentView = parent;
+        this.height = 450;
+        this.width  = 600;
+        parentView  = parent;
         initialise();
         customise();
         bindEventActions();

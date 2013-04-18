@@ -2,16 +2,17 @@ package rocks6205.editor.viewcomponents;
 
 //~--- non-JDK imports --------------------------------------------------------
 
-import javax.swing.BorderFactory;
+import javax.swing.JLabel;
 import rocks6205.editor.events.LSAction.OpenFileAction;
 import rocks6205.editor.events.LSAction.ZoomInViewAction;
 import rocks6205.editor.events.LSAction.ZoomOutViewAction;
 import rocks6205.editor.mvc.SVGEditorView;
 
+import rocks6205.system.properties.LSSVGEditorGUITheme;
+
 //~--- JDK imports ------------------------------------------------------------
 
 import javax.swing.JToolBar;
-import rocks6205.system.properties.LSSVGEditorGUITheme;
 
 /**
  *
@@ -34,6 +35,8 @@ public final class LSUITopToolbar extends JToolBar implements LSUIProtocol {
     private LSUIButton saveButton;
     private LSUIButton zoomInButton;
     private LSUIButton zoomOutButton;
+    private LSUIIconLabel fillLabel;
+    private LSUIIconLabel strokeLabel;
 
     /*
      * ACTION COMPONENTS
@@ -56,6 +59,8 @@ public final class LSUITopToolbar extends JToolBar implements LSUIProtocol {
         saveButton    = new LSUIButton();
         zoomInButton  = new LSUIButton();
         zoomOutButton = new LSUIButton();
+        fillLabel    = new LSUIIconLabel();
+        strokeLabel  = new LSUIIconLabel();
         openAct       = new OpenFileAction(parentView);
         zoomInAction  = new ZoomInViewAction(parentView);
         zoomOutAction = new ZoomOutViewAction(parentView);
@@ -94,12 +99,16 @@ public final class LSUITopToolbar extends JToolBar implements LSUIProtocol {
         String saveFileIconPath = "imageicon/save.png";
         String zoomInIconPath   = "imageicon/zoomin.png";
         String zoomOutIconPath  = "imageicon/zoomout.png";
+        String fillIconPath     = "imageicon/fill.png";
+        String strokeIconPath   = "imageicon/stroke.png";
 
         newButton.setIcon(newFileIconPath);
         openButton.setIcon(openFileIconPath);
         saveButton.setIcon(saveFileIconPath);
         zoomInButton.setIcon(zoomInIconPath);
         zoomOutButton.setIcon(zoomOutIconPath);
+        fillLabel.setIcon(fillIconPath);
+        strokeLabel.setIcon(strokeIconPath);
     }
 
     /*
@@ -144,5 +153,7 @@ public final class LSUITopToolbar extends JToolBar implements LSUIProtocol {
         add(zoomInButton);
         add(zoomOutButton);
         addSeparator();
+        add(fillLabel);
+        add(strokeLabel);
     }
 }
