@@ -2,7 +2,6 @@ package rocks6205.editor.viewcomponents;
 
 //~--- non-JDK imports --------------------------------------------------------
 
-import javax.swing.JLabel;
 import rocks6205.editor.events.LSAction.OpenFileAction;
 import rocks6205.editor.events.LSAction.ZoomInViewAction;
 import rocks6205.editor.events.LSAction.ZoomOutViewAction;
@@ -12,6 +11,7 @@ import rocks6205.system.properties.LSSVGEditorGUITheme;
 
 //~--- JDK imports ------------------------------------------------------------
 
+import javax.swing.JLabel;
 import javax.swing.JToolBar;
 
 /**
@@ -30,11 +30,11 @@ public final class LSUITopToolbar extends JToolBar implements LSUIProtocol {
     /*
      * GUI COMPONENTS
      */
-    private LSUIButton newButton;
-    private LSUIButton openButton;
-    private LSUIButton saveButton;
-    private LSUIButton zoomInButton;
-    private LSUIButton zoomOutButton;
+    private LSUIButton    newButton;
+    private LSUIButton    openButton;
+    private LSUIButton    saveButton;
+    private LSUIButton    zoomInButton;
+    private LSUIButton    zoomOutButton;
     private LSUIIconLabel fillLabel;
     private LSUIIconLabel strokeLabel;
 
@@ -59,8 +59,8 @@ public final class LSUITopToolbar extends JToolBar implements LSUIProtocol {
         saveButton    = new LSUIButton();
         zoomInButton  = new LSUIButton();
         zoomOutButton = new LSUIButton();
-        fillLabel    = new LSUIIconLabel();
-        strokeLabel  = new LSUIIconLabel();
+        fillLabel     = new LSUIIconLabel();
+        strokeLabel   = new LSUIIconLabel();
         openAct       = new OpenFileAction(parentView);
         zoomInAction  = new ZoomInViewAction(parentView);
         zoomOutAction = new ZoomOutViewAction(parentView);
