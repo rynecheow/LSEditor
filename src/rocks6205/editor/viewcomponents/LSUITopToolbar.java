@@ -155,5 +155,6 @@ public final class LSUITopToolbar extends JToolBar implements LSUIProtocol {
         addSeparator();
         add(fillLabel);
         add(strokeLabel);
+        addSeparator();
     }
 }
