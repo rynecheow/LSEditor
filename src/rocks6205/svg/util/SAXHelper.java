@@ -6,7 +6,8 @@ import org.xml.sax.Attributes;
 
 /**
  * @author Komalah
- *
+ * SAXHelper contains some helper methods for working with SAX
+ * and XMLReader objects. This class will be similar to XMLParser.java which had been created before.
  */
 public class SAXHelper {
     public static String getStringAttribute(final Attributes pAttributes, final String pAttributeName) {
