@@ -2,6 +2,8 @@ package rocks6205.editor.viewcomponents;
 
 //~--- non-JDK imports --------------------------------------------------------
 
+import java.awt.Color;
+import java.awt.Dimension;
 import rocks6205.editor.events.LSAction.OpenFileAction;
 import rocks6205.editor.events.LSAction.ZoomInViewAction;
 import rocks6205.editor.events.LSAction.ZoomOutViewAction;
@@ -12,6 +14,7 @@ import rocks6205.system.properties.LSSVGEditorGUITheme;
 //~--- JDK imports ------------------------------------------------------------
 
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JToolBar;
 
 /**
@@ -37,7 +40,8 @@ public final class LSUITopToolbar extends JToolBar implements LSUIProtocol {
     private LSUIButton    zoomOutButton;
     private LSUIIconLabel fillLabel;
     private LSUIIconLabel strokeLabel;
-
+    private JPanel fillButton;
+    private LSUIButton strokeButton;
     /*
      * ACTION COMPONENTS
      */
@@ -61,6 +65,8 @@ public final class LSUITopToolbar extends JToolBar implements LSUIProtocol {
         zoomOutButton = new LSUIButton();
         fillLabel     = new LSUIIconLabel();
         strokeLabel   = new LSUIIconLabel();
+        fillButton= new JPanel();
+                strokeButton= new LSUIButton();
         openAct       = new OpenFileAction(parentView);
         zoomInAction  = new ZoomInViewAction(parentView);
         zoomOutAction = new ZoomOutViewAction(parentView);
@@ -68,12 +74,9 @@ public final class LSUITopToolbar extends JToolBar implements LSUIProtocol {
 
     @Override
     public void customise() {
+        layoutChildComponents();
         layoutView();
-        setActionForButtons();
-        setIconsForButtons();
-        setFloatable(false);
-        setRollover(true);
-        setBorder(LSSVGEditorGUITheme.MASTER_DEFAULT_PANEL_BORDER);
+        
     }
 
     private void setParentView(SVGEditorView parent) {
@@ -145,6 +148,9 @@ public final class LSUITopToolbar extends JToolBar implements LSUIProtocol {
     }
 
     private void layoutView() {
+        setActionForButtons();
+        setIconsForButtons();
+        setBorder(LSSVGEditorGUITheme.MASTER_DEFAULT_PANEL_BORDER);
         addSeparator();
         add(newButton);
         add(openButton);
@@ -154,7 +160,22 @@ public final class LSUITopToolbar extends JToolBar implements LSUIProtocol {
         add(zoomOutButton);
         addSeparator();
         add(fillLabel);
+        add(fillButton);
         add(strokeLabel);
+        add(strokeButton);
         addSeparator();
+        
+        setFloatable(false);
+        setRollover(true);
+    }
+
+    private void layoutChildComponents() {
+        fillButton.setMaximumSize(new Dimension(25, 25));
+        fillButton.setMinimumSize(new Dimension(25, 25));
+        fillButton.setBackground(Color.red);
+        fillButton.setBorder(LSSVGEditorGUITheme.MASTER_DEFAULT_PANEL_BORDER);
+        fillButton.setFocusable(false);
+        strokeButton.setSize(new Dimension(30, 30));
+        strokeButton.setBackground(Color.red);
     }
 }

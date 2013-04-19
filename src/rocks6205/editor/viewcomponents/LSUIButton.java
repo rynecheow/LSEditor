@@ -29,9 +29,10 @@ public class LSUIButton extends JButton {
      * Set border of button to <code>null</code>.
      */
     public LSUIButton() {
-        setBorder(null);
-        setBackground(null);
-        setBorderPainted(false);
+        super();
+//        setBorder(null);
+//        setBackground(null);
+//        setBorderPainted(false);
     }
 
     /**
