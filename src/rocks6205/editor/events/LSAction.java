@@ -14,6 +14,10 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
+import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
@@ -26,6 +30,8 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import static javax.swing.Action.ACCELERATOR_KEY;
 import static javax.swing.Action.MNEMONIC_KEY;
 import static javax.swing.Action.SHORT_DESCRIPTION;
+import rocks6205.editor.mvc.SVGEditorViewController;
+import rocks6205.system.properties.SVGCanvasProperties;
 
 /**
  * The <code>LSAction</code> is an abstract class which create <code>Action</code>
@@ -44,7 +50,7 @@ public abstract class LSAction extends AbstractAction {
      * Parent component (Usually an <code>SVGView</code> object.)
      */
     protected SVGEditorView parent;
-
+    protected SVGEditorViewController controller;
     /*
      * CONSTRUCTOR
      */
@@ -64,6 +70,7 @@ public abstract class LSAction extends AbstractAction {
         putValue(MNEMONIC_KEY, mnemonic);
         putValue(ACCELERATOR_KEY, keyStroke);
         this.parent = parent;
+        this.controller = parent.getController();
     }
 
     /**
@@ -83,6 +90,7 @@ public abstract class LSAction extends AbstractAction {
         putValue(MNEMONIC_KEY, mnemonic);
         putValue(ACCELERATOR_KEY, keyStroke);
         this.parent = parent;
+        this.controller = parent.getController();
     }
 
     private static int getKeyEventMask() {
@@ -128,7 +136,9 @@ public abstract class LSAction extends AbstractAction {
         }
 
         @Override
-        public void actionPerformed(ActionEvent e) {}
+        public void actionPerformed(ActionEvent e) {
+            controller.deleteSelectedElement();
+        }
     }
 
 
@@ -170,7 +180,9 @@ public abstract class LSAction extends AbstractAction {
         }
 
         @Override
-        public void actionPerformed(ActionEvent e) {}
+        public void actionPerformed(ActionEvent e) {
+            controller.clearSelection();
+        }
     }
 
 
@@ -213,7 +225,9 @@ public abstract class LSAction extends AbstractAction {
         }
 
         @Override
-        public void actionPerformed(ActionEvent event) {}
+        public void actionPerformed(ActionEvent event) {
+            
+        }
     }
 
 
@@ -442,7 +456,9 @@ public abstract class LSAction extends AbstractAction {
         }
 
         @Override
-        public void actionPerformed(ActionEvent e) {}
+        public void actionPerformed(ActionEvent e) {
+            controller.group();
+        }
     }
 
 
@@ -480,7 +496,12 @@ public abstract class LSAction extends AbstractAction {
         }
 
         @Override
-        public void actionPerformed(ActionEvent e) {}
+        public void actionPerformed(ActionEvent e) {
+            if (parent.promptSaveIfNeeded()) {
+				parent.setDisplayedFile(null);
+				controller.createBlankDocument();
+			}
+        }
     }
     
     /**
@@ -536,10 +557,21 @@ public abstract class LSAction extends AbstractAction {
 
             fileChoooser.setFileFilter(extFilter);
 
-//          if (fileChoooser.showOpenDialog(super.parent) == JFileChooser.APPROVE_OPTION) {
-//              super.parent.getController().fileLoad(fileChoooser.getSelectedFile());
-//          }
+            
+          if (fileChoooser.showOpenDialog(super.parent) == JFileChooser.APPROVE_OPTION) {
+                openFile(fileChoooser.getSelectedFile());
+          }
         }
+        
+        private boolean openFile(File file) {
+		boolean opened = false;
+		try {
+			opened = controller.fileLoad(file);
+		} catch (IOException e) {
+			System.err.println(e.getMessage());
+		}
+		return opened;
+	}
     }
 
 
@@ -579,7 +611,9 @@ public abstract class LSAction extends AbstractAction {
         }
 
         @Override
-        public void actionPerformed(ActionEvent e) {}
+        public void actionPerformed(ActionEvent e) {
+            parent.saveFile();
+        }
     }
 
 
@@ -621,7 +655,9 @@ public abstract class LSAction extends AbstractAction {
         }
 
         @Override
-        public void actionPerformed(ActionEvent e) {}
+        public void actionPerformed(ActionEvent e) {
+            parent.fileSaveAs();
+        }
     }
 
 
@@ -662,7 +698,9 @@ public abstract class LSAction extends AbstractAction {
         }
 
         @Override
-        public void actionPerformed(ActionEvent e) {}
+        public void actionPerformed(ActionEvent e) {
+            controller.selectAll();
+        }
     }
 
 
@@ -702,7 +740,9 @@ public abstract class LSAction extends AbstractAction {
         }
 
         @Override
-        public void actionPerformed(ActionEvent e) {}
+        public void actionPerformed(ActionEvent e) {
+            controller.ungroup();
+        }
     }
 
 
@@ -768,7 +808,20 @@ public abstract class LSAction extends AbstractAction {
          * {@inheritDoc}
          */
         @Override
-        public void actionPerformed(ActionEvent event) {}
+        public void actionPerformed(ActionEvent event) {
+            float zoom = parent.getZoomScale();
+            if ( zoom < SVGCanvasProperties.DEFAULT_MAX_ZOOM_LEVEL) {
+				zoom *= 2;
+
+				if (zoom >= SVGCanvasProperties.DEFAULT_MAX_ZOOM_LEVEL) {
+					setEnabled(false);
+				}
+				zoomOutPartnerAction.setEnabled(true);
+                                
+				parent.changeZoom(zoom);
+				parent.update();
+			}
+        }
     }
 
 
@@ -783,8 +836,11 @@ public abstract class LSAction extends AbstractAction {
      *
      */
     public static class ZoomOutViewAction extends LSAction {
-        private static final long serialVersionUID = -6578149781110081473L;
-
+        /**
+         * Partner action component that perform zoom out action.
+         */
+        private ZoomInViewAction zoomInPartnerAction;
+        
         /*
          * CONSTRUCTOR
          */
@@ -812,14 +868,32 @@ public abstract class LSAction extends AbstractAction {
         }
 
         /**
+         *
+         * @param zoomOutPartnerAction Partner action component that perform zoom out action.
+         */
+        public void setZoomInPartnerAction(ZoomInViewAction zoomInPartnerAction) {
+            this.zoomInPartnerAction = zoomInPartnerAction;
+        }
+        
+        /**
          * <p>Decrease the <code>zoomScale</code> by 100% and sets the partner
          * to be enabled.</p>
          * {@inheritDoc}
          */
         @Override
-        public void actionPerformed(ActionEvent event) {}
+        public void actionPerformed(ActionEvent event) {
+            float zoom = parent.getZoomScale();
+            if (zoom > SVGCanvasProperties.DEFAULT_MIN_ZOOM_LEVEL) {
+				zoom /= 2;
+
+				if (zoom >= SVGCanvasProperties.DEFAULT_MIN_ZOOM_LEVEL) {
+					setEnabled(false);
+				}
+				zoomInPartnerAction.setEnabled(true);
+
+				parent.changeZoom(zoom);
+				parent.update();
+			}
+        }
     }
 }
-
-
-//~ Formatted by Jindent --- http://www.jindent.com

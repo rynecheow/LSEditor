@@ -22,11 +22,16 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.File;
+import java.io.IOException;
+import java.text.MessageFormat;
+import javax.swing.JFileChooser;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.WindowConstants;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  * A class defining how the main user interface should look like.
@@ -60,7 +65,10 @@ public final class SVGEditorView extends JFrame implements LSUIProtocol {
      * PROPERTIES
      */
     private float zoomScale;
-
+    private boolean isZoomChanged;
+    private File displayedFile;
+    private String documentTitle;
+    
     /**
      * Model object
      */
@@ -101,6 +109,7 @@ public final class SVGEditorView extends JFrame implements LSUIProtocol {
      */
     public SVGEditorView() {
         super();
+        
         initialise();
         customise();
 
@@ -113,6 +122,8 @@ public final class SVGEditorView extends JFrame implements LSUIProtocol {
     @Override
     public void initialise() {
         setUpProperties();
+        isZoomChanged = false;
+        zoomScale = 1.0f;
         menuBar     = new LSUIMenubar(this);
         topBar      = new LSUITopToolbar("Editing Tools", this);
         sideBar     = new LSUISideToolbar("Selection Tools", this);
@@ -193,11 +204,34 @@ public final class SVGEditorView extends JFrame implements LSUIProtocol {
     public float getZoomScale() {
         return zoomScale;
     }
-
+    
+    public void changeZoom(float zoom){
+        isZoomChanged = true;
+        this.zoomScale = zoom;
+    }
+    
+    public void resetZoom(){
+        isZoomChanged = false;
+        this.zoomScale = 1.00f;
+    }
+    
+    public boolean isZoomChanged(){
+        return isZoomChanged;
+    }
+    public void setDisplayedFile(File d){
+        displayedFile = d;
+    }
+    public File getDisplayedFile(){
+        return displayedFile;
+    }
+    
+    
     private void showWelcomeScreen() {
         new LSUIWelcomeDialog(this).display();
     }
 
+    
+    
     public void layoutFrame() {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setMaximumSize(frameDim);
@@ -239,4 +273,74 @@ public final class SVGEditorView extends JFrame implements LSUIProtocol {
         y        = (screen.height - height) / 2;
         this.setLocation(x, y);
     }
+    
+    /**
+     * 
+     * @return 
+     */
+    public boolean promptSaveIfNeeded(){
+        boolean modified = controller.isDocumentModified();
+
+		if (!modified) {
+			return true;
+		}
+
+		Object[] messageArguments = { documentTitle };
+
+		MessageFormat formatter = new MessageFormat("");
+		String message = formatter.format(messageArguments);
+		String title = formatter.format(messageArguments);
+
+		int option = JOptionPane.showOptionDialog(this, message, title,
+				JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE,
+				null, null, null);
+
+		switch (option) {
+		case JOptionPane.NO_OPTION:
+			return true;
+		case JOptionPane.YES_OPTION:
+			if (saveFile()) {
+				return true;
+			}
+		}
+
+		return false;
+    }
+    
+    public boolean saveFile() {
+		boolean saved = false;
+
+		try {
+			saved = controller.fileSave();
+		} catch (IOException e) {
+			saved = fileSaveAs();
+		}
+
+		return saved;
+	}
+    
+    public boolean fileSaveAs() {
+		boolean saved = false;
+                JFileChooser fileChoooser = new JFileChooser();
+
+            fileChoooser.setMultiSelectionEnabled(false);
+            fileChoooser.setAcceptAllFileFilterUsed(false);
+
+            FileNameExtensionFilter extFilter = new FileNameExtensionFilter("Scalable Vector Graphics (*.svg)", "svg");
+
+            fileChoooser.setFileFilter(extFilter);
+                
+
+		fileChoooser.setSelectedFile(getDisplayedFile());
+
+		if (fileChoooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
+			try {
+				saved = controller.fileSave();
+			} catch (IOException e) {
+                            
+			}
+		}
+
+		return saved;
+	}
 }
