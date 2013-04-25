@@ -30,10 +30,10 @@ public class LSSVGEditor {
 //      splash.showSplash();
         setUpLookAndFeel();
 
-        SVGEditorView           v = new SVGEditorView();
+        
         SVGEditorViewController c = new SVGEditorViewController();
-
-        v.setController(c);
+        c.createBlankDocument();
+        SVGEditorView           v = new SVGEditorView(c);
         v.setVisible(true);
         v.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 
@@ -44,6 +44,7 @@ public class LSSVGEditor {
                 System.err.println(e.getMessage());
             }
         }
+        c.updateViews();
     }
 
     /**

@@ -22,9 +22,11 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import javax.swing.JFileChooser;
 
 import javax.swing.JFrame;
@@ -32,6 +34,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.WindowConstants;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import rocks6205.svg.elements.SVGGenericElement;
 
 /**
  * A class defining how the main user interface should look like.
@@ -107,9 +110,9 @@ public final class SVGEditorView extends JFrame implements LSUIProtocol {
      * Construct an <code>SVGView</code> instance with components initialised
      * and properly customised.
      */
-    public SVGEditorView() {
+    public SVGEditorView(SVGEditorViewController c) {
         super();
-        
+        setController(c);
         initialise();
         customise();
 
@@ -131,6 +134,7 @@ public final class SVGEditorView extends JFrame implements LSUIProtocol {
         navPanel    = new LSUINavigationPanel(this);
         miscPanel   = new LSUIMiscPanel(this);
         scrollPane  = new JScrollPane();
+        editPanel   = new LSUIEditingPanel(this);
     }
 
     /**
@@ -139,7 +143,9 @@ public final class SVGEditorView extends JFrame implements LSUIProtocol {
     @Override
     public void customise() {
         layoutChildComponents();
+        setUpEditingPanel();
         layoutFrame();
+        
         setClosingEvent();
     }
 
@@ -197,8 +203,43 @@ public final class SVGEditorView extends JFrame implements LSUIProtocol {
     }
 
     public void update() {
+      ArrayList<SVGGenericElement> selections = new ArrayList<>(controller.getSelections());
+		boolean selected = !selections.isEmpty();
+		boolean modified = controller.isDocumentModified();
+		File currentFile = controller.getCurrentFile();
+		boolean fileChanged = currentFile != displayedFile;
+		boolean repaint = modified || isZoomChanged || fileChanged;
 
-        // TODO Auto-generated method stub
+//		deselectAllAction.setEnabled(selected);
+//		groupAction.setEnabled(selected);
+//		ungroupAction.setEnabled(selected);
+//		deleteAction.setEnabled(selected);
+
+		editPanel.setSelections(selections);
+		editPanel.drawOverlay();
+
+		if (selections.size() == 1) {
+			SVGGenericElement elem = selections.get(0);
+
+//			fillChooserButton.setPaint(elem.getResultantFill());
+//			fillChooserButton.repaint();
+//			strokeChooserButton.setPaint(elem.getResultantStroke());
+//			strokeChooserButton.repaint();
+//			strokeWidthInputPanel.setLength(elem.getResultantStrokeWidth());
+		}
+
+		if (isZoomChanged) {
+			isZoomChanged = false;
+		}
+
+		if (fileChanged) {
+			displayedFile = currentFile;
+//			updateTitle();
+		}
+
+		if (repaint) {
+			editPanel.paintCanvas(controller.renderImage(zoomScale));
+		}
     }
 
     public float getZoomScale() {
@@ -346,6 +387,18 @@ public final class SVGEditorView extends JFrame implements LSUIProtocol {
 
    public void changeMode(LSUIEditingPanel.EditModeScheme mode) {
       editPanel.switchModeTo(mode);
+   }
+
+   private void setUpEditingPanel() {
+      BufferedImage image = controller.renderImage(zoomScale);
+      
+      editPanel.setPreferredSize(new Dimension(image.getWidth(), image
+				.getHeight()));
+      editPanel.switchModeTo(LSUIEditingPanel.EditModeScheme.MODE_SELECT);
+		editPanel.setFill(SVGGenericElement.SVG_FILL_DEFAULT);
+		editPanel.setStroke(SVGGenericElement.SVG_STROKE_DEFAULT);
+		editPanel.setStrokeWidth(SVGGenericElement.SVG_STROKE_WIDTH_DEFAULT);
+      scrollPane.setViewportView(editPanel);
    }
    
 }

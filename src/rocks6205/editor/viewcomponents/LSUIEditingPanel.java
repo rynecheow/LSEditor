@@ -77,6 +77,7 @@ public final class LSUIEditingPanel extends JPanel {
         setAutoscrolls(true);
         drawListener = new SVGEditorDrawMouseAdaptor();
         scribbleArea.addMouseListener(drawListener);
+        scribbleArea.addMouseMotionListener(drawListener);
     }
 
     /**
@@ -317,7 +318,7 @@ public final class LSUIEditingPanel extends JPanel {
          */
         @Override
         public void mousePressed(MouseEvent event) {
-            System.out.printf("Pressed at x:%d y:%d", event.getX(), event.getY());
+            System.out.printf("Pressed at x:%d y:%d\n", event.getX(), event.getY());
 
             //
             Point         cursorPoint = event.getPoint();
@@ -431,7 +432,6 @@ public final class LSUIEditingPanel extends JPanel {
 
                 case DRAW_LINE :
                     SVGLineElement svgLine = new SVGLineElement();
-
                     svgLine.setX1(x);
                     svgLine.setY1(y);
                     svgLine.setX2(x);
@@ -493,7 +493,7 @@ public final class LSUIEditingPanel extends JPanel {
             isDragged          = false;
             selectionRect      = null;
             previousActiveRect = null;
-            System.out.printf("Released at x:%d y:%d", event.getX(), event.getY());
+            System.out.printf("Released at x:%d y:%d\n", event.getX(), event.getY());
         }
 
         /**
@@ -502,6 +502,9 @@ public final class LSUIEditingPanel extends JPanel {
      */
         @Override
         public void mouseDragged(MouseEvent event) {
+           
+           System.out.printf("Dragged at x:%d y:%d\n", event.getX(), event.getY());
+           
             Point         cursorPoint = event.getPoint();
             float         zoom        = parent.getZoomScale();
             Point2D.Float endPoint    = new Point2D.Float(cursorPoint.x / zoom, cursorPoint.y / zoom);
@@ -652,29 +655,7 @@ public final class LSUIEditingPanel extends JPanel {
             }
 
             scrollRectToVisible(new Rectangle(cursorPoint, new Dimension(1, 1)));
-            System.out.printf("Dragged at x:%d y:%d", event.getX(), event.getY());
-        }
-
-        /**
-         * {@inheritDoc}<p>
-         *
-         */
-        @Override
-        public void mouseEntered(MouseEvent event) {
-            LSUIEditingPanel editor = (LSUIEditingPanel) event.getSource();
-
-            editor.setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
-            System.out.printf("Dragged at x:%d y:%d", event.getX(), event.getY());
-        }
-
-        /**
-         * {@inheritDoc}<p>
-         *
-         */
-        public void mouseExit(MouseEvent event) {
-            LSUIEditingPanel editor = (LSUIEditingPanel) event.getSource();
-
-            editor.setCursor(Cursor.getDefaultCursor());
+            
         }
     }
 }

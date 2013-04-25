@@ -58,15 +58,15 @@ public final class LSUITopToolbar extends JToolBar implements LSUIProtocol {
 
     @Override
     public void initialise() {
-        newButton     = new LSUIButton();
-        openButton    = new LSUIButton();
-        saveButton    = new LSUIButton();
-        zoomInButton  = new LSUIButton();
-        zoomOutButton = new LSUIButton();
+        newButton     = LSUIButton.create();
+        openButton    = LSUIButton.create();
+        saveButton    = LSUIButton.create();
+        zoomInButton  = LSUIButton.create();
+        zoomOutButton = LSUIButton.create();
         fillLabel     = new LSUIIconLabel();
         strokeLabel   = new LSUIIconLabel();
         fillButton= new JPanel();
-                strokeButton= new LSUIButton();
+                strokeButton= LSUIButton.create();
         openAct       = new OpenFileAction(parentView);
         zoomInAction  = new ZoomInViewAction(parentView);
         zoomOutAction = new ZoomOutViewAction(parentView);

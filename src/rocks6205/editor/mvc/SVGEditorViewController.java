@@ -124,7 +124,7 @@ public class SVGEditorViewController
     /**
      * Currently opened file.
      */
-    private File currentFile;
+    private File activeFile;
 
     /**
      * Document modification state
@@ -165,7 +165,7 @@ public class SVGEditorViewController
     }
 
     public File getCurrentFile() {
-        return this.currentFile;
+        return this.activeFile;
     }
 
     /*
@@ -242,8 +242,9 @@ public class SVGEditorViewController
     }
 
     public void createBlankDocument() {
+        model = new SVGEditorModel();
         model.setSVGElement(new SVGSVGElement(SVGLengthUnit.parse("500px"), SVGLengthUnit.parse("500px")));
-        currentFile = NEW_DOCUMENT;
+        activeFile = NEW_DOCUMENT;
         unmodifyDocument();
         updateViews();
     }
@@ -251,7 +252,9 @@ public class SVGEditorViewController
     public BufferedImage renderImage(double scale) {
         int           width  = (int) (model.getSVGElement().getWidth().getValue(SVGLengthUnitType.PX) * scale);
         int           height = (int) (model.getSVGElement().getHeight().getValue(SVGLengthUnitType.PX) * scale);
+        
         BufferedImage image  = new BufferedImage(width, height, BufferedImage.TYPE_4BYTE_ABGR);
+        
         Graphics2D    g      = image.createGraphics();
 
         g.scale(scale, scale);
@@ -429,7 +432,7 @@ public class SVGEditorViewController
 
                 if (svg_e != null) {
                     model.setSVGElement(svg_e);
-                    currentFile        = file;
+                    activeFile        = file;
                     isDocumentModified = false;
                     updateViews();
 
@@ -448,7 +451,7 @@ public class SVGEditorViewController
      */
     @Override
     public boolean fileSave() throws IOException {
-        return fileSave(currentFile);
+        return fileSave(activeFile);
     }
 
     /**
@@ -686,7 +689,7 @@ public class SVGEditorViewController
     public void endFileModification() {
         model.setSVGElement(null);
         selections.clear();
-        currentFile = null;
+        activeFile = null;
         unmodifyDocument();
     }
 

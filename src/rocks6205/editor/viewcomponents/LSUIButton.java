@@ -8,7 +8,7 @@ import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
+import javax.swing.JToggleButton;
 
 /**
  *
@@ -17,8 +17,12 @@ import javax.swing.JButton;
  * @since 1.3
  *
  */
-public class LSUIButton extends JButton {
+public class LSUIButton extends JToggleButton {
     private static final long serialVersionUID = -7348665839241378305L;
+
+   public static LSUIButton create() {
+      return new LSUIButton();
+   }
 
     /*
      * CONSTRUCTORS
@@ -28,7 +32,7 @@ public class LSUIButton extends JButton {
      * Default constructor.<p>
      * Set border of button to <code>null</code>.
      */
-    public LSUIButton() {
+    private LSUIButton() {
         super();
 //        setBorder(null);
 //        setBackground(null);

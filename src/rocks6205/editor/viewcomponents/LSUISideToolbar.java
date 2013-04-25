@@ -10,6 +10,11 @@ import rocks6205.system.properties.LSSVGEditorGUITheme;
 
 import javax.swing.JToolBar;
 import javax.swing.SwingConstants;
+import rocks6205.editor.events.LSAction.DrawCircleAction;
+import rocks6205.editor.events.LSAction.DrawLineAction;
+import rocks6205.editor.events.LSAction.DrawRectAction;
+import rocks6205.editor.events.LSAction.PanModeAction;
+import rocks6205.editor.events.LSAction.SelectModeAction;
 
 /**
  *
@@ -39,6 +44,13 @@ public final class LSUISideToolbar extends JToolBar implements LSUIProtocol {
     /*
      * ACTION COMPONENTS
      */
+    private DrawLineAction drawLineAction;
+    private DrawRectAction drawRectAction;
+    private DrawCircleAction drawCircleAction;
+    private PanModeAction panModeAction;
+    private SelectModeAction selectModeAction;
+    
+    
     public LSUISideToolbar(String name, SVGEditorView parent) {
         super(name);
         setParentView(parent);
@@ -48,14 +60,21 @@ public final class LSUISideToolbar extends JToolBar implements LSUIProtocol {
 
     @Override
     public void initialise() {
-        panButton        = new LSUIButton();
-        moveButton       = new LSUIButton();
-        selectButton     = new LSUIButton();
-        insertRectButton = new LSUIButton();
-        insertCircButton = new LSUIButton();
-        insertLineButton = new LSUIButton();
-        groupButton      = new LSUIButton();
-        ungroupButton    = new LSUIButton();
+        panButton        = LSUIButton.create();
+        moveButton       = LSUIButton.create();
+        selectButton     = LSUIButton.create();
+        insertRectButton = LSUIButton.create();
+        insertCircButton = LSUIButton.create();
+        insertLineButton = LSUIButton.create();
+        groupButton      = LSUIButton.create();
+        ungroupButton    = LSUIButton.create();
+        
+        drawLineAction = new DrawLineAction(parentView);
+        drawRectAction = new DrawRectAction(parentView);
+        drawCircleAction = new DrawCircleAction(parentView);
+        panModeAction = new PanModeAction(parentView);
+        selectModeAction = new SelectModeAction(parentView);
+        
     }
 
     @Override
@@ -77,8 +96,8 @@ public final class LSUISideToolbar extends JToolBar implements LSUIProtocol {
      * Setup actions for button.
      */
     private void setActionForButtons() {
+       insertLineButton.setAction(drawLineAction);
 
-//      fillButton.setAction(getFillAction());
     }
 
     /**
