@@ -13,6 +13,7 @@ import rocks6205.svg.elements.SVGCircleElement;
 import rocks6205.svg.elements.SVGGenericElement;
 import rocks6205.svg.elements.SVGLineElement;
 import rocks6205.svg.elements.SVGRectElement;
+import rocks6205.Helper;
 
 //~--- JDK imports ------------------------------------------------------------
 
@@ -144,6 +145,7 @@ public final class LSUIEditingPanel extends JPanel {
         }
 
         setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
+        System.out.println(mode.name());
     }
 
     public String getEditMode() {
@@ -318,7 +320,7 @@ public final class LSUIEditingPanel extends JPanel {
          */
         @Override
         public void mousePressed(MouseEvent event) {
-            System.out.printf("Pressed at x:%d y:%d\n", event.getX(), event.getY());
+            Helper.printf("Pressed at x:%d y:%d\n", event.getX(), event.getY());
 
             //
             Point         cursorPoint = event.getPoint();
@@ -413,6 +415,7 @@ public final class LSUIEditingPanel extends JPanel {
 
                 switch (editingMode) {
                 case DRAW_RECTANGLE :
+                   Helper.println("Drawing Rectangle");
                     SVGRectElement svgRect = new SVGRectElement();
 
                     svgRect.setX(x);
@@ -422,6 +425,7 @@ public final class LSUIEditingPanel extends JPanel {
                     break;
 
                 case DRAW_CIRCLE :
+                   Helper.println("Drawing Circle");
                     SVGCircleElement svgCircle = new SVGCircleElement();
 
                     svgCircle.setCx(x);
@@ -431,6 +435,8 @@ public final class LSUIEditingPanel extends JPanel {
                     break;
 
                 case DRAW_LINE :
+                   Helper.println("Drawing Line");
+                   Helper.printf("%f %f", x.getValue(),y.getValue());
                     SVGLineElement svgLine = new SVGLineElement();
                     svgLine.setX1(x);
                     svgLine.setY1(y);
@@ -452,8 +458,6 @@ public final class LSUIEditingPanel extends JPanel {
 
             updateSelectionRect(cursorPoint);
             requestFocusInWindow();
-
-            //
         }
 
         /**
@@ -462,6 +466,7 @@ public final class LSUIEditingPanel extends JPanel {
          */
         @Override
         public void mouseReleased(MouseEvent event) {
+            Helper.printf("Released at x:%d y:%d\n", event.getX(), event.getY());
             float              zoom      = parent.getZoomScale();
             Rectangle2D.Double realRect  = null;
             Point2D.Double     realPoint = null;
@@ -493,7 +498,7 @@ public final class LSUIEditingPanel extends JPanel {
             isDragged          = false;
             selectionRect      = null;
             previousActiveRect = null;
-            System.out.printf("Released at x:%d y:%d\n", event.getX(), event.getY());
+            
         }
 
         /**

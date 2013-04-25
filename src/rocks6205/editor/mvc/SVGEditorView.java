@@ -204,16 +204,14 @@ public final class SVGEditorView extends JFrame implements LSUIProtocol {
 
     public void update() {
       ArrayList<SVGGenericElement> selections = new ArrayList<>(controller.getSelections());
-//		boolean isAnySelected = !selections.isEmpty();
+		boolean isAnySelected = !selections.isEmpty();
 		boolean isDocumentModified = controller.isDocumentModified();
 		File currentFile = controller.getCurrentFile();
 		boolean isFileChanged = (currentFile != displayedFile);
 		boolean needRepaint = isDocumentModified || isZoomChanged || isFileChanged;
 
-//		deselectAllAction.setEnabled(selected);
-//		groupAction.setEnabled(selected);
-//		ungroupAction.setEnabled(selected);
-//		deleteAction.setEnabled(selected);
+      sideBar.updateActionStatusFromView(isAnySelected);
+      menuBar.updateActionStatusFromView(isAnySelected);
 
 		editPanel.setSelections(selections);
 		editPanel.drawOverlay();
@@ -400,5 +398,7 @@ public final class SVGEditorView extends JFrame implements LSUIProtocol {
 		editPanel.setStrokeWidth(SVGGenericElement.SVG_STROKE_WIDTH_DEFAULT);
       scrollPane.setViewportView(editPanel);
    }
+
+   
    
 }

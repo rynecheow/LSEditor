@@ -48,6 +48,7 @@ public final class LSUIMenubar extends JMenuBar implements LSUIProtocol {
     private JMenuItem docPropMenuItem;
     private JMenuItem exitMenuItem;
     private JMenuItem selectAllMenuItem;
+    private JMenuItem deselectAllMenuItem;
     private JMenuItem groupMenuItem;
     private JMenuItem ungroupMenuItem;
     private JMenuItem deleteMenuItem;
@@ -101,6 +102,7 @@ public final class LSUIMenubar extends JMenuBar implements LSUIProtocol {
         docPropMenuItem      = new JMenuItem("Document Properties");
         exitMenuItem         = new JMenuItem("Exit");
         selectAllMenuItem    = new JMenuItem("Select All");
+        deselectAllMenuItem  = new JMenuItem("Deselect All");
         groupMenuItem        = new JMenuItem("Group");
         ungroupMenuItem      = new JMenuItem("Ungroup");
         deleteMenuItem       = new JMenuItem("Delete");
@@ -168,6 +170,7 @@ public final class LSUIMenubar extends JMenuBar implements LSUIProtocol {
      */
     private void layoutEditMenuItemList() {
         editMenu.add(selectAllMenuItem);
+        editMenu.add(deselectAllMenuItem);
         editMenu.addSeparator();
         editMenu.add(groupMenuItem);
         editMenu.add(ungroupMenuItem);
@@ -271,4 +274,9 @@ public final class LSUIMenubar extends JMenuBar implements LSUIProtocol {
 
         return zoomOutAction;
     }
+    
+    public void updateActionStatusFromView(boolean status) {
+      selectAllMenuItem.setEnabled(status);
+      deselectAllMenuItem.setEnabled(status);
+   }
 }

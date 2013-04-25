@@ -97,7 +97,8 @@ public final class LSUISideToolbar extends JToolBar implements LSUIProtocol {
      */
     private void setActionForButtons() {
        insertLineButton.setAction(drawLineAction);
-
+       insertCircButton.setAction(drawCircleAction);
+       insertRectButton.setAction(drawRectAction);
     }
 
     /**
@@ -137,4 +138,9 @@ public final class LSUISideToolbar extends JToolBar implements LSUIProtocol {
         add(ungroupButton);
         addSeparator();
     }
+    
+    public void updateActionStatusFromView(boolean status) {
+      groupButton.setEnabled(status);
+      ungroupButton.setEnabled(status);
+   }
 }

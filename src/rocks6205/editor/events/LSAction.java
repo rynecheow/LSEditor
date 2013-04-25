@@ -206,7 +206,6 @@ public abstract class LSAction extends AbstractAction {
          */
         public DrawCircleAction(SVGEditorView parent) {
             super("Draw Circle", KeyEvent.VK_C, KeyStroke.getKeyStroke(KeyEvent.VK_C, getKeyEventMask()), parent);
-            setEnabled(false);
         }
 
         /**
@@ -224,6 +223,7 @@ public abstract class LSAction extends AbstractAction {
         public void actionPerformed(ActionEvent event) {
             putValue(SELECTED_KEY, Boolean.TRUE);
             parent.changeMode(LSUIEditingPanel.EditModeScheme.DRAW_CIRCLE);
+            
             controller.clearSelection();
         }
     }
@@ -253,7 +253,6 @@ public abstract class LSAction extends AbstractAction {
          */
         public DrawLineAction(SVGEditorView parent) {
             super("Draw Line", KeyEvent.VK_L, KeyStroke.getKeyStroke(KeyEvent.VK_L, getKeyEventMask()), parent);
-            setEnabled(false);
         }
 
         /**
@@ -300,7 +299,6 @@ public abstract class LSAction extends AbstractAction {
          */
         public DrawRectAction(SVGEditorView parent) {
             super("Draw Rect", KeyEvent.VK_R, KeyStroke.getKeyStroke(KeyEvent.VK_R, getKeyEventMask()), parent);
-            setEnabled(false);
         }
 
         /**

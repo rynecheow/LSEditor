@@ -8,7 +8,6 @@ import rocks6205.system.properties.SVGCanvasProperties;
 //~--- JDK imports ------------------------------------------------------------
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
