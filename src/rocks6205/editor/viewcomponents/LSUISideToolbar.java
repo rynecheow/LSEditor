@@ -2,7 +2,6 @@ package rocks6205.editor.viewcomponents;
 
 //~--- non-JDK imports --------------------------------------------------------
 
-import rocks6205.editor.events.LSAction.FillAction;
 import rocks6205.editor.mvc.SVGEditorView;
 
 import rocks6205.system.properties.LSSVGEditorGUITheme;
@@ -40,8 +39,6 @@ public final class LSUISideToolbar extends JToolBar implements LSUIProtocol {
     /*
      * ACTION COMPONENTS
      */
-    private FillAction fillAction;
-
     public LSUISideToolbar(String name, SVGEditorView parent) {
         super(name);
         setParentView(parent);
@@ -59,7 +56,6 @@ public final class LSUISideToolbar extends JToolBar implements LSUIProtocol {
         insertLineButton = new LSUIButton();
         groupButton      = new LSUIButton();
         ungroupButton    = new LSUIButton();
-        fillAction       = new FillAction(parentView);
     }
 
     @Override
@@ -106,17 +102,6 @@ public final class LSUISideToolbar extends JToolBar implements LSUIProtocol {
         insertLineButton.setIcon(lineIconPath);
         groupButton.setIcon(groupIconPath);
         ungroupButton.setIcon(ungroupIconPath);
-    }
-
-    /*
-     * ACCESORS
-     */
-    private FillAction getFillAction() {
-        if (fillAction == null) {
-            fillAction = new FillAction(parentView);
-        }
-
-        return fillAction;
     }
 
     private void layoutView() {

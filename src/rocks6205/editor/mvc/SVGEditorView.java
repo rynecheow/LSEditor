@@ -308,7 +308,7 @@ public final class SVGEditorView extends JFrame implements LSUIProtocol {
     }
     
     public boolean saveFile() {
-		boolean saved = false;
+		boolean saved;
 
 		try {
 			saved = controller.fileSave();
@@ -316,12 +316,12 @@ public final class SVGEditorView extends JFrame implements LSUIProtocol {
 			saved = fileSaveAs();
 		}
 
-		return saved;
+		return false;
 	}
     
     public boolean fileSaveAs() {
 		boolean saved = false;
-                JFileChooser fileChoooser = new JFileChooser();
+      JFileChooser fileChoooser = new JFileChooser();
 
             fileChoooser.setMultiSelectionEnabled(false);
             fileChoooser.setAcceptAllFileFilterUsed(false);
@@ -337,10 +337,15 @@ public final class SVGEditorView extends JFrame implements LSUIProtocol {
 			try {
 				saved = controller.fileSave();
 			} catch (IOException e) {
-                            
+            System.err.println(e.getMessage());
 			}
 		}
 
 		return saved;
 	}
+
+   public void changeMode(LSUIEditingPanel.EditModeScheme mode) {
+      editPanel.switchModeTo(mode);
+   }
+   
 }

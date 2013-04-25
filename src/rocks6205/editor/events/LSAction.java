@@ -3,25 +3,21 @@ package rocks6205.editor.events;
 //~--- non-JDK imports --------------------------------------------------------
 
 import rocks6205.editor.mvc.SVGEditorView;
-
-import rocks6205.svg.adt.SVGColorScheme;
-
+import rocks6205.editor.mvc.SVGEditorViewController;
+import rocks6205.editor.viewcomponents.LSUIEditingPanel;
+import rocks6205.system.properties.SVGCanvasProperties;
 import rocks6205.system.properties.OSValidator;
 
 //~--- JDK imports ------------------------------------------------------------
 
-import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
-import javax.swing.JColorChooser;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
@@ -29,9 +25,9 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import static javax.swing.Action.ACCELERATOR_KEY;
 import static javax.swing.Action.MNEMONIC_KEY;
+import static javax.swing.Action.SELECTED_KEY;
 import static javax.swing.Action.SHORT_DESCRIPTION;
-import rocks6205.editor.mvc.SVGEditorViewController;
-import rocks6205.system.properties.SVGCanvasProperties;
+
 
 /**
  * The <code>LSAction</code> is an abstract class which create <code>Action</code>
@@ -226,7 +222,9 @@ public abstract class LSAction extends AbstractAction {
 
         @Override
         public void actionPerformed(ActionEvent event) {
-            
+            putValue(SELECTED_KEY, Boolean.TRUE);
+            parent.changeMode(LSUIEditingPanel.EditModeScheme.DRAW_CIRCLE);
+            controller.clearSelection();
         }
     }
 
@@ -270,7 +268,11 @@ public abstract class LSAction extends AbstractAction {
         }
 
         @Override
-        public void actionPerformed(ActionEvent event) {}
+        public void actionPerformed(ActionEvent event) {
+           putValue(SELECTED_KEY, Boolean.TRUE);
+            parent.changeMode(LSUIEditingPanel.EditModeScheme.DRAW_LINE);
+            controller.clearSelection();
+        }
     }
 
 
@@ -313,7 +315,11 @@ public abstract class LSAction extends AbstractAction {
         }
 
         @Override
-        public void actionPerformed(ActionEvent event) {}
+        public void actionPerformed(ActionEvent event) {
+           putValue(SELECTED_KEY, Boolean.TRUE);
+            parent.changeMode(LSUIEditingPanel.EditModeScheme.DRAW_RECTANGLE);
+            controller.clearSelection();
+        }
     }
 
 
@@ -368,60 +374,7 @@ public abstract class LSAction extends AbstractAction {
             }
         }
     }
-
-
-    /**
-     * The <code>FillAction</code> is a class which create an <code>Action</code>
-     * instance. This action handles event by setting the color used for painting shapes
-     *
-     *
-     * @author Sugar CheeSheen Chan
-     *
-     * @since 2.0
-     *
-     */
-    public static class FillAction extends LSAction {
-        private static final long serialVersionUID = -6578149781110081473L;
-        private Color             color;
-        private SVGColorScheme    svgColorScheme;
-
-        /*
-         * CONSTRUCTOR
-         */
-
-        /**
-         * Construct a <code>FillAction</code> instance with parent component
-         * <code>parent</code> and no action name. <p>Disabled by default.
-         * @param parent Parent component
-         */
-        public FillAction(SVGEditorView parent) {
-            super("Fill Color", KeyEvent.VK_F, KeyStroke.getKeyStroke(KeyEvent.VK_F, getKeyEventMask()), parent);
-        }
-
-        /**
-         * Construct a <code>FillAction</code> instance with parent component
-         * <code>parent</code>.
-         * @param parent Parent component
-         * @param actionName Name of action component
-         */
-        public FillAction(SVGEditorView parent, String actionName) {
-            super(actionName, "Fill Color", KeyEvent.VK_F, KeyStroke.getKeyStroke(KeyEvent.VK_F, getKeyEventMask()),
-                  parent);
-        }
-
-        @Override
-        public void actionPerformed(ActionEvent event) {
-            color = JColorChooser.showDialog(super.parent, "Choose a color", color);
-
-            if (color == null) {
-                svgColorScheme = SVGColorScheme.getColorFromKeyword("black");
-            } else {
-                svgColorScheme = new SVGColorScheme(color.getRed(), color.getGreen(), color.getBlue());
-            }
-        }
-    }
-
-
+    
     /**
      * The <code>GroupAction</code> is a class which create an <code>Action</code>
      * instance. This action handles event by grouping elements in selection.
@@ -574,7 +527,46 @@ public abstract class LSAction extends AbstractAction {
 	}
     }
 
+    /**
+     * The <code>PanModeAction</code> is a class which create an <code>Action</code>
+     * instance. This action handles event changing the current mode to selection mode.
+     *
+     * @author Cheow Yeong Chi
+     *
+     * @since 2.2
+     *
+     */
+    public static class PanModeAction extends LSAction {
 
+        /*
+         * CONSTRUCTOR
+         */
+
+        /**
+         * Construct a <code>PanModeAction</code> instance with parent component
+         * <code>parent</code> and no action name.
+         * @param parent Parent component
+         */
+        public PanModeAction(SVGEditorView parent) {
+            super("Pan Tool", KeyEvent.VK_P, null, parent);
+        }
+
+        /**
+         * Construct a <code>PanModeAction</code> instance with parent component
+         * <code>parent</code> and action name.
+         * @param parent Parent component
+         * @param actionName Name of action component
+         */
+        public PanModeAction(SVGEditorView parent, String actionName) {
+            super(actionName, "Selection Tool", KeyEvent.VK_P, null, parent);
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            parent.changeMode(LSUIEditingPanel.EditModeScheme.MODE_PAN);
+        }
+    }
+    
     /**
      * The <code>SaveFileAction</code> is a class which create an <code>Action</code>
      * instance. This action handles event by saving the current file as it is on the
@@ -662,6 +654,48 @@ public abstract class LSAction extends AbstractAction {
 
 
     /**
+     * The <code>SelectModeAction</code> is a class which create an <code>Action</code>
+     * instance. This action handles event changing the current mode to selection mode.
+     *
+     * @author Cheow Yeong Chi
+     *
+     * @since 2.2
+     *
+     */
+    public static class SelectModeAction extends LSAction {
+
+        /*
+         * CONSTRUCTOR
+         */
+
+        /**
+         * Construct a <code>SelectModeAction</code> instance with parent component
+         * <code>parent</code> and no action name.
+         * @param parent Parent component
+         */
+        public SelectModeAction(SVGEditorView parent) {
+            super("Selection Tool", KeyEvent.VK_S, null, parent);
+        }
+
+        /**
+         * Construct a <code>SelectModeAction</code> instance with parent component
+         * <code>parent</code> and action name.
+         * @param parent Parent component
+         * @param actionName Name of action component
+         */
+        public SelectModeAction(SVGEditorView parent, String actionName) {
+            super(actionName, "Selection Tool", KeyEvent.VK_S, null, parent);
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            parent.changeMode(LSUIEditingPanel.EditModeScheme.MODE_SELECT);
+        }
+    }
+
+    
+    
+    /**
      * The <code>SelectAllAction</code> is a class which create an <code>Action</code>
      * instance. This action handles event by adding every element on view into selection
      * set.
@@ -702,8 +736,8 @@ public abstract class LSAction extends AbstractAction {
             controller.selectAll();
         }
     }
-
-
+    
+    
     /**
      * The <code>UngroupAction</code> is a class which create an <code>Action</code>
      * instance. This action handles event by grouping elements in selection.
