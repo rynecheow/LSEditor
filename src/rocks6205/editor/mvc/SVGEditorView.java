@@ -204,11 +204,11 @@ public final class SVGEditorView extends JFrame implements LSUIProtocol {
 
     public void update() {
       ArrayList<SVGGenericElement> selections = new ArrayList<>(controller.getSelections());
-		boolean selected = !selections.isEmpty();
-		boolean modified = controller.isDocumentModified();
+//		boolean isAnySelected = !selections.isEmpty();
+		boolean isDocumentModified = controller.isDocumentModified();
 		File currentFile = controller.getCurrentFile();
-		boolean fileChanged = currentFile != displayedFile;
-		boolean repaint = modified || isZoomChanged || fileChanged;
+		boolean isFileChanged = (currentFile != displayedFile);
+		boolean needRepaint = isDocumentModified || isZoomChanged || isFileChanged;
 
 //		deselectAllAction.setEnabled(selected);
 //		groupAction.setEnabled(selected);
@@ -222,9 +222,9 @@ public final class SVGEditorView extends JFrame implements LSUIProtocol {
 			SVGGenericElement elem = selections.get(0);
 
 //			fillChooserButton.setPaint(elem.getResultantFill());
-//			fillChooserButton.repaint();
+//			fillChooserButton.needRepaint();
 //			strokeChooserButton.setPaint(elem.getResultantStroke());
-//			strokeChooserButton.repaint();
+//			strokeChooserButton.needRepaint();
 //			strokeWidthInputPanel.setLength(elem.getResultantStrokeWidth());
 		}
 
@@ -232,12 +232,12 @@ public final class SVGEditorView extends JFrame implements LSUIProtocol {
 			isZoomChanged = false;
 		}
 
-		if (fileChanged) {
+		if (isFileChanged) {
 			displayedFile = currentFile;
 //			updateTitle();
 		}
 
-		if (repaint) {
+		if (needRepaint) {
 			editPanel.paintCanvas(controller.renderImage(zoomScale));
 		}
     }

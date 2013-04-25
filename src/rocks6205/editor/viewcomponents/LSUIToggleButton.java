@@ -1,18 +1,38 @@
 package rocks6205.editor.viewcomponents;
 
+//~--- JDK imports ------------------------------------------------------------
+
 import java.net.URL;
+
 import javax.swing.ImageIcon;
-import javax.swing.JLabel;
+import javax.swing.JToggleButton;
 
-public class LSUIIconLabel extends JLabel {
+/**
+ *
+ *
+ * @author Komalah Nair
+ * @since 1.3
+ *
+ */
+public class LSUIToggleButton extends JToggleButton {
+    private static final long serialVersionUID = -7348665839241378305L;
 
-    public LSUIIconLabel() {
+   public static LSUIToggleButton create() {
+      return new LSUIToggleButton();
+   }
+
+    /*
+     * CONSTRUCTORS
+     */
+
+    /**
+     * Default constructor.<p>
+     * Set border of button to <code>null</code>.
+     */
+    private LSUIToggleButton() {
+        super();
     }
 
-    public LSUIIconLabel(String imagePath) {
-	super(createIcon(imagePath));
-    }
-    
     /*
      * METHODS
      */
@@ -43,7 +63,9 @@ public class LSUIIconLabel extends JLabel {
      */
     public void setIcon(String iconPath) {
         ImageIcon icon = createIcon(iconPath);
-        super.setIcon(icon);
-    }
 
+        super.setIcon(icon);
+        setBorder(null);
+        setBorderPainted(false);
+    }
 }

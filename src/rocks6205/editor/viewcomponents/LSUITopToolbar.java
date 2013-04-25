@@ -13,7 +13,6 @@ import rocks6205.system.properties.LSSVGEditorGUITheme;
 
 //~--- JDK imports ------------------------------------------------------------
 
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JToolBar;
 
@@ -41,7 +40,7 @@ public final class LSUITopToolbar extends JToolBar implements LSUIProtocol {
     private LSUIIconLabel fillLabel;
     private LSUIIconLabel strokeLabel;
     private JPanel fillButton;
-    private LSUIButton strokeButton;
+    private LSUIToggleButton strokeButton;
     /*
      * ACTION COMPONENTS
      */
@@ -66,7 +65,7 @@ public final class LSUITopToolbar extends JToolBar implements LSUIProtocol {
         fillLabel     = new LSUIIconLabel();
         strokeLabel   = new LSUIIconLabel();
         fillButton= new JPanel();
-                strokeButton= LSUIButton.create();
+                strokeButton= LSUIToggleButton.create();
         openAct       = new OpenFileAction(parentView);
         zoomInAction  = new ZoomInViewAction(parentView);
         zoomOutAction = new ZoomOutViewAction(parentView);

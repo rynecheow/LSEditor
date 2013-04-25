@@ -32,12 +32,12 @@ public final class LSUISideToolbar extends JToolBar implements LSUIProtocol {
     /*
      * GUI COMPONENTS
      */
-    private LSUIButton panButton;
-    private LSUIButton moveButton;
-    private LSUIButton selectButton;        // group 1
-    private LSUIButton insertRectButton;
-    private LSUIButton insertCircButton;
-    private LSUIButton insertLineButton;    // group 2
+    private LSUIToggleButton panButton;
+    private LSUIToggleButton moveButton;
+    private LSUIToggleButton selectButton;        // group 1
+    private LSUIToggleButton insertRectButton;
+    private LSUIToggleButton insertCircButton;
+    private LSUIToggleButton insertLineButton;    // group 2
     private LSUIButton groupButton;
     private LSUIButton ungroupButton;       // group 3
 
@@ -60,12 +60,12 @@ public final class LSUISideToolbar extends JToolBar implements LSUIProtocol {
 
     @Override
     public void initialise() {
-        panButton        = LSUIButton.create();
-        moveButton       = LSUIButton.create();
-        selectButton     = LSUIButton.create();
-        insertRectButton = LSUIButton.create();
-        insertCircButton = LSUIButton.create();
-        insertLineButton = LSUIButton.create();
+        panButton        = LSUIToggleButton.create();
+        moveButton       = LSUIToggleButton.create();
+        selectButton     = LSUIToggleButton.create();
+        insertRectButton = LSUIToggleButton.create();
+        insertCircButton = LSUIToggleButton.create();
+        insertLineButton = LSUIToggleButton.create();
         groupButton      = LSUIButton.create();
         ungroupButton    = LSUIButton.create();
         
