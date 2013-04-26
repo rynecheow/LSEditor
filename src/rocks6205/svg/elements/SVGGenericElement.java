@@ -43,13 +43,13 @@ public abstract class SVGGenericElement {
     /**
      * Default <<code>stroke</code>> properties, set to <code>NONE</code>.
      */
-    public static final SVGPainting SVG_STROKE_DEFAULT = new SVGPainting(SVGPaintingType.NONE);
-
+//    public static final SVGPainting SVG_STROKE_DEFAULT = new SVGPainting(SVGPaintingType.NONE);
+      public static final SVGPainting SVG_STROKE_DEFAULT = new SVGPainting(SVGColorScheme.getColorFromKeyword("red"));
     /**
      * Default <<code>stroke-width</code>> properties, set to <code>1<code>.
      */
-    public static final SVGLengthUnit SVG_STROKE_WIDTH_DEFAULT = new SVGLengthUnit(1);
-
+//    public static final SVGLengthUnit SVG_STROKE_WIDTH_DEFAULT = new SVGLengthUnit(1);
+        public static final SVGLengthUnit SVG_STROKE_WIDTH_DEFAULT = new SVGLengthUnit(2);
     /**
      * Default <<code>stroke-linecap</code>> properties, set to <code>butt</code>.
      */

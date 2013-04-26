@@ -159,9 +159,10 @@ public class SVGCircleElement extends SVGGenericElement {
     /**
      * {@inheritDoc}
      */
+    @Override
     public void draw(Graphics2D g) {
         if (radius.getValue(SVGLengthUnitType.PX) > 0) {
-            Shape ellipse = new Ellipse2D.Double(cx.getValue(SVGLengthUnitType.PX)
+            Shape ellipse = new Ellipse2D.Float(cx.getValue(SVGLengthUnitType.PX)
                                 - radius.getValue(SVGLengthUnitType.PX), cy.getValue(SVGLengthUnitType.PX)
                                     - radius.getValue(SVGLengthUnitType.PX), 2
                                       * radius.getValue(SVGLengthUnitType.PX), 2

@@ -160,6 +160,7 @@ public class SVGRectElement extends SVGGenericElement {
     /**
      * {@inheritDoc}
      */
+    @Override
     public Rectangle2D.Float getBounds() {
         float             xVal      = x.getValue(SVGLengthUnitType.PX);
         float             yVal      = y.getValue(SVGLengthUnitType.PX);
@@ -185,9 +186,10 @@ public class SVGRectElement extends SVGGenericElement {
     /**
      * {@inheritDoc}
      */
+    @Override
     public void draw(Graphics2D g) {
         if ((width.getValue(SVGLengthUnitType.PX) > 0) && (height.getValue(SVGLengthUnitType.PX) > 0)) {
-            Shape rect = new Rectangle2D.Double(x.getValue(SVGLengthUnitType.PX), y.getValue(SVGLengthUnitType.PX),
+            Shape rect = new Rectangle2D.Float(x.getValue(SVGLengthUnitType.PX), y.getValue(SVGLengthUnitType.PX),
                              width.getValue(SVGLengthUnitType.PX), height.getValue(SVGLengthUnitType.PX));
 
             rect = getTransform().createTransformedShape(rect);

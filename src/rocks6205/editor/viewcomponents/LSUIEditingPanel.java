@@ -149,7 +149,7 @@ public final class LSUIEditingPanel extends JPanel {
     }
 
     public String getEditMode() {
-        return editingMode.toString();
+        return editingMode.name();
     }
 
     public void setSelections(ArrayList<SVGGenericElement> selections) {

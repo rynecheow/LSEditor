@@ -159,9 +159,10 @@ public class SVGLineElement extends SVGGenericElement {
     /**
      * {@inheritDoc}
      */
+    @Override
     public Rectangle2D.Float getBounds() {
         Rectangle2D.Float bounds;
-        double            padding = 0;
+        float            padding = 0;
 
         if (getResultantStroke().getPaintType() != SVGPaintingType.NONE) {
             padding = getResultantStrokeWidth().getValue(SVGLengthUnitType.PX) / 2;
@@ -184,8 +185,9 @@ public class SVGLineElement extends SVGGenericElement {
     /**
      * {@inheritDoc}
      */
+    @Override
     public void draw(Graphics2D g) {
-        Shape line = new Line2D.Double(x1.getValue(SVGLengthUnitType.PX), y1.getValue(SVGLengthUnitType.PX),
+        Shape line = new Line2D.Float(x1.getValue(SVGLengthUnitType.PX), y1.getValue(SVGLengthUnitType.PX),
                                        x2.getValue(SVGLengthUnitType.PX), y2.getValue(SVGLengthUnitType.PX));
 
         line = getTransform().createTransformedShape(line);
