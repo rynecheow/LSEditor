@@ -17,10 +17,6 @@ import javax.swing.JButton;
 public class LSUIButton extends JButton {
     private static final long serialVersionUID = -7348665839241378305L;
 
-   public static LSUIButton create() {
-      return new LSUIButton();
-   }
-
     /*
      * CONSTRUCTORS
      */
@@ -31,6 +27,10 @@ public class LSUIButton extends JButton {
      */
     private LSUIButton() {
         super();
+    }
+
+    public static LSUIButton create() {
+        return new LSUIButton();
     }
 
     /*

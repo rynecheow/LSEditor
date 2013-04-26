@@ -2,8 +2,6 @@ package rocks6205.editor.viewcomponents;
 
 //~--- non-JDK imports --------------------------------------------------------
 
-import java.awt.Color;
-import java.awt.Dimension;
 import rocks6205.editor.events.LSAction.OpenFileAction;
 import rocks6205.editor.events.LSAction.ZoomInViewAction;
 import rocks6205.editor.events.LSAction.ZoomOutViewAction;
@@ -12,6 +10,9 @@ import rocks6205.editor.mvc.SVGEditorView;
 import rocks6205.system.properties.LSSVGEditorGUITheme;
 
 //~--- JDK imports ------------------------------------------------------------
+
+import java.awt.Color;
+import java.awt.Dimension;
 
 import javax.swing.JPanel;
 import javax.swing.JToolBar;
@@ -32,15 +33,16 @@ public final class LSUITopToolbar extends JToolBar implements LSUIProtocol {
     /*
      * GUI COMPONENTS
      */
-    private LSUIButton    newButton;
-    private LSUIButton    openButton;
-    private LSUIButton    saveButton;
-    private LSUIButton    zoomInButton;
-    private LSUIButton    zoomOutButton;
-    private LSUIIconLabel fillLabel;
-    private LSUIIconLabel strokeLabel;
-    private JPanel fillButton;
+    private LSUIButton       newButton;
+    private LSUIButton       openButton;
+    private LSUIButton       saveButton;
+    private LSUIButton       zoomInButton;
+    private LSUIButton       zoomOutButton;
+    private LSUIIconLabel    fillLabel;
+    private LSUIIconLabel    strokeLabel;
+    private JPanel           fillButton;
     private LSUIToggleButton strokeButton;
+
     /*
      * ACTION COMPONENTS
      */
@@ -64,8 +66,8 @@ public final class LSUITopToolbar extends JToolBar implements LSUIProtocol {
         zoomOutButton = LSUIButton.create();
         fillLabel     = new LSUIIconLabel();
         strokeLabel   = new LSUIIconLabel();
-        fillButton= new JPanel();
-        strokeButton= LSUIToggleButton.create();
+        fillButton    = new JPanel();
+        strokeButton  = LSUIToggleButton.create();
         openAct       = new OpenFileAction(parentView);
         zoomInAction  = new ZoomInViewAction(parentView);
         zoomOutAction = new ZoomOutViewAction(parentView);
@@ -75,7 +77,6 @@ public final class LSUITopToolbar extends JToolBar implements LSUIProtocol {
     public void customise() {
         layoutChildComponents();
         layoutView();
-        
     }
 
     private void setParentView(SVGEditorView parent) {
@@ -163,7 +164,6 @@ public final class LSUITopToolbar extends JToolBar implements LSUIProtocol {
         add(strokeLabel);
         add(strokeButton);
         addSeparator();
-        
         setFloatable(false);
         setRollover(true);
     }
@@ -177,6 +177,4 @@ public final class LSUITopToolbar extends JToolBar implements LSUIProtocol {
         strokeButton.setSize(new Dimension(30, 30));
         strokeButton.setBackground(Color.red);
     }
-    
-    
 }

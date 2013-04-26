@@ -2,18 +2,18 @@ package rocks6205.editor.viewcomponents;
 
 //~--- non-JDK imports --------------------------------------------------------
 
+import rocks6205.Helper;
+
 import rocks6205.editor.mvc.SVGEditorView;
 import rocks6205.editor.mvc.SVGEditorViewController;
 
 import rocks6205.svg.adt.SVGLengthUnit;
 import rocks6205.svg.adt.SVGLengthUnitType;
 import rocks6205.svg.adt.SVGPainting;
-
 import rocks6205.svg.elements.SVGCircleElement;
 import rocks6205.svg.elements.SVGGenericElement;
 import rocks6205.svg.elements.SVGLineElement;
 import rocks6205.svg.elements.SVGRectElement;
-import rocks6205.Helper;
 
 //~--- JDK imports ------------------------------------------------------------
 
@@ -415,7 +415,8 @@ public final class LSUIEditingPanel extends JPanel {
 
                 switch (editingMode) {
                 case DRAW_RECTANGLE :
-                   Helper.println("Drawing Rectangle");
+                    Helper.println("Drawing Rectangle");
+
                     SVGRectElement svgRect = new SVGRectElement();
 
                     svgRect.setX(x);
@@ -425,7 +426,8 @@ public final class LSUIEditingPanel extends JPanel {
                     break;
 
                 case DRAW_CIRCLE :
-                   Helper.println("Drawing Circle");
+                    Helper.println("Drawing Circle");
+
                     SVGCircleElement svgCircle = new SVGCircleElement();
 
                     svgCircle.setCx(x);
@@ -435,9 +437,11 @@ public final class LSUIEditingPanel extends JPanel {
                     break;
 
                 case DRAW_LINE :
-                   Helper.println("Drawing Line");
-                   Helper.printf("%f %f", x.getValue(),y.getValue());
+                    Helper.println("Drawing Line");
+                    Helper.printf("%f %f", x.getValue(), y.getValue());
+
                     SVGLineElement svgLine = new SVGLineElement();
+
                     svgLine.setX1(x);
                     svgLine.setY1(y);
                     svgLine.setX2(x);
@@ -467,6 +471,7 @@ public final class LSUIEditingPanel extends JPanel {
         @Override
         public void mouseReleased(MouseEvent event) {
             Helper.printf("Released at x:%d y:%d\n", event.getX(), event.getY());
+
             float              zoom      = parent.getZoomScale();
             Rectangle2D.Double realRect  = null;
             Point2D.Double     realPoint = null;
@@ -498,7 +503,6 @@ public final class LSUIEditingPanel extends JPanel {
             isDragged          = false;
             selectionRect      = null;
             previousActiveRect = null;
-            
         }
 
         /**
@@ -507,9 +511,8 @@ public final class LSUIEditingPanel extends JPanel {
      */
         @Override
         public void mouseDragged(MouseEvent event) {
-           
-           System.out.printf("Dragged at x:%d y:%d\n", event.getX(), event.getY());
-           
+            System.out.printf("Dragged at x:%d y:%d\n", event.getX(), event.getY());
+
             Point         cursorPoint = event.getPoint();
             float         zoom        = parent.getZoomScale();
             Point2D.Float endPoint    = new Point2D.Float(cursorPoint.x / zoom, cursorPoint.y / zoom);
@@ -647,10 +650,12 @@ public final class LSUIEditingPanel extends JPanel {
                     line.setY2(new SVGLengthUnit(SVGLengthUnitType.PX, endPoint.y));
 
                     break;
-                    case MODE_PAN:
-                        break;
-                    case MODE_SELECT:
-                        break;
+
+                case MODE_PAN :
+                    break;
+
+                case MODE_SELECT :
+                    break;
 
                 default :
                     throw new AssertionError("Invalid edit mode");
@@ -660,7 +665,6 @@ public final class LSUIEditingPanel extends JPanel {
             }
 
             scrollRectToVisible(new Rectangle(cursorPoint, new Dimension(1, 1)));
-            
         }
     }
 }

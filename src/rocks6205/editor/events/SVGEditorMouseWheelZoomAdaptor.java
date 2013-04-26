@@ -3,8 +3,8 @@ package rocks6205.editor.events;
 //~--- non-JDK imports --------------------------------------------------------
 
 import rocks6205.editor.viewcomponents.LSCanvasViewport;
-import rocks6205.system.properties.OSValidator;
 
+import rocks6205.system.properties.OSValidator;
 
 //~--- JDK imports ------------------------------------------------------------
 
@@ -27,18 +27,20 @@ public class SVGEditorMouseWheelZoomAdaptor extends MouseAdapter {
      */
     public void mouseWheelMoved(MouseWheelEvent event) {
         LSCanvasViewport viewport         = (LSCanvasViewport) event.getSource();
-        boolean                isMacAndMetaDown = OSValidator.isMac() && event.isMetaDown();
-        boolean                isKeyPressed     = ((isMacAndMetaDown || event.isControlDown())
-                                                   &&!(isMacAndMetaDown && event.isControlDown()));    // XOR
+        boolean          isMacAndMetaDown = OSValidator.isMac() && event.isMetaDown();
+        boolean          isKeyPressed     = ((isMacAndMetaDown || event.isControlDown())
+                                             &&!(isMacAndMetaDown && event.isControlDown()));    // XOR
         boolean isScrolledUp = event.getWheelRotation() < 0;
 
         if (isKeyPressed) {
             if (isScrolledUp) {
-//                SVGImageCanvas.setZoomScale(SVGImageCanvas.getZoomScale() + 1);
-//                viewport.getParentView().getModel().render();
+
+//              SVGImageCanvas.setZoomScale(SVGImageCanvas.getZoomScale() + 1);
+//              viewport.getParentView().getModel().render();
             } else {
-//                SVGImageCanvas.setZoomScale(SVGImageCanvas.getZoomScale() - 1);
-//                viewport.getParentView().getModel().render();
+
+//              SVGImageCanvas.setZoomScale(SVGImageCanvas.getZoomScale() - 1);
+//              viewport.getParentView().getModel().render();
             }
         }
     }

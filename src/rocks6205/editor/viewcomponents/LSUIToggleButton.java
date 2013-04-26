@@ -17,10 +17,6 @@ import javax.swing.JToggleButton;
 public class LSUIToggleButton extends JToggleButton {
     private static final long serialVersionUID = -7348665839241378305L;
 
-   public static LSUIToggleButton create() {
-      return new LSUIToggleButton();
-   }
-
     /*
      * CONSTRUCTORS
      */
@@ -31,6 +27,10 @@ public class LSUIToggleButton extends JToggleButton {
      */
     private LSUIToggleButton() {
         super();
+    }
+
+    public static LSUIToggleButton create() {
+        return new LSUIToggleButton();
     }
 
     /*

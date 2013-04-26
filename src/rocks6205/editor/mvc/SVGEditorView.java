@@ -12,6 +12,8 @@ import rocks6205.editor.viewcomponents.LSUIStatusPanel;
 import rocks6205.editor.viewcomponents.LSUITopToolbar;
 import rocks6205.editor.viewcomponents.LSUIWelcomeDialog;
 
+import rocks6205.svg.elements.SVGGenericElement;
+
 import rocks6205.system.properties.LSSVGEditorGUITheme;
 import rocks6205.system.properties.OSValidator;
 
@@ -23,18 +25,20 @@ import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
+
 import java.io.File;
 import java.io.IOException;
-import java.text.MessageFormat;
-import java.util.ArrayList;
-import javax.swing.JFileChooser;
 
+import java.text.MessageFormat;
+
+import java.util.ArrayList;
+
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.WindowConstants;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import rocks6205.svg.elements.SVGGenericElement;
 
 /**
  * A class defining how the main user interface should look like.
@@ -67,11 +71,11 @@ public final class SVGEditorView extends JFrame implements LSUIProtocol {
     /*
      * PROPERTIES
      */
-    private float zoomScale;
+    private float   zoomScale;
     private boolean isZoomChanged;
-    private File displayedFile;
-    private String documentTitle;
-    
+    private File    displayedFile;
+    private String  documentTitle;
+
     /**
      * Model object
      */
@@ -126,15 +130,15 @@ public final class SVGEditorView extends JFrame implements LSUIProtocol {
     public void initialise() {
         setUpProperties();
         isZoomChanged = false;
-        zoomScale = 1.0f;
-        menuBar     = new LSUIMenubar(this);
-        topBar      = new LSUITopToolbar("Editing Tools", this);
-        sideBar     = new LSUISideToolbar("Selection Tools", this);
-        statusPanel = new LSUIStatusPanel(this);
-        navPanel    = new LSUINavigationPanel(this);
-        miscPanel   = new LSUIMiscPanel(this);
-        scrollPane  = new JScrollPane();
-        editPanel   = new LSUIEditingPanel(this);
+        zoomScale     = 1.0f;
+        menuBar       = new LSUIMenubar(this);
+        topBar        = new LSUITopToolbar("Editing Tools", this);
+        sideBar       = new LSUISideToolbar("Selection Tools", this);
+        statusPanel   = new LSUIStatusPanel(this);
+        navPanel      = new LSUINavigationPanel(this);
+        miscPanel     = new LSUIMiscPanel(this);
+        scrollPane    = new JScrollPane();
+        editPanel     = new LSUIEditingPanel(this);
     }
 
     /**
@@ -145,7 +149,6 @@ public final class SVGEditorView extends JFrame implements LSUIProtocol {
         layoutChildComponents();
         setUpEditingPanel();
         layoutFrame();
-        
         setClosingEvent();
     }
 
@@ -203,74 +206,73 @@ public final class SVGEditorView extends JFrame implements LSUIProtocol {
     }
 
     public void update() {
-      ArrayList<SVGGenericElement> selections = new ArrayList<>(controller.getSelections());
-		boolean isAnySelected = !selections.isEmpty();
-		boolean isDocumentModified = controller.isDocumentModified();
-		File currentFile = controller.getCurrentFile();
-		boolean isFileChanged = (currentFile != displayedFile);
-		boolean needRepaint = isDocumentModified || isZoomChanged || isFileChanged;
+        ArrayList<SVGGenericElement> selections         = new ArrayList<>(controller.getSelections());
+        boolean                      isAnySelected      = !selections.isEmpty();
+        boolean                      isDocumentModified = controller.isDocumentModified();
+        File                         currentFile        = controller.getCurrentFile();
+        boolean                      isFileChanged      = (currentFile != displayedFile);
+        boolean                      needRepaint        = isDocumentModified || isZoomChanged || isFileChanged;
 
-      sideBar.updateActionStatusFromView(isAnySelected);
-      menuBar.updateActionStatusFromView(isAnySelected);
+        sideBar.updateActionStatusFromView(isAnySelected);
+        menuBar.updateActionStatusFromView(isAnySelected);
+        editPanel.setSelections(selections);
+        editPanel.drawOverlay();
 
-		editPanel.setSelections(selections);
-		editPanel.drawOverlay();
+        if (selections.size() == 1) {
+            SVGGenericElement elem = selections.get(0);
 
-		if (selections.size() == 1) {
-			SVGGenericElement elem = selections.get(0);
+//          fillChooserButton.setPaint(elem.getResultantFill());
+//          fillChooserButton.needRepaint();
+//          strokeChooserButton.setPaint(elem.getResultantStroke());
+//          strokeChooserButton.needRepaint();
+//          strokeWidthInputPanel.setLength(elem.getResultantStrokeWidth());
+        }
 
-//			fillChooserButton.setPaint(elem.getResultantFill());
-//			fillChooserButton.needRepaint();
-//			strokeChooserButton.setPaint(elem.getResultantStroke());
-//			strokeChooserButton.needRepaint();
-//			strokeWidthInputPanel.setLength(elem.getResultantStrokeWidth());
-		}
+        if (isZoomChanged) {
+            isZoomChanged = false;
+        }
 
-		if (isZoomChanged) {
-			isZoomChanged = false;
-		}
+        if (isFileChanged) {
+            displayedFile = currentFile;
 
-		if (isFileChanged) {
-			displayedFile = currentFile;
-//			updateTitle();
-		}
+//          updateTitle();
+        }
 
-		if (needRepaint) {
-			editPanel.paintCanvas(controller.renderImage(zoomScale));
-		}
+        if (needRepaint) {
+            editPanel.paintCanvas(controller.renderImage(zoomScale));
+        }
     }
 
     public float getZoomScale() {
         return zoomScale;
     }
-    
-    public void changeZoom(float zoom){
-        isZoomChanged = true;
+
+    public void changeZoom(float zoom) {
+        isZoomChanged  = true;
         this.zoomScale = zoom;
     }
-    
-    public void resetZoom(){
-        isZoomChanged = false;
+
+    public void resetZoom() {
+        isZoomChanged  = false;
         this.zoomScale = 1.00f;
     }
-    
-    public boolean isZoomChanged(){
+
+    public boolean isZoomChanged() {
         return isZoomChanged;
     }
-    public void setDisplayedFile(File d){
+
+    public void setDisplayedFile(File d) {
         displayedFile = d;
     }
-    public File getDisplayedFile(){
+
+    public File getDisplayedFile() {
         return displayedFile;
     }
-    
-    
+
     private void showWelcomeScreen() {
         new LSUIWelcomeDialog(this).display();
     }
 
-    
-    
     public void layoutFrame() {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setMaximumSize(frameDim);
@@ -312,93 +314,86 @@ public final class SVGEditorView extends JFrame implements LSUIProtocol {
         y        = (screen.height - height) / 2;
         this.setLocation(x, y);
     }
-    
+
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
-    public boolean promptSaveIfNeeded(){
+    public boolean promptSaveIfNeeded() {
         boolean modified = controller.isDocumentModified();
 
-		if (!modified) {
-			return true;
-		}
+        if (!modified) {
+            return true;
+        }
 
-		Object[] messageArguments = { documentTitle };
+        Object[]      messageArguments = { documentTitle };
+        MessageFormat formatter        = new MessageFormat("");
+        String        message          = formatter.format(messageArguments);
+        String        title            = formatter.format(messageArguments);
+        int           option           = JOptionPane.showOptionDialog(this, message, title,
+                                             JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE, null, null,
+                                             null);
 
-		MessageFormat formatter = new MessageFormat("");
-		String message = formatter.format(messageArguments);
-		String title = formatter.format(messageArguments);
+        switch (option) {
+        case JOptionPane.NO_OPTION :
+            return true;
 
-		int option = JOptionPane.showOptionDialog(this, message, title,
-				JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE,
-				null, null, null);
+        case JOptionPane.YES_OPTION :
+            if (saveFile()) {
+                return true;
+            }
+        }
 
-		switch (option) {
-		case JOptionPane.NO_OPTION:
-			return true;
-		case JOptionPane.YES_OPTION:
-			if (saveFile()) {
-				return true;
-			}
-		}
-
-		return false;
+        return false;
     }
-    
+
     public boolean saveFile() {
-		boolean saved;
+        boolean saved;
 
-		try {
-			saved = controller.fileSave();
-		} catch (IOException e) {
-			saved = fileSaveAs();
-		}
+        try {
+            saved = controller.fileSave();
+        } catch (IOException e) {
+            saved = fileSaveAs();
+        }
 
-		return false;
-	}
-    
+        return false;
+    }
+
     public boolean fileSaveAs() {
-		boolean saved = false;
-      JFileChooser fileChoooser = new JFileChooser();
+        boolean      saved        = false;
+        JFileChooser fileChoooser = new JFileChooser();
 
-            fileChoooser.setMultiSelectionEnabled(false);
-            fileChoooser.setAcceptAllFileFilterUsed(false);
+        fileChoooser.setMultiSelectionEnabled(false);
+        fileChoooser.setAcceptAllFileFilterUsed(false);
 
-            FileNameExtensionFilter extFilter = new FileNameExtensionFilter("Scalable Vector Graphics (*.svg)", "svg");
+        FileNameExtensionFilter extFilter = new FileNameExtensionFilter("Scalable Vector Graphics (*.svg)", "svg");
 
-            fileChoooser.setFileFilter(extFilter);
-                
+        fileChoooser.setFileFilter(extFilter);
+        fileChoooser.setSelectedFile(getDisplayedFile());
 
-		fileChoooser.setSelectedFile(getDisplayedFile());
+        if (fileChoooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
+            try {
+                saved = controller.fileSave();
+            } catch (IOException e) {
+                System.err.println(e.getMessage());
+            }
+        }
 
-		if (fileChoooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
-			try {
-				saved = controller.fileSave();
-			} catch (IOException e) {
-            System.err.println(e.getMessage());
-			}
-		}
+        return saved;
+    }
 
-		return saved;
-	}
+    public void changeMode(LSUIEditingPanel.EditModeScheme mode) {
+        editPanel.switchModeTo(mode);
+    }
 
-   public void changeMode(LSUIEditingPanel.EditModeScheme mode) {
-      editPanel.switchModeTo(mode);
-   }
+    private void setUpEditingPanel() {
+        BufferedImage image = controller.renderImage(zoomScale);
 
-   private void setUpEditingPanel() {
-      BufferedImage image = controller.renderImage(zoomScale);
-      
-      editPanel.setPreferredSize(new Dimension(image.getWidth(), image
-				.getHeight()));
-      editPanel.switchModeTo(LSUIEditingPanel.EditModeScheme.MODE_SELECT);
-		editPanel.setFill(SVGGenericElement.SVG_FILL_DEFAULT);
-		editPanel.setStroke(SVGGenericElement.SVG_STROKE_DEFAULT);
-		editPanel.setStrokeWidth(SVGGenericElement.SVG_STROKE_WIDTH_DEFAULT);
-      scrollPane.setViewportView(editPanel);
-   }
-
-   
-   
+        editPanel.setPreferredSize(new Dimension(image.getWidth(), image.getHeight()));
+        editPanel.switchModeTo(LSUIEditingPanel.EditModeScheme.MODE_SELECT);
+        editPanel.setFill(SVGGenericElement.SVG_FILL_DEFAULT);
+        editPanel.setStroke(SVGGenericElement.SVG_STROKE_DEFAULT);
+        editPanel.setStrokeWidth(SVGGenericElement.SVG_STROKE_WIDTH_DEFAULT);
+        scrollPane.setViewportView(editPanel);
+    }
 }
