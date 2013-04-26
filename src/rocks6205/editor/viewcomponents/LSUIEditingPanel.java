@@ -248,20 +248,20 @@ public final class LSUIEditingPanel extends JPanel {
         int componentHeight = getHeight();
 
         // Clamp coordinates to within the component
-        if (xPos >= 0) {
-            if (xPos > componentWidth) {
-                xPos = componentWidth - 1;
-            } else {
-                xPos = 0;
-            }
+        if (xPos < 0) {
+            xPos = 0;
+        }
+        
+        if (xPos > componentWidth) {
+            xPos = componentWidth - 1;
         }
 
-        if (yPos >= 0) {
-            if (yPos > componentHeight) {
-                yPos = componentHeight - 1;
-            } else {
-                yPos = 0;
-            }
+        if (yPos < 0) {
+            yPos = 0;
+        } 
+        
+        if (yPos > componentHeight) {
+            yPos = componentHeight - 1;
         }
 
         if (selectionRect != null) {
@@ -296,6 +296,7 @@ public final class LSUIEditingPanel extends JPanel {
         }
 
         activeRect.setBounds(xPos, yPos, width, height);
+        Helper.println("x:"+activeRect.x+"\ny:"+activeRect.y+"\nw:"+activeRect.width+"\nh:"+activeRect.height);
     }
 
     public SVGEditorView getParentView() {
@@ -627,8 +628,8 @@ public final class LSUIEditingPanel extends JPanel {
 
                 case DRAW_RECTANGLE :
                     SVGRectElement rect = (SVGRectElement) newElement;
-
                     updateSelectionRect(cursorPoint);
+                    
                     rect.setX(new SVGLengthUnit(SVGLengthUnitType.PX, activeRect.x / zoom));
                     rect.setY(new SVGLengthUnit(SVGLengthUnitType.PX, activeRect.y / zoom));
                     rect.setWidth(new SVGLengthUnit(SVGLengthUnitType.PX, activeRect.width / zoom));

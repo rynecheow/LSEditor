@@ -27,7 +27,7 @@ import java.awt.geom.Rectangle2D;
  * @since 1.1
  *
  */
-public class SVGCircleElement extends SVGGenericElement {
+public final class SVGCircleElement extends SVGGenericElement {
 
     /*
      * PROPERTIES
@@ -135,6 +135,7 @@ public class SVGCircleElement extends SVGGenericElement {
     /**
      * {@inheritDoc}
      */
+    @Override
     public Rectangle2D.Float getBounds() {
         float             r       = radius.getValue(SVGLengthUnitType.PX);
         float             xPos    = cx.getValue(SVGLengthUnitType.PX);

@@ -811,7 +811,6 @@ public abstract class LSAction extends AbstractAction {
          */
         public ZoomInViewAction(SVGEditorView parent) {
             super("Zoom In", KeyEvent.VK_I, KeyStroke.getKeyStroke(KeyEvent.VK_EQUALS, getKeyEventMask()), parent);
-            this.setEnabled(false);
         }
 
         /**
@@ -823,7 +822,6 @@ public abstract class LSAction extends AbstractAction {
         public ZoomInViewAction(SVGEditorView parent, String actionName) {
             super(actionName, "Zoom In", KeyEvent.VK_I, KeyStroke.getKeyStroke(KeyEvent.VK_EQUALS, getKeyEventMask()),
                   parent);
-            this.setEnabled(false);
         }
 
         /**
@@ -884,7 +882,6 @@ public abstract class LSAction extends AbstractAction {
          */
         public ZoomOutViewAction(SVGEditorView parent) {
             super("Zoom Out", KeyEvent.VK_O, KeyStroke.getKeyStroke(KeyEvent.VK_MINUS, getKeyEventMask()), parent);
-            setEnabled(false);
         }
 
         /**
@@ -896,7 +893,6 @@ public abstract class LSAction extends AbstractAction {
         public ZoomOutViewAction(SVGEditorView parent, String actionName) {
             super(actionName, "Zoom Out", KeyEvent.VK_O, KeyStroke.getKeyStroke(KeyEvent.VK_MINUS, getKeyEventMask()),
                   parent);
-            setEnabled(false);
         }
 
         /**

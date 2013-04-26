@@ -243,7 +243,7 @@ public class SVGEditorViewController
 
     public void createBlankDocument() {
         model = new SVGEditorModel();
-        model.setSVGElement(new SVGSVGElement(SVGLengthUnit.parse("500px"), SVGLengthUnit.parse("500px")));
+        model.setSVGElement(new SVGSVGElement(SVGLengthUnit.parse("916px"), SVGLengthUnit.parse("578px")));
         activeFile = NEW_DOCUMENT;
         unmodifyDocument();
         updateViews();
