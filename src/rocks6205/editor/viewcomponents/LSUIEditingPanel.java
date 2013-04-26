@@ -80,10 +80,6 @@ public final class LSUIEditingPanel extends JPanel {
         drawListener = new SVGEditorDrawMouseAdaptor();
         scribbleArea.addMouseListener(drawListener);
         scribbleArea.addMouseMotionListener(drawListener);
-        
-        SVGEditPanMouseAdaptor panListener = new SVGEditPanMouseAdaptor();
-        addMouseListener(panListener);
-        addMouseMotionListener(panListener);
     }
 
     /**

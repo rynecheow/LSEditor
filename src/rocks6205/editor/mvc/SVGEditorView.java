@@ -37,8 +37,10 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
+import javax.swing.JViewport;
 import javax.swing.WindowConstants;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import rocks6205.editor.events.SVGEditPanMouseAdaptor;
 
 /**
  * A class defining how the main user interface should look like.
@@ -281,6 +283,11 @@ public final class SVGEditorView extends JFrame implements LSUIProtocol {
         c.add(navPanel);
         c.add(miscPanel);
         c.add(scrollPane);
+        
+        JViewport viewport = scrollPane.getViewport();
+        SVGEditPanMouseAdaptor panListener = new SVGEditPanMouseAdaptor();
+        viewport.addMouseListener(panListener);
+        viewport.addMouseMotionListener(panListener);
         setJMenuBar(menuBar);
         pack();
     }
