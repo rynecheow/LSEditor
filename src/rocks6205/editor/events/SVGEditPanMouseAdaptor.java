@@ -35,6 +35,7 @@ public class SVGEditPanMouseAdaptor extends MouseAdapter {
      * Set pan starting point to be the point where the mouse currently located, and change the
      * current cursor to <code>HAND_CURSOR</code>.
      */
+    @Override
     public void mousePressed(MouseEvent event) {
         JViewport  viewport  = (JViewport) event.getSource();
         JComponent component = (JComponent) viewport.getView();
@@ -47,6 +48,7 @@ public class SVGEditPanMouseAdaptor extends MouseAdapter {
      * {@inheritDoc}<p>
      * Reset cursor to <code>DEFAULT_CURSOR</code>.
      */
+    @Override
     public void mouseReleased(MouseEvent event) {
         JViewport  viewport  = (JViewport) event.getSource();
         JComponent component = (JComponent) viewport.getView();
@@ -59,6 +61,7 @@ public class SVGEditPanMouseAdaptor extends MouseAdapter {
      * Get the current viewport of the canvas and move the viewable area respective to the
      * event cursor location.
      */
+    @Override
     public void mouseDragged(MouseEvent event) {
         JViewport  viewport     = (JViewport) event.getSource();
         JComponent component    = (JComponent) viewport.getView();

@@ -33,6 +33,7 @@ import java.util.Iterator;
 
 import javax.swing.JPanel;
 import javax.swing.OverlayLayout;
+import rocks6205.editor.events.SVGEditPanMouseAdaptor;
 
 /**
  * Editor panel that acts as a central view for user to edit, select, add
@@ -79,6 +80,10 @@ public final class LSUIEditingPanel extends JPanel {
         drawListener = new SVGEditorDrawMouseAdaptor();
         scribbleArea.addMouseListener(drawListener);
         scribbleArea.addMouseMotionListener(drawListener);
+        
+        SVGEditPanMouseAdaptor panListener = new SVGEditPanMouseAdaptor();
+        addMouseListener(panListener);
+        addMouseMotionListener(panListener);
     }
 
     /**
@@ -314,7 +319,7 @@ public final class LSUIEditingPanel extends JPanel {
      *
      */
     public class SVGEditorDrawMouseAdaptor extends MouseAdapter {
-
+       
         /**
          * {@inheritDoc}<p>
          *
@@ -322,7 +327,7 @@ public final class LSUIEditingPanel extends JPanel {
         @Override
         public void mousePressed(MouseEvent event) {
             Helper.printf("Pressed at x:%d y:%d\n", event.getX(), event.getY());
-
+            scribbleArea.setEnabled(true);
             //
             Point         cursorPoint = event.getPoint();
             Point2D.Float scaledPoint = new Point2D.Float(cursorPoint.x / parent.getZoomScale(),
@@ -450,15 +455,26 @@ public final class LSUIEditingPanel extends JPanel {
                     newElement = svgLine;
 
                     break;
+                  case MODE_PAN:
+                     scribbleArea.setEnabled(false);
+                     break;
+                  case MODE_SELECT:
+                     break;
+                  case MODE_MOVE:
+                     break;
+                  case MODE_RESIZE:
+                     break;
 
                 default :
                     throw new AssertionError("Invalid edit mode");
                 }
 
+                if(editingMode != EditModeScheme.MODE_PAN){
                 newElement.setFill(fill);
                 newElement.setStroke(stroke);
                 newElement.setStrokeWidth(strokeWidth);
                 controller.addElement(newElement);
+                }
             }
 
             updateSelectionRect(cursorPoint);

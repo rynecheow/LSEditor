@@ -22,6 +22,8 @@ import javax.swing.JSpinner;
 import javax.swing.LayoutStyle;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 /**
  * Color Chooser for SVGEditor
@@ -81,6 +83,7 @@ public final class LSUIRGBColorChooserPanel extends JPanel implements LSUIProtoc
     public void customise() {
         layoutView();
         layoutComponents();
+        bindListeners();
     }
 
     public SVGEditorView getParentView() {
@@ -210,4 +213,17 @@ public final class LSUIRGBColorChooserPanel extends JPanel implements LSUIProtoc
             finalColorIndicatorLayout.createParallelGroup(GroupLayout.Alignment.LEADING).addGap(
                 0, 30, Short.MAX_VALUE));
     }
+
+   private void bindListeners() {
+      redSlider.addChangeListener(null);
+   }
+   
+   private class sliderListener implements ChangeListener{
+
+      @Override
+      public void stateChanged(ChangeEvent e) {
+         
+      }
+      
+   }
 }

@@ -17,13 +17,9 @@ import javax.swing.SwingConstants;
 
 /**
  *
- * @author
- * Cheow
- * Yeong
- * Chi
+ * @author Cheow Yeong Chi
  *
- * @since
- * 2.2
+ * @since 2.2
  */
 public final class LSUISideToolbar extends JToolBar implements LSUIProtocol {
 
@@ -102,6 +98,8 @@ public final class LSUISideToolbar extends JToolBar implements LSUIProtocol {
       drawLineButton.setAction(drawLineAction);
       drawCircButton.setAction(drawCircleAction);
       drawRectButton.setAction(drawRectAction);
+      selectButton.setAction(selectModeAction);
+      panButton.setAction(panModeAction);
    }
 
    /**
