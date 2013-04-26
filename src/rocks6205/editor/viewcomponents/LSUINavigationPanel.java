@@ -9,6 +9,8 @@ import rocks6205.system.properties.LSSVGEditorGUITheme;
 //~--- JDK imports ------------------------------------------------------------
 
 import javax.swing.JPanel;
+import javax.swing.JTree;
+import javax.swing.tree.DefaultMutableTreeNode;
 
 /**
  *
@@ -21,6 +23,14 @@ public final class LSUINavigationPanel extends JPanel implements LSUIProtocol {
      */
     private SVGEditorView parentView;
 
+    /*
+     *  GUI Components
+     */
+    private JTree navigationTree;
+    /**
+     * 
+     * @param parent 
+     */
     public LSUINavigationPanel(SVGEditorView parent) {
         super();
         parentView = parent;
@@ -29,10 +39,38 @@ public final class LSUINavigationPanel extends JPanel implements LSUIProtocol {
     }
 
     @Override
-    public void initialise() {}
+    public void initialise() {
+       LSElementsNavigationTree tree = LSElementsNavigationTree.createTree(null);
+       
+    }
 
     @Override
     public void customise() {
         setBorder(LSSVGEditorGUITheme.MASTER_DEFAULT_PANEL_BORDER);
     }
+    
+    
+    
+    
+   
+
+   public class LSTreeNode extends DefaultMutableTreeNode {
+
+    public LSTreeNode() {
+	// TODO Auto-generated constructor stub
+    }
+
+    public LSTreeNode(Object userObject) {
+	super(userObject);
+	// TODO Auto-generated constructor stub
+    }
+
+    public LSTreeNode(Object userObject, boolean allowsChildren) {
+	super(userObject, allowsChildren);
+	// TODO Auto-generated constructor stub
+    }
+
+    
+}
+
 }
