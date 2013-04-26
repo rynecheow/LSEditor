@@ -179,7 +179,8 @@ public class SVGLineElement extends SVGGenericElement {
 
         bounds = new Rectangle2D.Float(computedX, computedY, computedWidth, computedHeight);
 
-        return (Rectangle2D.Float) getTransform().createTransformedShape(bounds).getBounds2D();
+        Rectangle2D.Double rect = (Rectangle2D.Double) getTransform().createTransformedShape(bounds).getBounds2D();
+        return new Rectangle2D.Float((float)rect.x, (float)rect.y, (float)rect.width, (float)rect.height);
     }
 
     /**

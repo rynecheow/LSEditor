@@ -152,8 +152,9 @@ public class SVGCircleElement extends SVGGenericElement {
             bounds.width  = 2 * r + 2 * padding;
             bounds.height = 2 * r + 2 * padding;
         }
-
-        return (Rectangle2D.Float) getTransform().createTransformedShape(bounds).getBounds2D();
+        Rectangle2D.Double rect = (Rectangle2D.Double) getTransform().createTransformedShape(bounds).getBounds2D();
+        return new Rectangle2D.Float((float)rect.x, (float)rect.y, (float)rect.width, (float)rect.height);
+        
     }
 
     /**

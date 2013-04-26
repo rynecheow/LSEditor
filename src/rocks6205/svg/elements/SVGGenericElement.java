@@ -152,8 +152,8 @@ public abstract class SVGGenericElement {
      * @return Translate instance of current element
      */
     public AffineTransform getTransform() {
-        double tx = 0;
-        double ty = 0;
+        float tx = 0;
+        float ty = 0;
 
         if (translateX != null) {
             tx = translateX.getValue();

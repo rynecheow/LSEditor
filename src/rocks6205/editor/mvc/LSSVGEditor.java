@@ -35,7 +35,7 @@ public class LSSVGEditor {
         c.createBlankDocument();
 
         SVGEditorView v = new SVGEditorView(c);
-
+        c.addView(v);
         v.setVisible(true);
         v.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 
