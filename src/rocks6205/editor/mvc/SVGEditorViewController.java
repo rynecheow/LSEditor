@@ -38,6 +38,7 @@ import java.io.File;
 import java.io.IOException;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedHashSet;
 
@@ -923,8 +924,27 @@ public class SVGEditorViewController
      */
     @Override
     public void group() {
+        ArrayList<SVGGenericElement> selectionsList = new ArrayList<>(selections);
 
-        // TODO Auto-generated method stub
+        if (selectionsList.size() < 2) {
+            return;
+        }
+
+        Collections.sort(selectionsList, SVG_ELEMENT_ORDER);
+
+        int         lastPos = model.getSVGElement().indexOf(selectionsList.get(selectionsList.size() - 1));
+        SVGGElement group   = new SVGGElement();
+
+        model.getSVGElement().insertDescendant(group, lastPos);
+
+        for (SVGGenericElement e : selectionsList) {
+            group.addDescendant(e);
+            model.getSVGElement().removeDescendant(e);
+            selections.remove(e);
+        }
+
+        selections.add(group);
+        
     }
 
     /**
@@ -934,7 +954,42 @@ public class SVGEditorViewController
      */
     @Override
     public void ungroup() {
+        int                          position;
+        ArrayList<SVGGenericElement> addList    = new ArrayList<>();
+        ArrayList<SVGGenericElement> removeList = new ArrayList<>();
 
-        // TODO Auto-generated method stub
+        for (SVGGenericElement e : selections) {
+            if (e instanceof SVGGElement) {
+                SVGGElement group = (SVGGElement) e;
+
+                if (group.getDescendantCount() == 0) {
+                    continue;
+                }
+
+                position = model.getSVGElement().indexOf(group);
+
+                for (SVGGenericElement descendant : group.ungroup()) {
+                    model.getSVGElement().insertDescendant(descendant, position++);
+                    addList.add(descendant);
+                }
+
+                model.getSVGElement().removeDescendant(position);
+                removeList.add(e);
+            }
+        }
+
+        if (removeList.isEmpty()) {
+            return;
+        }
+
+        for (SVGGenericElement e : addList) {
+            selections.add(e);
+        }
+
+        for (SVGGenericElement e : removeList) {
+            selections.remove(e);
+        }
+
+        touchDocument();
     }
 }
