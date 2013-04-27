@@ -1,4 +1,4 @@
-package rocks6205.svg.adt;
+package rocks6205.editor.model.adt;
 
 /**
  * Primitive regular expression use for building patterns to match attributes in the SVG

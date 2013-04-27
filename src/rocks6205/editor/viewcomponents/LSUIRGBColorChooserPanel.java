@@ -4,7 +4,7 @@ package rocks6205.editor.viewcomponents;
 
 import rocks6205.editor.mvc.SVGEditorView;
 
-import rocks6205.svg.adt.SVGColorScheme;
+import rocks6205.editor.model.adt.SVGColorScheme;
 
 import rocks6205.system.properties.LSSVGEditorGUITheme;
 

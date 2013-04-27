@@ -1,4 +1,4 @@
-package rocks6205.editor.events;
+package rocks6205.editor.bridge.actions;
 
 //~--- non-JDK imports --------------------------------------------------------
 

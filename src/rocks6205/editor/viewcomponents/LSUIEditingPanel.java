@@ -1,21 +1,4 @@
-package rocks6205.editor.viewcomponents;;
-
-//~--- non-JDK imports --------------------------------------------------------
-
-import rocks6205.Helper;
-
-import rocks6205.editor.mvc.SVGEditorView;
-import rocks6205.editor.mvc.SVGEditorViewController;
-
-import rocks6205.svg.adt.SVGLengthUnit;
-import rocks6205.svg.adt.SVGLengthUnitType;
-import rocks6205.svg.adt.SVGPainting;
-import rocks6205.svg.elements.SVGCircleElement;
-import rocks6205.svg.elements.SVGGenericElement;
-import rocks6205.svg.elements.SVGLineElement;
-import rocks6205.svg.elements.SVGRectElement;
-
-//~--- JDK imports ------------------------------------------------------------
+package rocks6205.editor.viewcomponents;
 
 import java.awt.Cursor;
 import java.awt.Dimension;
@@ -27,13 +10,23 @@ import java.awt.event.MouseEvent;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
-
 import java.util.ArrayList;
 import java.util.Iterator;
-
 import javax.swing.JPanel;
 import javax.swing.OverlayLayout;
-import rocks6205.editor.events.SVGEditPanMouseAdaptor;
+import rocks6205.editor.Helper;
+import rocks6205.editor.model.adt.SVGLengthUnit;
+import rocks6205.editor.model.adt.SVGLengthUnitType;
+import rocks6205.editor.model.adt.SVGPainting;
+import rocks6205.editor.mvc.SVGEditorView;
+import rocks6205.editor.mvc.SVGEditorViewController;
+import rocks6205.editor.model.elements.SVGCircleElement;
+import rocks6205.editor.model.elements.SVGGenericElement;
+import rocks6205.editor.model.elements.SVGLineElement;
+import rocks6205.editor.model.elements.SVGRectElement;
+
+;
+
 
 /**
  * Editor panel that acts as a central view for user to edit, select, add

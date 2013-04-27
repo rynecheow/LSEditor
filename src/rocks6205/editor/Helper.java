@@ -1,4 +1,4 @@
-package rocks6205;
+package rocks6205.editor;
 
 /**
  *

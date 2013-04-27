@@ -9,20 +9,20 @@ import org.w3c.dom.Node;
 
 import org.xml.sax.InputSource;
 
-import rocks6205.svg.adt.SVGLengthUnit;
-import rocks6205.svg.adt.SVGLengthUnitType;
-import rocks6205.svg.adt.SVGPainting;
+import rocks6205.editor.model.adt.SVGLengthUnit;
+import rocks6205.editor.model.adt.SVGLengthUnitType;
+import rocks6205.editor.model.adt.SVGPainting;
 import rocks6205.editor.controllers.SVGEditorComponentsController;
 import rocks6205.editor.controllers.SVGEditorFileController;
 import rocks6205.editor.controllers.SVGEditorSelectionsController;
-import rocks6205.svg.elements.SVGCircleElement;
-import rocks6205.svg.elements.SVGContainerElement;
-import rocks6205.svg.elements.SVGGElement;
-import rocks6205.svg.elements.SVGGenericElement;
-import rocks6205.svg.elements.SVGLineElement;
-import rocks6205.svg.elements.SVGRectElement;
-import rocks6205.svg.elements.SVGSVGElement;
-import rocks6205.svg.parser.XMLParser;
+import rocks6205.editor.model.elements.SVGCircleElement;
+import rocks6205.editor.model.elements.SVGContainerElement;
+import rocks6205.editor.model.elements.SVGGElement;
+import rocks6205.editor.model.elements.SVGGenericElement;
+import rocks6205.editor.model.elements.SVGLineElement;
+import rocks6205.editor.model.elements.SVGRectElement;
+import rocks6205.editor.model.elements.SVGSVGElement;
+import rocks6205.system.parser.XMLParser;
 
 //~--- JDK imports ------------------------------------------------------------
 

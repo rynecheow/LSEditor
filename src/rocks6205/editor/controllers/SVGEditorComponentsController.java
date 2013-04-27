@@ -1,11 +1,11 @@
 package rocks6205.editor.controllers;
 
-import rocks6205.svg.adt.SVGLengthUnit;
-import rocks6205.svg.adt.SVGPainting;
-import rocks6205.svg.elements.SVGCircleElement;
-import rocks6205.svg.elements.SVGGenericElement;
-import rocks6205.svg.elements.SVGLineElement;
-import rocks6205.svg.elements.SVGRectElement;
+import rocks6205.editor.model.adt.SVGLengthUnit;
+import rocks6205.editor.model.adt.SVGPainting;
+import rocks6205.editor.model.elements.SVGCircleElement;
+import rocks6205.editor.model.elements.SVGGenericElement;
+import rocks6205.editor.model.elements.SVGLineElement;
+import rocks6205.editor.model.elements.SVGRectElement;
 
 public interface SVGEditorComponentsController {
 

@@ -12,7 +12,7 @@ import rocks6205.editor.viewcomponents.LSUIStatusPanel;
 import rocks6205.editor.viewcomponents.LSUITopToolbar;
 import rocks6205.editor.viewcomponents.LSUIWelcomeDialog;
 
-import rocks6205.svg.elements.SVGGenericElement;
+import rocks6205.editor.model.elements.SVGGenericElement;
 
 import rocks6205.system.properties.LSSVGEditorGUITheme;
 import rocks6205.system.properties.OSValidator;
@@ -40,7 +40,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JViewport;
 import javax.swing.WindowConstants;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import rocks6205.editor.events.SVGEditPanMouseAdaptor;
+import rocks6205.editor.bridge.actions.SVGEditPanMouseAdaptor;
 
 /**
  * A class defining how the main user interface should look like.

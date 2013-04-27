@@ -1,4 +1,4 @@
-package rocks6205.svg.adt;
+package rocks6205.editor.model.adt;
 
 /**
  * The <code>SVGPainting</code> class is used to parse <code>paint</code> attribute in

@@ -1,11 +1,11 @@
-package rocks6205.svg.elements;
+package rocks6205.editor.model.elements;
 
 //~--- non-JDK imports --------------------------------------------------------
 
 import org.w3c.dom.Element;
 
-import rocks6205.svg.adt.SVGLengthUnit;
-import rocks6205.svg.adt.SVGPainting;
+import rocks6205.editor.model.adt.SVGLengthUnit;
+import rocks6205.editor.model.adt.SVGPainting;
 
 //~--- JDK imports ------------------------------------------------------------
 

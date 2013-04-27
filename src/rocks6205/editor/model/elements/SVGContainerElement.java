@@ -1,4 +1,4 @@
-package rocks6205.svg.elements;
+package rocks6205.editor.model.elements;
 
 //~--- JDK imports ------------------------------------------------------------
 

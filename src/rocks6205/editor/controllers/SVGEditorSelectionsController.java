@@ -2,7 +2,7 @@ package rocks6205.editor.controllers;
 
 //~--- non-JDK imports --------------------------------------------------------
 
-import rocks6205.svg.elements.SVGGenericElement;
+import rocks6205.editor.model.elements.SVGGenericElement;
 
 //~--- JDK imports ------------------------------------------------------------
 

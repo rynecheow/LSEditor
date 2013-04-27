@@ -2,7 +2,7 @@ package rocks6205.editor.mvc;
 
 //~--- non-JDK imports --------------------------------------------------------
 
-import rocks6205.svg.elements.SVGSVGElement;
+import rocks6205.editor.model.elements.SVGSVGElement;
 
 /**
  * SVG Viewer model which consist the current SVG parent fragment/object.

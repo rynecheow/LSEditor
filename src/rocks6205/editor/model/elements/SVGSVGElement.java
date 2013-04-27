@@ -8,7 +8,7 @@
  * @date: 14/03/2013
  *
  */
-package rocks6205.svg.elements;
+package rocks6205.editor.model.elements;
 
 //~--- non-JDK imports --------------------------------------------------------
 
@@ -17,8 +17,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
-import rocks6205.svg.adt.SVGLengthUnit;
-import rocks6205.svg.adt.SVGLengthUnitType;
+import rocks6205.editor.model.adt.SVGLengthUnit;
+import rocks6205.editor.model.adt.SVGLengthUnitType;
 
 //~--- JDK imports ------------------------------------------------------------
 
