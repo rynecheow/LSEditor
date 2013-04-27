@@ -9,7 +9,6 @@ import rocks6205.system.properties.LSSVGEditorGUITheme;
 //~--- JDK imports ------------------------------------------------------------
 
 import javax.swing.JPanel;
-import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 /**
@@ -26,7 +25,7 @@ public final class LSUINavigationPanel extends JPanel implements LSUIProtocol {
     /*
      *  GUI Components
      */
-    private JTree navigationTree;
+    private LSElementsNavigationTree navigationTree;
     /**
      * 
      * @param parent 

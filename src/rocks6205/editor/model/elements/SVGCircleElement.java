@@ -27,7 +27,7 @@ import java.awt.geom.Rectangle2D;
  * @since 1.1
  *
  */
-public final class SVGCircleElement extends SVGGenericElement {
+public final class SVGCircleElement extends SVGShapeElement{
 
     /*
      * PROPERTIES

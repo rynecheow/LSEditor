@@ -27,7 +27,7 @@ import java.awt.geom.Rectangle2D;
  * @since 1.1
  *
  */
-public final class SVGLineElement extends SVGGenericElement {
+public final class SVGLineElement extends SVGShapeElement {
 
     /*
      * PROPERTIES
