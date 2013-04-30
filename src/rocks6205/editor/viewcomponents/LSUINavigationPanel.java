@@ -26,6 +26,12 @@ public final class LSUINavigationPanel extends JPanel implements LSUIProtocol {
      *  GUI Components
      */
     private LSElementsNavigationTree navigationTree;
+    private DefaultMutableTreeNode root;
+    
+    /*
+     * PROPERTIES
+     */
+    private boolean isRootNull;
     /**
      * 
      * @param parent 
@@ -39,8 +45,11 @@ public final class LSUINavigationPanel extends JPanel implements LSUIProtocol {
 
     @Override
     public void initialise() {
-       LSElementsNavigationTree tree = LSElementsNavigationTree.createTree(null);
-       
+//       navigationTree = LSElementsNavigationTree.createTree(null);
+//       isRootNull = parentView.getModel().getSVGElement()==null;
+//       if(!isRootNull){
+//          root = new DefaultMutableTreeNode("SVG Root Container");
+//       }
     }
 
     @Override
