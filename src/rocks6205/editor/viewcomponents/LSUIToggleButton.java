@@ -2,7 +2,7 @@ package rocks6205.editor.viewcomponents;
 
 //~--- JDK imports ------------------------------------------------------------
 
-import java.net.URL;
+import java.awt.Image;
 
 import javax.swing.ImageIcon;
 import javax.swing.JToggleButton;
@@ -41,28 +41,23 @@ public class LSUIToggleButton extends JToggleButton {
      * Creates an <code>ImageIcon</code> instance from a image path <code>path</code>
      * provided.
      *
-     * @param path Path to icon image
+     * @param iconName Name to icon image
      * @return <code>ImageIcon</code> object
      */
-    protected static ImageIcon createIcon(String path) {
-        URL imgURL = LSUIToggleButton.class.getResource(path);
-
-        if (imgURL != null) {
-            return new ImageIcon(imgURL);
-        }
-
-        System.err.println("Could not find file: " + path);
-
-        return null;
+    protected static ImageIcon createIcon(String iconName) {
+        String string = "resources/toolbar-logo/" + iconName;
+        System.out.println(string);
+        ImageIcon icon = new ImageIcon(string);
+        return icon;
     }
 
     /**
-     * Sets the button's default icon with path to icon image <code>iconPath</code>.
+     * Sets the button's default icon with name to icon image <code>iconName</code>.
      *
-     * @param iconPath Path to icon image
+     * @param iconPath Name to icon image
      */
-    public void setIcon(String iconPath) {
-        ImageIcon icon = createIcon(iconPath);
+    public void setIcon(String iconName) {
+        ImageIcon icon = createIcon(iconName);
 
         super.setIcon(icon);
         setBorder(null);

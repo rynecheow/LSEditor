@@ -105,13 +105,13 @@ public final class LSUITopToolbar extends JToolBar implements LSUIProtocol {
      * Setup icons for button.
      */
     private void setIconsForButtons() {
-        String newFileIconPath  = "imageicon/newfile.png";
-        String openFileIconPath = "imageicon/openfolder.png";
-        String saveFileIconPath = "imageicon/save.png";
-        String zoomInIconPath   = "imageicon/zoomin.png";
-        String zoomOutIconPath  = "imageicon/zoomout.png";
-        String fillIconPath     = "imageicon/fill.png";
-        String strokeIconPath   = "imageicon/stroke.png";
+        String newFileIconPath  = "newfile.png";
+        String openFileIconPath = "openfolder.png";
+        String saveFileIconPath = "save.png";
+        String zoomInIconPath   = "zoomin.png";
+        String zoomOutIconPath  = "zoomout.png";
+        String fillIconPath     = "fill.png";
+        String strokeIconPath   = "stroke.png";
 
         newButton.setIcon(newFileIconPath);
         openButton.setIcon(openFileIconPath);

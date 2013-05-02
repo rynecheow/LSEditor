@@ -114,13 +114,13 @@ public final class LSUISideToolbar extends JToolBar implements LSUIProtocol {
      * button.
      */
     private void setIconsForButtons() {
-        String panIconPath       = "imageicon/pan.png";
-        String selectIconPath    = "imageicon/select.png";
-        String rectangleIconPath = "imageicon/rectangle.png";
-        String circleIconPath    = "imageicon/circle.png";
-        String lineIconPath      = "imageicon/line.png";
-        String groupIconPath     = "imageicon/group.png";
-        String ungroupIconPath   = "imageicon/ungroup.png";
+        String panIconPath       = "pan.png";
+        String selectIconPath    = "select.png";
+        String rectangleIconPath = "rectangle.png";
+        String circleIconPath    = "circle.png";
+        String lineIconPath      = "line.png";
+        String groupIconPath     = "group.png";
+        String ungroupIconPath   = "ungroup.png";
 
         panButton.setIcon(panIconPath);
         selectButton.setIcon(selectIconPath);
