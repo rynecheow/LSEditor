@@ -3,6 +3,7 @@ package rocks6205.editor.model.elements;
 //~--- JDK imports ------------------------------------------------------------
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  * The <code>SVGContainerElement</code> class is an abstract class that defines a
@@ -111,5 +112,29 @@ public abstract class SVGContainerElement extends SVGGenericElement {
      */
     public void removeDescendant(SVGGenericElement e) {
         descendants.remove(e);
+    }
+    
+    public void listDescendants(SVGContainerElement container, int indentNumber){
+       int level = indentNumber;
+       for (Iterator<SVGGenericElement> it = container.descendants.iterator(); it.hasNext();) {
+          SVGGenericElement e = it.next();
+          if(e instanceof SVGGElement){
+             SVGGElement g = (SVGGElement) e;
+             System.out.println(getIndent(level) + g.getElementType());
+             listDescendants(g, ++level);
+             level--;
+          }else{
+             System.out.println(getIndent(level) + e.getElementType());
+          }
+       }
+    }
+    
+    public String getIndent(int indentNumber){
+       String indent = "";
+       while(indentNumber>0){
+          indent += " ";
+          indentNumber--;
+       }
+       return indent;
     }
 }

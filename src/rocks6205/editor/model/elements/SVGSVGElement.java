@@ -214,4 +214,8 @@ public class SVGSVGElement extends SVGContainerElement {
    public String getElementType() {
       return "SVGSVGElement";
    }
+   
+   public void listDescendants(){
+      super.listDescendants(this, 0);
+   }
 }

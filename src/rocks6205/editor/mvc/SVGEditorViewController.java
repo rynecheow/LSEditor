@@ -40,8 +40,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Iterator;
 import java.util.LinkedHashSet;
-import java.util.logging.Logger;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -445,6 +445,7 @@ public class SVGEditorViewController
                     activeFile        = file;
                     isDocumentModified = false;
                     LSSVGEditor.logger.info(String.format("File named %s is successfully loaded", file.getName()));
+                    getDescendantList();
                     updateViews();
 
                     return true;
@@ -1000,5 +1001,9 @@ public class SVGEditorViewController
         }
 
         touchDocument();
+    }
+    
+    public void getDescendantList(){
+       model.getSVGElement().listDescendants();
     }
 }

@@ -14,7 +14,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import javax.swing.JPanel;
 import javax.swing.OverlayLayout;
-import rocks6205.editor.Helper;
 import rocks6205.editor.model.adt.SVGLengthUnit;
 import rocks6205.editor.model.adt.SVGLengthUnitType;
 import rocks6205.editor.model.adt.SVGPainting;
@@ -139,7 +138,7 @@ public final class LSUIEditingPanel extends JPanel {
         }
 
         setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
-        System.out.println(mode.name());
+        System.out.printf("Current mode: %s \n",mode.name());
     }
 
     public String getEditMode() {
