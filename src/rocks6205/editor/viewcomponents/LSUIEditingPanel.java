@@ -290,7 +290,6 @@ public final class LSUIEditingPanel extends JPanel {
         }
 
         activeRect.setBounds(xPos, yPos, width, height);
-        Helper.println("x:"+activeRect.x+"\ny:"+activeRect.y+"\nw:"+activeRect.width+"\nh:"+activeRect.height);
     }
 
     public SVGEditorView getParentView() {
@@ -315,7 +314,6 @@ public final class LSUIEditingPanel extends JPanel {
          */
         @Override
         public void mousePressed(MouseEvent event) {
-            Helper.printf("Pressed at x:%d y:%d\n", event.getX(), event.getY());
             scribbleArea.setEnabled(true);
             //
             Point         cursorPoint = event.getPoint();
@@ -410,7 +408,7 @@ public final class LSUIEditingPanel extends JPanel {
 
                 switch (editingMode) {
                 case DRAW_RECTANGLE :
-                    Helper.println("Drawing Rectangle");
+                   
 
                     SVGRectElement svgRect = new SVGRectElement();
 
@@ -421,7 +419,7 @@ public final class LSUIEditingPanel extends JPanel {
                     break;
 
                 case DRAW_CIRCLE :
-                    Helper.println("Drawing Circle");
+                   
 
                     SVGCircleElement svgCircle = new SVGCircleElement();
 
@@ -432,8 +430,6 @@ public final class LSUIEditingPanel extends JPanel {
                     break;
 
                 case DRAW_LINE :
-                    Helper.println("Drawing Line");
-                    Helper.printf("%f %f", x.getValue(), y.getValue());
 
                     SVGLineElement svgLine = new SVGLineElement();
 
@@ -476,7 +472,6 @@ public final class LSUIEditingPanel extends JPanel {
          */
         @Override
         public void mouseReleased(MouseEvent event) {
-            Helper.printf("Released at x:%d y:%d\n", event.getX(), event.getY());
 
             float              zoom      = parent.getZoomScale();
             Rectangle2D.Double realRect  = null;
@@ -517,7 +512,6 @@ public final class LSUIEditingPanel extends JPanel {
      */
         @Override
         public void mouseDragged(MouseEvent event) {
-            System.out.printf("Dragged at x:%d y:%d\n", event.getX(), event.getY());
 
             Point         cursorPoint = event.getPoint();
             float         zoom        = parent.getZoomScale();

@@ -118,6 +118,10 @@ public abstract class SVGGenericElement {
      */
     public abstract void draw(Graphics2D g);
 
+    /**
+     * Return type of itself in <code>String</code> format
+     */
+    public abstract String getElementType();
     /*
      * ACCESSORS
      */

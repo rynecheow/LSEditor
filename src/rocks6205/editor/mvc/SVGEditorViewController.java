@@ -251,7 +251,7 @@ public class SVGEditorViewController
 //        model.setSVGElement(new SVGSVGElement(SVGLengthUnit.parse("916px"), SVGLengthUnit.parse("578px")));
         model.setSVGElement(new SVGSVGElement(SVGLengthUnit.parse("1000px"), SVGLengthUnit.parse("1000px")));
         activeFile = NEW_DOCUMENT;
-        LSSVGEditor.logger.info("New document created with height 1000px and width 1000px");
+        LSSVGEditor.logger.info("New document created with height 1000px and width 1000px. \n");
         unmodifyDocument();
         updateViews();
     }
@@ -268,7 +268,7 @@ public class SVGEditorViewController
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         model.getSVGElement().draw(g);
         g.dispose();
-
+//        LSSVGEditor.logger.info(String.format("Graphic rendered: Scale=\t"+scale+ " Width=\t"+width+" Height=\t"+height+"\n"));
         return image;
     }
 
@@ -317,6 +317,7 @@ public class SVGEditorViewController
     @Override
     public void addElement(SVGGenericElement e) {
         model.getSVGElement().addDescendant(e);
+        LSSVGEditor.logger.info(String.format("Element of type "+e.getElementType()+" is added to the root element.\n"));
         touchDocument();
     }
 
@@ -373,6 +374,8 @@ public class SVGEditorViewController
 
         rect.setWidth(SVGLengthUnit.convert(w, rect.getWidth().getUnitType()));
         rect.setHeight(SVGLengthUnit.convert(h, rect.getHeight().getUnitType()));
+//        String logInfo = "Rectangle is resized to " + w + rect.getWidth().getUnitType().getUnitSymbol() + " x " + h + rect.getWidth().getUnitType().getUnitSymbol();
+//        LSSVGEditor.logger.info(logInfo);
         touchDocument();
     }
 
@@ -441,6 +444,7 @@ public class SVGEditorViewController
                     model.setSVGElement(svg_e);
                     activeFile        = file;
                     isDocumentModified = false;
+                    LSSVGEditor.logger.info(String.format("File named %s is successfully loaded", file.getName()));
                     updateViews();
 
                     return true;

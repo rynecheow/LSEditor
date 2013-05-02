@@ -236,4 +236,13 @@ public final class SVGRectElement extends SVGShapeElement{
 
         return rect;
     }
+    
+    /**
+     * 
+     * {@inheritDoc} 
+     */
+   @Override
+   public String getElementType() {
+      return "SVGRectElement";
+   }
 }

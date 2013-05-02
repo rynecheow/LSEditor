@@ -149,4 +149,13 @@ public class SVGGElement extends SVGContainerElement {
 
         return g_e;
     }
+    
+    /**
+     * 
+     * {@inheritDoc} 
+     */
+   @Override
+   public String getElementType() {
+      return "SVGGElement";
+   }
 }

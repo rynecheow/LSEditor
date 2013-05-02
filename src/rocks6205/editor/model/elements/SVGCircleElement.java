@@ -216,6 +216,14 @@ public final class SVGCircleElement extends SVGShapeElement{
 
         return circ;
     }
+   /**
+     * 
+     * {@inheritDoc} 
+     */
+   @Override
+   public String getElementType() {
+      return "SVGCircleElement";
+   }
 }
 
 

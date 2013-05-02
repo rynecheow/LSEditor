@@ -238,4 +238,13 @@ public final class SVGLineElement extends SVGShapeElement {
 
         return line;
     }
+    
+    /**
+     * 
+     * {@inheritDoc} 
+     */
+   @Override
+   public String getElementType() {
+      return "SVGLineElement";
+   }
 }
