@@ -1,7 +1,7 @@
 package rocks6205.editor.viewcomponents;
 
 //~--- non-JDK imports --------------------------------------------------------
-
+import java.awt.BorderLayout;
 import rocks6205.editor.mvc.SVGEditorView;
 
 import rocks6205.system.properties.LSSVGEditorGUITheme;
@@ -9,13 +9,20 @@ import rocks6205.system.properties.LSSVGEditorGUITheme;
 //~--- JDK imports ------------------------------------------------------------
 
 import javax.swing.JPanel;
-import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.JScrollPane;
+import javax.swing.JTree;
+import javax.swing.event.TreeSelectionEvent;
+import javax.swing.event.TreeSelectionListener;
+import rocks6205.editor.viewcomponents.tree.LSElementNavigationTreeModel;
+import rocks6205.editor.viewcomponents.tree.LSTreeBuilder;
+import rocks6205.editor.viewcomponents.tree.LSTreeNode;
+import rocks6205.editor.viewcomponents.tree.NodeRenderer;
 
 /**
  *
  * @author Cheow Yeong Chi
  */
-public final class LSUINavigationPanel extends JPanel implements LSUIProtocol {
+public final class LSUINavigationPanel extends JPanel implements LSUIProtocol, TreeSelectionListener {
 
     /**
      * PARENT COMPONENT
@@ -25,8 +32,7 @@ public final class LSUINavigationPanel extends JPanel implements LSUIProtocol {
     /*
      *  GUI Components
      */
-    private LSElementsNavigationTree navigationTree;
-    private DefaultMutableTreeNode root;
+    private JTree navigationTree;
     
     /*
      * PROPERTIES
@@ -45,40 +51,29 @@ public final class LSUINavigationPanel extends JPanel implements LSUIProtocol {
 
     @Override
     public void initialise() {
-//       navigationTree = LSElementsNavigationTree.createTree(null);
-//       isRootNull = parentView.getModel().getSVGElement()==null;
-//       if(!isRootNull){
-//          root = new DefaultMutableTreeNode("SVG Root Container");
-//       }
+       LSTreeNode node = LSTreeBuilder.build();
+       LSElementNavigationTreeModel model = new LSElementNavigationTreeModel(node);
+       navigationTree = new JTree(model);
+       navigationTree.setCellRenderer(new NodeRenderer());
+       navigationTree.addTreeSelectionListener(this);
+       
     }
 
     @Override
     public void customise() {
         setBorder(LSSVGEditorGUITheme.MASTER_DEFAULT_PANEL_BORDER);
+        setLayout(new BorderLayout());
+        add(new JScrollPane(navigationTree), BorderLayout.CENTER);
     }
-    
-    
-    
-    
+
+   @Override
+   public void valueChanged(TreeSelectionEvent e) {
+      Object node = navigationTree.getLastSelectedPathComponent();
+       if (node == null) {
+           return;
+       }
+        
+       System.out.println("You have selected: " + node);
+    }
    
-
-   public class LSTreeNode extends DefaultMutableTreeNode {
-
-    public LSTreeNode() {
-	// TODO Auto-generated constructor stub
-    }
-
-    public LSTreeNode(Object userObject) {
-	super(userObject);
-	// TODO Auto-generated constructor stub
-    }
-
-    public LSTreeNode(Object userObject, boolean allowsChildren) {
-	super(userObject, allowsChildren);
-	// TODO Auto-generated constructor stub
-    }
-
-    
-}
-
 }

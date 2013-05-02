@@ -400,4 +400,8 @@ public final class SVGEditorView extends JFrame implements LSUIProtocol {
         editPanel.setStrokeWidth(SVGGenericElement.SVG_STROKE_WIDTH_DEFAULT);
         scrollPane.setViewportView(editPanel);
     }
+    
+    public void updateStatus(String status){
+       statusPanel.updateStatus("123");
+    }
 }

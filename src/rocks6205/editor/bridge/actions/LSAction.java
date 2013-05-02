@@ -45,48 +45,48 @@ public abstract class LSAction extends AbstractAction {
     /**
      * Parent component (Usually an <code>SVGView</code> object.)
      */
-    protected SVGEditorView parent;
-    protected SVGEditorViewController controller;
+    protected SVGEditorView v;
+    protected SVGEditorViewController vc;
     /*
      * CONSTRUCTOR
      */
 
     /**
      * Construct a <code>SVGViewMenuAction</code> type object with <code>tooltipText</code>,
-     * <code>mnemonic</code> key, <code>keyStroke</code> and parent component
-     * <code>parent</code>.
+     * <code>mnemonic</code> key, <code>keyStroke</code> and v component
+     * <code>v</code>.
      *
      * @param tooltipText Tool tip text while mouse over action component
      * @param mnemonic Mnemonic key that allows users to choose a control by pressing a single key
      * @param keyStroke Key action on the keyboard
-     * @param parent Parent component
+     * @param v Parent component
      */
     public LSAction(String tooltipText, Integer mnemonic, KeyStroke keyStroke, SVGEditorView parent) {
         putValue(SHORT_DESCRIPTION, tooltipText);
         putValue(MNEMONIC_KEY, mnemonic);
         putValue(ACCELERATOR_KEY, keyStroke);
-        this.parent = parent;
-        this.controller = parent.getController();
+        this.v = parent;
+        this.vc = parent.getController();
     }
 
     /**
      * Construct a <code>SVGViewMenuAction</code> type object with action <code>name</code>,
-     * <code>tooltipText</code>, <code>mnemonic</code> key, <code>keyStroke</code> and parent component
-     * <code>parent</code>.
+     * <code>tooltipText</code>, <code>mnemonic</code> key, <code>keyStroke</code> and v component
+     * <code>v</code>.
      *
      * @param name Name of action component
      * @param tooltipText Tool tip text while mouse over action component
      * @param mnemonic Mnemonic key that allows users to choose a control by pressing a single key
      * @param keyStroke Key action on the keyboard
-     * @param parent Parent component
+     * @param v Parent component
      */
     public LSAction(String name, String tooltipText, Integer mnemonic, KeyStroke keyStroke, SVGEditorView parent) {
         putValue(Action.NAME, name);
         putValue(SHORT_DESCRIPTION, tooltipText);
         putValue(MNEMONIC_KEY, mnemonic);
         putValue(ACCELERATOR_KEY, keyStroke);
-        this.parent = parent;
-        this.controller = parent.getController();
+        this.v = parent;
+        this.vc = parent.getController();
     }
 
     private static int getKeyEventMask() {
@@ -113,18 +113,18 @@ public abstract class LSAction extends AbstractAction {
          */
 
         /**
-         * Construct a <code>DeleteAction</code> instance with parent component
-         * <code>parent</code> and no action name.
-         * @param parent Parent component
+         * Construct a <code>DeleteAction</code> instance with v component
+         * <code>v</code> and no action name.
+         * @param v Parent component
          */
         public DeleteAction(SVGEditorView parent) {
             super("Delete", KeyEvent.VK_E, KeyStroke.getKeyStroke(KeyEvent.VK_DELETE, 0), parent);
         }
 
         /**
-         * Construct a <code>DeleteAction</code> instance with parent component
-         * <code>parent</code> and action name.
-         * @param parent Parent component
+         * Construct a <code>DeleteAction</code> instance with v component
+         * <code>v</code> and action name.
+         * @param v Parent component
          * @param actionName Name of action component
          */
         public DeleteAction(SVGEditorView parent, String actionName) {
@@ -133,7 +133,7 @@ public abstract class LSAction extends AbstractAction {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            controller.deleteSelectedElement();
+            vc.deleteSelectedElement();
         }
     }
 
@@ -155,9 +155,9 @@ public abstract class LSAction extends AbstractAction {
          */
 
         /**
-         * Construct a <code>DeselectAllAction</code> instance with parent component
-         * <code>parent</code> and no action name.
-         * @param parent Parent component
+         * Construct a <code>DeselectAllAction</code> instance with v component
+         * <code>v</code> and no action name.
+         * @param v Parent component
          */
         public DeselectAllAction(SVGEditorView parent) {
             super("Deselect All", KeyEvent.VK_D,
@@ -165,9 +165,9 @@ public abstract class LSAction extends AbstractAction {
         }
 
         /**
-         * Construct a <code>DeselectAllAction</code> instance with parent component
-         * <code>parent</code> and action name.
-         * @param parent Parent component
+         * Construct a <code>DeselectAllAction</code> instance with v component
+         * <code>v</code> and action name.
+         * @param v Parent component
          * @param actionName Name of action component
          */
         public DeselectAllAction(SVGEditorView parent, String actionName) {
@@ -177,7 +177,7 @@ public abstract class LSAction extends AbstractAction {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            controller.clearSelection();
+            vc.clearSelection();
         }
     }
 
@@ -200,18 +200,18 @@ public abstract class LSAction extends AbstractAction {
          */
 
         /**
-         * Construct a <code>DrawCircleAction</code> instance with parent component
-         * <code>parent</code> and no action name. <p>Disabled by default.
-         * @param parent Parent component
+         * Construct a <code>DrawCircleAction</code> instance with v component
+         * <code>v</code> and no action name. <p>Disabled by default.
+         * @param v Parent component
          */
         public DrawCircleAction(SVGEditorView parent) {
             super("Draw Circle", KeyEvent.VK_C, KeyStroke.getKeyStroke(KeyEvent.VK_C, getKeyEventMask()), parent);
         }
 
         /**
-         * Construct a <code>FillAction</code> instance with parent component
-         * <code>parent</code>.
-         * @param parent Parent component
+         * Construct a <code>FillAction</code> instance with v component
+         * <code>v</code>.
+         * @param v Parent component
          * @param actionName Name of action component
          */
         public DrawCircleAction(SVGEditorView parent, String actionName) {
@@ -222,9 +222,9 @@ public abstract class LSAction extends AbstractAction {
         @Override
         public void actionPerformed(ActionEvent event) {
             putValue(SELECTED_KEY, Boolean.TRUE);
-            parent.changeMode(LSUIEditingPanel.EditModeScheme.DRAW_CIRCLE);
+            v.changeMode(LSUIEditingPanel.EditModeScheme.DRAW_CIRCLE);
             
-            controller.clearSelection();
+            vc.clearSelection();
         }
     }
 
@@ -247,18 +247,18 @@ public abstract class LSAction extends AbstractAction {
          */
 
         /**
-         * Construct a <code>DrawLineAction</code> instance with parent component
-         * <code>parent</code> and no action name. <p>Disabled by default.
-         * @param parent Parent component
+         * Construct a <code>DrawLineAction</code> instance with v component
+         * <code>v</code> and no action name. <p>Disabled by default.
+         * @param v Parent component
          */
         public DrawLineAction(SVGEditorView parent) {
             super("Draw Line", KeyEvent.VK_L, KeyStroke.getKeyStroke(KeyEvent.VK_L, getKeyEventMask()), parent);
         }
 
         /**
-         * Construct a <code>FillAction</code> instance with parent component
-         * <code>parent</code>.
-         * @param parent Parent component
+         * Construct a <code>FillAction</code> instance with v component
+         * <code>v</code>.
+         * @param v Parent component
          * @param actionName Name of action component
          */
         public DrawLineAction(SVGEditorView parent, String actionName) {
@@ -269,8 +269,8 @@ public abstract class LSAction extends AbstractAction {
         @Override
         public void actionPerformed(ActionEvent event) {
            putValue(SELECTED_KEY, Boolean.TRUE);
-            parent.changeMode(LSUIEditingPanel.EditModeScheme.DRAW_LINE);
-            controller.clearSelection();
+            v.changeMode(LSUIEditingPanel.EditModeScheme.DRAW_LINE);
+            vc.clearSelection();
         }
     }
 
@@ -293,18 +293,18 @@ public abstract class LSAction extends AbstractAction {
          */
 
         /**
-         * Construct a <code>DrawLineAction</code> instance with parent component
-         * <code>parent</code> and no action name. <p>Disabled by default.
-         * @param parent Parent component
+         * Construct a <code>DrawLineAction</code> instance with v component
+         * <code>v</code> and no action name. <p>Disabled by default.
+         * @param v Parent component
          */
         public DrawRectAction(SVGEditorView parent) {
             super("Draw Rect", KeyEvent.VK_R, KeyStroke.getKeyStroke(KeyEvent.VK_R, getKeyEventMask()), parent);
         }
 
         /**
-         * Construct a <code>FillAction</code> instance with parent component
-         * <code>parent</code>.
-         * @param parent Parent component
+         * Construct a <code>FillAction</code> instance with v component
+         * <code>v</code>.
+         * @param v Parent component
          * @param actionName Name of action component
          */
         public DrawRectAction(SVGEditorView parent, String actionName) {
@@ -315,8 +315,8 @@ public abstract class LSAction extends AbstractAction {
         @Override
         public void actionPerformed(ActionEvent event) {
            putValue(SELECTED_KEY, Boolean.TRUE);
-            parent.changeMode(LSUIEditingPanel.EditModeScheme.DRAW_RECTANGLE);
-            controller.clearSelection();
+            v.changeMode(LSUIEditingPanel.EditModeScheme.DRAW_RECTANGLE);
+            vc.clearSelection();
         }
     }
 
@@ -339,18 +339,18 @@ public abstract class LSAction extends AbstractAction {
          */
 
         /**
-         * Construct a <code>ExitAction</code> instance with parent component
-         * <code>parent</code> and no action name.
-         * @param parent Parent component
+         * Construct a <code>ExitAction</code> instance with v component
+         * <code>v</code> and no action name.
+         * @param v Parent component
          */
         public ExitAction(SVGEditorView parent) {
             super("Exit Program", KeyEvent.VK_X, KeyStroke.getKeyStroke(KeyEvent.VK_F4, ActionEvent.ALT_MASK), parent);
         }
 
         /**
-         * Construct a <code>ExitAction</code> instance with parent component
-         * <code>parent</code>.
-         * @param parent Parent component
+         * Construct a <code>ExitAction</code> instance with v component
+         * <code>v</code>.
+         * @param v Parent component
          * @param actionName Name of action component
          */
         public ExitAction(SVGEditorView parent, String actionName) {
@@ -388,18 +388,18 @@ public abstract class LSAction extends AbstractAction {
          */
 
         /**
-         * Construct a <code>GroupAction</code> instance with parent component
-         * <code>parent</code> and no action name.
-         * @param parent Parent component
+         * Construct a <code>GroupAction</code> instance with v component
+         * <code>v</code> and no action name.
+         * @param v Parent component
          */
         public GroupAction(SVGEditorView parent) {
             super("Group", KeyEvent.VK_G, KeyStroke.getKeyStroke(KeyEvent.VK_G, getKeyEventMask()), parent);
         }
 
         /**
-         * Construct a <code>GroupAction</code> instance with parent component
-         * <code>parent</code> and action name.
-         * @param parent Parent component
+         * Construct a <code>GroupAction</code> instance with v component
+         * <code>v</code> and action name.
+         * @param v Parent component
          * @param actionName Name of action component
          */
         public GroupAction(SVGEditorView parent, String actionName) {
@@ -408,7 +408,7 @@ public abstract class LSAction extends AbstractAction {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            controller.group();
+            vc.group();
         }
     }
 
@@ -428,18 +428,18 @@ public abstract class LSAction extends AbstractAction {
          */
 
         /**
-         * Construct a <code>NewDocumentAction</code> instance with parent component
-         * <code>parent</code> and no action name.
-         * @param parent Parent component
+         * Construct a <code>NewDocumentAction</code> instance with v component
+         * <code>v</code> and no action name.
+         * @param v Parent component
          */
         public NewDocumentAction(SVGEditorView parent) {
             super("New..", KeyEvent.VK_N, KeyStroke.getKeyStroke(KeyEvent.VK_N, getKeyEventMask()), parent);
         }
 
         /**
-         * Construct a <code>NewDocumentAction</code> instance with parent component
-         * <code>parent</code> and action name.
-         * @param parent Parent component
+         * Construct a <code>NewDocumentAction</code> instance with v component
+         * <code>v</code> and action name.
+         * @param v Parent component
          * @param actionName Name of action component
          */
         public NewDocumentAction(SVGEditorView parent, String actionName) {
@@ -448,9 +448,9 @@ public abstract class LSAction extends AbstractAction {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            if (parent.promptSaveIfNeeded()) {
-				parent.setDisplayedFile(null);
-				controller.createBlankDocument();
+            if (v.promptSaveIfNeeded()) {
+				v.setDisplayedFile(null);
+				vc.createBlankDocument();
 			}
         }
     }
@@ -473,19 +473,19 @@ public abstract class LSAction extends AbstractAction {
          */
 
         /**
-         * Construct a <code>OpenFileAction</code> instance with parent component
-         * <code>parent</code> and no action name.
+         * Construct a <code>OpenFileAction</code> instance with v component
+         * <code>v</code> and no action name.
          *
-         * @param parent Parent component
+         * @param v Parent component
          */
         public OpenFileAction(SVGEditorView parent) {
             super("Open a file", KeyEvent.VK_O, KeyStroke.getKeyStroke(KeyEvent.VK_O, getKeyEventMask()), parent);
         }
 
         /**
-         * Construct a <code>OpenFileAction</code> instance with parent component
-         * <code>parent</code>.
-         * @param parent Parent component
+         * Construct a <code>OpenFileAction</code> instance with v component
+         * <code>v</code>.
+         * @param v Parent component
          * @param actionName Name of action component
          */
         public OpenFileAction(SVGEditorView parent, String actionName) {
@@ -509,7 +509,7 @@ public abstract class LSAction extends AbstractAction {
             fileChoooser.setFileFilter(extFilter);
 
             
-          if (fileChoooser.showOpenDialog(super.parent) == JFileChooser.APPROVE_OPTION) {
+          if (fileChoooser.showOpenDialog(super.v) == JFileChooser.APPROVE_OPTION) {
                 openFile(fileChoooser.getSelectedFile());
           }
         }
@@ -517,7 +517,7 @@ public abstract class LSAction extends AbstractAction {
         private boolean openFile(File file) {
 		boolean opened = false;
 		try {
-			opened = controller.fileLoad(file);
+			opened = vc.fileLoad(file);
 		} catch (IOException e) {
 			System.err.println(e.getMessage());
 		}
@@ -541,18 +541,18 @@ public abstract class LSAction extends AbstractAction {
          */
 
         /**
-         * Construct a <code>PanModeAction</code> instance with parent component
-         * <code>parent</code> and no action name.
-         * @param parent Parent component
+         * Construct a <code>PanModeAction</code> instance with v component
+         * <code>v</code> and no action name.
+         * @param v Parent component
          */
         public PanModeAction(SVGEditorView parent) {
             super("Pan Tool", KeyEvent.VK_P, null, parent);
         }
 
         /**
-         * Construct a <code>PanModeAction</code> instance with parent component
-         * <code>parent</code> and action name.
-         * @param parent Parent component
+         * Construct a <code>PanModeAction</code> instance with v component
+         * <code>v</code> and action name.
+         * @param v Parent component
          * @param actionName Name of action component
          */
         public PanModeAction(SVGEditorView parent, String actionName) {
@@ -561,7 +561,7 @@ public abstract class LSAction extends AbstractAction {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            parent.changeMode(LSUIEditingPanel.EditModeScheme.MODE_PAN);
+            v.changeMode(LSUIEditingPanel.EditModeScheme.MODE_PAN);
         }
     }
     
@@ -582,18 +582,18 @@ public abstract class LSAction extends AbstractAction {
          */
 
         /**
-         * Construct a <code>SaveFileAction</code> instance with parent component
-         * <code>parent</code> and no action name.
-         * @param parent Parent component
+         * Construct a <code>SaveFileAction</code> instance with v component
+         * <code>v</code> and no action name.
+         * @param v Parent component
          */
         public SaveFileAction(SVGEditorView parent) {
             super("Save", KeyEvent.VK_S, KeyStroke.getKeyStroke(KeyEvent.VK_S, getKeyEventMask()), parent);
         }
 
         /**
-         * Construct a <code>SaveFileAction</code> instance with parent component
-         * <code>parent</code> and action name.
-         * @param parent Parent component
+         * Construct a <code>SaveFileAction</code> instance with v component
+         * <code>v</code> and action name.
+         * @param v Parent component
          * @param actionName Name of action component
          */
         public SaveFileAction(SVGEditorView parent, String actionName) {
@@ -602,7 +602,7 @@ public abstract class LSAction extends AbstractAction {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            parent.saveFile();
+            v.saveFile();
         }
     }
 
@@ -624,9 +624,9 @@ public abstract class LSAction extends AbstractAction {
          */
 
         /**
-         * Construct a <code>SaveFileAsAction</code> instance with parent component
-         * <code>parent</code> and no action name.
-         * @param parent Parent component
+         * Construct a <code>SaveFileAsAction</code> instance with v component
+         * <code>v</code> and no action name.
+         * @param v Parent component
          */
         public SaveFileAsAction(SVGEditorView parent) {
             super("Save As", KeyEvent.VK_A,
@@ -634,9 +634,9 @@ public abstract class LSAction extends AbstractAction {
         }
 
         /**
-         * Construct a <code>SaveFileAsAction</code> instance with parent component
-         * <code>parent</code> and action name.
-         * @param parent Parent component
+         * Construct a <code>SaveFileAsAction</code> instance with v component
+         * <code>v</code> and action name.
+         * @param v Parent component
          * @param actionName Name of action component
          */
         public SaveFileAsAction(SVGEditorView parent, String actionName) {
@@ -646,7 +646,7 @@ public abstract class LSAction extends AbstractAction {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            parent.fileSaveAs();
+            v.fileSaveAs();
         }
     }
 
@@ -667,18 +667,18 @@ public abstract class LSAction extends AbstractAction {
          */
 
         /**
-         * Construct a <code>SelectModeAction</code> instance with parent component
-         * <code>parent</code> and no action name.
-         * @param parent Parent component
+         * Construct a <code>SelectModeAction</code> instance with v component
+         * <code>v</code> and no action name.
+         * @param v Parent component
          */
         public SelectModeAction(SVGEditorView parent) {
             super("Selection Tool", KeyEvent.VK_S, null, parent);
         }
 
         /**
-         * Construct a <code>SelectModeAction</code> instance with parent component
-         * <code>parent</code> and action name.
-         * @param parent Parent component
+         * Construct a <code>SelectModeAction</code> instance with v component
+         * <code>v</code> and action name.
+         * @param v Parent component
          * @param actionName Name of action component
          */
         public SelectModeAction(SVGEditorView parent, String actionName) {
@@ -687,7 +687,7 @@ public abstract class LSAction extends AbstractAction {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            parent.changeMode(LSUIEditingPanel.EditModeScheme.MODE_SELECT);
+            v.changeMode(LSUIEditingPanel.EditModeScheme.MODE_SELECT);
         }
     }
 
@@ -710,18 +710,18 @@ public abstract class LSAction extends AbstractAction {
          */
 
         /**
-         * Construct a <code>SelectAllAction</code> instance with parent component
-         * <code>parent</code> and no action name.
-         * @param parent Parent component
+         * Construct a <code>SelectAllAction</code> instance with v component
+         * <code>v</code> and no action name.
+         * @param v Parent component
          */
         public SelectAllAction(SVGEditorView parent) {
             super("Select All", KeyEvent.VK_A, KeyStroke.getKeyStroke(KeyEvent.VK_A, getKeyEventMask()), parent);
         }
 
         /**
-         * Construct a <code>SelectAllAction</code> instance with parent component
-         * <code>parent</code> and action name.
-         * @param parent Parent component
+         * Construct a <code>SelectAllAction</code> instance with v component
+         * <code>v</code> and action name.
+         * @param v Parent component
          * @param actionName Name of action component
          */
         public SelectAllAction(SVGEditorView parent, String actionName) {
@@ -731,7 +731,7 @@ public abstract class LSAction extends AbstractAction {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            controller.selectAll();
+            vc.selectAll();
         }
     }
     
@@ -751,9 +751,9 @@ public abstract class LSAction extends AbstractAction {
          */
 
         /**
-         * Construct a <code>UngroupAction</code> instance with parent component
-         * <code>parent</code> and no action name.
-         * @param parent Parent component
+         * Construct a <code>UngroupAction</code> instance with v component
+         * <code>v</code> and no action name.
+         * @param v Parent component
          */
         public UngroupAction(SVGEditorView parent) {
             super("Ungroup", KeyEvent.VK_U,
@@ -761,9 +761,9 @@ public abstract class LSAction extends AbstractAction {
         }
 
         /**
-         * Construct a <code>UngroupAction</code> instance with parent component
-         * <code>parent</code> and action name.
-         * @param parent Parent component
+         * Construct a <code>UngroupAction</code> instance with v component
+         * <code>v</code> and action name.
+         * @param v Parent component
          * @param actionName Name of action component
          */
         public UngroupAction(SVGEditorView parent, String actionName) {
@@ -773,7 +773,7 @@ public abstract class LSAction extends AbstractAction {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            controller.ungroup();
+            vc.ungroup();
         }
     }
 
@@ -805,18 +805,18 @@ public abstract class LSAction extends AbstractAction {
          */
 
         /**
-         * Construct a <code>ZoomOutViewAction</code> instance with parent component
-         * <code>parent</code> and no action name.
-         * @param parent Parent component
+         * Construct a <code>ZoomOutViewAction</code> instance with v component
+         * <code>v</code> and no action name.
+         * @param v Parent component
          */
         public ZoomInViewAction(SVGEditorView parent) {
             super("Zoom In", KeyEvent.VK_I, KeyStroke.getKeyStroke(KeyEvent.VK_EQUALS, getKeyEventMask()), parent);
         }
 
         /**
-         * Construct a <code>ZoomOutViewAction</code> instance with parent component
-         * <code>parent</code> and action name.
-         * @param parent Parent component
+         * Construct a <code>ZoomOutViewAction</code> instance with v component
+         * <code>v</code> and action name.
+         * @param v Parent component
          * @param actionName Name of action component
          */
         public ZoomInViewAction(SVGEditorView parent, String actionName) {
@@ -840,7 +840,7 @@ public abstract class LSAction extends AbstractAction {
          */
         @Override
         public void actionPerformed(ActionEvent event) {
-            float zoom = parent.getZoomScale();
+            float zoom = v.getZoomScale();
             if ( zoom < SVGCanvasProperties.DEFAULT_MAX_ZOOM_LEVEL) {
 				zoom *= 2;
 
@@ -849,8 +849,8 @@ public abstract class LSAction extends AbstractAction {
 				}
 				zoomOutPartnerAction.setEnabled(true);
                                 
-				parent.changeZoom(zoom);
-				parent.update();
+				v.changeZoom(zoom);
+				v.update();
 			}
         }
     }
@@ -877,18 +877,18 @@ public abstract class LSAction extends AbstractAction {
          */
 
         /**
-         * Construct a <code>ZoomOutViewAction</code> instance with parent component
-         * <code>parent</code> and no action name. <p>Disabled by default.
-         * @param parent Parent component
+         * Construct a <code>ZoomOutViewAction</code> instance with v component
+         * <code>v</code> and no action name. <p>Disabled by default.
+         * @param v Parent component
          */
         public ZoomOutViewAction(SVGEditorView parent) {
             super("Zoom Out", KeyEvent.VK_O, KeyStroke.getKeyStroke(KeyEvent.VK_MINUS, getKeyEventMask()), parent);
         }
 
         /**
-         * Construct a <code>ZoomOutViewAction</code> instance with parent component
-         * <code>parent</code> and action name. <p>Disabled by default.
-         * @param parent Parent component
+         * Construct a <code>ZoomOutViewAction</code> instance with v component
+         * <code>v</code> and action name. <p>Disabled by default.
+         * @param v Parent component
          * @param actionName Name of action component
          */
         public ZoomOutViewAction(SVGEditorView parent, String actionName) {
@@ -911,7 +911,7 @@ public abstract class LSAction extends AbstractAction {
          */
         @Override
         public void actionPerformed(ActionEvent event) {
-            float zoom = parent.getZoomScale();
+            float zoom = v.getZoomScale();
             if (zoom > SVGCanvasProperties.DEFAULT_MIN_ZOOM_LEVEL) {
 				zoom /= 2;
 
@@ -920,8 +920,8 @@ public abstract class LSAction extends AbstractAction {
 				}
 				zoomInPartnerAction.setEnabled(true);
 
-				parent.changeZoom(zoom);
-				parent.update();
+				v.changeZoom(zoom);
+				v.update();
 			}
         }
     }

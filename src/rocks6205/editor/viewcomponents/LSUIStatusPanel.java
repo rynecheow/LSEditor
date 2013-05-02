@@ -35,7 +35,7 @@ public final class LSUIStatusPanel extends JPanel implements LSUIProtocol {
 
     @Override
     public void initialise() {
-        statusLabel = new JLabel("Hello");
+        statusLabel = new JLabel("");
     }
 
     @Override
