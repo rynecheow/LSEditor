@@ -18,6 +18,6 @@ public abstract class SVGShapeElement extends SVGGenericElement{
    public abstract Rectangle2D.Float getBounds();
 
    @Override
-   public abstract void draw(Graphics2D g);
+   public abstract void drawShape(Graphics2D g);
    
 }

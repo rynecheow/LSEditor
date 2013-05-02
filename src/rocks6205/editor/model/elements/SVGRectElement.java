@@ -188,7 +188,7 @@ public final class SVGRectElement extends SVGShapeElement{
      * {@inheritDoc}
      */
     @Override
-    public void draw(Graphics2D g) {
+    public void drawShape(Graphics2D g) {
         if ((width.getValue(SVGLengthUnitType.PX) > 0) && (height.getValue(SVGLengthUnitType.PX) > 0)) {
             Shape rect = new Rectangle2D.Float(x.getValue(SVGLengthUnitType.PX), y.getValue(SVGLengthUnitType.PX),
                              width.getValue(SVGLengthUnitType.PX), height.getValue(SVGLengthUnitType.PX));

@@ -187,7 +187,7 @@ public final class SVGLineElement extends SVGShapeElement {
      * {@inheritDoc}
      */
     @Override
-    public void draw(Graphics2D g) {
+    public void drawShape(Graphics2D g) {
         Shape line = new Line2D.Float(x1.getValue(SVGLengthUnitType.PX), y1.getValue(SVGLengthUnitType.PX),
                                        x2.getValue(SVGLengthUnitType.PX), y2.getValue(SVGLengthUnitType.PX));
 
@@ -235,7 +235,6 @@ public final class SVGLineElement extends SVGShapeElement {
         }
 
         line.parseAttributes(element);
-        System.out.printf("%f %f %f %f\n", line.x1.getValue(),line.y1.getValue(),line.x2.getValue(),line.y2.getValue());
         return line;
     }
     

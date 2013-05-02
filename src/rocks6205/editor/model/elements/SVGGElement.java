@@ -71,13 +71,13 @@ public class SVGGElement extends SVGContainerElement {
      * {@inheritDoc}
      */
     @Override
-    public void draw(Graphics2D g) {
+    public void drawShape(Graphics2D g) {
         AffineTransform affTrans = getTransform();
 
         g.transform(affTrans);
 
         for (SVGGenericElement descendant : getDescendants()) {
-            descendant.draw(g);
+            descendant.drawShape(g);
         }
 
         try {

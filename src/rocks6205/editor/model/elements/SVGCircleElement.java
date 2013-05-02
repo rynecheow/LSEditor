@@ -162,7 +162,7 @@ public final class SVGCircleElement extends SVGShapeElement{
      * {@inheritDoc}
      */
     @Override
-    public void draw(Graphics2D g) {
+    public void drawShape(Graphics2D g) {
         if (radius.getValue(SVGLengthUnitType.PX) > 0) {
             Shape ellipse = new Ellipse2D.Float(cx.getValue(SVGLengthUnitType.PX)
                                 - radius.getValue(SVGLengthUnitType.PX), cy.getValue(SVGLengthUnitType.PX)

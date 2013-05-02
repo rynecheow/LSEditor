@@ -266,7 +266,7 @@ public class SVGEditorViewController
 
         g.scale(scale, scale);
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        model.getSVGElement().draw(g);
+        model.getSVGElement().drawShape(g);
         g.dispose();
 //        LSSVGEditor.logger.info(String.format("Graphic rendered: Scale=\t"+scale+ " Width=\t"+width+" Height=\t"+height+"\n"));
         return image;

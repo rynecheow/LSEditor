@@ -111,9 +111,9 @@ public class SVGSVGElement extends SVGContainerElement {
     /**
      * {@inheritDoc}
      */
-    public void draw(Graphics2D g) {
+    public void drawShape(Graphics2D g) {
         for (SVGGenericElement child : getDescendants()) {
-            child.draw(g);
+            child.drawShape(g);
         }
     }
 

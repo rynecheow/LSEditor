@@ -116,7 +116,7 @@ public abstract class SVGGenericElement {
      * Draw the shape on the canvas accordingly with the attributes correctly parsed.
      * @param g Graphics to be drawn
      */
-    public abstract void draw(Graphics2D g);
+    public abstract void drawShape(Graphics2D g);
 
     /**
      * Return type of itself in <code>String</code> format
@@ -182,11 +182,11 @@ public abstract class SVGGenericElement {
      * @return <<code>fill</code>> property of current instance.
      */
     public SVGPainting getResultantFill() {
-        SVGPainting fill       = this.fill;
-        boolean     isFillNull = (fill == null);
+        SVGPainting effFill       = this.fill;
+        boolean     isFillNull = (effFill == null);
 
         if (!isFillNull) {
-            return fill;
+            return effFill;
         }
 
         for (SVGContainerElement origin = getAncestorElement(); isFillNull && (origin != null);
@@ -213,11 +213,11 @@ public abstract class SVGGenericElement {
      * @return <<code>stroke</code>> property of current instance.
      */
     public SVGPainting getResultantStroke() {
-        SVGPainting stroke       = this.stroke;
-        boolean     isStrokeNull = (stroke == null);
+        SVGPainting effStroke       = this.stroke;
+        boolean     isStrokeNull = (effStroke == null);
 
         if (!isStrokeNull) {
-            return stroke;
+            return effStroke;
         }
 
         for (SVGContainerElement origin = getAncestorElement(); isStrokeNull && (origin != null);
@@ -244,11 +244,11 @@ public abstract class SVGGenericElement {
      * @return <<code>strokeWidth</code>> property of current instance.
      */
     public SVGLengthUnit getResultantStrokeWidth() {
-        SVGLengthUnit strokeWidth       = this.strokeWidth;
-        boolean       isStrokeWidthNull = (strokeWidth == null);
+        SVGLengthUnit effStrokeWidth       = this.strokeWidth;
+        boolean       isStrokeWidthNull = (effStrokeWidth == null);
 
         if (!isStrokeWidthNull) {
-            return strokeWidth;
+            return effStrokeWidth;
         }
 
         for (SVGContainerElement origin = getAncestorElement(); isStrokeWidthNull && (origin != null);
