@@ -313,7 +313,7 @@ public final class SVGEditorView extends JFrame implements LSUIProtocol {
                    ? -21
                    : 0;
         width    = 1180;
-        height   = 830 + margin;
+        height   = 768 + margin;
         frameDim = new Dimension(width, height);
         screen   = Toolkit.getDefaultToolkit().getScreenSize();
         x        = (screen.width - width) / 2;
