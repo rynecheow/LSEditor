@@ -940,19 +940,20 @@ public class SVGEditorViewController
         }
 
         Collections.sort(selectionsList, SVG_ELEMENT_ORDER);
-
-        int         lastPos = model.getSVGElement().indexOf(selectionsList.get(selectionsList.size() - 1));
+        SVGSVGElement svgEl =  model.getSVGElement();
+        int         lastPos = svgEl.indexOf(selectionsList.get(selectionsList.size() - 1));
         SVGGElement group   = new SVGGElement();
-
-        model.getSVGElement().insertDescendant(group, lastPos);
+        svgEl.insertDescendant(group, lastPos);
 
         for (SVGGenericElement e : selectionsList) {
             group.addDescendant(e);
-            model.getSVGElement().removeDescendant(e);
+            svgEl.removeDescendant(e);
             selections.remove(e);
         }
-
+        model.setSVGElement(svgEl);
         selections.add(group);
+        
+        touchDocument();
     }
 
     /**
@@ -973,15 +974,15 @@ public class SVGEditorViewController
                 if (group.getDescendantCount() == 0) {
                     continue;
                 }
-
-                position = model.getSVGElement().indexOf(group);
+                SVGSVGElement svgEl =  model.getSVGElement();
+                position = svgEl.indexOf(group);
 
                 for (SVGGenericElement descendant : group.ungroup()) {
-                    model.getSVGElement().insertDescendant(descendant, position++);
+                    svgEl.insertDescendant(descendant, position++);
                     addList.add(descendant);
                 }
-
-                model.getSVGElement().removeDescendant(position);
+                svgEl.removeDescendant(position);
+                model.setSVGElement(svgEl);
                 removeList.add(e);
             }
         }
