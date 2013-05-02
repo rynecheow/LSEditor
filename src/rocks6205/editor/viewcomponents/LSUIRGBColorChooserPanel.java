@@ -159,8 +159,8 @@ public final class LSUIRGBColorChooserPanel extends JPanel implements LSUIProtoc
                                                                                     layout.createParallelGroup(
                                                                                         GroupLayout.Alignment.LEADING).addComponent(
                                                                                             redSpinner, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE).addComponent(
-                                                                                                blueSpinner, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE).addComponent(
-                                                                                                    greenSpinner, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE)).addContainerGap()));
+                                                                                        	    greenSpinner, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE).addComponent(
+                                                                                                	blueSpinner, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE)).addContainerGap()));
         layout.setVerticalGroup(
             layout.createParallelGroup(GroupLayout.Alignment.LEADING).addGroup(
                 layout.createSequentialGroup().addGap(7, 7, 7).addGroup(
@@ -176,7 +176,7 @@ public final class LSUIRGBColorChooserPanel extends JPanel implements LSUIProtoc
                                                 GroupLayout.PREFERRED_SIZE).addGroup(
                                                     layout.createParallelGroup(
                                                         GroupLayout.Alignment.BASELINE).addComponent(
-                                                            blueSpinner, GroupLayout.PREFERRED_SIZE,
+                                                            greenSpinner, GroupLayout.PREFERRED_SIZE,
                                                                 GroupLayout.DEFAULT_SIZE,
                                                                     GroupLayout.PREFERRED_SIZE).addComponent(
                                                                         greenLabel))).addComponent(
@@ -189,7 +189,7 @@ public final class LSUIRGBColorChooserPanel extends JPanel implements LSUIProtoc
                                                                                                     GroupLayout.Alignment.TRAILING).addGroup(
                                                                                                         layout.createParallelGroup(
                                                                                                             GroupLayout.Alignment.BASELINE).addComponent(
-                                                                                                                greenSpinner,
+                                                                                                                blueSpinner,
                                                                                                                     GroupLayout.PREFERRED_SIZE,
                                                                                                                         GroupLayout.DEFAULT_SIZE,
                                                                                                                             GroupLayout.PREFERRED_SIZE).addComponent(
@@ -215,14 +215,35 @@ public final class LSUIRGBColorChooserPanel extends JPanel implements LSUIProtoc
     }
 
    private void bindListeners() {
-      redSlider.addChangeListener(null);
+      redSlider.addChangeListener(new sliderListener());
+      redSpinner.addChangeListener(new sliderListener());
+      greenSlider.addChangeListener(new sliderListener());
+      greenSpinner.addChangeListener(new sliderListener()); 
+      blueSlider.addChangeListener(new sliderListener());
+      blueSpinner.addChangeListener(new sliderListener()); 
    }
    
    private class sliderListener implements ChangeListener{
 
       @Override
       public void stateChanged(ChangeEvent e) {
-         
+	  if( e.getSource() == redSlider ) {
+	      redSpinner.setValue( redSlider.getValue() );
+	  }else if( e.getSource() == redSpinner ) {
+	      redSlider.getModel().setValue( Integer.parseInt( redSpinner.getValue().toString() ) );
+	  }else if( e.getSource() == greenSlider ) {
+	      greenSpinner.setValue( greenSlider.getValue() );
+	  }else if( e.getSource() == greenSpinner ) {
+	      greenSlider.getModel().setValue( Integer.parseInt( greenSpinner.getValue().toString() ) );
+	  }else if( e.getSource() == blueSlider ) {
+	      blueSpinner.setValue( blueSlider.getValue() );
+	  }else if( e.getSource() == blueSpinner ) {
+	      blueSlider.getModel().setValue( Integer.parseInt( blueSpinner.getValue().toString() ) );
+	  }
+	  finalColorIndicator.setBackground(new Color( redSlider.getValue() , 
+		  greenSlider.getValue() , blueSlider.getValue()));
+	  color = new SVGColorScheme(redSlider.getValue() , 
+		  greenSlider.getValue() , blueSlider.getValue());
       }
       
    }
