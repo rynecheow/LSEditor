@@ -30,8 +30,8 @@ public class OSValidator {
     public static boolean isMac() {
         return (OS.toLowerCase().indexOf("mac") >= 0);
     }
-    
-    public static String getOS(){
-       return OS;
+
+    public static String getOS() {
+        return OS;
     }
 }

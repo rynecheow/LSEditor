@@ -162,7 +162,7 @@ public final class SVGLineElement extends SVGShapeElement {
     @Override
     public Rectangle2D.Float getBounds() {
         Rectangle2D.Float bounds;
-        float            padding = 0;
+        float             padding = 0;
 
         if (getResultantStroke().getPaintType() != SVGPaintingType.NONE) {
             padding = getResultantStrokeWidth().getValue(SVGLengthUnitType.PX) / 2;
@@ -180,7 +180,8 @@ public final class SVGLineElement extends SVGShapeElement {
         bounds = new Rectangle2D.Float(computedX, computedY, computedWidth, computedHeight);
 
         Rectangle2D.Double rect = (Rectangle2D.Double) getTransform().createTransformedShape(bounds).getBounds2D();
-        return new Rectangle2D.Float((float)rect.x, (float)rect.y, (float)rect.width, (float)rect.height);
+
+        return new Rectangle2D.Float((float) rect.x, (float) rect.y, (float) rect.width, (float) rect.height);
     }
 
     /**
@@ -189,7 +190,7 @@ public final class SVGLineElement extends SVGShapeElement {
     @Override
     public void drawShape(Graphics2D g) {
         Shape line = new Line2D.Float(x1.getValue(SVGLengthUnitType.PX), y1.getValue(SVGLengthUnitType.PX),
-                                       x2.getValue(SVGLengthUnitType.PX), y2.getValue(SVGLengthUnitType.PX));
+                                      x2.getValue(SVGLengthUnitType.PX), y2.getValue(SVGLengthUnitType.PX));
 
         line = getTransform().createTransformedShape(line);
         g.setPaint(getResultantStroke().getPaintColor());
@@ -235,15 +236,16 @@ public final class SVGLineElement extends SVGShapeElement {
         }
 
         line.parseAttributes(element);
+
         return line;
     }
-    
+
     /**
-     * 
-     * {@inheritDoc} 
+     *
+     * {@inheritDoc}
      */
-   @Override
-   public String getElementType() {
-      return "SVGLineElement";
-   }
+    @Override
+    public String getElementType() {
+        return "SVGLineElement";
+    }
 }

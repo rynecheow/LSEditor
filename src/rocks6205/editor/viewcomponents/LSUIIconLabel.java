@@ -1,18 +1,19 @@
 package rocks6205.editor.viewcomponents;
 
+//~--- JDK imports ------------------------------------------------------------
+
 import java.net.URL;
+
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
 public class LSUIIconLabel extends JLabel {
-
-    public LSUIIconLabel() {
-    }
+    public LSUIIconLabel() {}
 
     public LSUIIconLabel(String imagePath) {
-	super(createIcon(imagePath));
+        super(createIcon(imagePath));
     }
-    
+
     /*
      * METHODS
      */
@@ -43,7 +44,7 @@ public class LSUIIconLabel extends JLabel {
      */
     public void setIcon(String iconPath) {
         ImageIcon icon = createIcon(iconPath);
+
         super.setIcon(icon);
     }
-
 }

@@ -2,7 +2,9 @@ package rocks6205.editor.viewcomponents;
 
 //~--- non-JDK imports --------------------------------------------------------
 
+import rocks6205.editor.bridge.actions.LSAction.NewDocumentAction;
 import rocks6205.editor.bridge.actions.LSAction.OpenFileAction;
+import rocks6205.editor.bridge.actions.LSAction.SaveFileAction;
 import rocks6205.editor.bridge.actions.LSAction.ZoomInViewAction;
 import rocks6205.editor.bridge.actions.LSAction.ZoomOutViewAction;
 import rocks6205.editor.mvc.SVGEditorView;
@@ -16,8 +18,6 @@ import java.awt.Dimension;
 
 import javax.swing.JPanel;
 import javax.swing.JToolBar;
-import rocks6205.editor.bridge.actions.LSAction.NewDocumentAction;
-import rocks6205.editor.bridge.actions.LSAction.SaveFileAction;
 
 /**
  *
@@ -53,9 +53,7 @@ public final class LSUITopToolbar extends JToolBar implements LSUIProtocol {
     private SaveFileAction    saveAct;
     private ZoomInViewAction  zoomInAction;
     private ZoomOutViewAction zoomOutAction;
-    
-    
-    
+
     public LSUITopToolbar(String name, SVGEditorView parent) {
         super(name);
         setParentView(parent);
@@ -79,7 +77,6 @@ public final class LSUITopToolbar extends JToolBar implements LSUIProtocol {
         saveAct       = new SaveFileAction(parentView);
         zoomInAction  = new ZoomInViewAction(parentView);
         zoomOutAction = new ZoomOutViewAction(parentView);
-        
     }
 
     @Override
@@ -102,7 +99,6 @@ public final class LSUITopToolbar extends JToolBar implements LSUIProtocol {
         zoomInButton.setAction(zoomInAction);
         zoomOutButton.setAction(zoomOutAction);
         zoomInAction.setZoomOutPartnerAction(zoomOutAction);
-        
     }
 
     /**

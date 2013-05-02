@@ -1,5 +1,20 @@
 package rocks6205.editor.viewcomponents;
 
+//~--- non-JDK imports --------------------------------------------------------
+
+import rocks6205.editor.model.adt.SVGLengthUnit;
+import rocks6205.editor.model.adt.SVGLengthUnitType;
+import rocks6205.editor.model.adt.SVGPainting;
+import rocks6205.editor.model.elements.SVGCircleElement;
+import rocks6205.editor.model.elements.SVGGenericElement;
+import rocks6205.editor.model.elements.SVGLineElement;
+import rocks6205.editor.model.elements.SVGRectElement;
+;
+import rocks6205.editor.mvc.SVGEditorView;
+import rocks6205.editor.mvc.SVGEditorViewController;
+
+//~--- JDK imports ------------------------------------------------------------
+
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.LayoutManager;
@@ -10,22 +25,12 @@ import java.awt.event.MouseEvent;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
+
 import java.util.ArrayList;
 import java.util.Iterator;
+
 import javax.swing.JPanel;
 import javax.swing.OverlayLayout;
-import rocks6205.editor.model.adt.SVGLengthUnit;
-import rocks6205.editor.model.adt.SVGLengthUnitType;
-import rocks6205.editor.model.adt.SVGPainting;
-import rocks6205.editor.mvc.SVGEditorView;
-import rocks6205.editor.mvc.SVGEditorViewController;
-import rocks6205.editor.model.elements.SVGCircleElement;
-import rocks6205.editor.model.elements.SVGGenericElement;
-import rocks6205.editor.model.elements.SVGLineElement;
-import rocks6205.editor.model.elements.SVGRectElement;
-
-;
-
 
 /**
  * Editor panel that acts as a central view for user to edit, select, add
@@ -138,7 +143,7 @@ public final class LSUIEditingPanel extends JPanel {
         }
 
         setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
-        System.out.printf("Current mode: %s \n",mode.name());
+        System.out.printf("Current mode: %s \n", mode.name());
     }
 
     public String getEditMode() {
@@ -244,15 +249,15 @@ public final class LSUIEditingPanel extends JPanel {
         if (xPos < 0) {
             xPos = 0;
         }
-        
+
         if (xPos > componentWidth) {
             xPos = componentWidth - 1;
         }
 
         if (yPos < 0) {
             yPos = 0;
-        } 
-        
+        }
+
         if (yPos > componentHeight) {
             yPos = componentHeight - 1;
         }
@@ -294,7 +299,6 @@ public final class LSUIEditingPanel extends JPanel {
     public SVGEditorView getParentView() {
         return parent;
     }
-    
     /**
      *
      * Handles event for drawing 3 different shapes on canvas
@@ -306,7 +310,7 @@ public final class LSUIEditingPanel extends JPanel {
      *
      */
     public class SVGEditorDrawMouseAdaptor extends MouseAdapter {
-       
+
         /**
          * {@inheritDoc}<p>
          *
@@ -314,6 +318,7 @@ public final class LSUIEditingPanel extends JPanel {
         @Override
         public void mousePressed(MouseEvent event) {
             scribbleArea.setEnabled(true);
+
             //
             Point         cursorPoint = event.getPoint();
             Point2D.Float scaledPoint = new Point2D.Float(cursorPoint.x / parent.getZoomScale(),
@@ -407,8 +412,6 @@ public final class LSUIEditingPanel extends JPanel {
 
                 switch (editingMode) {
                 case DRAW_RECTANGLE :
-                   
-
                     SVGRectElement svgRect = new SVGRectElement();
 
                     svgRect.setX(x);
@@ -418,8 +421,6 @@ public final class LSUIEditingPanel extends JPanel {
                     break;
 
                 case DRAW_CIRCLE :
-                   
-
                     SVGCircleElement svgCircle = new SVGCircleElement();
 
                     svgCircle.setCx(x);
@@ -429,7 +430,6 @@ public final class LSUIEditingPanel extends JPanel {
                     break;
 
                 case DRAW_LINE :
-
                     SVGLineElement svgLine = new SVGLineElement();
 
                     svgLine.setX1(x);
@@ -439,25 +439,30 @@ public final class LSUIEditingPanel extends JPanel {
                     newElement = svgLine;
 
                     break;
-                  case MODE_PAN:
-                     scribbleArea.setEnabled(false);
-                     break;
-                  case MODE_SELECT:
-                     break;
-                  case MODE_MOVE:
-                     break;
-                  case MODE_RESIZE:
-                     break;
+
+                case MODE_PAN :
+                    scribbleArea.setEnabled(false);
+
+                    break;
+
+                case MODE_SELECT :
+                    break;
+
+                case MODE_MOVE :
+                    break;
+
+                case MODE_RESIZE :
+                    break;
 
                 default :
                     throw new AssertionError("Invalid edit mode");
                 }
 
-                if(editingMode != EditModeScheme.MODE_PAN){
-                newElement.setFill(fill);
-                newElement.setStroke(stroke);
-                newElement.setStrokeWidth(strokeWidth);
-                controller.addElement(newElement);
+                if (editingMode != EditModeScheme.MODE_PAN) {
+                    newElement.setFill(fill);
+                    newElement.setStroke(stroke);
+                    newElement.setStrokeWidth(strokeWidth);
+                    controller.addElement(newElement);
                 }
             }
 
@@ -471,7 +476,6 @@ public final class LSUIEditingPanel extends JPanel {
          */
         @Override
         public void mouseReleased(MouseEvent event) {
-
             float              zoom      = parent.getZoomScale();
             Rectangle2D.Double realRect  = null;
             Point2D.Double     realPoint = null;
@@ -511,7 +515,6 @@ public final class LSUIEditingPanel extends JPanel {
      */
         @Override
         public void mouseDragged(MouseEvent event) {
-
             Point         cursorPoint = event.getPoint();
             float         zoom        = parent.getZoomScale();
             Point2D.Float endPoint    = new Point2D.Float(cursorPoint.x / zoom, cursorPoint.y / zoom);
@@ -626,8 +629,8 @@ public final class LSUIEditingPanel extends JPanel {
 
                 case DRAW_RECTANGLE :
                     SVGRectElement rect = (SVGRectElement) newElement;
+
                     updateSelectionRect(cursorPoint);
-                    
                     rect.setX(new SVGLengthUnit(SVGLengthUnitType.PX, activeRect.x / zoom));
                     rect.setY(new SVGLengthUnit(SVGLengthUnitType.PX, activeRect.y / zoom));
                     rect.setWidth(new SVGLengthUnit(SVGLengthUnitType.PX, activeRect.width / zoom));
@@ -667,3 +670,6 @@ public final class LSUIEditingPanel extends JPanel {
         }
     }
 }
+
+
+//~ Formatted by Jindent --- http://www.jindent.com

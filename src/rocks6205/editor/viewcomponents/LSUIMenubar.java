@@ -274,9 +274,9 @@ public final class LSUIMenubar extends JMenuBar implements LSUIProtocol {
 
         return zoomOutAction;
     }
-    
+
     public void updateActionStatusFromView(boolean status) {
-      selectAllMenuItem.setEnabled(status);
-      deselectAllMenuItem.setEnabled(status);
-   }
+        selectAllMenuItem.setEnabled(status);
+        deselectAllMenuItem.setEnabled(status);
+    }
 }

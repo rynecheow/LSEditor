@@ -44,10 +44,12 @@ public abstract class SVGGenericElement {
      * Default <<code>stroke</code>> properties, set to <code>NONE</code>.
      */
     public static final SVGPainting SVG_STROKE_DEFAULT = new SVGPainting(SVGPaintingType.NONE);
+
     /**
      * Default <<code>stroke-width</code>> properties, set to <code>1<code>.
      */
     public static final SVGLengthUnit SVG_STROKE_WIDTH_DEFAULT = new SVGLengthUnit(1);
+
     /**
      * Default <<code>stroke-linecap</code>> properties, set to <code>butt</code>.
      */
@@ -122,6 +124,7 @@ public abstract class SVGGenericElement {
      * Return type of itself in <code>String</code> format
      */
     public abstract String getElementType();
+
     /*
      * ACCESSORS
      */
@@ -182,7 +185,7 @@ public abstract class SVGGenericElement {
      * @return <<code>fill</code>> property of current instance.
      */
     public SVGPainting getResultantFill() {
-        SVGPainting effFill       = this.fill;
+        SVGPainting effFill    = this.fill;
         boolean     isFillNull = (effFill == null);
 
         if (!isFillNull) {
@@ -213,7 +216,7 @@ public abstract class SVGGenericElement {
      * @return <<code>stroke</code>> property of current instance.
      */
     public SVGPainting getResultantStroke() {
-        SVGPainting effStroke       = this.stroke;
+        SVGPainting effStroke    = this.stroke;
         boolean     isStrokeNull = (effStroke == null);
 
         if (!isStrokeNull) {
@@ -244,7 +247,7 @@ public abstract class SVGGenericElement {
      * @return <<code>strokeWidth</code>> property of current instance.
      */
     public SVGLengthUnit getResultantStrokeWidth() {
-        SVGLengthUnit effStrokeWidth       = this.strokeWidth;
+        SVGLengthUnit effStrokeWidth    = this.strokeWidth;
         boolean       isStrokeWidthNull = (effStrokeWidth == null);
 
         if (!isStrokeWidthNull) {

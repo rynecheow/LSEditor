@@ -48,7 +48,7 @@ public class SVGGElement extends SVGContainerElement {
      */
     @Override
     public Rectangle2D.Float getBounds() {
-        Rectangle2D.Float rect           = null;
+        Rectangle2D.Float rect = null;
         Rectangle2D.Float descendantRect;
 
         for (SVGGenericElement descendant : getDescendants()) {
@@ -64,7 +64,8 @@ public class SVGGElement extends SVGContainerElement {
         }
 
         Rectangle2D.Double bound = (Rectangle2D.Double) getTransform().createTransformedShape(rect).getBounds2D();
-        return new Rectangle2D.Float((float)bound.x, (float)bound.y, (float)bound.width, (float)bound.height);
+
+        return new Rectangle2D.Float((float) bound.x, (float) bound.y, (float) bound.width, (float) bound.height);
     }
 
     /**
@@ -83,7 +84,7 @@ public class SVGGElement extends SVGContainerElement {
         try {
             affTrans.invert();
         } catch (NoninvertibleTransformException e) {
-           System.err.println(e.getMessage());
+            System.err.println(e.getMessage());
         }
 
         g.transform(affTrans);
@@ -152,13 +153,13 @@ public class SVGGElement extends SVGContainerElement {
 
         return g_e;
     }
-    
+
     /**
-     * 
-     * {@inheritDoc} 
+     *
+     * {@inheritDoc}
      */
-   @Override
-   public String getElementType() {
-      return "SVGGElement";
-   }
+    @Override
+    public String getElementType() {
+        return "SVGGElement";
+    }
 }

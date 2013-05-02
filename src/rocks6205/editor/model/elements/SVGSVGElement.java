@@ -205,17 +205,17 @@ public class SVGSVGElement extends SVGContainerElement {
 
         return svg_e;
     }
-    
+
     /**
-     * 
-     * {@inheritDoc} 
+     *
+     * {@inheritDoc}
      */
-   @Override
-   public String getElementType() {
-      return "SVGSVGElement";
-   }
-   
-   public void listDescendants(){
-      super.listDescendants(this, 0);
-   }
+    @Override
+    public String getElementType() {
+        return "SVGSVGElement";
+    }
+
+    public void listDescendants() {
+        super.listDescendants(this, 0);
+    }
 }

@@ -2,6 +2,8 @@ package rocks6205.editor.mvc;
 
 //~--- non-JDK imports --------------------------------------------------------
 
+import rocks6205.editor.bridge.actions.SVGEditPanMouseAdaptor;
+import rocks6205.editor.model.elements.SVGGenericElement;
 import rocks6205.editor.viewcomponents.LSUIEditingPanel;
 import rocks6205.editor.viewcomponents.LSUIMenubar;
 import rocks6205.editor.viewcomponents.LSUIMiscPanel;
@@ -11,8 +13,6 @@ import rocks6205.editor.viewcomponents.LSUISideToolbar;
 import rocks6205.editor.viewcomponents.LSUIStatusPanel;
 import rocks6205.editor.viewcomponents.LSUITopToolbar;
 import rocks6205.editor.viewcomponents.LSUIWelcomeDialog;
-
-import rocks6205.editor.model.elements.SVGGenericElement;
 
 import rocks6205.system.properties.LSSVGEditorGUITheme;
 import rocks6205.system.properties.OSValidator;
@@ -40,7 +40,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JViewport;
 import javax.swing.WindowConstants;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import rocks6205.editor.bridge.actions.SVGEditPanMouseAdaptor;
 
 /**
  * A class defining how the main user interface should look like.
@@ -209,11 +208,11 @@ public final class SVGEditorView extends JFrame implements LSUIProtocol {
     }
 
     public void update() {
-        ArrayList<SVGGenericElement> selections         = new ArrayList<>(controller.getSelections());
-        boolean                      isAnySelected      = !selections.isEmpty();
-        File                         currentFile        = controller.getCurrentFile();
-        boolean                      isFileChanged      = (currentFile != displayedFile);
-        boolean                      needRepaint        = controller.isDocumentModified() || isZoomChanged || isFileChanged;
+        ArrayList<SVGGenericElement> selections    = new ArrayList<>(controller.getSelections());
+        boolean                      isAnySelected = !selections.isEmpty();
+        File                         currentFile   = controller.getCurrentFile();
+        boolean                      isFileChanged = (currentFile != displayedFile);
+        boolean                      needRepaint   = controller.isDocumentModified() || isZoomChanged || isFileChanged;
 
         sideBar.updateActionStatusFromView(isAnySelected);
         menuBar.updateActionStatusFromView(isAnySelected);
@@ -285,9 +284,10 @@ public final class SVGEditorView extends JFrame implements LSUIProtocol {
         c.add(navPanel);
         c.add(miscPanel);
         c.add(scrollPane);
-        
-        JViewport viewport = scrollPane.getViewport();
+
+        JViewport              viewport    = scrollPane.getViewport();
         SVGEditPanMouseAdaptor panListener = new SVGEditPanMouseAdaptor();
+
         viewport.addMouseListener(panListener);
         viewport.addMouseMotionListener(panListener);
         setJMenuBar(menuBar);
@@ -402,8 +402,8 @@ public final class SVGEditorView extends JFrame implements LSUIProtocol {
         editPanel.setStrokeWidth(SVGGenericElement.SVG_STROKE_WIDTH_DEFAULT);
         scrollPane.setViewportView(editPanel);
     }
-    
-    public void updateStatus(String status){
-       statusPanel.updateStatus("123");
+
+    public void updateStatus(String status) {
+        statusPanel.updateStatus("123");
     }
 }

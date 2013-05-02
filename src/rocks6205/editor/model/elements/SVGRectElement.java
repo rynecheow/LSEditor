@@ -26,7 +26,7 @@ import java.awt.geom.Rectangle2D;
  * @since 1.1
  *
  */
-public final class SVGRectElement extends SVGShapeElement{
+public final class SVGRectElement extends SVGShapeElement {
 
     /*
      * PROPERTIES
@@ -181,7 +181,8 @@ public final class SVGRectElement extends SVGShapeElement{
         }
 
         Rectangle2D.Double rect = (Rectangle2D.Double) getTransform().createTransformedShape(bounds).getBounds2D();
-        return new Rectangle2D.Float((float)rect.x, (float)rect.y, (float)rect.width, (float)rect.height);
+
+        return new Rectangle2D.Float((float) rect.x, (float) rect.y, (float) rect.width, (float) rect.height);
     }
 
     /**
@@ -191,7 +192,8 @@ public final class SVGRectElement extends SVGShapeElement{
     public void drawShape(Graphics2D g) {
         if ((width.getValue(SVGLengthUnitType.PX) > 0) && (height.getValue(SVGLengthUnitType.PX) > 0)) {
             Shape rect = new Rectangle2D.Float(x.getValue(SVGLengthUnitType.PX), y.getValue(SVGLengthUnitType.PX),
-                             width.getValue(SVGLengthUnitType.PX), height.getValue(SVGLengthUnitType.PX));
+                                               width.getValue(SVGLengthUnitType.PX),
+                                               height.getValue(SVGLengthUnitType.PX));
 
             rect = getTransform().createTransformedShape(rect);
             g.setPaint(getResultantFill().getPaintColor());
@@ -236,13 +238,13 @@ public final class SVGRectElement extends SVGShapeElement{
 
         return rect;
     }
-    
+
     /**
-     * 
-     * {@inheritDoc} 
+     *
+     * {@inheritDoc}
      */
-   @Override
-   public String getElementType() {
-      return "SVGRectElement";
-   }
+    @Override
+    public String getElementType() {
+        return "SVGRectElement";
+    }
 }

@@ -9,12 +9,12 @@ import org.w3c.dom.Node;
 
 import org.xml.sax.InputSource;
 
-import rocks6205.editor.model.adt.SVGLengthUnit;
-import rocks6205.editor.model.adt.SVGLengthUnitType;
-import rocks6205.editor.model.adt.SVGPainting;
 import rocks6205.editor.controllers.SVGEditorComponentsController;
 import rocks6205.editor.controllers.SVGEditorFileController;
 import rocks6205.editor.controllers.SVGEditorSelectionsController;
+import rocks6205.editor.model.adt.SVGLengthUnit;
+import rocks6205.editor.model.adt.SVGLengthUnitType;
+import rocks6205.editor.model.adt.SVGPainting;
 import rocks6205.editor.model.elements.SVGCircleElement;
 import rocks6205.editor.model.elements.SVGContainerElement;
 import rocks6205.editor.model.elements.SVGGElement;
@@ -22,6 +22,7 @@ import rocks6205.editor.model.elements.SVGGenericElement;
 import rocks6205.editor.model.elements.SVGLineElement;
 import rocks6205.editor.model.elements.SVGRectElement;
 import rocks6205.editor.model.elements.SVGSVGElement;
+
 import rocks6205.system.parser.XMLParser;
 
 //~--- JDK imports ------------------------------------------------------------
@@ -137,8 +138,6 @@ public class SVGEditorViewController
      * Modification time.
      */
     private long modificationStart_t;
-    
-    
 
     /*
      * CONSTRUCTOR
@@ -241,14 +240,14 @@ public class SVGEditorViewController
     public void resizeDocument(SVGLengthUnit width, SVGLengthUnit height) {
         model.getSVGElement().setWidth(width);
         model.getSVGElement().setHeight(height);
-        
         touchDocument();
         updateViews();
     }
 
     public void createBlankDocument() {
         model = new SVGEditorModel();
-//        model.setSVGElement(new SVGSVGElement(SVGLengthUnit.parse("916px"), SVGLengthUnit.parse("578px")));
+
+//      model.setSVGElement(new SVGSVGElement(SVGLengthUnit.parse("916px"), SVGLengthUnit.parse("578px")));
         model.setSVGElement(new SVGSVGElement(SVGLengthUnit.parse("1000px"), SVGLengthUnit.parse("1000px")));
         activeFile = NEW_DOCUMENT;
         LSSVGEditor.logger.info("New document created with height 1000px and width 1000px. \n");
@@ -259,16 +258,15 @@ public class SVGEditorViewController
     public BufferedImage renderImage(double scale) {
         int           width  = (int) (model.getSVGElement().getWidth().getValue(SVGLengthUnitType.PX) * scale);
         int           height = (int) (model.getSVGElement().getHeight().getValue(SVGLengthUnitType.PX) * scale);
-        
         BufferedImage image  = new BufferedImage(width, height, BufferedImage.TYPE_4BYTE_ABGR);
-        
         Graphics2D    g      = image.createGraphics();
 
         g.scale(scale, scale);
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         model.getSVGElement().drawShape(g);
         g.dispose();
-//        LSSVGEditor.logger.info(String.format("Graphic rendered: Scale=\t"+scale+ " Width=\t"+width+" Height=\t"+height+"\n"));
+
+//      LSSVGEditor.logger.info(String.format("Graphic rendered: Scale=\t"+scale+ " Width=\t"+width+" Height=\t"+height+"\n"));
         return image;
     }
 
@@ -308,8 +306,8 @@ public class SVGEditorViewController
             view.update();
         }
     }
-
-    /**
+    
+        /**
      * {@inheritDoc}
      *
      * @author Cheow Yeong Chi
@@ -317,7 +315,8 @@ public class SVGEditorViewController
     @Override
     public void addElement(SVGGenericElement e) {
         model.getSVGElement().addDescendant(e);
-        LSSVGEditor.logger.info(String.format("Element of type "+e.getElementType()+" is added to the root element.\n"));
+        LSSVGEditor.logger.info(String.format("Element of type " + e.getElementType()
+                + " is added to the root element.\n"));
         touchDocument();
     }
 
@@ -374,8 +373,9 @@ public class SVGEditorViewController
 
         rect.setWidth(SVGLengthUnit.convert(w, rect.getWidth().getUnitType()));
         rect.setHeight(SVGLengthUnit.convert(h, rect.getHeight().getUnitType()));
-//        String logInfo = "Rectangle is resized to " + w + rect.getWidth().getUnitType().getUnitSymbol() + " x " + h + rect.getWidth().getUnitType().getUnitSymbol();
-//        LSSVGEditor.logger.info(logInfo);
+
+//      String logInfo = "Rectangle is resized to " + w + rect.getWidth().getUnitType().getUnitSymbol() + " x " + h + rect.getWidth().getUnitType().getUnitSymbol();
+//      LSSVGEditor.logger.info(logInfo);
         touchDocument();
     }
 
@@ -442,7 +442,7 @@ public class SVGEditorViewController
 
                 if (svg_e != null) {
                     model.setSVGElement(svg_e);
-                    activeFile        = file;
+                    activeFile         = file;
                     isDocumentModified = false;
                     LSSVGEditor.logger.info(String.format("File named %s is successfully loaded", file.getName()));
                     getDescendantList();
@@ -465,7 +465,8 @@ public class SVGEditorViewController
     public boolean fileSave() throws IOException {
         return fileSave(activeFile);
     }
-
+    
+    
     /**
      * {@inheritDoc}
      *
@@ -681,7 +682,6 @@ public class SVGEditorViewController
         }
         return false;
     }
-       
     /**
      * {@inheritDoc}
      *
@@ -706,7 +706,7 @@ public class SVGEditorViewController
     }
 
     /**
-     * SVGEditorFileController  
+     * SVGEditorFileController
      */
 
     /**
@@ -823,6 +823,7 @@ public class SVGEditorViewController
                 selections.remove(elem);
             }
         }
+
         updateViews();
     }
 
@@ -926,7 +927,7 @@ public class SVGEditorViewController
 
         touchDocument();
     }
-    
+
     /**
      * {@inheritDoc}
      *
@@ -954,7 +955,6 @@ public class SVGEditorViewController
         }
 
         selections.add(group);
-        
     }
 
     /**
@@ -1002,8 +1002,11 @@ public class SVGEditorViewController
 
         touchDocument();
     }
-    
-    public void getDescendantList(){
-       model.getSVGElement().listDescendants();
+
+    public void getDescendantList() {
+        model.getSVGElement().listDescendants();
     }
 }
+
+
+//~ Formatted by Jindent --- http://www.jindent.com

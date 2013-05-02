@@ -27,7 +27,7 @@ import java.awt.geom.Rectangle2D;
  * @since 1.1
  *
  */
-public final class SVGCircleElement extends SVGShapeElement{
+public final class SVGCircleElement extends SVGShapeElement {
 
     /*
      * PROPERTIES
@@ -153,9 +153,10 @@ public final class SVGCircleElement extends SVGShapeElement{
             bounds.width  = 2 * r + 2 * padding;
             bounds.height = 2 * r + 2 * padding;
         }
+
         Rectangle2D.Double rect = (Rectangle2D.Double) getTransform().createTransformedShape(bounds).getBounds2D();
-        return new Rectangle2D.Float((float)rect.x, (float)rect.y, (float)rect.width, (float)rect.height);
-        
+
+        return new Rectangle2D.Float((float) rect.x, (float) rect.y, (float) rect.width, (float) rect.height);
     }
 
     /**
@@ -216,15 +217,13 @@ public final class SVGCircleElement extends SVGShapeElement{
 
         return circ;
     }
-   /**
-     * 
-     * {@inheritDoc} 
-     */
-   @Override
-   public String getElementType() {
-      return "SVGCircleElement";
-   }
+
+    /**
+      *
+      * {@inheritDoc}
+      */
+    @Override
+    public String getElementType() {
+        return "SVGCircleElement";
+    }
 }
-
-
-//~ Formatted by Jindent --- http://www.jindent.com

@@ -32,7 +32,7 @@ public final class LSUIMiscPanel extends JPanel implements LSUIProtocol {
         initialise();
         customise();
     }
-    
+
     /**
      * {@inheritDoc}
      */
