@@ -13,6 +13,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTree;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
+import javax.swing.tree.TreeNode;
+import rocks6205.editor.model.elements.SVGSVGElement;
 import rocks6205.editor.viewcomponents.tree.LSElementNavigationTreeModel;
 import rocks6205.editor.viewcomponents.tree.LSTreeBuilder;
 import rocks6205.editor.viewcomponents.tree.LSTreeNode;
@@ -51,19 +53,16 @@ public final class LSUINavigationPanel extends JPanel implements LSUIProtocol, T
 
     @Override
     public void initialise() {
-       LSTreeNode node = LSTreeBuilder.build();
-       LSElementNavigationTreeModel model = new LSElementNavigationTreeModel(node);
-       navigationTree = new JTree(model);
-       navigationTree.setCellRenderer(new NodeRenderer());
-       navigationTree.addTreeSelectionListener(this);
-       
+       updateTree();
     }
 
     @Override
     public void customise() {
-        setBorder(LSSVGEditorGUITheme.MASTER_DEFAULT_PANEL_BORDER);
-        setLayout(new BorderLayout());
-        add(new JScrollPane(navigationTree), BorderLayout.CENTER);
+       navigationTree.setCellRenderer(new NodeRenderer());
+       navigationTree.addTreeSelectionListener(this);
+       setBorder(LSSVGEditorGUITheme.MASTER_DEFAULT_PANEL_BORDER);
+       setLayout(new BorderLayout());
+       add(new JScrollPane(navigationTree), BorderLayout.CENTER);
     }
 
    @Override
@@ -75,5 +74,18 @@ public final class LSUINavigationPanel extends JPanel implements LSUIProtocol, T
         
        System.out.println("You have selected: " + node);
     }
+
+   public void updateTree() {
+      navigationTree = new JTree(buildModel());
+      navigationTree.repaint();
+   }
    
+   public LSElementNavigationTreeModel buildModel(){
+       return new LSElementNavigationTreeModel(buildNode());
+      
+   }
+
+   private TreeNode buildNode() {
+      return LSTreeBuilder.build(parentView.getModel().getSVGElement());
+   }
 }

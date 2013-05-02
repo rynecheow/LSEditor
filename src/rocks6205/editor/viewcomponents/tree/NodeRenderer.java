@@ -15,9 +15,9 @@ import javax.swing.tree.DefaultTreeCellRenderer;
 public class NodeRenderer extends DefaultTreeCellRenderer {
    private ImageIcon iconSVG = createIconWithImageName("SVG-LOGO");
    private ImageIcon iconGroup = createIconWithImageName("G-LOGO");
-   private ImageIcon iconLine = createIconWithImageName("Rect-Logo");
+   private ImageIcon iconLine = createIconWithImageName("Line-Logo");
    private ImageIcon iconCircle = createIconWithImageName("Circle-Logo");
-   private ImageIcon iconRect = createIconWithImageName("Line-Logo");
+   private ImageIcon iconRect = createIconWithImageName("Rect-Logo");
     
    /**
     * 

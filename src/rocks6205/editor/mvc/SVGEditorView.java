@@ -119,6 +119,7 @@ public final class SVGEditorView extends JFrame implements LSUIProtocol {
     public SVGEditorView(SVGEditorViewController c) {
         super();
         setController(c);
+        setModel(c.getModel());
         initialise();
         customise();
 
@@ -239,6 +240,7 @@ public final class SVGEditorView extends JFrame implements LSUIProtocol {
 
         if (needRepaint) {
             editPanel.paintCanvas(controller.renderImage(zoomScale));
+            navPanel.updateTree();
         }
     }
 
