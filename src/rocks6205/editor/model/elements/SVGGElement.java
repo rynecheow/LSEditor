@@ -46,9 +46,10 @@ public class SVGGElement extends SVGContainerElement {
     /**
      * {@inheritDoc}
      */
+    @Override
     public Rectangle2D.Float getBounds() {
         Rectangle2D.Float rect           = null;
-        Rectangle2D.Float descendantRect = null;
+        Rectangle2D.Float descendantRect;
 
         for (SVGGenericElement descendant : getDescendants()) {
             descendantRect = descendant.getBounds();
@@ -62,12 +63,14 @@ public class SVGGElement extends SVGContainerElement {
             }
         }
 
-        return (Rectangle2D.Float) getTransform().createTransformedShape(rect).getBounds2D();
+        Rectangle2D.Double bound = (Rectangle2D.Double) getTransform().createTransformedShape(rect).getBounds2D();
+        return new Rectangle2D.Float((float)bound.x, (float)bound.y, (float)bound.width, (float)bound.height);
     }
 
     /**
      * {@inheritDoc}
      */
+    @Override
     public void draw(Graphics2D g) {
         AffineTransform affTrans = getTransform();
 
@@ -80,7 +83,7 @@ public class SVGGElement extends SVGContainerElement {
         try {
             affTrans.invert();
         } catch (NoninvertibleTransformException e) {
-            e.printStackTrace();
+           System.err.println(e.getMessage());
         }
 
         g.transform(affTrans);
@@ -139,7 +142,7 @@ public class SVGGElement extends SVGContainerElement {
 
     /**
      * Parses the attributes on the  <<code>g</code>> element in the SVG document
-     * @param e lement from the document returned by the XMLParser
+     * @param e element from the document returned by the XMLParser
      * @return <code>SVGGElement</code> object
      */
     public static SVGGElement parseElement(Element e) {

@@ -213,29 +213,29 @@ public final class SVGLineElement extends SVGShapeElement {
         Attr           x1Attr = element.getAttributeNodeNS(null, "x1");
 
         if (x1Attr != null) {
-            SVGLengthUnit.parse(x1Attr.getValue());
+            line.setX1(SVGLengthUnit.parse(x1Attr.getValue()));
         }
 
         Attr y1Attr = element.getAttributeNodeNS(null, "y1");
 
         if (y1Attr != null) {
-            SVGLengthUnit.parse(y1Attr.getValue());
+            line.setY1(SVGLengthUnit.parse(y1Attr.getValue()));
         }
 
         Attr x2Attr = element.getAttributeNodeNS(null, "x2");
 
         if (x2Attr != null) {
-            SVGLengthUnit.parse(x2Attr.getValue());
+            line.setX2(SVGLengthUnit.parse(x2Attr.getValue()));
         }
 
         Attr y2Attr = element.getAttributeNodeNS(null, "y2");
 
         if (y2Attr != null) {
-            SVGLengthUnit.parse(y2Attr.getValue());
+            line.setY2(SVGLengthUnit.parse(y2Attr.getValue()));
         }
 
         line.parseAttributes(element);
-
+        System.out.printf("%f %f %f %f\n", line.x1.getValue(),line.y1.getValue(),line.x2.getValue(),line.y2.getValue());
         return line;
     }
     
