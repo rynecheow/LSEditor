@@ -17,6 +17,9 @@ import rocks6205.editor.viewcomponents.LSUIWelcomeDialog;
 import rocks6205.system.properties.LSSVGEditorGUITheme;
 import rocks6205.system.properties.OSValidator;
 
+import rocks6205.editor.model.adt.SVGPainting;
+import rocks6205.editor.model.adt.SVGColorScheme;
+
 //~--- JDK imports ------------------------------------------------------------
 
 import java.awt.Container;
@@ -390,6 +393,10 @@ public final class SVGEditorView extends JFrame implements LSUIProtocol {
 
     public void changeMode(LSUIEditingPanel.EditModeScheme mode) {
         editPanel.switchModeTo(mode);
+    }
+    
+    public void changeColor(SVGColorScheme color) {
+        editPanel.setFill( new SVGPainting( color ) );
     }
 
     private void setUpEditingPanel() {

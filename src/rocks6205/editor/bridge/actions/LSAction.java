@@ -2,6 +2,7 @@ package rocks6205.editor.bridge.actions;
 
 //~--- non-JDK imports --------------------------------------------------------
 
+import rocks6205.editor.model.adt.SVGColorScheme;
 import rocks6205.editor.mvc.SVGEditorView;
 import rocks6205.editor.mvc.SVGEditorViewController;
 import rocks6205.editor.viewcomponents.LSUIEditingPanel;
@@ -270,6 +271,7 @@ public abstract class LSAction extends AbstractAction {
         public void actionPerformed(ActionEvent event) {
            putValue(SELECTED_KEY, Boolean.TRUE);
             v.changeMode(LSUIEditingPanel.EditModeScheme.DRAW_LINE);
+            v.changeColor( new SVGColorScheme(0,0,0) ); /* edit */
             vc.clearSelection();
         }
     }
