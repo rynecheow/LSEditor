@@ -38,11 +38,6 @@ public final class LSUINavigationPanel extends JPanel implements LSUIProtocol, T
      */
     private JTree navigationTree;
 
-    /*
-     * PROPERTIES
-     */
-    private boolean isRootNull;
-
     /**
      *
      * @param parent
@@ -56,13 +51,12 @@ public final class LSUINavigationPanel extends JPanel implements LSUIProtocol, T
 
     @Override
     public void initialise() {
+       navigationTree = new JTree();
         updateTree();
     }
 
     @Override
     public void customise() {
-        navigationTree.setCellRenderer(new LSTreeNodeRenderer());
-        navigationTree.addTreeSelectionListener(this);
         setBorder(LSSVGEditorGUITheme.MASTER_DEFAULT_PANEL_BORDER);
         setLayout(new BorderLayout());
         add(new JScrollPane(navigationTree), BorderLayout.CENTER);
@@ -80,15 +74,21 @@ public final class LSUINavigationPanel extends JPanel implements LSUIProtocol, T
     }
 
     public void updateTree() {
-        navigationTree = new JTree(buildModel());
-        navigationTree.repaint();
+       LSTreeNode node = LSTreeBuilder.build(parentView.getModel().getSVGElement());
+       LSElementNavigationTreeModel model = new LSElementNavigationTreeModel(node);
+       
+        navigationTree.setModel(model);
+        navigationTree.setCellRenderer(new LSTreeNodeRenderer());
+        navigationTree.addTreeSelectionListener(this);
+        expandAllNodes();
+//        navigationTree.repaint();
     }
-
-    public LSElementNavigationTreeModel buildModel() {
-        return new LSElementNavigationTreeModel(buildNode());
-    }
-
-    private TreeNode buildNode() {
-        return LSTreeBuilder.build(parentView.getModel().getSVGElement());
+    
+    public void expandAllNodes() {
+        int row = 0;
+        while (row < navigationTree.getRowCount()) {
+            navigationTree.expandRow(row);
+            row++;
+        }
     }
 }

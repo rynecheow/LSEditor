@@ -72,8 +72,6 @@ public class LSTreeNodeRenderer extends DefaultTreeCellRenderer {
     private ImageIcon createIconWithImageName(String name) {
         String string = "resources/tree-logo/" + name + ".png";
 
-        System.out.println(string);
-
         ImageIcon icon = new ImageIcon(string);
 
         icon = new ImageIcon(icon.getImage().getScaledInstance(24, 20, Image.SCALE_SMOOTH));

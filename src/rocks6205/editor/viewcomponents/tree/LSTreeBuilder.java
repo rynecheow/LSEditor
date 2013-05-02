@@ -9,42 +9,23 @@ import rocks6205.editor.model.elements.SVGSVGElement;
 
 //~--- JDK imports ------------------------------------------------------------
 
-import java.util.ArrayList;
 import java.util.Iterator;
 
-import javax.swing.tree.TreeNode;
-
 public class LSTreeBuilder {
-    private static LSTreeNode            svgNode  = new LSTreeNode("SVG Container Element", LSTreeNode.NODE_SVG);
-    private static ArrayList<LSTreeNode> nodeList = new ArrayList<>();
-
-    public static LSTreeNode build() {
-        LSTreeNode groupNode  = new LSTreeNode("Group Element", LSTreeNode.NODE_GROUP);
-        LSTreeNode lineNode   = new LSTreeNode("Line Element", LSTreeNode.NODE_LINE);
-        LSTreeNode circleNode = new LSTreeNode("Circle Element", LSTreeNode.NODE_CIRCLE);
-        LSTreeNode rectNode   = new LSTreeNode("Rectangle Element", LSTreeNode.NODE_RECT);
-
-        groupNode.addChild(lineNode);
-        groupNode.addChild(circleNode);
-        svgNode.addChild(groupNode);
-        svgNode.addChild(rectNode);
-
-        return svgNode;
-    }
-
-    public static TreeNode build(SVGSVGElement svgElement) {
+//   private static LSTreeNode svgNode  = new LSTreeNode("SVG Container Element", LSTreeNode.NODE_SVG);
+    public static LSTreeNode build(SVGSVGElement svgElement) {
+        LSTreeNode svgNode  = new LSTreeNode("SVG Container Element", LSTreeNode.NODE_SVG);
         iterateNode(svgElement, svgNode);
-
         return svgNode;
     }
 
-    public static void iterateNode(SVGContainerElement container, LSTreeNode containerNode) {
+    private static void iterateNode(SVGContainerElement container, LSTreeNode containerNode) {
         for (Iterator<SVGGenericElement> it = container.getDescendants().iterator(); it.hasNext(); ) {
             SVGGenericElement e = it.next();
 
             if (e instanceof SVGGElement) {
                 SVGGElement g         = (SVGGElement) e;
-                LSTreeNode  groupNode = buildGroupNode(g);
+                LSTreeNode  groupNode = buildGroupNode();
 
                 containerNode.addChild(groupNode);
                 iterateNode(g, groupNode);
@@ -54,7 +35,7 @@ public class LSTreeBuilder {
         }
     }
 
-    public static LSTreeNode buildSingularNode(SVGGenericElement el) {
+    private static LSTreeNode buildSingularNode(SVGGenericElement el) {
         String title;
         int    type;
 
@@ -84,7 +65,7 @@ public class LSTreeBuilder {
         return new LSTreeNode(title, type);
     }
 
-    public static LSTreeNode buildGroupNode(SVGGElement el) {
+    private static LSTreeNode buildGroupNode() {
         return new LSTreeNode("Group Element", LSTreeNode.NODE_GROUP);
     }
 }
