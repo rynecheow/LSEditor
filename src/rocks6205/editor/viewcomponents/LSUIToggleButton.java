@@ -46,7 +46,6 @@ public class LSUIToggleButton extends JToggleButton {
      */
     protected static ImageIcon createIcon(String iconName) {
         String string = "resources/toolbar-logo/" + iconName;
-        System.out.println(string);
         ImageIcon icon = new ImageIcon(string);
         return icon;
     }
