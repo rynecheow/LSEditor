@@ -41,6 +41,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedHashSet;
+import java.util.logging.Logger;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -136,6 +137,8 @@ public class SVGEditorViewController
      * Modification time.
      */
     private long modificationStart_t;
+    
+    
 
     /*
      * CONSTRUCTOR
@@ -238,6 +241,7 @@ public class SVGEditorViewController
     public void resizeDocument(SVGLengthUnit width, SVGLengthUnit height) {
         model.getSVGElement().setWidth(width);
         model.getSVGElement().setHeight(height);
+        
         touchDocument();
         updateViews();
     }
@@ -247,6 +251,7 @@ public class SVGEditorViewController
 //        model.setSVGElement(new SVGSVGElement(SVGLengthUnit.parse("916px"), SVGLengthUnit.parse("578px")));
         model.setSVGElement(new SVGSVGElement(SVGLengthUnit.parse("1000px"), SVGLengthUnit.parse("1000px")));
         activeFile = NEW_DOCUMENT;
+        LSSVGEditor.logger.info("New document created with height 1000px and width 1000px");
         unmodifyDocument();
         updateViews();
     }

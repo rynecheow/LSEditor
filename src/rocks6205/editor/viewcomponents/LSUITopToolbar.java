@@ -16,6 +16,8 @@ import java.awt.Dimension;
 
 import javax.swing.JPanel;
 import javax.swing.JToolBar;
+import rocks6205.editor.bridge.actions.LSAction.NewDocumentAction;
+import rocks6205.editor.bridge.actions.LSAction.SaveFileAction;
 
 /**
  *
@@ -46,10 +48,14 @@ public final class LSUITopToolbar extends JToolBar implements LSUIProtocol {
     /*
      * ACTION COMPONENTS
      */
+    private NewDocumentAction newAct;
+    private OpenFileAction    openAct;
+    private SaveFileAction    saveAct;
     private ZoomInViewAction  zoomInAction;
     private ZoomOutViewAction zoomOutAction;
-    private OpenFileAction    openAct;
-
+    
+    
+    
     public LSUITopToolbar(String name, SVGEditorView parent) {
         super(name);
         setParentView(parent);
@@ -68,9 +74,12 @@ public final class LSUITopToolbar extends JToolBar implements LSUIProtocol {
         strokeLabel   = new LSUIIconLabel();
         fillButton    = new JPanel();
         strokeButton  = LSUIToggleButton.create();
+        newAct        = new NewDocumentAction(parentView);
         openAct       = new OpenFileAction(parentView);
+        saveAct       = new SaveFileAction(parentView);
         zoomInAction  = new ZoomInViewAction(parentView);
         zoomOutAction = new ZoomOutViewAction(parentView);
+        
     }
 
     @Override
@@ -87,10 +96,13 @@ public final class LSUITopToolbar extends JToolBar implements LSUIProtocol {
      * Setup actions for button.
      */
     private void setActionForButtons() {
+        newButton.setAction(newAct);
         openButton.setAction(openAct);
-        zoomInButton.setAction(getZoomInAction());
-        zoomOutButton.setAction(getZoomOutAction());
+        saveButton.setAction(saveAct);
+        zoomInButton.setAction(zoomInAction);
+        zoomOutButton.setAction(zoomOutAction);
         zoomInAction.setZoomOutPartnerAction(zoomOutAction);
+        
     }
 
     /**
@@ -112,39 +124,6 @@ public final class LSUITopToolbar extends JToolBar implements LSUIProtocol {
         zoomOutButton.setIcon(zoomOutIconPath);
         fillLabel.setIcon(fillIconPath);
         strokeLabel.setIcon(strokeIconPath);
-    }
-
-    /*
-     * ACCESSORS
-     */
-
-    /**
-     * @return Open file action
-     */
-    private OpenFileAction getOpenAction() {
-        return openAct;
-    }
-
-    /**
-     * @return Zoom in view action
-     */
-    private ZoomInViewAction getZoomInAction() {
-        if (zoomInAction == null) {
-            zoomInAction = new ZoomInViewAction(parentView, "Zoom In");
-        }
-
-        return zoomInAction;
-    }
-
-    /**
-     * @return Zoom out view action
-     */
-    private ZoomOutViewAction getZoomOutAction() {
-        if (zoomOutAction == null) {
-            zoomOutAction = new ZoomOutViewAction(parentView, "Zoom Out");
-        }
-
-        return zoomOutAction;
     }
 
     private void layoutView() {

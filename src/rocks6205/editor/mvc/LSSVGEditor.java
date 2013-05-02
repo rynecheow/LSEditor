@@ -10,6 +10,7 @@ import rocks6205.system.properties.OSValidator;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.logging.Logger;
 
 import javax.swing.JFrame;
 import javax.swing.UIManager;
@@ -23,8 +24,10 @@ import javax.swing.UnsupportedLookAndFeelException;
  *
  */
 public class LSSVGEditor {
+    public static final Logger logger = Logger.getLogger(Thread.currentThread().getStackTrace()[0].getClassName());
+   
     public static void main(String[] rcks) {
-
+       logger.info(String.format("The current active OS is " + OSValidator.getOS()+".\n"));
 //      LSUISplashScreen splash = new LSUISplashScreen(5000);
 //
 //      splash.showSplash();

@@ -830,6 +830,7 @@ public abstract class LSAction extends AbstractAction {
          */
         public void setZoomOutPartnerAction(ZoomOutViewAction zoomOutPartnerAction) {
             this.zoomOutPartnerAction = zoomOutPartnerAction;
+            this.zoomOutPartnerAction.setZoomInPartnerAction(this);
         }
 
         /**
