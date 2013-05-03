@@ -102,7 +102,7 @@ public class LSViewController
             return ancestor.indexOf(e2) - ancestor.indexOf(e1);
         }
     };
-    private static final File NEW_DOCUMENT = null;
+    
 
     /*
      * PROPERTIES

@@ -90,6 +90,10 @@ public abstract class LSAbstractAction extends AbstractAction {
         this.vc = parent.getController();
     }
 
+    /**
+     * Masks for Mac OS X to change <code>CTRL</code> masks to <code>COMMAND</code> masks
+     * @return 
+     */
     private static int getKeyEventMask() {
         if (OSValidator.isMac()) {
             return ActionEvent.META_MASK;

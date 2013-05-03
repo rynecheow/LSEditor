@@ -43,6 +43,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JViewport;
 import javax.swing.WindowConstants;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import rocks6205.editor.actions.LSTransferHandler;
 
 /**
  * A class defining how the main user interface should look like.
@@ -105,7 +106,7 @@ public final class LSView extends JFrame implements LSUIProtocol {
     /*
      * ACTION COMPONENTS
      */
-
+    private LSTransferHandler  tfHandler;
     /**
      * Handle pan events.
      */
@@ -136,16 +137,39 @@ public final class LSView extends JFrame implements LSUIProtocol {
         setUpProperties();
         isZoomChanged = false;
         zoomScale     = 1.0f;
-        menuBar       = new LSUIMenubar(this);
-        topBar        = new LSUITopToolbar("Editing Tools", this);
-        sideBar       = new LSUISideToolbar("Selection Tools", this);
-        statusPanel   = new LSUIStatusPanel(this);
-        navPanel      = new LSUINavigationPanel(this);
-        miscPanel     = new LSUIMiscPanel(this);
-        scrollPane    = new JScrollPane();
-        editPanel     = new LSUIEditingPanel(this);
+        initialiseComponents();
+        initialiseActions();
     }
 
+    private void setUpProperties() {
+        margin   = OSValidator.isMac()
+                   ? -21
+                   : 0;
+        width    = 1180;
+        height   = 768 + margin;
+        frameDim = new Dimension(width, height);
+        screen   = Toolkit.getDefaultToolkit().getScreenSize();
+        x        = (screen.width - width) / 2;
+        y        = (screen.height - height) / 2;
+        this.setLocation(x, y);
+    }
+    
+    private void initialiseComponents() {
+      menuBar       = new LSUIMenubar(this);
+      topBar        = new LSUITopToolbar("Editing Tools", this);
+      sideBar       = new LSUISideToolbar("Selection Tools", this);
+      statusPanel   = new LSUIStatusPanel(this);
+      navPanel      = new LSUINavigationPanel(this);
+      miscPanel     = new LSUIMiscPanel(this);
+      scrollPane    = new JScrollPane();
+      editPanel     = new LSUIEditingPanel(this);
+   }
+   
+   private void initialiseActions() {
+      tfHandler = new LSTransferHandler(this);
+   }
+   
+   
     /**
      * {@inheritDoc}
      */
@@ -155,8 +179,57 @@ public final class LSView extends JFrame implements LSUIProtocol {
         setUpEditingPanel();
         layoutFrame();
         setClosingEvent();
+        bindHandlers();
     }
 
+    public void layoutChildComponents() {
+        scrollPane.setViewportView(editPanel);
+        topBar.setBounds(0, 0, 1180, 35);
+        sideBar.setBounds(0, 35, 35, 760);
+        statusPanel.setBounds(35, 35, 920, 20);
+        navPanel.setBounds(955, 35, 225, 752);
+        miscPanel.setBounds(35, 555 + 81, 920, 151);
+        scrollPane.setBounds(35, 55, 920, 582);
+        topBar.setBackground(LSSVGEditorGUITheme.MASTER_DEFAULT_BACKGROUND_COLOR);
+        sideBar.setBackground(LSSVGEditorGUITheme.MASTER_DEFAULT_BACKGROUND_COLOR);
+        navPanel.setBackground(LSSVGEditorGUITheme.MASTER_DEFAULT_BACKGROUND_COLOR);
+        miscPanel.setBackground(LSSVGEditorGUITheme.MASTER_DEFAULT_BACKGROUND_COLOR);
+    }
+    
+    private void setUpEditingPanel() {
+        BufferedImage image = controller.renderImage(zoomScale);
+
+        editPanel.setPreferredSize(new Dimension(image.getWidth(), image.getHeight()));
+        editPanel.switchModeTo(LSUIEditingPanel.EditModeScheme.MODE_SELECT);
+        editPanel.setFill(LSGenericElement.SVG_FILL_DEFAULT);
+        editPanel.setStroke(LSGenericElement.SVG_STROKE_DEFAULT);
+        editPanel.setStrokeWidth(LSGenericElement.SVG_STROKE_WIDTH_DEFAULT);
+        scrollPane.setViewportView(editPanel);
+    }
+    
+    public void layoutFrame() {
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setMaximumSize(frameDim);
+        setMinimumSize(frameDim);
+        setLayout(null);
+        c.add(topBar);
+        c.add(sideBar);
+        c.add(statusPanel);
+        c.add(navPanel);
+        c.add(miscPanel);
+        c.add(scrollPane);
+
+        JViewport              viewport    = scrollPane.getViewport();
+        LSPanMouseAdapter panListener = new LSPanMouseAdapter();
+
+        viewport.addMouseListener(panListener);
+        viewport.addMouseMotionListener(panListener);
+        setJMenuBar(menuBar);
+        updateTitle();
+        pack();
+    }
+
+    
     /**
      * Prompt exit confirmation while user clicks on 'x' button on the window
      */
@@ -173,42 +246,14 @@ public final class LSView extends JFrame implements LSUIProtocol {
             }
         });
     }
-
-    /*
-     * ACCESSORS
-     */
-
-    /**
-     * @return Model object
-     */
-    public LSModel getModel() {
-        return model;
-    }
-
-    /**
-     * @return Controller object
-     */
-    public LSViewController getController() {
-        return controller;
-    }
-
-    /*
-     * MUTATORS
-     */
-
-    /**
-     * @param controller Controller object
-     */
-    public void setController(LSViewController controller) {
-        this.controller = controller;
-    }
-
-    /**
-     * @param model Model object
-     */
-    public void setModel(LSModel model) {
-        this.model = model;
-    }
+    
+   private void bindHandlers() {
+      setTransferHandler(tfHandler);
+   }
+    
+   /*
+    * METHOD
+    */
 
     public void update() {
         ArrayList<LSGenericElement> selections    = new ArrayList<>(controller.getSelections());
@@ -246,84 +291,10 @@ public final class LSView extends JFrame implements LSUIProtocol {
         }
     }
 
-    public float getZoomScale() {
-        return zoomScale;
-    }
-
-    public void changeZoom(float zoom) {
-        isZoomChanged  = true;
-        this.zoomScale = zoom;
-    }
-
-    public void resetZoom() {
-        isZoomChanged  = false;
-        this.zoomScale = 1.00f;
-    }
-
-    public boolean isZoomChanged() {
-        return isZoomChanged;
-    }
-
-    public void setDisplayedFile(File d) {
-        displayedFile = d;
-    }
-
-    public File getDisplayedFile() {
-        return displayedFile;
-    }
-
     private void showWelcomeScreen() {
         new LSUIWelcomeDialog(this).display();
     }
-
-    public void layoutFrame() {
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(frameDim);
-        setMinimumSize(frameDim);
-        setLayout(null);
-        c.add(topBar);
-        c.add(sideBar);
-        c.add(statusPanel);
-        c.add(navPanel);
-        c.add(miscPanel);
-        c.add(scrollPane);
-
-        JViewport              viewport    = scrollPane.getViewport();
-        LSPanMouseAdapter panListener = new LSPanMouseAdapter();
-
-        viewport.addMouseListener(panListener);
-        viewport.addMouseMotionListener(panListener);
-        setJMenuBar(menuBar);
-        pack();
-    }
-
-    public void layoutChildComponents() {
-        scrollPane.setViewportView(editPanel);
-        topBar.setBounds(0, 0, 1180, 35);
-        sideBar.setBounds(0, 35, 35, 760);
-        statusPanel.setBounds(35, 35, 920, 20);
-        navPanel.setBounds(955, 35, 225, 752);
-        miscPanel.setBounds(35, 555 + 81, 920, 151);
-        scrollPane.setBounds(35, 55, 920, 582);
-        topBar.setBackground(LSSVGEditorGUITheme.MASTER_DEFAULT_BACKGROUND_COLOR);
-        sideBar.setBackground(LSSVGEditorGUITheme.MASTER_DEFAULT_BACKGROUND_COLOR);
-        navPanel.setBackground(LSSVGEditorGUITheme.MASTER_DEFAULT_BACKGROUND_COLOR);
-        miscPanel.setBackground(LSSVGEditorGUITheme.MASTER_DEFAULT_BACKGROUND_COLOR);
-    }
-
-    private void setUpProperties() {
-        margin   = OSValidator.isMac()
-                   ? -21
-                   : 0;
-        width    = 1180;
-        height   = 768 + margin;
-        frameDim = new Dimension(width, height);
-        screen   = Toolkit.getDefaultToolkit().getScreenSize();
-        x        = (screen.width - width) / 2;
-        y        = (screen.height - height) / 2;
-        this.setLocation(x, y);
-    }
-
+    
     /**
      *
      * @return
@@ -390,27 +361,92 @@ public final class LSView extends JFrame implements LSUIProtocol {
 
         return saved;
     }
-
-    public void changeMode(LSUIEditingPanel.EditModeScheme mode) {
-        editPanel.switchModeTo(mode);
-    }
     
     public void changeColor(LSColor color) {
         editPanel.setFill( new LSPainting( color ) );
     }
 
-    private void setUpEditingPanel() {
-        BufferedImage image = controller.renderImage(zoomScale);
-
-        editPanel.setPreferredSize(new Dimension(image.getWidth(), image.getHeight()));
-        editPanel.switchModeTo(LSUIEditingPanel.EditModeScheme.MODE_SELECT);
-        editPanel.setFill(LSGenericElement.SVG_FILL_DEFAULT);
-        editPanel.setStroke(LSGenericElement.SVG_STROKE_DEFAULT);
-        editPanel.setStrokeWidth(LSGenericElement.SVG_STROKE_WIDTH_DEFAULT);
-        scrollPane.setViewportView(editPanel);
-    }
+    
 
     public void updateStatus(String status) {
         statusPanel.updateStatus("123");
+    }
+    
+    private void updateTitle() {
+		if (displayedFile != null) {
+				documentTitle = displayedFile.getName();
+            if (documentTitle != null) {
+               setTitle(documentTitle);
+            }
+		}
+	}
+
+   public void openFile(File f) {
+      throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+   }
+   
+       /*
+     * ACCESSORS
+     */
+
+    /**
+     * @return Model object
+     */
+    public LSModel getModel() {
+        return model;
+    }
+
+    /**
+     * @return Controller object
+     */
+    public LSViewController getController() {
+        return controller;
+    }
+
+    public float getZoomScale() {
+        return zoomScale;
+    }
+    
+    public boolean isZoomChanged() {
+        return isZoomChanged;
+    }
+    
+    public File getDisplayedFile() {
+        return displayedFile;
+    }
+    /*
+     * MUTATORS
+     */
+
+    /**
+     * @param controller Controller object
+     */
+    public void setController(LSViewController controller) {
+        this.controller = controller;
+    }
+
+    /**
+     * @param model Model object
+     */
+    public void setModel(LSModel model) {
+        this.model = model;
+    }
+
+    public void changeZoom(float zoom) {
+        isZoomChanged  = true;
+        this.zoomScale = zoom;
+    }
+
+    public void resetZoom() {
+        isZoomChanged  = false;
+        this.zoomScale = 1.00f;
+    }
+    
+    public void setDisplayedFile(File d) {
+        displayedFile = d;
+    }
+
+    public void changeMode(LSUIEditingPanel.EditModeScheme mode) {
+        editPanel.switchModeTo(mode);
     }
 }
