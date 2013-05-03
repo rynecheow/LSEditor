@@ -3,9 +3,9 @@ package rocks6205.editor.actions;
 //~--- non-JDK imports --------------------------------------------------------
 
 import rocks6205.editor.model.adt.LSColor;
-import rocks6205.editor.mvc.SVGEditorView;
-import rocks6205.editor.mvc.SVGEditorViewController;
-import rocks6205.editor.viewcomponents.LSUIEditingPanel;
+import rocks6205.editor.mvc.LSView;
+import rocks6205.editor.mvc.LSViewController;
+import rocks6205.editor.viewcomponents.panels.LSUIEditingPanel;
 import rocks6205.system.properties.LSCanvasProperties;
 import rocks6205.system.properties.OSValidator;
 
@@ -46,8 +46,8 @@ public abstract class LSAbstractAction extends AbstractAction {
     /**
      * Parent component (Usually an <code>SVGView</code> object.)
      */
-    protected SVGEditorView v;
-    protected SVGEditorViewController vc;
+    protected LSView v;
+    protected LSViewController vc;
     /*
      * CONSTRUCTOR
      */
@@ -62,7 +62,7 @@ public abstract class LSAbstractAction extends AbstractAction {
      * @param keyStroke Key action on the keyboard
      * @param v Parent component
      */
-    public LSAbstractAction(String tooltipText, Integer mnemonic, KeyStroke keyStroke, SVGEditorView parent) {
+    public LSAbstractAction(String tooltipText, Integer mnemonic, KeyStroke keyStroke, LSView parent) {
         putValue(SHORT_DESCRIPTION, tooltipText);
         putValue(MNEMONIC_KEY, mnemonic);
         putValue(ACCELERATOR_KEY, keyStroke);
@@ -81,7 +81,7 @@ public abstract class LSAbstractAction extends AbstractAction {
      * @param keyStroke Key action on the keyboard
      * @param v Parent component
      */
-    public LSAbstractAction(String name, String tooltipText, Integer mnemonic, KeyStroke keyStroke, SVGEditorView parent) {
+    public LSAbstractAction(String name, String tooltipText, Integer mnemonic, KeyStroke keyStroke, LSView parent) {
         putValue(Action.NAME, name);
         putValue(SHORT_DESCRIPTION, tooltipText);
         putValue(MNEMONIC_KEY, mnemonic);
@@ -118,7 +118,7 @@ public abstract class LSAbstractAction extends AbstractAction {
          * <code>v</code> and no action name.
          * @param v Parent component
          */
-        public DeleteAction(SVGEditorView parent) {
+        public DeleteAction(LSView parent) {
             super("Delete", KeyEvent.VK_E, KeyStroke.getKeyStroke(KeyEvent.VK_DELETE, 0), parent);
         }
 
@@ -128,7 +128,7 @@ public abstract class LSAbstractAction extends AbstractAction {
          * @param v Parent component
          * @param actionName Name of action component
          */
-        public DeleteAction(SVGEditorView parent, String actionName) {
+        public DeleteAction(LSView parent, String actionName) {
             super(actionName, "Delete", KeyEvent.VK_E, KeyStroke.getKeyStroke(KeyEvent.VK_DELETE, 0), parent);
         }
 
@@ -160,7 +160,7 @@ public abstract class LSAbstractAction extends AbstractAction {
          * <code>v</code> and no action name.
          * @param v Parent component
          */
-        public DeselectAllAction(SVGEditorView parent) {
+        public DeselectAllAction(LSView parent) {
             super("Deselect All", KeyEvent.VK_D,
                   KeyStroke.getKeyStroke(KeyEvent.VK_A, getKeyEventMask() + InputEvent.SHIFT_DOWN_MASK), parent);
         }
@@ -171,7 +171,7 @@ public abstract class LSAbstractAction extends AbstractAction {
          * @param v Parent component
          * @param actionName Name of action component
          */
-        public DeselectAllAction(SVGEditorView parent, String actionName) {
+        public DeselectAllAction(LSView parent, String actionName) {
             super(actionName, "Deselect All", KeyEvent.VK_D,
                   KeyStroke.getKeyStroke(KeyEvent.VK_A, getKeyEventMask() + InputEvent.SHIFT_DOWN_MASK), parent);
         }
@@ -205,7 +205,7 @@ public abstract class LSAbstractAction extends AbstractAction {
          * <code>v</code> and no action name. <p>Disabled by default.
          * @param v Parent component
          */
-        public DrawCircleAction(SVGEditorView parent) {
+        public DrawCircleAction(LSView parent) {
             super("Draw Circle", KeyEvent.VK_C, KeyStroke.getKeyStroke(KeyEvent.VK_C, getKeyEventMask()), parent);
         }
 
@@ -215,7 +215,7 @@ public abstract class LSAbstractAction extends AbstractAction {
          * @param v Parent component
          * @param actionName Name of action component
          */
-        public DrawCircleAction(SVGEditorView parent, String actionName) {
+        public DrawCircleAction(LSView parent, String actionName) {
             super(actionName, "Draw Circle", KeyEvent.VK_C, KeyStroke.getKeyStroke(KeyEvent.VK_C, getKeyEventMask()),
                   parent);
         }
@@ -252,7 +252,7 @@ public abstract class LSAbstractAction extends AbstractAction {
          * <code>v</code> and no action name. <p>Disabled by default.
          * @param v Parent component
          */
-        public DrawLineAction(SVGEditorView parent) {
+        public DrawLineAction(LSView parent) {
             super("Draw Line", KeyEvent.VK_L, KeyStroke.getKeyStroke(KeyEvent.VK_L, getKeyEventMask()), parent);
         }
 
@@ -262,7 +262,7 @@ public abstract class LSAbstractAction extends AbstractAction {
          * @param v Parent component
          * @param actionName Name of action component
          */
-        public DrawLineAction(SVGEditorView parent, String actionName) {
+        public DrawLineAction(LSView parent, String actionName) {
             super(actionName, "Draw Line", KeyEvent.VK_L, KeyStroke.getKeyStroke(KeyEvent.VK_L, getKeyEventMask()),
                   parent);
         }
@@ -299,7 +299,7 @@ public abstract class LSAbstractAction extends AbstractAction {
          * <code>v</code> and no action name. <p>Disabled by default.
          * @param v Parent component
          */
-        public DrawRectAction(SVGEditorView parent) {
+        public DrawRectAction(LSView parent) {
             super("Draw Rect", KeyEvent.VK_R, KeyStroke.getKeyStroke(KeyEvent.VK_R, getKeyEventMask()), parent);
         }
 
@@ -309,7 +309,7 @@ public abstract class LSAbstractAction extends AbstractAction {
          * @param v Parent component
          * @param actionName Name of action component
          */
-        public DrawRectAction(SVGEditorView parent, String actionName) {
+        public DrawRectAction(LSView parent, String actionName) {
             super(actionName, "Draw Rect", KeyEvent.VK_R, KeyStroke.getKeyStroke(KeyEvent.VK_R, getKeyEventMask()),
                   parent);
         }
@@ -345,7 +345,7 @@ public abstract class LSAbstractAction extends AbstractAction {
          * <code>v</code> and no action name.
          * @param v Parent component
          */
-        public ExitAction(SVGEditorView parent) {
+        public ExitAction(LSView parent) {
             super("Exit Program", KeyEvent.VK_X, KeyStroke.getKeyStroke(KeyEvent.VK_F4, ActionEvent.ALT_MASK), parent);
         }
 
@@ -355,7 +355,7 @@ public abstract class LSAbstractAction extends AbstractAction {
          * @param v Parent component
          * @param actionName Name of action component
          */
-        public ExitAction(SVGEditorView parent, String actionName) {
+        public ExitAction(LSView parent, String actionName) {
             super(actionName, "Exit Program", KeyEvent.VK_X,
                   KeyStroke.getKeyStroke(KeyEvent.VK_F4, ActionEvent.ALT_MASK), parent);
         }
@@ -394,7 +394,7 @@ public abstract class LSAbstractAction extends AbstractAction {
          * <code>v</code> and no action name.
          * @param v Parent component
          */
-        public GroupAction(SVGEditorView parent) {
+        public GroupAction(LSView parent) {
             super("Group", KeyEvent.VK_G, KeyStroke.getKeyStroke(KeyEvent.VK_G, getKeyEventMask()), parent);
         }
 
@@ -404,7 +404,7 @@ public abstract class LSAbstractAction extends AbstractAction {
          * @param v Parent component
          * @param actionName Name of action component
          */
-        public GroupAction(SVGEditorView parent, String actionName) {
+        public GroupAction(LSView parent, String actionName) {
             super(actionName, "Group", KeyEvent.VK_G, KeyStroke.getKeyStroke(KeyEvent.VK_G, getKeyEventMask()), parent);
         }
 
@@ -434,7 +434,7 @@ public abstract class LSAbstractAction extends AbstractAction {
          * <code>v</code> and no action name.
          * @param v Parent component
          */
-        public NewDocumentAction(SVGEditorView parent) {
+        public NewDocumentAction(LSView parent) {
             super("New..", KeyEvent.VK_N, KeyStroke.getKeyStroke(KeyEvent.VK_N, getKeyEventMask()), parent);
         }
 
@@ -444,7 +444,7 @@ public abstract class LSAbstractAction extends AbstractAction {
          * @param v Parent component
          * @param actionName Name of action component
          */
-        public NewDocumentAction(SVGEditorView parent, String actionName) {
+        public NewDocumentAction(LSView parent, String actionName) {
             super(actionName, "New..", KeyEvent.VK_N, KeyStroke.getKeyStroke(KeyEvent.VK_N, getKeyEventMask()), parent);
         }
 
@@ -480,7 +480,7 @@ public abstract class LSAbstractAction extends AbstractAction {
          *
          * @param v Parent component
          */
-        public OpenFileAction(SVGEditorView parent) {
+        public OpenFileAction(LSView parent) {
             super("Open a file", KeyEvent.VK_O, KeyStroke.getKeyStroke(KeyEvent.VK_O, getKeyEventMask()), parent);
         }
 
@@ -490,7 +490,7 @@ public abstract class LSAbstractAction extends AbstractAction {
          * @param v Parent component
          * @param actionName Name of action component
          */
-        public OpenFileAction(SVGEditorView parent, String actionName) {
+        public OpenFileAction(LSView parent, String actionName) {
             super(actionName, "Open a file", KeyEvent.VK_O, KeyStroke.getKeyStroke(KeyEvent.VK_O, getKeyEventMask()),
                   parent);
         }
@@ -547,7 +547,7 @@ public abstract class LSAbstractAction extends AbstractAction {
          * <code>v</code> and no action name.
          * @param v Parent component
          */
-        public PanModeAction(SVGEditorView parent) {
+        public PanModeAction(LSView parent) {
             super("Pan Tool", KeyEvent.VK_P, null, parent);
         }
 
@@ -557,7 +557,7 @@ public abstract class LSAbstractAction extends AbstractAction {
          * @param v Parent component
          * @param actionName Name of action component
          */
-        public PanModeAction(SVGEditorView parent, String actionName) {
+        public PanModeAction(LSView parent, String actionName) {
             super(actionName, "Selection Tool", KeyEvent.VK_P, null, parent);
         }
 
@@ -588,7 +588,7 @@ public abstract class LSAbstractAction extends AbstractAction {
          * <code>v</code> and no action name.
          * @param v Parent component
          */
-        public SaveFileAction(SVGEditorView parent) {
+        public SaveFileAction(LSView parent) {
             super("Save", KeyEvent.VK_S, KeyStroke.getKeyStroke(KeyEvent.VK_S, getKeyEventMask()), parent);
         }
 
@@ -598,7 +598,7 @@ public abstract class LSAbstractAction extends AbstractAction {
          * @param v Parent component
          * @param actionName Name of action component
          */
-        public SaveFileAction(SVGEditorView parent, String actionName) {
+        public SaveFileAction(LSView parent, String actionName) {
             super(actionName, "Save", KeyEvent.VK_S, KeyStroke.getKeyStroke(KeyEvent.VK_S, getKeyEventMask()), parent);
         }
 
@@ -630,7 +630,7 @@ public abstract class LSAbstractAction extends AbstractAction {
          * <code>v</code> and no action name.
          * @param v Parent component
          */
-        public SaveFileAsAction(SVGEditorView parent) {
+        public SaveFileAsAction(LSView parent) {
             super("Save As", KeyEvent.VK_A,
                   KeyStroke.getKeyStroke(KeyEvent.VK_S, getKeyEventMask() + InputEvent.SHIFT_DOWN_MASK), parent);
         }
@@ -641,7 +641,7 @@ public abstract class LSAbstractAction extends AbstractAction {
          * @param v Parent component
          * @param actionName Name of action component
          */
-        public SaveFileAsAction(SVGEditorView parent, String actionName) {
+        public SaveFileAsAction(LSView parent, String actionName) {
             super(actionName, "Save As", KeyEvent.VK_A,
                   KeyStroke.getKeyStroke(KeyEvent.VK_S, getKeyEventMask() + InputEvent.SHIFT_DOWN_MASK), parent);
         }
@@ -673,7 +673,7 @@ public abstract class LSAbstractAction extends AbstractAction {
          * <code>v</code> and no action name.
          * @param v Parent component
          */
-        public SelectModeAction(SVGEditorView parent) {
+        public SelectModeAction(LSView parent) {
             super("Selection Tool", KeyEvent.VK_S, null, parent);
         }
 
@@ -683,7 +683,7 @@ public abstract class LSAbstractAction extends AbstractAction {
          * @param v Parent component
          * @param actionName Name of action component
          */
-        public SelectModeAction(SVGEditorView parent, String actionName) {
+        public SelectModeAction(LSView parent, String actionName) {
             super(actionName, "Selection Tool", KeyEvent.VK_S, null, parent);
         }
 
@@ -716,7 +716,7 @@ public abstract class LSAbstractAction extends AbstractAction {
          * <code>v</code> and no action name.
          * @param v Parent component
          */
-        public SelectAllAction(SVGEditorView parent) {
+        public SelectAllAction(LSView parent) {
             super("Select All", KeyEvent.VK_A, KeyStroke.getKeyStroke(KeyEvent.VK_A, getKeyEventMask()), parent);
         }
 
@@ -726,7 +726,7 @@ public abstract class LSAbstractAction extends AbstractAction {
          * @param v Parent component
          * @param actionName Name of action component
          */
-        public SelectAllAction(SVGEditorView parent, String actionName) {
+        public SelectAllAction(LSView parent, String actionName) {
             super(actionName, "Select All", KeyEvent.VK_A, KeyStroke.getKeyStroke(KeyEvent.VK_A, getKeyEventMask()),
                   parent);
         }
@@ -757,7 +757,7 @@ public abstract class LSAbstractAction extends AbstractAction {
          * <code>v</code> and no action name.
          * @param v Parent component
          */
-        public UngroupAction(SVGEditorView parent) {
+        public UngroupAction(LSView parent) {
             super("Ungroup", KeyEvent.VK_U,
                   KeyStroke.getKeyStroke(KeyEvent.VK_G, getKeyEventMask() + InputEvent.SHIFT_DOWN_MASK), parent);
         }
@@ -768,7 +768,7 @@ public abstract class LSAbstractAction extends AbstractAction {
          * @param v Parent component
          * @param actionName Name of action component
          */
-        public UngroupAction(SVGEditorView parent, String actionName) {
+        public UngroupAction(LSView parent, String actionName) {
             super(actionName, "Ungroup", KeyEvent.VK_U,
                   KeyStroke.getKeyStroke(KeyEvent.VK_G, getKeyEventMask() + InputEvent.SHIFT_DOWN_MASK), parent);
         }
@@ -811,7 +811,7 @@ public abstract class LSAbstractAction extends AbstractAction {
          * <code>v</code> and no action name.
          * @param v Parent component
          */
-        public ZoomInViewAction(SVGEditorView parent) {
+        public ZoomInViewAction(LSView parent) {
             super("Zoom In", KeyEvent.VK_I, KeyStroke.getKeyStroke(KeyEvent.VK_EQUALS, getKeyEventMask()), parent);
         }
 
@@ -821,7 +821,7 @@ public abstract class LSAbstractAction extends AbstractAction {
          * @param v Parent component
          * @param actionName Name of action component
          */
-        public ZoomInViewAction(SVGEditorView parent, String actionName) {
+        public ZoomInViewAction(LSView parent, String actionName) {
             super(actionName, "Zoom In", KeyEvent.VK_I, KeyStroke.getKeyStroke(KeyEvent.VK_EQUALS, getKeyEventMask()),
                   parent);
         }
@@ -883,7 +883,7 @@ public abstract class LSAbstractAction extends AbstractAction {
          * <code>v</code> and no action name. <p>Disabled by default.
          * @param v Parent component
          */
-        public ZoomOutViewAction(SVGEditorView parent) {
+        public ZoomOutViewAction(LSView parent) {
             super("Zoom Out", KeyEvent.VK_O, KeyStroke.getKeyStroke(KeyEvent.VK_MINUS, getKeyEventMask()), parent);
         }
 
@@ -893,7 +893,7 @@ public abstract class LSAbstractAction extends AbstractAction {
          * @param v Parent component
          * @param actionName Name of action component
          */
-        public ZoomOutViewAction(SVGEditorView parent, String actionName) {
+        public ZoomOutViewAction(LSView parent, String actionName) {
             super(actionName, "Zoom Out", KeyEvent.VK_O, KeyStroke.getKeyStroke(KeyEvent.VK_MINUS, getKeyEventMask()),
                   parent);
         }

@@ -9,19 +9,19 @@ import org.w3c.dom.Node;
 
 import org.xml.sax.InputSource;
 
-import rocks6205.editor.controllers.SVGEditorComponentsController;
-import rocks6205.editor.controllers.SVGEditorFileController;
-import rocks6205.editor.controllers.SVGEditorSelectionsController;
+import rocks6205.editor.controllers.LSComponentsController;
+import rocks6205.editor.controllers.LSFileController;
+import rocks6205.editor.controllers.LSSelectionsController;
 import rocks6205.editor.model.adt.LSLength;
 import rocks6205.editor.model.adt.LSLengthUnitType;
 import rocks6205.editor.model.adt.LSPainting;
 import rocks6205.editor.model.elements.LSShapeCircle;
 import rocks6205.editor.model.elements.LSGenericContainer;
-import rocks6205.editor.model.elements.LSGroup;
+import rocks6205.editor.model.elements.LSGroupContainer;
 import rocks6205.editor.model.elements.LSGenericElement;
 import rocks6205.editor.model.elements.LSShapeLine;
 import rocks6205.editor.model.elements.LSShapeRect;
-import rocks6205.editor.model.elements.LSSVGElement;
+import rocks6205.editor.model.elements.LSSVGContainer;
 
 import rocks6205.system.parser.LSSVGDOMParser;
 
@@ -63,8 +63,8 @@ import javax.xml.transform.stream.StreamResult;
  * @since 1.2
  *
  */
-public class SVGEditorViewController
-        implements SVGEditorSelectionsController, SVGEditorFileController, SVGEditorComponentsController {
+public class LSViewController
+        implements LSSelectionsController, LSFileController, LSComponentsController {
 
     /**
      * Default namespace for SVG documents.
@@ -111,12 +111,12 @@ public class SVGEditorViewController
     /**
      * Model object
      */
-    private SVGEditorModel model;
+    private LSModel model;
 
     /**
      * View objects
      */
-    private LinkedHashSet<SVGEditorView> views;
+    private LinkedHashSet<LSView> views;
 
     /**
      * Selected objects.
@@ -145,7 +145,7 @@ public class SVGEditorViewController
     /**
      * Default constructor.
      */
-    public SVGEditorViewController() {
+    public LSViewController() {
         views              = new LinkedHashSet<>(1);
         selections         = new LinkedHashSet<>();
         isDocumentModified = false;
@@ -158,7 +158,7 @@ public class SVGEditorViewController
     /**
      * @return Model object
      */
-    public SVGEditorModel getModel() {
+    public LSModel getModel() {
         return this.model;
     }
 
@@ -189,7 +189,7 @@ public class SVGEditorViewController
     /**
      * @param model Model object
      */
-    public void setModel(SVGEditorModel model) {
+    public void setModel(LSModel model) {
         this.model = model;
     }
 
@@ -244,12 +244,12 @@ public class SVGEditorViewController
     }
 
     public void createBlankDocument() {
-        model = new SVGEditorModel();
+        model = new LSModel();
 
-//      model.setSVGElement(new LSSVGElement(LSLength.parse("916px"), LSLength.parse("578px")));
-        model.setSVGElement(new LSSVGElement(LSLength.parse("1000px"), LSLength.parse("1000px")));
+//      model.setSVGElement(new LSSVGContainer(LSLength.parse("916px"), LSLength.parse("578px")));
+        model.setSVGElement(new LSSVGContainer(LSLength.parse("1000px"), LSLength.parse("1000px")));
         activeFile = NEW_DOCUMENT;
-        LSSVGEditor.logger.info("New document created with height 1000px and width 1000px. \n");
+        LSEditor.logger.info("New document created with height 1000px and width 1000px. \n");
         unmodifyDocument();
         updateViews();
     }
@@ -265,7 +265,7 @@ public class SVGEditorViewController
         model.getSVGElement().drawShape(g);
         g.dispose();
 
-//      LSSVGEditor.logger.info(String.format("Graphic rendered: Scale=\t"+scale+ " Width=\t"+width+" Height=\t"+height+"\n"));
+//      LSEditor.logger.info(String.format("Graphic rendered: Scale=\t"+scale+ " Width=\t"+width+" Height=\t"+height+"\n"));
         return image;
     }
 
@@ -277,7 +277,7 @@ public class SVGEditorViewController
      * Add a view into the current set of views.
      * @param view
      */
-    public void addView(SVGEditorView view) {
+    public void addView(LSView view) {
         views.add(view);
     }
 
@@ -285,7 +285,7 @@ public class SVGEditorViewController
      * Removes a view into the current set of views.
      * @param view
      */
-    public void removeView(SVGEditorView view) {
+    public void removeView(LSView view) {
         views.remove(view);
     }
 
@@ -293,7 +293,7 @@ public class SVGEditorViewController
      * Gets the current set of views.
      * @return Set of views
      */
-    public LinkedHashSet<SVGEditorView> getViews() {
+    public LinkedHashSet<LSView> getViews() {
         return new LinkedHashSet<>(views);
     }
 
@@ -301,7 +301,7 @@ public class SVGEditorViewController
      * Updates views one by one.
      */
     public void updateViews() {
-        for (SVGEditorView view : views) {
+        for (LSView view : views) {
             view.update();
         }
     }
@@ -314,7 +314,7 @@ public class SVGEditorViewController
     @Override
     public void addElement(LSGenericElement e) {
         model.getSVGElement().addDescendant(e);
-        LSSVGEditor.logger.info(String.format("Element of type " + e.getElementType()
+        LSEditor.logger.info(String.format("Element of type " + e.getElementType()
                 + " is added to the root element.\n"));
         touchDocument();
     }
@@ -374,7 +374,7 @@ public class SVGEditorViewController
         rect.setHeight(LSLength.convert(h, rect.getHeight().getUnitType()));
 
 //      String logInfo = "Rectangle is resized to " + w + rect.getWidth().getUnitType().getUnitSymbol() + " x " + h + rect.getWidth().getUnitType().getUnitSymbol();
-//      LSSVGEditor.logger.info(logInfo);
+//      LSEditor.logger.info(logInfo);
         touchDocument();
     }
 
@@ -437,13 +437,13 @@ public class SVGEditorViewController
             Document doc = LSSVGDOMParser.parseXml(new InputSource(file.toURI().toString()));
 
             if (doc != null) {
-                LSSVGElement svg_e = LSSVGElement.parseDocument(doc);
+                LSSVGContainer svg_e = LSSVGContainer.parseDocument(doc);
 
                 if (svg_e != null) {
                     model.setSVGElement(svg_e);
                     activeFile         = file;
                     isDocumentModified = false;
-                    LSSVGEditor.logger.info(String.format("File named %s is successfully loaded", file.getName()));
+                    LSEditor.logger.info(String.format("File named %s is successfully loaded", file.getName()));
                     updateViews();
 
                     return true;
@@ -487,8 +487,8 @@ public class SVGEditorViewController
                 LSGenericContainer svgAncestor;
 
                 while (svg_e != null) {
-                    if (svg_e instanceof LSSVGElement) {
-                        LSSVGElement root = (LSSVGElement) svg_e;
+                    if (svg_e instanceof LSSVGContainer) {
+                        LSSVGContainer root = (LSSVGContainer) svg_e;
 
                         e = doc.createElementNS(SVGDefaultNamespace, "svg");
                         ancestor.appendChild(e);
@@ -548,8 +548,8 @@ public class SVGEditorViewController
                             transformAttr.setValue(value);
                         }
 
-                        if (svg_e instanceof LSGroup) {
-                            LSGroup group = (LSGroup) svg_e;
+                        if (svg_e instanceof LSGroupContainer) {
+                            LSGroupContainer group = (LSGroupContainer) svg_e;
 
                             e = doc.createElementNS(SVGDefaultNamespace, "g");
 
@@ -704,7 +704,7 @@ public class SVGEditorViewController
     }
 
     /**
-     * SVGEditorFileController
+     * LSFileController
      */
 
     /**
@@ -902,7 +902,7 @@ public class SVGEditorViewController
                 y = new LSLength(line.getY2().getValue(LSLengthUnitType.NUMBER) + ty);
                 line.setX2(LSLength.convert(x, line.getX2().getUnitType()));
                 line.setY2(LSLength.convert(y, line.getY2().getUnitType()));
-            } else if (e instanceof LSGroup) {
+            } else if (e instanceof LSGroupContainer) {
                 x = e.getTranslateX();
                 y = e.getTranslateY();
 
@@ -940,9 +940,9 @@ public class SVGEditorViewController
         }
 
         Collections.sort(selectionsList, SVG_ELEMENT_ORDER);
-        LSSVGElement svgEl =  model.getSVGElement();
+        LSSVGContainer svgEl =  model.getSVGElement();
         int         lastPos = svgEl.indexOf(selectionsList.get(selectionsList.size() - 1));
-        LSGroup group   = new LSGroup();
+        LSGroupContainer group   = new LSGroupContainer();
         svgEl.insertDescendant(group, lastPos);
 
         for (LSGenericElement e : selectionsList) {
@@ -968,13 +968,13 @@ public class SVGEditorViewController
         ArrayList<LSGenericElement> removeList = new ArrayList<>();
 
         for (LSGenericElement e : selections) {
-            if (e instanceof LSGroup) {
-                LSGroup group = (LSGroup) e;
+            if (e instanceof LSGroupContainer) {
+                LSGroupContainer group = (LSGroupContainer) e;
 
                 if (group.getDescendantCount() == 0) {
                     continue;
                 }
-                LSSVGElement svgEl =  model.getSVGElement();
+                LSSVGContainer svgEl =  model.getSVGElement();
                 position = svgEl.indexOf(group);
 
                 for (LSGenericElement descendant : group.ungroup()) {

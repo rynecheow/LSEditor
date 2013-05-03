@@ -1,4 +1,4 @@
-package rocks6205.editor.viewcomponents;
+package rocks6205.editor.viewcomponents.toolbars;
 
 //~--- non-JDK imports --------------------------------------------------------
 
@@ -7,7 +7,7 @@ import rocks6205.editor.actions.LSAbstractAction.ExitAction;
 import rocks6205.editor.actions.LSAbstractAction.OpenFileAction;
 import rocks6205.editor.actions.LSAbstractAction.ZoomInViewAction;
 import rocks6205.editor.actions.LSAbstractAction.ZoomOutViewAction;
-import rocks6205.editor.mvc.SVGEditorView;
+import rocks6205.editor.mvc.LSView;
 
 //~--- JDK imports ------------------------------------------------------------
 
@@ -24,6 +24,7 @@ import rocks6205.editor.actions.LSAbstractAction.SaveFileAction;
 import rocks6205.editor.actions.LSAbstractAction.SaveFileAsAction;
 import rocks6205.editor.actions.LSAbstractAction.SelectAllAction;
 import rocks6205.editor.actions.LSAbstractAction.UngroupAction;
+import rocks6205.editor.viewcomponents.LSUIProtocol;
 
 /**
  * The main menu bar for the GUI.
@@ -39,7 +40,7 @@ public final class LSUIMenubar extends JMenuBar implements LSUIProtocol {
     /**
      * Parent component
      */
-    private SVGEditorView parent;
+    private LSView parent;
 
     /*
      * GUI COMPONENTS
@@ -93,7 +94,7 @@ public final class LSUIMenubar extends JMenuBar implements LSUIProtocol {
      *
      * @param view Parent component
      */
-    public LSUIMenubar(SVGEditorView view) {
+    public LSUIMenubar(LSView view) {
         super();
         parent = view;
         initialise();

@@ -1,4 +1,4 @@
-package rocks6205.editor.viewcomponents;
+package rocks6205.editor.viewcomponents.panels;
 
 //~--- JDK imports ------------------------------------------------------------
 

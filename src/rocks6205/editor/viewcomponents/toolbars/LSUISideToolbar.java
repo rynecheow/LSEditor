@@ -1,4 +1,4 @@
-package rocks6205.editor.viewcomponents;
+package rocks6205.editor.viewcomponents.toolbars;
 
 //~--- non-JDK imports --------------------------------------------------------
 
@@ -9,7 +9,7 @@ import rocks6205.editor.actions.LSAbstractAction.GroupAction;
 import rocks6205.editor.actions.LSAbstractAction.PanModeAction;
 import rocks6205.editor.actions.LSAbstractAction.SelectModeAction;
 import rocks6205.editor.actions.LSAbstractAction.UngroupAction;
-import rocks6205.editor.mvc.SVGEditorView;
+import rocks6205.editor.mvc.LSView;
 
 import rocks6205.system.properties.LSSVGEditorGUITheme;
 
@@ -17,6 +17,9 @@ import rocks6205.system.properties.LSSVGEditorGUITheme;
 
 import javax.swing.JToolBar;
 import javax.swing.SwingConstants;
+import rocks6205.editor.viewcomponents.LSUIButton;
+import rocks6205.editor.viewcomponents.LSUIProtocol;
+import rocks6205.editor.viewcomponents.LSUIToggleButton;
 
 /**
  *
@@ -29,7 +32,7 @@ public final class LSUISideToolbar extends JToolBar implements LSUIProtocol {
     /*
      * PARENT COMPONENT
      */
-    private SVGEditorView parentView;
+    private LSView parentView;
 
     /*
      * GUI COMPONENTS
@@ -53,7 +56,7 @@ public final class LSUISideToolbar extends JToolBar implements LSUIProtocol {
     private GroupAction      groupAction;
     private UngroupAction    ungroupAction;
 
-    public LSUISideToolbar(String name, SVGEditorView parent) {
+    public LSUISideToolbar(String name, LSView parent) {
         super(name);
         setParentView(parent);
         initialise();
@@ -89,7 +92,7 @@ public final class LSUISideToolbar extends JToolBar implements LSUIProtocol {
         setBorder(LSSVGEditorGUITheme.MASTER_DEFAULT_PANEL_BORDER);
     }
 
-    private void setParentView(SVGEditorView parent) {
+    private void setParentView(LSView parent) {
         parentView = parent;
     }
 

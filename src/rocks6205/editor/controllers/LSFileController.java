@@ -5,7 +5,7 @@ package rocks6205.editor.controllers;
 import java.io.File;
 import java.io.IOException;
 
-public interface SVGEditorFileController {
+public interface LSFileController {
 
     /**
      * Loads file from two ways:<p>

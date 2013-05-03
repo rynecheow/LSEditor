@@ -1,4 +1,4 @@
-package rocks6205.editor.viewcomponents;
+package rocks6205.editor.viewcomponents.toolbars;
 
 //~--- non-JDK imports --------------------------------------------------------
 
@@ -7,7 +7,7 @@ import rocks6205.editor.actions.LSAbstractAction.OpenFileAction;
 import rocks6205.editor.actions.LSAbstractAction.SaveFileAction;
 import rocks6205.editor.actions.LSAbstractAction.ZoomInViewAction;
 import rocks6205.editor.actions.LSAbstractAction.ZoomOutViewAction;
-import rocks6205.editor.mvc.SVGEditorView;
+import rocks6205.editor.mvc.LSView;
 
 import rocks6205.system.properties.LSSVGEditorGUITheme;
 
@@ -18,6 +18,10 @@ import java.awt.Dimension;
 
 import javax.swing.JPanel;
 import javax.swing.JToolBar;
+import rocks6205.editor.viewcomponents.LSUIButton;
+import rocks6205.editor.viewcomponents.LSUIIconLabel;
+import rocks6205.editor.viewcomponents.LSUIProtocol;
+import rocks6205.editor.viewcomponents.LSUIToggleButton;
 
 /**
  *
@@ -30,7 +34,7 @@ public final class LSUITopToolbar extends JToolBar implements LSUIProtocol {
     /*
      * PARENT COMPONENT
      */
-    private SVGEditorView parentView;
+    private LSView parentView;
 
     /*
      * GUI COMPONENTS
@@ -54,7 +58,7 @@ public final class LSUITopToolbar extends JToolBar implements LSUIProtocol {
     private ZoomInViewAction  zoomInAction;
     private ZoomOutViewAction zoomOutAction;
 
-    public LSUITopToolbar(String name, SVGEditorView parent) {
+    public LSUITopToolbar(String name, LSView parent) {
         super(name);
         setParentView(parent);
         initialise();
@@ -85,7 +89,7 @@ public final class LSUITopToolbar extends JToolBar implements LSUIProtocol {
         layoutView();
     }
 
-    private void setParentView(SVGEditorView parent) {
+    private void setParentView(LSView parent) {
         parentView = parent;
     }
 

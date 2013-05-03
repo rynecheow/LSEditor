@@ -4,15 +4,15 @@ package rocks6205.editor.mvc;
 
 import rocks6205.editor.actions.LSPanMouseAdapter;
 import rocks6205.editor.model.elements.LSGenericElement;
-import rocks6205.editor.viewcomponents.LSUIEditingPanel;
-import rocks6205.editor.viewcomponents.LSUIMenubar;
-import rocks6205.editor.viewcomponents.LSUIMiscPanel;
-import rocks6205.editor.viewcomponents.LSUINavigationPanel;
+import rocks6205.editor.viewcomponents.panels.LSUIEditingPanel;
+import rocks6205.editor.viewcomponents.toolbars.LSUIMenubar;
+import rocks6205.editor.viewcomponents.panels.LSUIMiscPanel;
+import rocks6205.editor.viewcomponents.panels.LSUINavigationPanel;
 import rocks6205.editor.viewcomponents.LSUIProtocol;
-import rocks6205.editor.viewcomponents.LSUISideToolbar;
-import rocks6205.editor.viewcomponents.LSUIStatusPanel;
-import rocks6205.editor.viewcomponents.LSUITopToolbar;
-import rocks6205.editor.viewcomponents.LSUIWelcomeDialog;
+import rocks6205.editor.viewcomponents.toolbars.LSUISideToolbar;
+import rocks6205.editor.viewcomponents.panels.LSUIStatusPanel;
+import rocks6205.editor.viewcomponents.toolbars.LSUITopToolbar;
+import rocks6205.editor.viewcomponents.dialogs.LSUIWelcomeDialog;
 
 import rocks6205.system.properties.LSSVGEditorGUITheme;
 import rocks6205.system.properties.OSValidator;
@@ -53,7 +53,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  *
  * @since 1.2
  */
-public final class SVGEditorView extends JFrame implements LSUIProtocol {
+public final class LSView extends JFrame implements LSUIProtocol {
     private static final long serialVersionUID = 6764861773639452353L;
 
     /*
@@ -83,12 +83,12 @@ public final class SVGEditorView extends JFrame implements LSUIProtocol {
     /**
      * Model object
      */
-    private SVGEditorModel model;
+    private LSModel model;
 
     /**
      * Controller object
      */
-    private SVGEditorViewController controller;
+    private LSViewController controller;
 
     /*
      * GUI COMPONENTS
@@ -118,7 +118,7 @@ public final class SVGEditorView extends JFrame implements LSUIProtocol {
      * Construct an <code>SVGView</code> instance with components initialised
      * and properly customised.
      */
-    public SVGEditorView(SVGEditorViewController c) {
+    public LSView(LSViewController c) {
         super();
         setController(c);
         setModel(c.getModel());
@@ -181,14 +181,14 @@ public final class SVGEditorView extends JFrame implements LSUIProtocol {
     /**
      * @return Model object
      */
-    public SVGEditorModel getModel() {
+    public LSModel getModel() {
         return model;
     }
 
     /**
      * @return Controller object
      */
-    public SVGEditorViewController getController() {
+    public LSViewController getController() {
         return controller;
     }
 
@@ -199,14 +199,14 @@ public final class SVGEditorView extends JFrame implements LSUIProtocol {
     /**
      * @param controller Controller object
      */
-    public void setController(SVGEditorViewController controller) {
+    public void setController(LSViewController controller) {
         this.controller = controller;
     }
 
     /**
      * @param model Model object
      */
-    public void setModel(SVGEditorModel model) {
+    public void setModel(LSModel model) {
         this.model = model;
     }
 

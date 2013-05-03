@@ -1,9 +1,9 @@
-package rocks6205.editor.viewcomponents;
+package rocks6205.editor.viewcomponents.panels;
 
 //~--- non-JDK imports --------------------------------------------------------
 
-import rocks6205.editor.model.elements.LSSVGElement;
-import rocks6205.editor.mvc.SVGEditorView;
+import rocks6205.editor.model.elements.LSSVGContainer;
+import rocks6205.editor.mvc.LSView;
 import rocks6205.editor.viewcomponents.tree.LSElementNavigationTreeModel;
 import rocks6205.editor.viewcomponents.tree.LSTreeBuilder;
 import rocks6205.editor.viewcomponents.tree.LSTreeNode;
@@ -21,6 +21,7 @@ import javax.swing.JTree;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.TreeNode;
+import rocks6205.editor.viewcomponents.LSUIProtocol;
 
 /**
  *
@@ -31,7 +32,7 @@ public final class LSUINavigationPanel extends JPanel implements LSUIProtocol, T
     /**
      * PARENT COMPONENT
      */
-    private SVGEditorView parentView;
+    private LSView parentView;
 
     /*
      *  GUI Components
@@ -42,7 +43,7 @@ public final class LSUINavigationPanel extends JPanel implements LSUIProtocol, T
      *
      * @param parent
      */
-    public LSUINavigationPanel(SVGEditorView parent) {
+    public LSUINavigationPanel(LSView parent) {
         super();
         parentView = parent;
         initialise();

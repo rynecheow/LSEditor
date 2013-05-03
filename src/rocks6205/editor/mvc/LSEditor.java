@@ -24,7 +24,7 @@ import javax.swing.UnsupportedLookAndFeelException;
  * @since 1.0
  *
  */
-public class LSSVGEditor {
+public class LSEditor {
     public static final Logger logger = Logger.getLogger(Thread.currentThread().getStackTrace()[0].getClassName());
 
     public static void main(String[] rcks) {
@@ -35,11 +35,11 @@ public class LSSVGEditor {
 //      splash.showSplash();
         setUpLookAndFeel();
 
-        SVGEditorViewController c = new SVGEditorViewController();
+        LSViewController c = new LSViewController();
 
         c.createBlankDocument();
 
-        SVGEditorView v = new SVGEditorView(c);
+        LSView v = new LSView(c);
 
         c.addView(v);
         v.setVisible(true);

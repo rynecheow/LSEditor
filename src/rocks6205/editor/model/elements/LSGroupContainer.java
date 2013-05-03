@@ -17,7 +17,7 @@ import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 
 /**
- * The <code>LSGroup</code> class is a container used to group objects
+ * The <code>LSGroupContainer</code> class is a container used to group objects
  * corresponds to the <<code>g</code>> element in the SVG document.
  * Transformations applied to the <<code>g</code>> element are performed on all of its child
  * elements.
@@ -26,7 +26,7 @@ import java.util.ArrayList;
  * @since 1.1
  *
  */
-public class LSGroup extends LSGenericContainer {
+public class LSGroupContainer extends LSGenericContainer {
 
     /*
      * CONSTRUCTOR
@@ -35,7 +35,7 @@ public class LSGroup extends LSGenericContainer {
     /**
      * Default constructor
      */
-    public LSGroup() {}
+    public LSGroupContainer() {}
 
     public ArrayList<LSGenericElement> ungroup() {
         recurseAttributes(this);
@@ -93,7 +93,7 @@ public class LSGroup extends LSGenericContainer {
     /*
      * METHODS
      */
-    private static void recurseAttributes(LSGroup group) {
+    private static void recurseAttributes(LSGroupContainer group) {
         LSPainting   fill        = group.getFill();
         LSPainting   stroke      = group.getStroke();
         LSLength strokeWidth = group.getStrokeWidth();
@@ -144,10 +144,10 @@ public class LSGroup extends LSGenericContainer {
     /**
      * Parses the attributes on the  <<code>g</code>> element in the SVG document
      * @param e element from the document returned by the XMLParser
-     * @return <code>LSGroup</code> object
+     * @return <code>LSGroupContainer</code> object
      */
-    public static LSGroup parseElement(Element e) {
-        LSGroup g_e = new LSGroup();
+    public static LSGroupContainer parseElement(Element e) {
+        LSGroupContainer g_e = new LSGroupContainer();
 
         g_e.parseAttributes(e);
 

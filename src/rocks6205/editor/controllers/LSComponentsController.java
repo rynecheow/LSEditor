@@ -7,7 +7,7 @@ import rocks6205.editor.model.elements.LSGenericElement;
 import rocks6205.editor.model.elements.LSShapeLine;
 import rocks6205.editor.model.elements.LSShapeRect;
 
-public interface SVGEditorComponentsController {
+public interface LSComponentsController {
 
     /**
      * Add element <code>e</code> as a descendant of the current model.

@@ -1,7 +1,7 @@
 
 /**
  *
- * Class: LSSVGElement
+ * Class: LSSVGContainer
  * Description:
  *
  * @author: Cheow Yeong Chi
@@ -26,7 +26,7 @@ import java.awt.Graphics2D;
 import java.awt.geom.Rectangle2D;
 
 /**
- * The <code>LSSVGElement</code> class is a container element
+ * The <code>LSSVGContainer</code> class is a container element
  * corresponds to the <<code>svg</code>> element in the SVG document.<p>
  * It can be used to nest a standalone SVG fragment inside the current document
  * elements.
@@ -36,7 +36,7 @@ import java.awt.geom.Rectangle2D;
  * @since 1.1
  *
  */
-public class LSSVGElement extends LSGenericContainer {
+public class LSSVGContainer extends LSGenericContainer {
 
     /**
      * Width of SVG fragment
@@ -49,13 +49,13 @@ public class LSSVGElement extends LSGenericContainer {
     private LSLength height = new LSLength(1000);
 
     /**
-     * Construct an instance of <code>LSSVGElement</code> with <code>width</code> and
+     * Construct an instance of <code>LSSVGContainer</code> with <code>width</code> and
      * <code>height</code>
      *
      * @param width
      * @param height
      */
-    public LSSVGElement(LSLength width, LSLength height) {
+    public LSSVGContainer(LSLength width, LSLength height) {
         setWidth(width);
         setHeight(height);
         setFill(SVG_FILL_DEFAULT);
@@ -122,10 +122,10 @@ public class LSSVGElement extends LSGenericContainer {
      * consequently constructs the vector of elements in a nest.
      *
      * @param document <code>Document</code> from XML parsed and returned by the <code>XMLParser</code>
-     * @return <code>LSSVGElement</code> object
+     * @return <code>LSSVGContainer</code> object
      */
-    public static LSSVGElement parseDocument(Document document) {
-        LSSVGElement       svg_e           = null;
+    public static LSSVGContainer parseDocument(Document document) {
+        LSSVGContainer       svg_e           = null;
         LSGenericContainer ancestorElement = null, newAncestorElement;
         Node                node            = document.getDocumentElement();
         Element             e;
@@ -156,13 +156,13 @@ public class LSSVGElement extends LSGenericContainer {
                         break;
                     }
 
-                    svg_e           = new LSSVGElement(width, height);
+                    svg_e           = new LSSVGContainer(width, height);
                     ancestorElement = svg_e;
 
                     break;
 
                 case "g" :
-                    LSGroup g_e = LSGroup.parseElement(e);
+                    LSGroupContainer g_e = LSGroupContainer.parseElement(e);
 
                     ancestorElement.addDescendant(g_e);
                     newAncestorElement = g_e;

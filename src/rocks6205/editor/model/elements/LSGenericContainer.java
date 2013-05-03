@@ -120,8 +120,8 @@ public abstract class LSGenericContainer extends LSGenericElement {
         for (Iterator<LSGenericElement> it = container.descendants.iterator(); it.hasNext(); ) {
             LSGenericElement e = it.next();
 
-            if (e instanceof LSGroup) {
-                LSGroup g = (LSGroup) e;
+            if (e instanceof LSGroupContainer) {
+                LSGroupContainer g = (LSGroupContainer) e;
 
                 System.out.println(getIndent(level) + g.getElementType());
                 listDescendants(g, ++level);

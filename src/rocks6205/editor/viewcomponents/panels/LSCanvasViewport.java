@@ -1,8 +1,8 @@
-package rocks6205.editor.viewcomponents;
+package rocks6205.editor.viewcomponents.panels;
 
 //~--- non-JDK imports --------------------------------------------------------
 
-import rocks6205.editor.mvc.SVGEditorView;
+import rocks6205.editor.mvc.LSView;
 
 import rocks6205.system.properties.LSCanvasProperties;
 
@@ -29,7 +29,7 @@ public class LSCanvasViewport extends JPanel {
     /**
      * Parent component
      */
-    private SVGEditorView parentView;
+    private LSView parentView;
 
     /*
      * PROPERTIES
@@ -47,7 +47,7 @@ public class LSCanvasViewport extends JPanel {
      *
      * @param view
      */
-    public LSCanvasViewport(SVGEditorView view) {
+    public LSCanvasViewport(LSView view) {
         super();
         setParentView(view);
         LSCanvasProperties.setOutputResolution(Toolkit.getDefaultToolkit().getScreenResolution());
@@ -81,11 +81,11 @@ public class LSCanvasViewport extends JPanel {
         }
     }
 
-    public SVGEditorView getParentView() {
+    public LSView getParentView() {
         return parentView;
     }
 
-    public final void setParentView(SVGEditorView parentView) {
+    public final void setParentView(LSView parentView) {
         if (parentView != null) {
             this.parentView = parentView;
         }

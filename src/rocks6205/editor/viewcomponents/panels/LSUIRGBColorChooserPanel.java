@@ -1,8 +1,8 @@
-package rocks6205.editor.viewcomponents;
+package rocks6205.editor.viewcomponents.panels;
 
 //~--- non-JDK imports --------------------------------------------------------
 
-import rocks6205.editor.mvc.SVGEditorView;
+import rocks6205.editor.mvc.LSView;
 
 import rocks6205.editor.model.adt.LSColor;
 
@@ -24,6 +24,7 @@ import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import rocks6205.editor.viewcomponents.LSUIProtocol;
 
 /**
  * Color Chooser for SVGEditor
@@ -39,7 +40,7 @@ public final class LSUIRGBColorChooserPanel extends JPanel implements LSUIProtoc
     /*
      * PARENT COMPONENT
      */
-    private SVGEditorView  parent;
+    private LSView  parent;
     private LSColor color;
     private JSlider        blueSlider;
     private JSpinner       blueSpinner;
@@ -55,7 +56,7 @@ public final class LSUIRGBColorChooserPanel extends JPanel implements LSUIProtoc
     private JLabel         greenLabel;
     private JLabel         blueLabel;
 
-    public LSUIRGBColorChooserPanel(SVGEditorView view) {
+    public LSUIRGBColorChooserPanel(LSView view) {
         super();
         parent = view;
         initialise();
@@ -86,7 +87,7 @@ public final class LSUIRGBColorChooserPanel extends JPanel implements LSUIProtoc
         bindListeners();
     }
 
-    public SVGEditorView getParentView() {
+    public LSView getParentView() {
         return parent;
     }
 

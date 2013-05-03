@@ -3,9 +3,9 @@ package rocks6205.editor.viewcomponents.tree;
 //~--- non-JDK imports --------------------------------------------------------
 
 import rocks6205.editor.model.elements.LSGenericContainer;
-import rocks6205.editor.model.elements.LSGroup;
+import rocks6205.editor.model.elements.LSGroupContainer;
 import rocks6205.editor.model.elements.LSGenericElement;
-import rocks6205.editor.model.elements.LSSVGElement;
+import rocks6205.editor.model.elements.LSSVGContainer;
 
 //~--- JDK imports ------------------------------------------------------------
 
@@ -13,7 +13,7 @@ import java.util.Iterator;
 
 public class LSTreeBuilder {
 //   private static LSTreeNode svgNode  = new LSTreeNode("SVG Container Element", LSTreeNode.NODE_SVG);
-    public static LSTreeNode build(LSSVGElement svgElement) {
+    public static LSTreeNode build(LSSVGContainer svgElement) {
         LSTreeNode svgNode  = new LSTreeNode("SVG Container Element", LSTreeNode.NODE_SVG);
         iterateNode(svgElement, svgNode);
         return svgNode;
@@ -23,8 +23,8 @@ public class LSTreeBuilder {
         for (Iterator<LSGenericElement> it = container.getDescendants().iterator(); it.hasNext(); ) {
             LSGenericElement e = it.next();
 
-            if (e instanceof LSGroup) {
-                LSGroup g         = (LSGroup) e;
+            if (e instanceof LSGroupContainer) {
+                LSGroupContainer g         = (LSGroupContainer) e;
                 LSTreeNode  groupNode = buildGroupNode();
 
                 containerNode.addChild(groupNode);

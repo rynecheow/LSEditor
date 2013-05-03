@@ -2,7 +2,7 @@ package rocks6205.editor.actions;
 
 //~--- non-JDK imports --------------------------------------------------------
 
-import rocks6205.editor.viewcomponents.LSCanvasViewport;
+import rocks6205.editor.viewcomponents.panels.LSCanvasViewport;
 
 import rocks6205.system.properties.OSValidator;
 

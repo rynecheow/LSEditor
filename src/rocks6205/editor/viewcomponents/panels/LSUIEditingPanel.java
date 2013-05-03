@@ -1,4 +1,4 @@
-package rocks6205.editor.viewcomponents;
+package rocks6205.editor.viewcomponents.panels;
 
 //~--- non-JDK imports --------------------------------------------------------
 
@@ -10,8 +10,8 @@ import rocks6205.editor.model.elements.LSGenericElement;
 import rocks6205.editor.model.elements.LSShapeLine;
 import rocks6205.editor.model.elements.LSShapeRect;
 
-import rocks6205.editor.mvc.SVGEditorView;
-import rocks6205.editor.mvc.SVGEditorViewController;
+import rocks6205.editor.mvc.LSView;
+import rocks6205.editor.mvc.LSViewController;
 
 //~--- JDK imports ------------------------------------------------------------
 
@@ -42,8 +42,8 @@ import javax.swing.OverlayLayout;
  *
  */
 public final class LSUIEditingPanel extends JPanel {
-    private SVGEditorViewController      controller;
-    private SVGEditorView                parent;
+    private LSViewController      controller;
+    private LSView                parent;
     private LSGenericElement            activeElement, newElement;
     private LSScribblePanel              scribbleArea;
     private LSCanvasViewport             viewArea;
@@ -60,7 +60,7 @@ public final class LSUIEditingPanel extends JPanel {
     /**
      * Default constructor.
      */
-    public LSUIEditingPanel(SVGEditorView view) {
+    public LSUIEditingPanel(LSView view) {
         super();
         parent     = view;
         controller = view.getController();
@@ -296,7 +296,7 @@ public final class LSUIEditingPanel extends JPanel {
         activeRect.setBounds(xPos, yPos, width, height);
     }
 
-    public SVGEditorView getParentView() {
+    public LSView getParentView() {
         return parent;
     }
     /**

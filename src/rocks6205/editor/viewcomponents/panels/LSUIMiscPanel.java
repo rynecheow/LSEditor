@@ -1,14 +1,15 @@
-package rocks6205.editor.viewcomponents;
+package rocks6205.editor.viewcomponents.panels;
 
 //~--- non-JDK imports --------------------------------------------------------
 
-import rocks6205.editor.mvc.SVGEditorView;
+import rocks6205.editor.mvc.LSView;
 
 import rocks6205.system.properties.LSSVGEditorGUITheme;
 
 //~--- JDK imports ------------------------------------------------------------
 
 import javax.swing.JPanel;
+import rocks6205.editor.viewcomponents.LSUIProtocol;
 
 /**
  *
@@ -19,14 +20,14 @@ public final class LSUIMiscPanel extends JPanel implements LSUIProtocol {
     /**
      * PARENT COMPONENT
      */
-    private SVGEditorView parentView;
+    private LSView parentView;
 
     /*
      * GUI COMPONENTS
      */
     private LSUIRGBColorChooserPanel colorChooserPanel;
 
-    public LSUIMiscPanel(SVGEditorView parent) {
+    public LSUIMiscPanel(LSView parent) {
         super();
         parentView = parent;
         initialise();

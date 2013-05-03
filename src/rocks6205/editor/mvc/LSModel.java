@@ -2,7 +2,7 @@ package rocks6205.editor.mvc;
 
 //~--- non-JDK imports --------------------------------------------------------
 
-import rocks6205.editor.model.elements.LSSVGElement;
+import rocks6205.editor.model.elements.LSSVGContainer;
 
 /**
  * SVG Viewer model which consist the current SVG parent fragment/object.
@@ -12,17 +12,17 @@ import rocks6205.editor.model.elements.LSSVGElement;
  * @since 1.0
  *
  */
-public class SVGEditorModel {
+public class LSModel {
 
     /**
      * SVG Element to be drawn.
      */
-    private LSSVGElement SVGElement;
+    private LSSVGContainer SVGElement;
 
     /**
      * Default constructor.
      */
-    public SVGEditorModel() {}
+    public LSModel() {}
 
     /*
      * ACCESSOR
@@ -31,7 +31,7 @@ public class SVGEditorModel {
     /**
      * @return SVG Element to be drawn.
      */
-    public LSSVGElement getSVGElement() {
+    public LSSVGContainer getSVGElement() {
         return SVGElement;
     }
 
@@ -43,7 +43,7 @@ public class SVGEditorModel {
      *
      * @param svgElement SVG Element to be drawn.
      */
-    public void setSVGElement(LSSVGElement svgElement) {
+    public void setSVGElement(LSSVGContainer svgElement) {
         SVGElement = svgElement;
     }
 }

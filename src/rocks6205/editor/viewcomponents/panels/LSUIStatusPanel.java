@@ -1,8 +1,8 @@
-package rocks6205.editor.viewcomponents;
+package rocks6205.editor.viewcomponents.panels;
 
 //~--- non-JDK imports --------------------------------------------------------
 
-import rocks6205.editor.mvc.SVGEditorView;
+import rocks6205.editor.mvc.LSView;
 
 //~--- JDK imports ------------------------------------------------------------
 
@@ -10,6 +10,7 @@ import java.awt.Color;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import rocks6205.editor.viewcomponents.LSUIProtocol;
 
 /**
  *
@@ -20,14 +21,14 @@ public final class LSUIStatusPanel extends JPanel implements LSUIProtocol {
     /**
      * PARENT COMPONENT
      */
-    private SVGEditorView parentView;
+    private LSView parentView;
 
     /*
      * GUI COMPONENTS
      */
     private JLabel statusLabel;
 
-    public LSUIStatusPanel(SVGEditorView parent) {
+    public LSUIStatusPanel(LSView parent) {
         super();
         parentView = parent;
         initialise();

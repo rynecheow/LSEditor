@@ -1,9 +1,9 @@
-package rocks6205.editor.viewcomponents;
+package rocks6205.editor.viewcomponents.dialogs;
 
 //~--- non-JDK imports --------------------------------------------------------
 
 import rocks6205.editor.actions.LSAbstractAction.OpenFileAction;
-import rocks6205.editor.mvc.SVGEditorView;
+import rocks6205.editor.mvc.LSView;
 
 //~--- JDK imports ------------------------------------------------------------
 
@@ -14,6 +14,7 @@ import java.awt.Toolkit;
 import javax.swing.GroupLayout;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
+import rocks6205.editor.viewcomponents.LSUIProtocol;
 
 /**
  *
@@ -40,14 +41,14 @@ public final class LSUIWelcomeDialog extends JDialog implements LSUIProtocol {
     /*
      * PARENT COMPONENT
      */
-    private SVGEditorView parentView;
+    private LSView parentView;
 
     /*
      * ACTION COMPONENTS
      */
     private OpenFileAction openFileAction;
 
-    public LSUIWelcomeDialog(SVGEditorView parent) {
+    public LSUIWelcomeDialog(LSView parent) {
         super(parent, "Welcome Screen", true);
         this.height = 450;
         this.width  = 600;

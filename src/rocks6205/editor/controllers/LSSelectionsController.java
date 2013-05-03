@@ -13,7 +13,7 @@ import java.awt.geom.Rectangle2D;
 
 import java.util.LinkedHashSet;
 
-public interface SVGEditorSelectionsController {
+public interface LSSelectionsController {
 
     /**
      * Checks elements in selections and returns true if point is in bound of
