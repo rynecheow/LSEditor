@@ -3,6 +3,7 @@ package rocks6205.editor.viewcomponents.dialogs;
 //~--- non-JDK imports --------------------------------------------------------
 
 import rocks6205.editor.core.LSView;
+import rocks6205.editor.viewcomponents.LSUIProtocol;
 
 //~--- JDK imports ------------------------------------------------------------
 
@@ -18,7 +19,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
-import rocks6205.editor.viewcomponents.LSUIProtocol;
 
 /**
  *
@@ -68,8 +68,8 @@ public final class LSUICanvasPropertiesDialog extends JDialog implements LSUIPro
     public LSUICanvasPropertiesDialog(LSView parent) {
         super(parent, "Welcome Screen", true);
         this.height = 340;
-        this.width = 480;
-        parentView = parent;
+        this.width  = 480;
+        parentView  = parent;
         initialise();
         customise();
         bindEventActions();

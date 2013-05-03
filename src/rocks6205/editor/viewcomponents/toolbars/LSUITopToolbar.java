@@ -8,6 +8,10 @@ import rocks6205.editor.actions.LSAbstractAction.SaveFileAction;
 import rocks6205.editor.actions.LSAbstractAction.ZoomInViewAction;
 import rocks6205.editor.actions.LSAbstractAction.ZoomOutViewAction;
 import rocks6205.editor.core.LSView;
+import rocks6205.editor.viewcomponents.LSUIButton;
+import rocks6205.editor.viewcomponents.LSUIIconLabel;
+import rocks6205.editor.viewcomponents.LSUIProtocol;
+import rocks6205.editor.viewcomponents.LSUIToggleButton;
 
 import rocks6205.system.properties.LSSVGEditorGUITheme;
 
@@ -18,10 +22,6 @@ import java.awt.Dimension;
 
 import javax.swing.JPanel;
 import javax.swing.JToolBar;
-import rocks6205.editor.viewcomponents.LSUIButton;
-import rocks6205.editor.viewcomponents.LSUIIconLabel;
-import rocks6205.editor.viewcomponents.LSUIProtocol;
-import rocks6205.editor.viewcomponents.LSUIToggleButton;
 
 /**
  *

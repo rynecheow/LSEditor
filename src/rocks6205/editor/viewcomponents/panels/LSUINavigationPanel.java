@@ -2,8 +2,8 @@ package rocks6205.editor.viewcomponents.panels;
 
 //~--- non-JDK imports --------------------------------------------------------
 
-import rocks6205.editor.model.elements.LSSVGContainer;
 import rocks6205.editor.core.LSView;
+import rocks6205.editor.viewcomponents.LSUIProtocol;
 import rocks6205.editor.viewcomponents.tree.LSElementNavigationTreeModel;
 import rocks6205.editor.viewcomponents.tree.LSTreeBuilder;
 import rocks6205.editor.viewcomponents.tree.LSTreeNode;
@@ -20,8 +20,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTree;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
-import javax.swing.tree.TreeNode;
-import rocks6205.editor.viewcomponents.LSUIProtocol;
 
 /**
  *
@@ -52,7 +50,7 @@ public final class LSUINavigationPanel extends JPanel implements LSUIProtocol, T
 
     @Override
     public void initialise() {
-       navigationTree = new JTree();
+        navigationTree = new JTree();
         updateTree();
     }
 
@@ -75,18 +73,20 @@ public final class LSUINavigationPanel extends JPanel implements LSUIProtocol, T
     }
 
     public void updateTree() {
-       LSTreeNode node = LSTreeBuilder.build(parentView.getModel().getSVGElement());
-       LSElementNavigationTreeModel model = new LSElementNavigationTreeModel(node);
-       
+        LSTreeNode                   node  = LSTreeBuilder.build(parentView.getModel().getSVGElement());
+        LSElementNavigationTreeModel model = new LSElementNavigationTreeModel(node);
+
         navigationTree.setModel(model);
         navigationTree.setCellRenderer(new LSTreeNodeRenderer());
         navigationTree.addTreeSelectionListener(this);
         expandAllNodes();
-//        navigationTree.repaint();
+
+//      navigationTree.repaint();
     }
-    
+
     public void expandAllNodes() {
         int row = 0;
+
         while (row < navigationTree.getRowCount()) {
             navigationTree.expandRow(row);
             row++;

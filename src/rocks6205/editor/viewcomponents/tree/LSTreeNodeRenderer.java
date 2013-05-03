@@ -70,9 +70,8 @@ public class LSTreeNodeRenderer extends DefaultTreeCellRenderer {
     }
 
     private ImageIcon createIconWithImageName(String name) {
-        String string = "resources/tree-logo/" + name + ".png";
-
-        ImageIcon icon = new ImageIcon(string);
+        String    string = "resources/tree-logo/" + name + ".png";
+        ImageIcon icon   = new ImageIcon(string);
 
         icon = new ImageIcon(icon.getImage().getScaledInstance(24, 20, Image.SCALE_SMOOTH));
 

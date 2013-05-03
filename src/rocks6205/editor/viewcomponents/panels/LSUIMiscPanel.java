@@ -3,13 +3,13 @@ package rocks6205.editor.viewcomponents.panels;
 //~--- non-JDK imports --------------------------------------------------------
 
 import rocks6205.editor.core.LSView;
+import rocks6205.editor.viewcomponents.LSUIProtocol;
 
 import rocks6205.system.properties.LSSVGEditorGUITheme;
 
 //~--- JDK imports ------------------------------------------------------------
 
 import javax.swing.JPanel;
-import rocks6205.editor.viewcomponents.LSUIProtocol;
 
 /**
  *

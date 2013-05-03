@@ -35,7 +35,6 @@ public class LSUIButton extends JButton {
      * METHODS
      */
 
-
     /**
      * Creates an <code>ImageIcon</code> instance from a image path <code>path</code>
      * provided.
@@ -44,8 +43,9 @@ public class LSUIButton extends JButton {
      * @return <code>ImageIcon</code> object
      */
     protected static ImageIcon createIcon(String iconName) {
-        String string = "resources/toolbar-logo/" + iconName;
-        ImageIcon icon = new ImageIcon(string);
+        String    string = "resources/toolbar-logo/" + iconName;
+        ImageIcon icon   = new ImageIcon(string);
+
         return icon;
     }
 

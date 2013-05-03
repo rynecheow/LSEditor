@@ -3,8 +3,8 @@ package rocks6205.editor.viewcomponents.panels;
 //~--- non-JDK imports --------------------------------------------------------
 
 import rocks6205.editor.core.LSView;
-
 import rocks6205.editor.model.adt.LSColor;
+import rocks6205.editor.viewcomponents.LSUIProtocol;
 
 import rocks6205.system.properties.LSSVGEditorGUITheme;
 
@@ -24,7 +24,6 @@ import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import rocks6205.editor.viewcomponents.LSUIProtocol;
 
 /**
  * Color Chooser for SVGEditor
@@ -40,21 +39,21 @@ public final class LSUIRGBColorChooserPanel extends JPanel implements LSUIProtoc
     /*
      * PARENT COMPONENT
      */
-    private LSView  parent;
-    private LSColor color;
-    private JSlider        blueSlider;
-    private JSpinner       blueSpinner;
-    private JPanel         finalColorIndicator;
-    private JSlider        greenSlider;
-    private JSpinner       greenSpinner;
-    private JSlider        redSlider;
-    private JSpinner       redSpinner;
-    private SpinnerModel   redSpinnerModel;
-    private SpinnerModel   greenSpinnerModel;
-    private SpinnerModel   blueSpinnerModel;
-    private JLabel         redLabel;
-    private JLabel         greenLabel;
-    private JLabel         blueLabel;
+    private LSView       parent;
+    private LSColor      color;
+    private JSlider      blueSlider;
+    private JSpinner     blueSpinner;
+    private JPanel       finalColorIndicator;
+    private JSlider      greenSlider;
+    private JSpinner     greenSpinner;
+    private JSlider      redSlider;
+    private JSpinner     redSpinner;
+    private SpinnerModel redSpinnerModel;
+    private SpinnerModel greenSpinnerModel;
+    private SpinnerModel blueSpinnerModel;
+    private JLabel       redLabel;
+    private JLabel       greenLabel;
+    private JLabel       blueLabel;
 
     public LSUIRGBColorChooserPanel(LSView view) {
         super();
@@ -160,8 +159,8 @@ public final class LSUIRGBColorChooserPanel extends JPanel implements LSUIProtoc
                                                                                     layout.createParallelGroup(
                                                                                         GroupLayout.Alignment.LEADING).addComponent(
                                                                                             redSpinner, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE).addComponent(
-                                                                                        	    greenSpinner, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE).addComponent(
-                                                                                                	blueSpinner, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE)).addContainerGap()));
+                                                                                                greenSpinner, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE).addComponent(
+                                                                                                    blueSpinner, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE)).addContainerGap()));
         layout.setVerticalGroup(
             layout.createParallelGroup(GroupLayout.Alignment.LEADING).addGroup(
                 layout.createSequentialGroup().addGap(7, 7, 7).addGroup(
@@ -215,37 +214,35 @@ public final class LSUIRGBColorChooserPanel extends JPanel implements LSUIProtoc
                 0, 30, Short.MAX_VALUE));
     }
 
-   private void bindListeners() {
-      redSlider.addChangeListener(new sliderListener());
-      redSpinner.addChangeListener(new sliderListener());
-      greenSlider.addChangeListener(new sliderListener());
-      greenSpinner.addChangeListener(new sliderListener()); 
-      blueSlider.addChangeListener(new sliderListener());
-      blueSpinner.addChangeListener(new sliderListener()); 
-   }
-   
-   private class sliderListener implements ChangeListener{
+    private void bindListeners() {
+        redSlider.addChangeListener(new sliderListener());
+        redSpinner.addChangeListener(new sliderListener());
+        greenSlider.addChangeListener(new sliderListener());
+        greenSpinner.addChangeListener(new sliderListener());
+        blueSlider.addChangeListener(new sliderListener());
+        blueSpinner.addChangeListener(new sliderListener());
+    }
 
-      @Override
-      public void stateChanged(ChangeEvent e) {
-	  if( e.getSource() == redSlider ) {
-	      redSpinner.setValue( redSlider.getValue() );
-	  }else if( e.getSource() == redSpinner ) {
-	      redSlider.getModel().setValue( Integer.parseInt( redSpinner.getValue().toString() ) );
-	  }else if( e.getSource() == greenSlider ) {
-	      greenSpinner.setValue( greenSlider.getValue() );
-	  }else if( e.getSource() == greenSpinner ) {
-	      greenSlider.getModel().setValue( Integer.parseInt( greenSpinner.getValue().toString() ) );
-	  }else if( e.getSource() == blueSlider ) {
-	      blueSpinner.setValue( blueSlider.getValue() );
-	  }else if( e.getSource() == blueSpinner ) {
-	      blueSlider.getModel().setValue( Integer.parseInt( blueSpinner.getValue().toString() ) );
-	  }
-	  finalColorIndicator.setBackground(new Color( redSlider.getValue() , 
-		  greenSlider.getValue() , blueSlider.getValue()));
-	  color = new LSColor(redSlider.getValue() , 
-		  greenSlider.getValue() , blueSlider.getValue());
-      }
-      
-   }
+    private class sliderListener implements ChangeListener {
+        @Override
+        public void stateChanged(ChangeEvent e) {
+            if (e.getSource() == redSlider) {
+                redSpinner.setValue(redSlider.getValue());
+            } else if (e.getSource() == redSpinner) {
+                redSlider.getModel().setValue(Integer.parseInt(redSpinner.getValue().toString()));
+            } else if (e.getSource() == greenSlider) {
+                greenSpinner.setValue(greenSlider.getValue());
+            } else if (e.getSource() == greenSpinner) {
+                greenSlider.getModel().setValue(Integer.parseInt(greenSpinner.getValue().toString()));
+            } else if (e.getSource() == blueSlider) {
+                blueSpinner.setValue(blueSlider.getValue());
+            } else if (e.getSource() == blueSpinner) {
+                blueSlider.getModel().setValue(Integer.parseInt(blueSpinner.getValue().toString()));
+            }
+
+            finalColorIndicator.setBackground(new Color(redSlider.getValue(), greenSlider.getValue(),
+                    blueSlider.getValue()));
+            color = new LSColor(redSlider.getValue(), greenSlider.getValue(), blueSlider.getValue());
+        }
+    }
 }

@@ -6,8 +6,8 @@ import java.io.File;
 import java.io.IOException;
 
 public interface LSFileController {
-
     public static final File NEW_DOCUMENT = new File("file:///untitled.svg");
+
     /**
      * Loads file from two ways:<p>
      * 1) Read directly from <code>JFileChooser</code>.<br>

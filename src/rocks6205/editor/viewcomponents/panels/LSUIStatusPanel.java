@@ -3,6 +3,7 @@ package rocks6205.editor.viewcomponents.panels;
 //~--- non-JDK imports --------------------------------------------------------
 
 import rocks6205.editor.core.LSView;
+import rocks6205.editor.viewcomponents.LSUIProtocol;
 
 //~--- JDK imports ------------------------------------------------------------
 
@@ -10,7 +11,6 @@ import java.awt.Color;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import rocks6205.editor.viewcomponents.LSUIProtocol;
 
 /**
  *

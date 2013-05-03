@@ -26,8 +26,9 @@ public class LSUIIconLabel extends JLabel {
      * @return <code>ImageIcon</code> object
      */
     protected static ImageIcon createIcon(String iconName) {
-        String string = "resources/toolbar-logo/" + iconName;
-        ImageIcon icon = new ImageIcon(string);
+        String    string = "resources/toolbar-logo/" + iconName;
+        ImageIcon icon   = new ImageIcon(string);
+
         return icon;
     }
 

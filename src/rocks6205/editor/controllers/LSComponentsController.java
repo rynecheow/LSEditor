@@ -1,9 +1,11 @@
 package rocks6205.editor.controllers;
 
+//~--- non-JDK imports --------------------------------------------------------
+
 import rocks6205.editor.model.adt.LSLength;
 import rocks6205.editor.model.adt.LSPainting;
-import rocks6205.editor.model.elements.LSShapeCircle;
 import rocks6205.editor.model.elements.LSGenericElement;
+import rocks6205.editor.model.elements.LSShapeCircle;
 import rocks6205.editor.model.elements.LSShapeLine;
 import rocks6205.editor.model.elements.LSShapeRect;
 
@@ -14,7 +16,7 @@ public interface LSComponentsController {
      * @param e Element to be added
      */
     public void addElement(LSGenericElement e);
-    
+
     /**
      * Set element <code>e</code>'s fill as <code>fill</code>.
      * @param e Target element
@@ -38,7 +40,7 @@ public interface LSComponentsController {
 
     /**
      * Resizes rectangle element with <code>changeWidth</code> and <code>changeHeight</code>.
-     * 
+     *
      * @param rect Target rectangle element
      * @param changeWidth Changed width
      * @param changeHeight Changed height
@@ -54,7 +56,7 @@ public interface LSComponentsController {
 
     /**
      * Resizes line element with <code>changeX</code> and <code>changeY</code>.
-     * 
+     *
      * @param line Target line element
      * @param endpoint Endpoint number
      * @param changeX Changed X value of endpoint

@@ -4,6 +4,7 @@ package rocks6205.editor.viewcomponents.dialogs;
 
 import rocks6205.editor.actions.LSAbstractAction.OpenFileAction;
 import rocks6205.editor.core.LSView;
+import rocks6205.editor.viewcomponents.LSUIProtocol;
 
 //~--- JDK imports ------------------------------------------------------------
 
@@ -14,7 +15,6 @@ import java.awt.Toolkit;
 import javax.swing.GroupLayout;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
-import rocks6205.editor.viewcomponents.LSUIProtocol;
 
 /**
  *

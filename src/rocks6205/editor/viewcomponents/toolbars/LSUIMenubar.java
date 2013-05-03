@@ -3,11 +3,20 @@ package rocks6205.editor.viewcomponents.toolbars;
 //~--- non-JDK imports --------------------------------------------------------
 
 import rocks6205.editor.actions.LSAbstractAction;
+import rocks6205.editor.actions.LSAbstractAction.DeleteAction;
+import rocks6205.editor.actions.LSAbstractAction.DeselectAllAction;
 import rocks6205.editor.actions.LSAbstractAction.ExitAction;
+import rocks6205.editor.actions.LSAbstractAction.GroupAction;
+import rocks6205.editor.actions.LSAbstractAction.NewDocumentAction;
 import rocks6205.editor.actions.LSAbstractAction.OpenFileAction;
+import rocks6205.editor.actions.LSAbstractAction.SaveFileAction;
+import rocks6205.editor.actions.LSAbstractAction.SaveFileAsAction;
+import rocks6205.editor.actions.LSAbstractAction.SelectAllAction;
+import rocks6205.editor.actions.LSAbstractAction.UngroupAction;
 import rocks6205.editor.actions.LSAbstractAction.ZoomInViewAction;
 import rocks6205.editor.actions.LSAbstractAction.ZoomOutViewAction;
 import rocks6205.editor.core.LSView;
+import rocks6205.editor.viewcomponents.LSUIProtocol;
 
 //~--- JDK imports ------------------------------------------------------------
 
@@ -16,15 +25,6 @@ import java.awt.event.KeyEvent;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import rocks6205.editor.actions.LSAbstractAction.DeleteAction;
-import rocks6205.editor.actions.LSAbstractAction.DeselectAllAction;
-import rocks6205.editor.actions.LSAbstractAction.GroupAction;
-import rocks6205.editor.actions.LSAbstractAction.NewDocumentAction;
-import rocks6205.editor.actions.LSAbstractAction.SaveFileAction;
-import rocks6205.editor.actions.LSAbstractAction.SaveFileAsAction;
-import rocks6205.editor.actions.LSAbstractAction.SelectAllAction;
-import rocks6205.editor.actions.LSAbstractAction.UngroupAction;
-import rocks6205.editor.viewcomponents.LSUIProtocol;
 
 /**
  * The main menu bar for the GUI.
@@ -84,6 +84,7 @@ public final class LSUIMenubar extends JMenuBar implements LSUIProtocol {
     private DeleteAction      deleteAction;
     private ZoomInViewAction  zoomInAction;
     private ZoomOutViewAction zoomOutAction;
+
     /*
      * CONSTRUCTOR
      */
@@ -129,19 +130,18 @@ public final class LSUIMenubar extends JMenuBar implements LSUIProtocol {
         zoomOutMenuItem      = new JMenuItem();
         faqMenuItem          = new JMenuItem("FAQ");
         aboutMenuItem        = new JMenuItem("About");
-        
-        newAct               = new NewDocumentAction(parent,"New");
-        openAct              = new OpenFileAction(parent,"Open File...");
-        saveAct              = new SaveFileAction(parent,"Save");
-        saveAsAct            = new SaveFileAsAction(parent,"Save As...");
-        exitAct              = new LSAbstractAction.ExitAction(parent,"Exit");
-        selectAllAct         = new SelectAllAction(parent,"Select All");
-        deselectAllAct       = new DeselectAllAction(parent,"Deselect All");
-        groupAction          = new GroupAction(parent,"Group");
-        ungroupAction        = new UngroupAction(parent,"Ungroup");
-        deleteAction         = new DeleteAction(parent,"Delete");    
-        zoomOutAction        = new ZoomOutViewAction(parent,"Zoom In");
-        zoomInAction         = new ZoomInViewAction(parent,"Zoom Out");
+        newAct               = new NewDocumentAction(parent, "New");
+        openAct              = new OpenFileAction(parent, "Open File...");
+        saveAct              = new SaveFileAction(parent, "Save");
+        saveAsAct            = new SaveFileAsAction(parent, "Save As...");
+        exitAct              = new LSAbstractAction.ExitAction(parent, "Exit");
+        selectAllAct         = new SelectAllAction(parent, "Select All");
+        deselectAllAct       = new DeselectAllAction(parent, "Deselect All");
+        groupAction          = new GroupAction(parent, "Group");
+        ungroupAction        = new UngroupAction(parent, "Ungroup");
+        deleteAction         = new DeleteAction(parent, "Delete");
+        zoomOutAction        = new ZoomOutViewAction(parent, "Zoom In");
+        zoomInAction         = new ZoomInViewAction(parent, "Zoom Out");
     }
 
     /**
@@ -152,14 +152,18 @@ public final class LSUIMenubar extends JMenuBar implements LSUIProtocol {
         setMnemonicForMenus();
         layoutFileMenuItemList();
         layoutEditMenuItemList();
-//        layoutInsertMenuItemList();
+
+//      layoutInsertMenuItemList();
         layoutWindowMenuItemList();
-//        layoutHelpMenuItemList();
+
+//      layoutHelpMenuItemList();
         add(fileMenu);
         add(editMenu);
-//        add(insertMenu);
+
+//      add(insertMenu);
         add(windowMenu);
-//        add(helpMenu);
+
+//      add(helpMenu);
         zoomInAction.setZoomOutPartnerAction(zoomOutAction);
         setActionForMenuItem();
     }

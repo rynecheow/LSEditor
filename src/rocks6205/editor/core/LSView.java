@@ -3,22 +3,22 @@ package rocks6205.editor.core;
 //~--- non-JDK imports --------------------------------------------------------
 
 import rocks6205.editor.actions.LSPanMouseAdapter;
+import rocks6205.editor.actions.LSTransferHandler;
+import rocks6205.editor.model.adt.LSColor;
+import rocks6205.editor.model.adt.LSPainting;
 import rocks6205.editor.model.elements.LSGenericElement;
+import rocks6205.editor.viewcomponents.LSUIProtocol;
+import rocks6205.editor.viewcomponents.dialogs.LSUIWelcomeDialog;
 import rocks6205.editor.viewcomponents.panels.LSUIEditingPanel;
-import rocks6205.editor.viewcomponents.toolbars.LSUIMenubar;
 import rocks6205.editor.viewcomponents.panels.LSUIMiscPanel;
 import rocks6205.editor.viewcomponents.panels.LSUINavigationPanel;
-import rocks6205.editor.viewcomponents.LSUIProtocol;
-import rocks6205.editor.viewcomponents.toolbars.LSUISideToolbar;
 import rocks6205.editor.viewcomponents.panels.LSUIStatusPanel;
+import rocks6205.editor.viewcomponents.toolbars.LSUIMenubar;
+import rocks6205.editor.viewcomponents.toolbars.LSUISideToolbar;
 import rocks6205.editor.viewcomponents.toolbars.LSUITopToolbar;
-import rocks6205.editor.viewcomponents.dialogs.LSUIWelcomeDialog;
 
 import rocks6205.system.properties.LSSVGEditorGUITheme;
 import rocks6205.system.properties.OSValidator;
-
-import rocks6205.editor.model.adt.LSPainting;
-import rocks6205.editor.model.adt.LSColor;
 
 //~--- JDK imports ------------------------------------------------------------
 
@@ -43,7 +43,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JViewport;
 import javax.swing.WindowConstants;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import rocks6205.editor.actions.LSTransferHandler;
 
 /**
  * A class defining how the main user interface should look like.
@@ -106,7 +105,8 @@ public final class LSView extends JFrame implements LSUIProtocol {
     /*
      * ACTION COMPONENTS
      */
-    private LSTransferHandler  tfHandler;
+    private LSTransferHandler tfHandler;
+
     /**
      * Handle pan events.
      */
@@ -153,23 +153,22 @@ public final class LSView extends JFrame implements LSUIProtocol {
         y        = (screen.height - height) / 2;
         this.setLocation(x, y);
     }
-    
+
     private void initialiseComponents() {
-      menuBar       = new LSUIMenubar(this);
-      topBar        = new LSUITopToolbar("Editing Tools", this);
-      sideBar       = new LSUISideToolbar("Selection Tools", this);
-      statusPanel   = new LSUIStatusPanel(this);
-      navPanel      = new LSUINavigationPanel(this);
-      miscPanel     = new LSUIMiscPanel(this);
-      scrollPane    = new JScrollPane();
-      editPanel     = new LSUIEditingPanel(this);
-   }
-   
-   private void initialiseActions() {
-      tfHandler = new LSTransferHandler(this);
-   }
-   
-   
+        menuBar     = new LSUIMenubar(this);
+        topBar      = new LSUITopToolbar("Editing Tools", this);
+        sideBar     = new LSUISideToolbar("Selection Tools", this);
+        statusPanel = new LSUIStatusPanel(this);
+        navPanel    = new LSUINavigationPanel(this);
+        miscPanel   = new LSUIMiscPanel(this);
+        scrollPane  = new JScrollPane();
+        editPanel   = new LSUIEditingPanel(this);
+    }
+
+    private void initialiseActions() {
+        tfHandler = new LSTransferHandler(this);
+    }
+
     /**
      * {@inheritDoc}
      */
@@ -195,7 +194,7 @@ public final class LSView extends JFrame implements LSUIProtocol {
         navPanel.setBackground(LSSVGEditorGUITheme.MASTER_DEFAULT_BACKGROUND_COLOR);
         miscPanel.setBackground(LSSVGEditorGUITheme.MASTER_DEFAULT_BACKGROUND_COLOR);
     }
-    
+
     private void setUpEditingPanel() {
         BufferedImage image = controller.renderImage(zoomScale);
 
@@ -206,7 +205,7 @@ public final class LSView extends JFrame implements LSUIProtocol {
         editPanel.setStrokeWidth(LSGenericElement.SVG_STROKE_WIDTH_DEFAULT);
         scrollPane.setViewportView(editPanel);
     }
-    
+
     public void layoutFrame() {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setMaximumSize(frameDim);
@@ -219,7 +218,7 @@ public final class LSView extends JFrame implements LSUIProtocol {
         c.add(miscPanel);
         c.add(scrollPane);
 
-        JViewport              viewport    = scrollPane.getViewport();
+        JViewport         viewport    = scrollPane.getViewport();
         LSPanMouseAdapter panListener = new LSPanMouseAdapter();
 
         viewport.addMouseListener(panListener);
@@ -229,7 +228,6 @@ public final class LSView extends JFrame implements LSUIProtocol {
         pack();
     }
 
-    
     /**
      * Prompt exit confirmation while user clicks on 'x' button on the window
      */
@@ -246,21 +244,20 @@ public final class LSView extends JFrame implements LSUIProtocol {
             }
         });
     }
-    
-   private void bindHandlers() {
-      setTransferHandler(tfHandler);
-   }
-    
-   /*
-    * METHOD
-    */
 
+    private void bindHandlers() {
+        setTransferHandler(tfHandler);
+    }
+
+    /*
+     * METHOD
+     */
     public void update() {
         ArrayList<LSGenericElement> selections    = new ArrayList<>(controller.getSelections());
-        boolean                      isAnySelected = !selections.isEmpty();
-        File                         currentFile   = controller.getCurrentFile();
-        boolean                      isFileChanged = (currentFile != displayedFile);
-        boolean                      needRepaint   = controller.isDocumentModified() || isZoomChanged || isFileChanged;
+        boolean                     isAnySelected = !selections.isEmpty();
+        File                        currentFile   = controller.getCurrentFile();
+        boolean                     isFileChanged = (currentFile != displayedFile);
+        boolean                     needRepaint   = controller.isDocumentModified() || isZoomChanged || isFileChanged;
 
         sideBar.updateActionStatusFromView(isAnySelected);
         menuBar.updateActionStatusFromView(isAnySelected);
@@ -294,7 +291,7 @@ public final class LSView extends JFrame implements LSUIProtocol {
     private void showWelcomeScreen() {
         new LSUIWelcomeDialog(this).display();
     }
-    
+
     /**
      *
      * @return
@@ -361,31 +358,30 @@ public final class LSView extends JFrame implements LSUIProtocol {
 
         return saved;
     }
-    
-    public void changeColor(LSColor color) {
-        editPanel.setFill( new LSPainting( color ) );
-    }
 
-    
+    public void changeColor(LSColor color) {
+        editPanel.setFill(new LSPainting(color));
+    }
 
     public void updateStatus(String status) {
         statusPanel.updateStatus("123");
     }
-    
-    private void updateTitle() {
-		if (displayedFile != null) {
-				documentTitle = displayedFile.getName();
-            if (documentTitle != null) {
-               setTitle(documentTitle);
-            }
-		}
-	}
 
-   public void openFile(File f) {
-      throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-   }
-   
-       /*
+    private void updateTitle() {
+        if (displayedFile != null) {
+            documentTitle = displayedFile.getName();
+
+            if (documentTitle != null) {
+                setTitle(documentTitle);
+            }
+        }
+    }
+
+    public void openFile(File f) {
+        throw new UnsupportedOperationException("Not supported yet.");    // To change body of generated methods, choose Tools | Templates.
+    }
+
+    /*
      * ACCESSORS
      */
 
@@ -406,14 +402,15 @@ public final class LSView extends JFrame implements LSUIProtocol {
     public float getZoomScale() {
         return zoomScale;
     }
-    
+
     public boolean isZoomChanged() {
         return isZoomChanged;
     }
-    
+
     public File getDisplayedFile() {
         return displayedFile;
     }
+
     /*
      * MUTATORS
      */
@@ -441,7 +438,7 @@ public final class LSView extends JFrame implements LSUIProtocol {
         isZoomChanged  = false;
         this.zoomScale = 1.00f;
     }
-    
+
     public void setDisplayedFile(File d) {
         displayedFile = d;
     }

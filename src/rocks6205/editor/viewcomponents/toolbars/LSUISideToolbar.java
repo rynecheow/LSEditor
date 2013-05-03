@@ -10,6 +10,9 @@ import rocks6205.editor.actions.LSAbstractAction.PanModeAction;
 import rocks6205.editor.actions.LSAbstractAction.SelectModeAction;
 import rocks6205.editor.actions.LSAbstractAction.UngroupAction;
 import rocks6205.editor.core.LSView;
+import rocks6205.editor.viewcomponents.LSUIButton;
+import rocks6205.editor.viewcomponents.LSUIProtocol;
+import rocks6205.editor.viewcomponents.LSUIToggleButton;
 
 import rocks6205.system.properties.LSSVGEditorGUITheme;
 
@@ -17,9 +20,6 @@ import rocks6205.system.properties.LSSVGEditorGUITheme;
 
 import javax.swing.JToolBar;
 import javax.swing.SwingConstants;
-import rocks6205.editor.viewcomponents.LSUIButton;
-import rocks6205.editor.viewcomponents.LSUIProtocol;
-import rocks6205.editor.viewcomponents.LSUIToggleButton;
 
 /**
  *

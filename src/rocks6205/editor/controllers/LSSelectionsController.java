@@ -81,7 +81,7 @@ public interface LSSelectionsController {
      * @param ty Unit vertical translation
      */
     public void moveSelectedElement(float tx, float ty);
-    
+
     /**
      * Groups all selected elements under <code>SVGGElement</code>.
      */
@@ -91,6 +91,4 @@ public interface LSSelectionsController {
      * Ungroups all <code>SVGGElement</code> into individual elements.
      */
     public void ungroup();
-
-    
 }
