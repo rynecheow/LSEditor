@@ -41,7 +41,6 @@ import static javax.swing.Action.SHORT_DESCRIPTION;
  *
  */
 public abstract class LSAbstractAction extends AbstractAction {
-    private static final long serialVersionUID = 9085407834848872724L;
 
     /**
      * Parent component (Usually an <code>SVGView</code> object.)
@@ -198,7 +197,6 @@ public abstract class LSAbstractAction extends AbstractAction {
      *
      */
     public static class DrawCircleAction extends LSAbstractAction {
-        private static final long serialVersionUID = -6578149781110081473L;
 
         /*
          * CONSTRUCTOR
@@ -245,7 +243,6 @@ public abstract class LSAbstractAction extends AbstractAction {
      *
      */
     public static class DrawLineAction extends LSAbstractAction {
-        private static final long serialVersionUID = -6578149781110081473L;
 
         /*
          * CONSTRUCTOR
@@ -292,7 +289,6 @@ public abstract class LSAbstractAction extends AbstractAction {
      *
      */
     public static class DrawRectAction extends LSAbstractAction {
-        private static final long serialVersionUID = -6578149781110081473L;
 
         /*
          * CONSTRUCTOR
@@ -338,7 +334,6 @@ public abstract class LSAbstractAction extends AbstractAction {
      *
      */
     public static class ExitAction extends LSAbstractAction {
-        private static final long serialVersionUID = 6507259946341784118L;
 
         /*
          * CONSTRUCTOR
@@ -472,7 +467,6 @@ public abstract class LSAbstractAction extends AbstractAction {
      *
      */
     public static class OpenFileAction extends LSAbstractAction {
-        private static final long serialVersionUID = -7823707833188816535L;
 
         /*
          * CONSTRUCTOR
@@ -795,7 +789,6 @@ public abstract class LSAbstractAction extends AbstractAction {
      *
      */
     public static class ZoomInViewAction extends LSAbstractAction {
-        private static final long serialVersionUID = 1180439021996674018L;
 
         /*
          * PROPERTIES
