@@ -35,6 +35,8 @@ import java.io.IOException;
 import java.text.MessageFormat;
 
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -43,6 +45,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JViewport;
 import javax.swing.WindowConstants;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import rocks6205.system.properties.LSCanvasProperties;
 
 /**
  * A class defining how the main user interface should look like.
@@ -138,7 +141,7 @@ public final class LSView extends JFrame implements LSUIProtocol {
         isZoomChanged = false;
         zoomScale     = 1.0f;
         initialiseComponents();
-        initialiseActions();
+        initialiseHandlers();
     }
 
     private void setUpProperties() {
@@ -146,12 +149,14 @@ public final class LSView extends JFrame implements LSUIProtocol {
                    ? -21
                    : 0;
         width    = 1180;
-        height   = 768 + margin;
+        height   = 830 + margin;
         frameDim = new Dimension(width, height);
         screen   = Toolkit.getDefaultToolkit().getScreenSize();
         x        = (screen.width - width) / 2;
         y        = (screen.height - height) / 2;
         this.setLocation(x, y);
+        LSCanvasProperties.setOutputResolution(Toolkit.getDefaultToolkit()
+				.getScreenResolution());
     }
 
     private void initialiseComponents() {
@@ -165,7 +170,7 @@ public final class LSView extends JFrame implements LSUIProtocol {
         editPanel   = new LSUIEditingPanel(this);
     }
 
-    private void initialiseActions() {
+    private void initialiseHandlers() {
         tfHandler = new LSTransferHandler(this);
     }
 
@@ -378,7 +383,11 @@ public final class LSView extends JFrame implements LSUIProtocol {
     }
 
     public void openFile(File f) {
-        throw new UnsupportedOperationException("Not supported yet.");    // To change body of generated methods, choose Tools | Templates.
+       try {
+          controller.fileLoad(f);
+       } catch (IOException ex) {
+          LSEditor.logger.warning(ex.getMessage());
+       }
     }
 
     /*
