@@ -1,4 +1,4 @@
-package rocks6205.editor.bridge.actions;
+package rocks6205.editor.actions;
 
 //~--- JDK imports ------------------------------------------------------------
 
@@ -23,7 +23,7 @@ import javax.swing.JViewport;
  * @since 1.4
  *
  */
-public class SVGEditPanMouseAdaptor extends MouseAdapter {
+public class LSPanMouseAdapter extends MouseAdapter {
 
     /**
      * Panning pivot point

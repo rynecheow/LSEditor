@@ -1,11 +1,11 @@
 package rocks6205.editor.controllers;
 
-import rocks6205.editor.model.adt.SVGLengthUnit;
-import rocks6205.editor.model.adt.SVGPainting;
-import rocks6205.editor.model.elements.SVGCircleElement;
-import rocks6205.editor.model.elements.SVGGenericElement;
-import rocks6205.editor.model.elements.SVGLineElement;
-import rocks6205.editor.model.elements.SVGRectElement;
+import rocks6205.editor.model.adt.LSLength;
+import rocks6205.editor.model.adt.LSPainting;
+import rocks6205.editor.model.elements.LSShapeCircle;
+import rocks6205.editor.model.elements.LSGenericElement;
+import rocks6205.editor.model.elements.LSShapeLine;
+import rocks6205.editor.model.elements.LSShapeRect;
 
 public interface SVGEditorComponentsController {
 
@@ -13,28 +13,28 @@ public interface SVGEditorComponentsController {
      * Add element <code>e</code> as a descendant of the current model.
      * @param e Element to be added
      */
-    public void addElement(SVGGenericElement e);
+    public void addElement(LSGenericElement e);
     
     /**
      * Set element <code>e</code>'s fill as <code>fill</code>.
      * @param e Target element
-     * @param fill <code>SVGPainting</code> fill object
+     * @param fill <code>LSPainting</code> fill object
      */
-    public void setFillForElement(SVGPainting fill, SVGGenericElement e);
+    public void setFillForElement(LSPainting fill, LSGenericElement e);
 
     /**
      * Set element <code>e</code>'s stroke as <code>stroke</code>.
      * @param e Target element
-     * @param stroke <code>SVGPainting</code> stroke object
+     * @param stroke <code>LSPainting</code> stroke object
      */
-    public void setStrokeForElement(SVGPainting stroke, SVGGenericElement e);
+    public void setStrokeForElement(LSPainting stroke, LSGenericElement e);
 
     /**
      * Set element <code>e</code>'s stroke width as <code>strokeWidth</code>.
      * @param e Target element
-     * @param strokeWidth <code>SVGLengthUnit</code> object
+     * @param strokeWidth <code>LSLength</code> object
      */
-    public void setStrokeWidthForElement(SVGLengthUnit strokeWidth, SVGGenericElement e);
+    public void setStrokeWidthForElement(LSLength strokeWidth, LSGenericElement e);
 
     /**
      * Resizes rectangle element with <code>changeWidth</code> and <code>changeHeight</code>.
@@ -43,14 +43,14 @@ public interface SVGEditorComponentsController {
      * @param changeWidth Changed width
      * @param changeHeight Changed height
      */
-    public void resizeRect(SVGRectElement rect, float changeWidth, float changeHeight);
+    public void resizeRect(LSShapeRect rect, float changeWidth, float changeHeight);
 
     /**
      * Resizes circle element with <code>changedRadius</code>.
      * @param circle Target circle element
      * @param changedRadius Changed radius
      */
-    public void resizeCircle(SVGCircleElement circle, float changedRadius);
+    public void resizeCircle(LSShapeCircle circle, float changedRadius);
 
     /**
      * Resizes line element with <code>changeX</code> and <code>changeY</code>.
@@ -60,5 +60,5 @@ public interface SVGEditorComponentsController {
      * @param changeX Changed X value of endpoint
      * @param changeY Changed Y value of endpoint
      */
-    public void resizeLine(SVGLineElement line, int endpoint, float changeX, float changeY);
+    public void resizeLine(LSShapeLine line, int endpoint, float changeX, float changeY);
 }

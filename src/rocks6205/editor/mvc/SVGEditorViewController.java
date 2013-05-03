@@ -12,18 +12,18 @@ import org.xml.sax.InputSource;
 import rocks6205.editor.controllers.SVGEditorComponentsController;
 import rocks6205.editor.controllers.SVGEditorFileController;
 import rocks6205.editor.controllers.SVGEditorSelectionsController;
-import rocks6205.editor.model.adt.SVGLengthUnit;
-import rocks6205.editor.model.adt.SVGLengthUnitType;
-import rocks6205.editor.model.adt.SVGPainting;
-import rocks6205.editor.model.elements.SVGCircleElement;
-import rocks6205.editor.model.elements.SVGContainerElement;
-import rocks6205.editor.model.elements.SVGGElement;
-import rocks6205.editor.model.elements.SVGGenericElement;
-import rocks6205.editor.model.elements.SVGLineElement;
-import rocks6205.editor.model.elements.SVGRectElement;
-import rocks6205.editor.model.elements.SVGSVGElement;
+import rocks6205.editor.model.adt.LSLength;
+import rocks6205.editor.model.adt.LSLengthUnitType;
+import rocks6205.editor.model.adt.LSPainting;
+import rocks6205.editor.model.elements.LSShapeCircle;
+import rocks6205.editor.model.elements.LSGenericContainer;
+import rocks6205.editor.model.elements.LSGroup;
+import rocks6205.editor.model.elements.LSGenericElement;
+import rocks6205.editor.model.elements.LSShapeLine;
+import rocks6205.editor.model.elements.LSShapeRect;
+import rocks6205.editor.model.elements.LSSVGElement;
 
-import rocks6205.system.parser.XMLParser;
+import rocks6205.system.parser.LSSVGDOMParser;
 
 //~--- JDK imports ------------------------------------------------------------
 
@@ -74,14 +74,14 @@ public class SVGEditorViewController
     /**
      * SVG element order comparator
      */
-    public static final Comparator<SVGGenericElement> SVG_ELEMENT_ORDER = new Comparator<SVGGenericElement>() {
+    public static final Comparator<LSGenericElement> SVG_ELEMENT_ORDER = new Comparator<LSGenericElement>() {
         @Override
-        public int compare(SVGGenericElement e1, SVGGenericElement e2) {
+        public int compare(LSGenericElement e1, LSGenericElement e2) {
             if (e1 == e2) {
                 return 0;
             }
 
-            SVGContainerElement ancestor = e1.getAncestorElement();
+            LSGenericContainer ancestor = e1.getAncestorElement();
 
             return ancestor.indexOf(e1) - ancestor.indexOf(e2);
         }
@@ -90,14 +90,14 @@ public class SVGEditorViewController
     /**
      * SVG element comparator reversed order
      */
-    public static final Comparator<SVGGenericElement> SVG_ELEMENT_REVERSE_ORDER = new Comparator<SVGGenericElement>() {
+    public static final Comparator<LSGenericElement> SVG_ELEMENT_REVERSE_ORDER = new Comparator<LSGenericElement>() {
         @Override
-        public int compare(SVGGenericElement e1, SVGGenericElement e2) {
+        public int compare(LSGenericElement e1, LSGenericElement e2) {
             if (e1 == e2) {
                 return 0;
             }
 
-            SVGContainerElement ancestor = e1.getAncestorElement();
+            LSGenericContainer ancestor = e1.getAncestorElement();
 
             return ancestor.indexOf(e2) - ancestor.indexOf(e1);
         }
@@ -121,7 +121,7 @@ public class SVGEditorViewController
     /**
      * Selected objects.
      */
-    private LinkedHashSet<SVGGenericElement> selections;
+    private LinkedHashSet<LSGenericElement> selections;
 
     /**
      * Currently opened file.
@@ -218,7 +218,7 @@ public class SVGEditorViewController
      * Get the width of current document.
      * @return Width of current model
      */
-    public SVGLengthUnit getDocumentWidth() {
+    public LSLength getDocumentWidth() {
         return model.getSVGElement().getWidth();
     }
 
@@ -226,7 +226,7 @@ public class SVGEditorViewController
      * Get the height of current document.
      * @return Height of current model
      */
-    public SVGLengthUnit getDocumentHeight() {
+    public LSLength getDocumentHeight() {
         return model.getSVGElement().getWidth();
     }
 
@@ -236,7 +236,7 @@ public class SVGEditorViewController
      * @param width Canvas width
      * @param height Canvas height
      */
-    public void resizeDocument(SVGLengthUnit width, SVGLengthUnit height) {
+    public void resizeDocument(LSLength width, LSLength height) {
         model.getSVGElement().setWidth(width);
         model.getSVGElement().setHeight(height);
         touchDocument();
@@ -246,8 +246,8 @@ public class SVGEditorViewController
     public void createBlankDocument() {
         model = new SVGEditorModel();
 
-//      model.setSVGElement(new SVGSVGElement(SVGLengthUnit.parse("916px"), SVGLengthUnit.parse("578px")));
-        model.setSVGElement(new SVGSVGElement(SVGLengthUnit.parse("1000px"), SVGLengthUnit.parse("1000px")));
+//      model.setSVGElement(new LSSVGElement(LSLength.parse("916px"), LSLength.parse("578px")));
+        model.setSVGElement(new LSSVGElement(LSLength.parse("1000px"), LSLength.parse("1000px")));
         activeFile = NEW_DOCUMENT;
         LSSVGEditor.logger.info("New document created with height 1000px and width 1000px. \n");
         unmodifyDocument();
@@ -255,8 +255,8 @@ public class SVGEditorViewController
     }
 
     public BufferedImage renderImage(double scale) {
-        int           width  = (int) (model.getSVGElement().getWidth().getValue(SVGLengthUnitType.PX) * scale);
-        int           height = (int) (model.getSVGElement().getHeight().getValue(SVGLengthUnitType.PX) * scale);
+        int           width  = (int) (model.getSVGElement().getWidth().getValue(LSLengthUnitType.PX) * scale);
+        int           height = (int) (model.getSVGElement().getHeight().getValue(LSLengthUnitType.PX) * scale);
         BufferedImage image  = new BufferedImage(width, height, BufferedImage.TYPE_4BYTE_ABGR);
         Graphics2D    g      = image.createGraphics();
 
@@ -312,7 +312,7 @@ public class SVGEditorViewController
      * @author Cheow Yeong Chi
      */
     @Override
-    public void addElement(SVGGenericElement e) {
+    public void addElement(LSGenericElement e) {
         model.getSVGElement().addDescendant(e);
         LSSVGEditor.logger.info(String.format("Element of type " + e.getElementType()
                 + " is added to the root element.\n"));
@@ -325,7 +325,7 @@ public class SVGEditorViewController
      * @author Cheow Yeong Chi
      */
     @Override
-    public void setFillForElement(SVGPainting fill, SVGGenericElement e) {
+    public void setFillForElement(LSPainting fill, LSGenericElement e) {
         e.setFill(fill);
         touchDocument();
     }
@@ -336,7 +336,7 @@ public class SVGEditorViewController
      * @author  Cheow Yeong Chi
      */
     @Override
-    public void setStrokeForElement(SVGPainting stroke, SVGGenericElement e) {
+    public void setStrokeForElement(LSPainting stroke, LSGenericElement e) {
         e.setStroke(stroke);
         touchDocument();
     }
@@ -347,7 +347,7 @@ public class SVGEditorViewController
      * @author Cheow Yeong Chi
      */
     @Override
-    public void setStrokeWidthForElement(SVGLengthUnit strokeWidth, SVGGenericElement e) {
+    public void setStrokeWidthForElement(LSLength strokeWidth, LSGenericElement e) {
         e.setStrokeWidth(strokeWidth);
         touchDocument();
     }
@@ -358,7 +358,7 @@ public class SVGEditorViewController
      * @author Cheow Yeong Chi
      */
     @Override
-    public void resizeRect(SVGRectElement rect, float changeWidth, float changeHeight) {
+    public void resizeRect(LSShapeRect rect, float changeWidth, float changeHeight) {
         if (Float.isNaN(changeWidth)) {
             throw new IllegalArgumentException("Change in width cannot be NaN");
         }
@@ -367,11 +367,11 @@ public class SVGEditorViewController
             throw new IllegalArgumentException("Change in height cannot be NaN");
         }
 
-        SVGLengthUnit w = new SVGLengthUnit(rect.getWidth().getValue(SVGLengthUnitType.PX) + changeWidth);
-        SVGLengthUnit h = new SVGLengthUnit(rect.getHeight().getValue(SVGLengthUnitType.PX) + changeHeight);
+        LSLength w = new LSLength(rect.getWidth().getValue(LSLengthUnitType.PX) + changeWidth);
+        LSLength h = new LSLength(rect.getHeight().getValue(LSLengthUnitType.PX) + changeHeight);
 
-        rect.setWidth(SVGLengthUnit.convert(w, rect.getWidth().getUnitType()));
-        rect.setHeight(SVGLengthUnit.convert(h, rect.getHeight().getUnitType()));
+        rect.setWidth(LSLength.convert(w, rect.getWidth().getUnitType()));
+        rect.setHeight(LSLength.convert(h, rect.getHeight().getUnitType()));
 
 //      String logInfo = "Rectangle is resized to " + w + rect.getWidth().getUnitType().getUnitSymbol() + " x " + h + rect.getWidth().getUnitType().getUnitSymbol();
 //      LSSVGEditor.logger.info(logInfo);
@@ -384,14 +384,14 @@ public class SVGEditorViewController
      * @author Cheow Yeong Chi
      */
     @Override
-    public void resizeCircle(SVGCircleElement circle, float changedRadius) {
+    public void resizeCircle(LSShapeCircle circle, float changedRadius) {
         if (Float.isNaN(changedRadius)) {
             throw new IllegalArgumentException("Change in radius cannot be NaN");
         }
 
-        SVGLengthUnit r = new SVGLengthUnit(circle.getRadius().getValue(SVGLengthUnitType.PX) + changedRadius);
+        LSLength r = new LSLength(circle.getRadius().getValue(LSLengthUnitType.PX) + changedRadius);
 
-        circle.setRadius(SVGLengthUnit.convert(r, circle.getRadius().getUnitType()));
+        circle.setRadius(LSLength.convert(r, circle.getRadius().getUnitType()));
         touchDocument();
     }
 
@@ -401,23 +401,23 @@ public class SVGEditorViewController
      * @author Cheow Yeong Chi
      */
     @Override
-    public void resizeLine(SVGLineElement line, int endpoint, float changeX, float changeY) {
+    public void resizeLine(LSShapeLine line, int endpoint, float changeX, float changeY) {
         switch (endpoint) {
         case 1 :
-            SVGLengthUnit x1 = new SVGLengthUnit(line.getX1().getValue(SVGLengthUnitType.PX) + changeX);
-            SVGLengthUnit y1 = new SVGLengthUnit(line.getY1().getValue(SVGLengthUnitType.PX) + changeY);
+            LSLength x1 = new LSLength(line.getX1().getValue(LSLengthUnitType.PX) + changeX);
+            LSLength y1 = new LSLength(line.getY1().getValue(LSLengthUnitType.PX) + changeY);
 
-            line.setX1(SVGLengthUnit.convert(x1, line.getX1().getUnitType()));
-            line.setY1(SVGLengthUnit.convert(y1, line.getY1().getUnitType()));
+            line.setX1(LSLength.convert(x1, line.getX1().getUnitType()));
+            line.setY1(LSLength.convert(y1, line.getY1().getUnitType()));
 
             break;
 
         case 2 :
-            SVGLengthUnit x2 = new SVGLengthUnit(line.getX2().getValue(SVGLengthUnitType.PX) + changeX);
-            SVGLengthUnit y2 = new SVGLengthUnit(line.getY2().getValue(SVGLengthUnitType.PX) + changeY);
+            LSLength x2 = new LSLength(line.getX2().getValue(LSLengthUnitType.PX) + changeX);
+            LSLength y2 = new LSLength(line.getY2().getValue(LSLengthUnitType.PX) + changeY);
 
-            line.setX2(SVGLengthUnit.convert(x2, line.getX2().getUnitType()));
-            line.setY2(SVGLengthUnit.convert(y2, line.getY2().getUnitType()));
+            line.setX2(LSLength.convert(x2, line.getX2().getUnitType()));
+            line.setY2(LSLength.convert(y2, line.getY2().getUnitType()));
 
             break;
 
@@ -434,10 +434,10 @@ public class SVGEditorViewController
     @Override
     public boolean fileLoad(File file) throws IOException {
         if ((file != null) && file.getName().endsWith(".svg")) {
-            Document doc = XMLParser.parseXml(new InputSource(file.toURI().toString()));
+            Document doc = LSSVGDOMParser.parseXml(new InputSource(file.toURI().toString()));
 
             if (doc != null) {
-                SVGSVGElement svg_e = SVGSVGElement.parseDocument(doc);
+                LSSVGElement svg_e = LSSVGElement.parseDocument(doc);
 
                 if (svg_e != null) {
                     model.setSVGElement(svg_e);
@@ -483,12 +483,12 @@ public class SVGEditorViewController
                 Node                ancestor = doc;
                 Element             e        = null;
                 Attr                attr;
-                SVGGenericElement   svg_e = model.getSVGElement();
-                SVGContainerElement svgAncestor;
+                LSGenericElement   svg_e = model.getSVGElement();
+                LSGenericContainer svgAncestor;
 
                 while (svg_e != null) {
-                    if (svg_e instanceof SVGSVGElement) {
-                        SVGSVGElement root = (SVGSVGElement) svg_e;
+                    if (svg_e instanceof LSSVGElement) {
+                        LSSVGElement root = (LSSVGElement) svg_e;
 
                         e = doc.createElementNS(SVGDefaultNamespace, "svg");
                         ancestor.appendChild(e);
@@ -511,29 +511,29 @@ public class SVGEditorViewController
                         Attr        strokeAttr      = null;
                         Attr        strokeWidthAttr = null;
                         Attr        transformAttr   = null;
-                        SVGPainting fill            = svg_e.getFill();
+                        LSPainting fill            = svg_e.getFill();
 
                         if (fill != null) {
                             fillAttr = doc.createAttributeNS(null, "fill");
                             fillAttr.setValue(fill.toString());
                         }
 
-                        SVGPainting stroke = svg_e.getStroke();
+                        LSPainting stroke = svg_e.getStroke();
 
                         if (stroke != null) {
                             strokeAttr = doc.createAttributeNS(null, "stroke");
                             strokeAttr.setValue(stroke.toString());
                         }
 
-                        SVGLengthUnit strokeWidth = svg_e.getStrokeWidth();
+                        LSLength strokeWidth = svg_e.getStrokeWidth();
 
                         if (strokeWidth != null) {
                             strokeWidthAttr = doc.createAttributeNS(null, "stroke-width");
                             strokeWidthAttr.setValue(strokeWidth.toString());
                         }
 
-                        SVGLengthUnit translateX = svg_e.getTranslateX();
-                        SVGLengthUnit translateY = svg_e.getTranslateY();
+                        LSLength translateX = svg_e.getTranslateX();
+                        LSLength translateY = svg_e.getTranslateY();
 
                         if (translateX != null) {
                             transformAttr = doc.createAttributeNS(null, "transform");
@@ -548,8 +548,8 @@ public class SVGEditorViewController
                             transformAttr.setValue(value);
                         }
 
-                        if (svg_e instanceof SVGGElement) {
-                            SVGGElement group = (SVGGElement) svg_e;
+                        if (svg_e instanceof LSGroup) {
+                            LSGroup group = (LSGroup) svg_e;
 
                             e = doc.createElementNS(SVGDefaultNamespace, "g");
 
@@ -578,8 +578,8 @@ public class SVGEditorViewController
 
                                 continue;
                             }
-                        } else if (svg_e instanceof SVGRectElement) {
-                            SVGRectElement rect = (SVGRectElement) svg_e;
+                        } else if (svg_e instanceof LSShapeRect) {
+                            LSShapeRect rect = (LSShapeRect) svg_e;
 
                             e    = doc.createElementNS(SVGDefaultNamespace, "rect");
                             attr = doc.createAttributeNS(null, "x");
@@ -595,8 +595,8 @@ public class SVGEditorViewController
                             attr.setValue(rect.getHeight().toString());
                             e.setAttributeNodeNS(attr);
                             ancestor.appendChild(e);
-                        } else if (svg_e instanceof SVGCircleElement) {
-                            SVGCircleElement circle = (SVGCircleElement) svg_e;
+                        } else if (svg_e instanceof LSShapeCircle) {
+                            LSShapeCircle circle = (LSShapeCircle) svg_e;
 
                             e    = doc.createElementNS(SVGDefaultNamespace, "circle");
                             attr = doc.createAttributeNS(null, "cx");
@@ -609,8 +609,8 @@ public class SVGEditorViewController
                             attr.setValue(circle.getRadius().toString());
                             e.setAttributeNodeNS(attr);
                             ancestor.appendChild(e);
-                        } else if (svg_e instanceof SVGLineElement) {
-                            SVGLineElement line = (SVGLineElement) svg_e;
+                        } else if (svg_e instanceof LSShapeLine) {
+                            LSShapeLine line = (LSShapeLine) svg_e;
 
                             e    = doc.createElementNS(SVGDefaultNamespace, "line");
                             attr = doc.createAttributeNS(null, "x1");
@@ -714,7 +714,7 @@ public class SVGEditorViewController
      */
     @Override
     public boolean isPointSelected(Point2D point) {
-        for (SVGGenericElement e : selections) {
+        for (LSGenericElement e : selections) {
             if (e.getBounds().contains(point)) {
                 return true;
             }
@@ -729,7 +729,7 @@ public class SVGEditorViewController
      * @author Cheow Yeong Chi
      */
     @Override
-    public LinkedHashSet<SVGGenericElement> getSelections() {
+    public LinkedHashSet<LSGenericElement> getSelections() {
         return new LinkedHashSet<>(selections);
     }
 
@@ -739,7 +739,7 @@ public class SVGEditorViewController
      * @author Cheow Yeong Chi
      */
     @Override
-    public void addToSelection(SVGGenericElement e) {
+    public void addToSelection(LSGenericElement e) {
         if (e != null) {
             selections.add(e);
         }
@@ -754,8 +754,8 @@ public class SVGEditorViewController
      */
     @Override
     public void addToSelection(Point2D point) {
-        ArrayList<SVGGenericElement> elements = model.getSVGElement().getDescendants();
-        SVGGenericElement            e;
+        ArrayList<LSGenericElement> elements = model.getSVGElement().getDescendants();
+        LSGenericElement            e;
 
         for (int u = elements.size() - 1; u >= 0; u--) {
             e = elements.get(u);
@@ -777,7 +777,7 @@ public class SVGEditorViewController
      */
     @Override
     public void addToSelection(Rectangle2D rect) {
-        for (SVGGenericElement e : model.getSVGElement().getDescendants()) {
+        for (LSGenericElement e : model.getSVGElement().getDescendants()) {
             if (e.getBounds().intersects(rect)) {
                 selections.add(e);
             }
@@ -793,8 +793,8 @@ public class SVGEditorViewController
      */
     @Override
     public void removeFromSelection(Point point) {
-        ArrayList<SVGGenericElement> elements = model.getSVGElement().getDescendants();
-        SVGGenericElement            e;
+        ArrayList<LSGenericElement> elements = model.getSVGElement().getDescendants();
+        LSGenericElement            e;
 
         for (int u = elements.size() - 1; u >= 0; u--) {
             e = elements.get(u);
@@ -816,7 +816,7 @@ public class SVGEditorViewController
      */
     @Override
     public void removeFromSelection(Rectangle rect) {
-        for (SVGGenericElement elem : model.getSVGElement().getDescendants()) {
+        for (LSGenericElement elem : model.getSVGElement().getDescendants()) {
             if (rect.contains(elem.getBounds())) {
                 selections.remove(elem);
             }
@@ -858,7 +858,7 @@ public class SVGEditorViewController
             return;
         }
 
-        for (SVGGenericElement e : selections) {
+        for (LSGenericElement e : selections) {
             model.getSVGElement().removeDescendant(e);
         }
 
@@ -873,49 +873,49 @@ public class SVGEditorViewController
      */
     @Override
     public void moveSelectedElement(float tx, float ty) {
-        SVGLengthUnit x;
-        SVGLengthUnit y;
+        LSLength x;
+        LSLength y;
 
-        for (SVGGenericElement e : selections) {
-            if (e instanceof SVGRectElement) {
-                SVGRectElement rect = (SVGRectElement) e;
+        for (LSGenericElement e : selections) {
+            if (e instanceof LSShapeRect) {
+                LSShapeRect rect = (LSShapeRect) e;
 
-                x = new SVGLengthUnit(rect.getX().getValue(SVGLengthUnitType.NUMBER) + tx);
-                y = new SVGLengthUnit(rect.getY().getValue(SVGLengthUnitType.NUMBER) + ty);
-                rect.setX(SVGLengthUnit.convert(x, rect.getX().getUnitType()));
-                rect.setY(SVGLengthUnit.convert(y, rect.getY().getUnitType()));
-            } else if (e instanceof SVGCircleElement) {
-                SVGCircleElement circle = (SVGCircleElement) e;
+                x = new LSLength(rect.getX().getValue(LSLengthUnitType.NUMBER) + tx);
+                y = new LSLength(rect.getY().getValue(LSLengthUnitType.NUMBER) + ty);
+                rect.setX(LSLength.convert(x, rect.getX().getUnitType()));
+                rect.setY(LSLength.convert(y, rect.getY().getUnitType()));
+            } else if (e instanceof LSShapeCircle) {
+                LSShapeCircle circle = (LSShapeCircle) e;
 
-                x = new SVGLengthUnit(circle.getCx().getValue(SVGLengthUnitType.NUMBER) + tx);
-                y = new SVGLengthUnit(circle.getCy().getValue(SVGLengthUnitType.NUMBER) + ty);
-                circle.setCx(SVGLengthUnit.convert(x, circle.getCx().getUnitType()));
-                circle.setCy(SVGLengthUnit.convert(y, circle.getCy().getUnitType()));
-            } else if (e instanceof SVGLineElement) {
-                SVGLineElement line = (SVGLineElement) e;
+                x = new LSLength(circle.getCx().getValue(LSLengthUnitType.NUMBER) + tx);
+                y = new LSLength(circle.getCy().getValue(LSLengthUnitType.NUMBER) + ty);
+                circle.setCx(LSLength.convert(x, circle.getCx().getUnitType()));
+                circle.setCy(LSLength.convert(y, circle.getCy().getUnitType()));
+            } else if (e instanceof LSShapeLine) {
+                LSShapeLine line = (LSShapeLine) e;
 
-                x = new SVGLengthUnit(line.getX1().getValue(SVGLengthUnitType.NUMBER) + tx);
-                y = new SVGLengthUnit(line.getY1().getValue(SVGLengthUnitType.NUMBER) + ty);
-                line.setX1(SVGLengthUnit.convert(x, line.getX1().getUnitType()));
-                line.setY1(SVGLengthUnit.convert(y, line.getY1().getUnitType()));
-                x = new SVGLengthUnit(line.getX2().getValue(SVGLengthUnitType.NUMBER) + tx);
-                y = new SVGLengthUnit(line.getY2().getValue(SVGLengthUnitType.NUMBER) + ty);
-                line.setX2(SVGLengthUnit.convert(x, line.getX2().getUnitType()));
-                line.setY2(SVGLengthUnit.convert(y, line.getY2().getUnitType()));
-            } else if (e instanceof SVGGElement) {
+                x = new LSLength(line.getX1().getValue(LSLengthUnitType.NUMBER) + tx);
+                y = new LSLength(line.getY1().getValue(LSLengthUnitType.NUMBER) + ty);
+                line.setX1(LSLength.convert(x, line.getX1().getUnitType()));
+                line.setY1(LSLength.convert(y, line.getY1().getUnitType()));
+                x = new LSLength(line.getX2().getValue(LSLengthUnitType.NUMBER) + tx);
+                y = new LSLength(line.getY2().getValue(LSLengthUnitType.NUMBER) + ty);
+                line.setX2(LSLength.convert(x, line.getX2().getUnitType()));
+                line.setY2(LSLength.convert(y, line.getY2().getUnitType()));
+            } else if (e instanceof LSGroup) {
                 x = e.getTranslateX();
                 y = e.getTranslateY();
 
                 if (x == null) {
-                    x = new SVGLengthUnit(tx);
+                    x = new LSLength(tx);
                 } else {
-                    x = new SVGLengthUnit(x.getValue() + tx);
+                    x = new LSLength(x.getValue() + tx);
                 }
 
                 if (y == null) {
-                    y = new SVGLengthUnit(ty);
+                    y = new LSLength(ty);
                 } else {
-                    y = new SVGLengthUnit(y.getValue() + ty);
+                    y = new LSLength(y.getValue() + ty);
                 }
 
                 e.setTranslateX(x);
@@ -933,19 +933,19 @@ public class SVGEditorViewController
      */
     @Override
     public void group() {
-        ArrayList<SVGGenericElement> selectionsList = new ArrayList<>(selections);
+        ArrayList<LSGenericElement> selectionsList = new ArrayList<>(selections);
 
         if (selectionsList.size() < 2) {
             return;
         }
 
         Collections.sort(selectionsList, SVG_ELEMENT_ORDER);
-        SVGSVGElement svgEl =  model.getSVGElement();
+        LSSVGElement svgEl =  model.getSVGElement();
         int         lastPos = svgEl.indexOf(selectionsList.get(selectionsList.size() - 1));
-        SVGGElement group   = new SVGGElement();
+        LSGroup group   = new LSGroup();
         svgEl.insertDescendant(group, lastPos);
 
-        for (SVGGenericElement e : selectionsList) {
+        for (LSGenericElement e : selectionsList) {
             group.addDescendant(e);
             svgEl.removeDescendant(e);
             selections.remove(e);
@@ -964,20 +964,20 @@ public class SVGEditorViewController
     @Override
     public void ungroup() {
         int                          position;
-        ArrayList<SVGGenericElement> addList    = new ArrayList<>();
-        ArrayList<SVGGenericElement> removeList = new ArrayList<>();
+        ArrayList<LSGenericElement> addList    = new ArrayList<>();
+        ArrayList<LSGenericElement> removeList = new ArrayList<>();
 
-        for (SVGGenericElement e : selections) {
-            if (e instanceof SVGGElement) {
-                SVGGElement group = (SVGGElement) e;
+        for (LSGenericElement e : selections) {
+            if (e instanceof LSGroup) {
+                LSGroup group = (LSGroup) e;
 
                 if (group.getDescendantCount() == 0) {
                     continue;
                 }
-                SVGSVGElement svgEl =  model.getSVGElement();
+                LSSVGElement svgEl =  model.getSVGElement();
                 position = svgEl.indexOf(group);
 
-                for (SVGGenericElement descendant : group.ungroup()) {
+                for (LSGenericElement descendant : group.ungroup()) {
                     svgEl.insertDescendant(descendant, position++);
                     addList.add(descendant);
                 }
@@ -991,11 +991,11 @@ public class SVGEditorViewController
             return;
         }
 
-        for (SVGGenericElement e : addList) {
+        for (LSGenericElement e : addList) {
             selections.add(e);
         }
 
-        for (SVGGenericElement e : removeList) {
+        for (LSGenericElement e : removeList) {
             selections.remove(e);
         }
 

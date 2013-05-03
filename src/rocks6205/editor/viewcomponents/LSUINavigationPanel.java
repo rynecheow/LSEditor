@@ -2,7 +2,7 @@ package rocks6205.editor.viewcomponents;
 
 //~--- non-JDK imports --------------------------------------------------------
 
-import rocks6205.editor.model.elements.SVGSVGElement;
+import rocks6205.editor.model.elements.LSSVGElement;
 import rocks6205.editor.mvc.SVGEditorView;
 import rocks6205.editor.viewcomponents.tree.LSElementNavigationTreeModel;
 import rocks6205.editor.viewcomponents.tree.LSTreeBuilder;

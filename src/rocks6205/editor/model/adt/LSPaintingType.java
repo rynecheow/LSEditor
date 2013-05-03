@@ -11,4 +11,4 @@ package rocks6205.editor.model.adt;
  * @since 1.0
  *
  */
-public enum SVGPaintingType { NONE, CURRENTCOLOR, COLOR }
+public enum LSPaintingType { NONE, CURRENTCOLOR, COLOR }

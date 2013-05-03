@@ -9,7 +9,7 @@ package rocks6205.editor.model.adt;
  *
  * @since 1.1
  */
-public interface SVGPrimitive {
+public interface LSSVGPrimitive {
 
     /*
      * PROPERTIES

@@ -5,9 +5,9 @@ package rocks6205.editor.model.elements;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Element;
 
-import rocks6205.editor.model.adt.SVGLengthUnit;
-import rocks6205.editor.model.adt.SVGLengthUnitType;
-import rocks6205.editor.model.adt.SVGPaintingType;
+import rocks6205.editor.model.adt.LSLength;
+import rocks6205.editor.model.adt.LSLengthUnitType;
+import rocks6205.editor.model.adt.LSPaintingType;
 
 //~--- JDK imports ------------------------------------------------------------
 
@@ -18,8 +18,8 @@ import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
 
 /**
- * The <code>SVGCircleElement</code> class is used to parse <<code>circle</code>> element in
- * SVG documents and convert to <code>SVGCircleElement</code> which is subsequently drawn on
+ * The <code>LSShapeCircle</code> class is used to parse <<code>circle</code>> element in
+ * SVG documents and convert to <code>LSShapeCircle</code> which is subsequently drawn on
  * the image canvas.
  *
  * @author Sugar CheeSheen Chan
@@ -27,7 +27,7 @@ import java.awt.geom.Rectangle2D;
  * @since 1.1
  *
  */
-public final class SVGCircleElement extends SVGShapeElement {
+public final class LSShapeCircle extends LSGenericShape {
 
     /*
      * PROPERTIES
@@ -36,17 +36,17 @@ public final class SVGCircleElement extends SVGShapeElement {
     /**
      * x-coordinate of the centre of the circle
      */
-    private SVGLengthUnit cx;
+    private LSLength cx;
 
     /**
      * y-coordinate of the centre of the circle
      */
-    private SVGLengthUnit cy;
+    private LSLength cy;
 
     /**
      * radius of the centre of the circle
      */
-    private SVGLengthUnit radius;
+    private LSLength radius;
 
     /*
      * CONSTRUCTORS
@@ -54,23 +54,23 @@ public final class SVGCircleElement extends SVGShapeElement {
 
     /**
      * Default constructor.<p>
-     * Construct an instance of <code>SVGCircleElement</code> with length initialised to zero.
+     * Construct an instance of <code>LSShapeCircle</code> with length initialised to zero.
      */
-    public SVGCircleElement() {
-        cx     = new SVGLengthUnit(0);
-        cy     = new SVGLengthUnit(0);
-        radius = new SVGLengthUnit(0);
+    public LSShapeCircle() {
+        cx     = new LSLength(0);
+        cy     = new LSLength(0);
+        radius = new LSLength(0);
     }
 
     /**
-     * Construct an instance of <code>SVGCircleElement</code> with the coordinates
+     * Construct an instance of <code>LSShapeCircle</code> with the coordinates
      * of the centre and its radius.
      *
      * @param cx x-coordinate of the centre of the circle
      * @param cy y-coordinate of the centre of the circle
      * @param radius radius of the centre of the circle
      */
-    public SVGCircleElement(SVGLengthUnit cx, SVGLengthUnit cy, SVGLengthUnit radius) {
+    public LSShapeCircle(LSLength cx, LSLength cy, LSLength radius) {
         setCx(cx);
         setCy(cy);
         setRadius(radius);
@@ -83,21 +83,21 @@ public final class SVGCircleElement extends SVGShapeElement {
     /**
      * @return x-coordinate of the centre of the circle
      */
-    public SVGLengthUnit getCx() {
+    public LSLength getCx() {
         return this.cx;
     }
 
     /**
      * @return y-coordinate of the centre of the circle
      */
-    public SVGLengthUnit getCy() {
+    public LSLength getCy() {
         return this.cy;
     }
 
     /**
      * @return radius radius of the centre of the circle
      */
-    public SVGLengthUnit getRadius() {
+    public LSLength getRadius() {
         return this.radius;
     }
 
@@ -108,7 +108,7 @@ public final class SVGCircleElement extends SVGShapeElement {
     /**
      * @param x-coordinate of the centre of the circle
      */
-    public void setCx(SVGLengthUnit cx) {
+    public void setCx(LSLength cx) {
         if (cx != null) {
             this.cx = cx;
         }
@@ -117,7 +117,7 @@ public final class SVGCircleElement extends SVGShapeElement {
     /**
      * @param cy y-coordinate of the centre of the circle
      */
-    public void setCy(SVGLengthUnit cy) {
+    public void setCy(LSLength cy) {
         if (cy != null) {
             this.cy = cy;
         }
@@ -126,7 +126,7 @@ public final class SVGCircleElement extends SVGShapeElement {
     /**
      * @param radius radius of the centre of the circle
      */
-    public void setRadius(SVGLengthUnit radius) {
+    public void setRadius(LSLength radius) {
         if ((radius != null) && (radius.getValue() >= 0)) {
             this.radius = radius;
         }
@@ -137,15 +137,15 @@ public final class SVGCircleElement extends SVGShapeElement {
      */
     @Override
     public Rectangle2D.Float getBounds() {
-        float             r       = radius.getValue(SVGLengthUnitType.PX);
-        float             xPos    = cx.getValue(SVGLengthUnitType.PX);
-        float             yPos    = cy.getValue(SVGLengthUnitType.PX);
+        float             r       = radius.getValue(LSLengthUnitType.PX);
+        float             xPos    = cx.getValue(LSLengthUnitType.PX);
+        float             yPos    = cy.getValue(LSLengthUnitType.PX);
         float             padding = 0;
         Rectangle2D.Float bounds  = new Rectangle2D.Float();
 
         if (r > 0) {
-            if (getResultantStroke().getPaintType() != SVGPaintingType.NONE) {
-                padding = getResultantStrokeWidth().getValue(SVGLengthUnitType.PX) / 2;
+            if (getResultantStroke().getPaintType() != LSPaintingType.NONE) {
+                padding = getResultantStrokeWidth().getValue(LSLengthUnitType.PX) / 2;
             }
 
             bounds.x      = xPos - r - padding;
@@ -164,18 +164,18 @@ public final class SVGCircleElement extends SVGShapeElement {
      */
     @Override
     public void drawShape(Graphics2D g) {
-        if (radius.getValue(SVGLengthUnitType.PX) > 0) {
-            Shape ellipse = new Ellipse2D.Float(cx.getValue(SVGLengthUnitType.PX)
-                                - radius.getValue(SVGLengthUnitType.PX), cy.getValue(SVGLengthUnitType.PX)
-                                    - radius.getValue(SVGLengthUnitType.PX), 2
-                                      * radius.getValue(SVGLengthUnitType.PX), 2
-                                          * radius.getValue(SVGLengthUnitType.PX));
+        if (radius.getValue(LSLengthUnitType.PX) > 0) {
+            Shape ellipse = new Ellipse2D.Float(cx.getValue(LSLengthUnitType.PX)
+                                - radius.getValue(LSLengthUnitType.PX), cy.getValue(LSLengthUnitType.PX)
+                                    - radius.getValue(LSLengthUnitType.PX), 2
+                                      * radius.getValue(LSLengthUnitType.PX), 2
+                                          * radius.getValue(LSLengthUnitType.PX));
 
             ellipse = getTransform().createTransformedShape(ellipse);
             g.setPaint(getResultantFill().getPaintColor());
             g.fill(ellipse);
             g.setPaint(getResultantStroke().getPaintColor());
-            g.setStroke(new BasicStroke((float) getResultantStrokeWidth().getValue(SVGLengthUnitType.PX),
+            g.setStroke(new BasicStroke((float) getResultantStrokeWidth().getValue(LSLengthUnitType.PX),
                                         getStrokeLineCap(), getStrokeLineJoin()));
             g.draw(ellipse);
         }
@@ -191,26 +191,26 @@ public final class SVGCircleElement extends SVGShapeElement {
      * the <<code>circle</code>> element
      *
      * @param element Element from the document returned by the XMLParser
-     * @return <code>SVGCircleElement</code> object
+     * @return <code>LSShapeCircle</code> object
      */
-    public static SVGCircleElement parseElement(Element element) {
-        SVGCircleElement circ        = new SVGCircleElement();
+    public static LSShapeCircle parseElement(Element element) {
+        LSShapeCircle circ        = new LSShapeCircle();
         Attr             centreXAttr = element.getAttributeNodeNS(null, "cx");
 
         if (centreXAttr != null) {
-            circ.setCx(SVGLengthUnit.parse(centreXAttr.getValue()));
+            circ.setCx(LSLength.parse(centreXAttr.getValue()));
         }
 
         Attr centreYAttr = element.getAttributeNodeNS(null, "cy");
 
         if (centreYAttr != null) {
-            circ.setCy(SVGLengthUnit.parse(centreYAttr.getValue()));
+            circ.setCy(LSLength.parse(centreYAttr.getValue()));
         }
 
         Attr radiusAttr = element.getAttributeNodeNS(null, "r");
 
         if (radiusAttr != null) {
-            circ.setRadius(SVGLengthUnit.parse(radiusAttr.getValue()));
+            circ.setRadius(LSLength.parse(radiusAttr.getValue()));
         }
 
         circ.parseAttributes(element);

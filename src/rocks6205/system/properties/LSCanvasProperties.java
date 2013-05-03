@@ -8,7 +8,7 @@ package rocks6205.system.properties;
  * @since 1.3
  *
  */
-public class SVGCanvasProperties {
+public class LSCanvasProperties {
 
     /*
      * PROPERTIES
@@ -51,7 +51,7 @@ public class SVGCanvasProperties {
     /**
      * Default constructor
      */
-    private SVGCanvasProperties() {}
+    private LSCanvasProperties() {}
 
     /*
      * ACCESSORS

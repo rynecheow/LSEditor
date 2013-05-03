@@ -2,11 +2,11 @@ package rocks6205.editor.viewcomponents;
 
 //~--- non-JDK imports --------------------------------------------------------
 
-import rocks6205.editor.bridge.actions.LSAction;
-import rocks6205.editor.bridge.actions.LSAction.ExitAction;
-import rocks6205.editor.bridge.actions.LSAction.OpenFileAction;
-import rocks6205.editor.bridge.actions.LSAction.ZoomInViewAction;
-import rocks6205.editor.bridge.actions.LSAction.ZoomOutViewAction;
+import rocks6205.editor.actions.LSAbstractAction;
+import rocks6205.editor.actions.LSAbstractAction.ExitAction;
+import rocks6205.editor.actions.LSAbstractAction.OpenFileAction;
+import rocks6205.editor.actions.LSAbstractAction.ZoomInViewAction;
+import rocks6205.editor.actions.LSAbstractAction.ZoomOutViewAction;
 import rocks6205.editor.mvc.SVGEditorView;
 
 //~--- JDK imports ------------------------------------------------------------
@@ -16,14 +16,14 @@ import java.awt.event.KeyEvent;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import rocks6205.editor.bridge.actions.LSAction.DeleteAction;
-import rocks6205.editor.bridge.actions.LSAction.DeselectAllAction;
-import rocks6205.editor.bridge.actions.LSAction.GroupAction;
-import rocks6205.editor.bridge.actions.LSAction.NewDocumentAction;
-import rocks6205.editor.bridge.actions.LSAction.SaveFileAction;
-import rocks6205.editor.bridge.actions.LSAction.SaveFileAsAction;
-import rocks6205.editor.bridge.actions.LSAction.SelectAllAction;
-import rocks6205.editor.bridge.actions.LSAction.UngroupAction;
+import rocks6205.editor.actions.LSAbstractAction.DeleteAction;
+import rocks6205.editor.actions.LSAbstractAction.DeselectAllAction;
+import rocks6205.editor.actions.LSAbstractAction.GroupAction;
+import rocks6205.editor.actions.LSAbstractAction.NewDocumentAction;
+import rocks6205.editor.actions.LSAbstractAction.SaveFileAction;
+import rocks6205.editor.actions.LSAbstractAction.SaveFileAsAction;
+import rocks6205.editor.actions.LSAbstractAction.SelectAllAction;
+import rocks6205.editor.actions.LSAbstractAction.UngroupAction;
 
 /**
  * The main menu bar for the GUI.
@@ -133,7 +133,7 @@ public final class LSUIMenubar extends JMenuBar implements LSUIProtocol {
         openAct              = new OpenFileAction(parent,"Open File...");
         saveAct              = new SaveFileAction(parent,"Save");
         saveAsAct            = new SaveFileAsAction(parent,"Save As...");
-        exitAct              = new LSAction.ExitAction(parent,"Exit");
+        exitAct              = new LSAbstractAction.ExitAction(parent,"Exit");
         selectAllAct         = new SelectAllAction(parent,"Select All");
         deselectAllAct       = new DeselectAllAction(parent,"Deselect All");
         groupAction          = new GroupAction(parent,"Group");

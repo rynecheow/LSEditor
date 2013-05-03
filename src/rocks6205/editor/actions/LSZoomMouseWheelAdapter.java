@@ -1,4 +1,4 @@
-package rocks6205.editor.bridge.actions;
+package rocks6205.editor.actions;
 
 //~--- non-JDK imports --------------------------------------------------------
 
@@ -19,7 +19,7 @@ import java.awt.event.MouseWheelEvent;
  *
  * @since 1.6
  */
-public class SVGEditorMouseWheelZoomAdaptor extends MouseAdapter {
+public class LSZoomMouseWheelAdapter extends MouseAdapter {
 
     /**
      * {@inheritDoc}<p>

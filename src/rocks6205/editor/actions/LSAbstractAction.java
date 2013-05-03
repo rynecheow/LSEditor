@@ -1,12 +1,12 @@
-package rocks6205.editor.bridge.actions;
+package rocks6205.editor.actions;
 
 //~--- non-JDK imports --------------------------------------------------------
 
-import rocks6205.editor.model.adt.SVGColorScheme;
+import rocks6205.editor.model.adt.LSColor;
 import rocks6205.editor.mvc.SVGEditorView;
 import rocks6205.editor.mvc.SVGEditorViewController;
 import rocks6205.editor.viewcomponents.LSUIEditingPanel;
-import rocks6205.system.properties.SVGCanvasProperties;
+import rocks6205.system.properties.LSCanvasProperties;
 import rocks6205.system.properties.OSValidator;
 
 //~--- JDK imports ------------------------------------------------------------
@@ -31,7 +31,7 @@ import static javax.swing.Action.SHORT_DESCRIPTION;
 
 
 /**
- * The <code>LSAction</code> is an abstract class which create <code>Action</code>
+ * The <code>LSAbstractAction</code> is an abstract class which create <code>Action</code>
  * instances. Instances can carry out similar handling of event is enabled without redefining
  * the <code>actionPerformed()</code> function in different classes.
  *
@@ -40,7 +40,7 @@ import static javax.swing.Action.SHORT_DESCRIPTION;
  * @since 1.1
  *
  */
-public abstract class LSAction extends AbstractAction {
+public abstract class LSAbstractAction extends AbstractAction {
     private static final long serialVersionUID = 9085407834848872724L;
 
     /**
@@ -62,7 +62,7 @@ public abstract class LSAction extends AbstractAction {
      * @param keyStroke Key action on the keyboard
      * @param v Parent component
      */
-    public LSAction(String tooltipText, Integer mnemonic, KeyStroke keyStroke, SVGEditorView parent) {
+    public LSAbstractAction(String tooltipText, Integer mnemonic, KeyStroke keyStroke, SVGEditorView parent) {
         putValue(SHORT_DESCRIPTION, tooltipText);
         putValue(MNEMONIC_KEY, mnemonic);
         putValue(ACCELERATOR_KEY, keyStroke);
@@ -81,7 +81,7 @@ public abstract class LSAction extends AbstractAction {
      * @param keyStroke Key action on the keyboard
      * @param v Parent component
      */
-    public LSAction(String name, String tooltipText, Integer mnemonic, KeyStroke keyStroke, SVGEditorView parent) {
+    public LSAbstractAction(String name, String tooltipText, Integer mnemonic, KeyStroke keyStroke, SVGEditorView parent) {
         putValue(Action.NAME, name);
         putValue(SHORT_DESCRIPTION, tooltipText);
         putValue(MNEMONIC_KEY, mnemonic);
@@ -107,7 +107,7 @@ public abstract class LSAction extends AbstractAction {
      * @since 2.2
      *
      */
-    public static class DeleteAction extends LSAction {
+    public static class DeleteAction extends LSAbstractAction {
 
         /*
          * CONSTRUCTOR
@@ -149,7 +149,7 @@ public abstract class LSAction extends AbstractAction {
      * @since 2.2
      *
      */
-    public static class DeselectAllAction extends LSAction {
+    public static class DeselectAllAction extends LSAbstractAction {
 
         /*
          * CONSTRUCTOR
@@ -193,7 +193,7 @@ public abstract class LSAction extends AbstractAction {
      * @since 2.0
      *
      */
-    public static class DrawCircleAction extends LSAction {
+    public static class DrawCircleAction extends LSAbstractAction {
         private static final long serialVersionUID = -6578149781110081473L;
 
         /*
@@ -240,7 +240,7 @@ public abstract class LSAction extends AbstractAction {
      * @since 2.0
      *
      */
-    public static class DrawLineAction extends LSAction {
+    public static class DrawLineAction extends LSAbstractAction {
         private static final long serialVersionUID = -6578149781110081473L;
 
         /*
@@ -271,7 +271,7 @@ public abstract class LSAction extends AbstractAction {
         public void actionPerformed(ActionEvent event) {
            putValue(SELECTED_KEY, Boolean.TRUE);
             v.changeMode(LSUIEditingPanel.EditModeScheme.DRAW_LINE);
-            v.changeColor( new SVGColorScheme(0,0,0) ); /* edit */
+            v.changeColor( new LSColor(0,0,0) ); /* edit */
             vc.clearSelection();
         }
     }
@@ -287,7 +287,7 @@ public abstract class LSAction extends AbstractAction {
      * @since 2.0
      *
      */
-    public static class DrawRectAction extends LSAction {
+    public static class DrawRectAction extends LSAbstractAction {
         private static final long serialVersionUID = -6578149781110081473L;
 
         /*
@@ -333,7 +333,7 @@ public abstract class LSAction extends AbstractAction {
      * @since 1.1
      *
      */
-    public static class ExitAction extends LSAction {
+    public static class ExitAction extends LSAbstractAction {
         private static final long serialVersionUID = 6507259946341784118L;
 
         /*
@@ -383,7 +383,7 @@ public abstract class LSAction extends AbstractAction {
      *
      * @since 2.2
      */
-    public static class GroupAction extends LSAction {
+    public static class GroupAction extends LSAbstractAction {
 
         /*
          * CONSTRUCTOR
@@ -423,7 +423,7 @@ public abstract class LSAction extends AbstractAction {
      *
      * @since 2.2
      */
-    public static class NewDocumentAction extends LSAction {
+    public static class NewDocumentAction extends LSAbstractAction {
 
         /*
          * CONSTRUCTOR
@@ -467,7 +467,7 @@ public abstract class LSAction extends AbstractAction {
      * @since 1.1
      *
      */
-    public static class OpenFileAction extends LSAction {
+    public static class OpenFileAction extends LSAbstractAction {
         private static final long serialVersionUID = -7823707833188816535L;
 
         /*
@@ -536,7 +536,7 @@ public abstract class LSAction extends AbstractAction {
      * @since 2.2
      *
      */
-    public static class PanModeAction extends LSAction {
+    public static class PanModeAction extends LSAbstractAction {
 
         /*
          * CONSTRUCTOR
@@ -577,7 +577,7 @@ public abstract class LSAction extends AbstractAction {
      * @since 2.2
      *
      */
-    public static class SaveFileAction extends LSAction {
+    public static class SaveFileAction extends LSAbstractAction {
 
         /*
          * CONSTRUCTOR
@@ -619,7 +619,7 @@ public abstract class LSAction extends AbstractAction {
      * @since 2.2
      *
      */
-    public static class SaveFileAsAction extends LSAction {
+    public static class SaveFileAsAction extends LSAbstractAction {
 
         /*
          * CONSTRUCTOR
@@ -662,7 +662,7 @@ public abstract class LSAction extends AbstractAction {
      * @since 2.2
      *
      */
-    public static class SelectModeAction extends LSAction {
+    public static class SelectModeAction extends LSAbstractAction {
 
         /*
          * CONSTRUCTOR
@@ -705,7 +705,7 @@ public abstract class LSAction extends AbstractAction {
      * @since 2.2
      *
      */
-    public static class SelectAllAction extends LSAction {
+    public static class SelectAllAction extends LSAbstractAction {
 
         /*
          * CONSTRUCTOR
@@ -746,7 +746,7 @@ public abstract class LSAction extends AbstractAction {
      *
      * @since 2.2
      */
-    public static class UngroupAction extends LSAction {
+    public static class UngroupAction extends LSAbstractAction {
 
         /*
          * CONSTRUCTOR
@@ -790,7 +790,7 @@ public abstract class LSAction extends AbstractAction {
      * @since 1.1
      *
      */
-    public static class ZoomInViewAction extends LSAction {
+    public static class ZoomInViewAction extends LSAbstractAction {
         private static final long serialVersionUID = 1180439021996674018L;
 
         /*
@@ -843,10 +843,10 @@ public abstract class LSAction extends AbstractAction {
         @Override
         public void actionPerformed(ActionEvent event) {
             float zoom = v.getZoomScale();
-            if ( zoom < SVGCanvasProperties.DEFAULT_MAX_ZOOM_LEVEL) {
+            if ( zoom < LSCanvasProperties.DEFAULT_MAX_ZOOM_LEVEL) {
 				zoom *= 2;
 
-				if (zoom >= SVGCanvasProperties.DEFAULT_MAX_ZOOM_LEVEL) {
+				if (zoom >= LSCanvasProperties.DEFAULT_MAX_ZOOM_LEVEL) {
 					setEnabled(false);
 				}
 				zoomOutPartnerAction.setEnabled(true);
@@ -868,7 +868,7 @@ public abstract class LSAction extends AbstractAction {
      * @since 1.1
      *
      */
-    public static class ZoomOutViewAction extends LSAction {
+    public static class ZoomOutViewAction extends LSAbstractAction {
         /**
          * Partner action component that perform zoom out action.
          */
@@ -914,10 +914,10 @@ public abstract class LSAction extends AbstractAction {
         @Override
         public void actionPerformed(ActionEvent event) {
             float zoom = v.getZoomScale();
-            if (zoom > SVGCanvasProperties.DEFAULT_MIN_ZOOM_LEVEL) {
+            if (zoom > LSCanvasProperties.DEFAULT_MIN_ZOOM_LEVEL) {
 				zoom /= 2;
 
-				if (zoom >= SVGCanvasProperties.DEFAULT_MIN_ZOOM_LEVEL) {
+				if (zoom >= LSCanvasProperties.DEFAULT_MIN_ZOOM_LEVEL) {
 					setEnabled(false);
 				}
 				zoomInPartnerAction.setEnabled(true);

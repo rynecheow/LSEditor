@@ -2,8 +2,8 @@ package rocks6205.editor.mvc;
 
 //~--- non-JDK imports --------------------------------------------------------
 
-import rocks6205.editor.bridge.actions.SVGEditPanMouseAdaptor;
-import rocks6205.editor.model.elements.SVGGenericElement;
+import rocks6205.editor.actions.LSPanMouseAdapter;
+import rocks6205.editor.model.elements.LSGenericElement;
 import rocks6205.editor.viewcomponents.LSUIEditingPanel;
 import rocks6205.editor.viewcomponents.LSUIMenubar;
 import rocks6205.editor.viewcomponents.LSUIMiscPanel;
@@ -17,8 +17,8 @@ import rocks6205.editor.viewcomponents.LSUIWelcomeDialog;
 import rocks6205.system.properties.LSSVGEditorGUITheme;
 import rocks6205.system.properties.OSValidator;
 
-import rocks6205.editor.model.adt.SVGPainting;
-import rocks6205.editor.model.adt.SVGColorScheme;
+import rocks6205.editor.model.adt.LSPainting;
+import rocks6205.editor.model.adt.LSColor;
 
 //~--- JDK imports ------------------------------------------------------------
 
@@ -211,7 +211,7 @@ public final class SVGEditorView extends JFrame implements LSUIProtocol {
     }
 
     public void update() {
-        ArrayList<SVGGenericElement> selections    = new ArrayList<>(controller.getSelections());
+        ArrayList<LSGenericElement> selections    = new ArrayList<>(controller.getSelections());
         boolean                      isAnySelected = !selections.isEmpty();
         File                         currentFile   = controller.getCurrentFile();
         boolean                      isFileChanged = (currentFile != displayedFile);
@@ -223,7 +223,7 @@ public final class SVGEditorView extends JFrame implements LSUIProtocol {
         editPanel.drawOverlay();
 
         if (selections.size() == 1) {
-            SVGGenericElement elem = selections.get(0);
+            LSGenericElement elem = selections.get(0);
 
 //          fillChooserButton.setPaint(elem.getResultantFill());
 //          fillChooserButton.needRepaint();
@@ -289,7 +289,7 @@ public final class SVGEditorView extends JFrame implements LSUIProtocol {
         c.add(scrollPane);
 
         JViewport              viewport    = scrollPane.getViewport();
-        SVGEditPanMouseAdaptor panListener = new SVGEditPanMouseAdaptor();
+        LSPanMouseAdapter panListener = new LSPanMouseAdapter();
 
         viewport.addMouseListener(panListener);
         viewport.addMouseMotionListener(panListener);
@@ -395,8 +395,8 @@ public final class SVGEditorView extends JFrame implements LSUIProtocol {
         editPanel.switchModeTo(mode);
     }
     
-    public void changeColor(SVGColorScheme color) {
-        editPanel.setFill( new SVGPainting( color ) );
+    public void changeColor(LSColor color) {
+        editPanel.setFill( new LSPainting( color ) );
     }
 
     private void setUpEditingPanel() {
@@ -404,9 +404,9 @@ public final class SVGEditorView extends JFrame implements LSUIProtocol {
 
         editPanel.setPreferredSize(new Dimension(image.getWidth(), image.getHeight()));
         editPanel.switchModeTo(LSUIEditingPanel.EditModeScheme.MODE_SELECT);
-        editPanel.setFill(SVGGenericElement.SVG_FILL_DEFAULT);
-        editPanel.setStroke(SVGGenericElement.SVG_STROKE_DEFAULT);
-        editPanel.setStrokeWidth(SVGGenericElement.SVG_STROKE_WIDTH_DEFAULT);
+        editPanel.setFill(LSGenericElement.SVG_FILL_DEFAULT);
+        editPanel.setStroke(LSGenericElement.SVG_STROKE_DEFAULT);
+        editPanel.setStrokeWidth(LSGenericElement.SVG_STROKE_WIDTH_DEFAULT);
         scrollPane.setViewportView(editPanel);
     }
 

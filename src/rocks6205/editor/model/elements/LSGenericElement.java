@@ -4,11 +4,11 @@ package rocks6205.editor.model.elements;
 
 import org.w3c.dom.Element;
 
-import rocks6205.editor.model.adt.SVGColorScheme;
-import rocks6205.editor.model.adt.SVGLengthUnit;
-import rocks6205.editor.model.adt.SVGLengthUnitType;
-import rocks6205.editor.model.adt.SVGPainting;
-import rocks6205.editor.model.adt.SVGPaintingType;
+import rocks6205.editor.model.adt.LSColor;
+import rocks6205.editor.model.adt.LSLength;
+import rocks6205.editor.model.adt.LSLengthUnitType;
+import rocks6205.editor.model.adt.LSPainting;
+import rocks6205.editor.model.adt.LSPaintingType;
 
 //~--- JDK imports ------------------------------------------------------------
 
@@ -18,7 +18,7 @@ import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
 
 /**
- * The <code>SVGGenericElement</code> class models a generic SVG Element
+ * The <code>LSGenericElement</code> class models a generic SVG Element
  * as either container type or graphical type of SVG element would look like.
  *
  * The five attributes that is common in SVG Elements are <<code>fill</code>>,
@@ -29,7 +29,7 @@ import java.awt.geom.Rectangle2D;
  * @since 1.1
  *
  */
-public abstract class SVGGenericElement {
+public abstract class LSGenericElement {
 
     /*
      * DEFAULT ATTRIBUTES FOR PRESENTATION
@@ -38,17 +38,17 @@ public abstract class SVGGenericElement {
     /**
      * Default <<code>fill</code>> properties, set to <code>black<code>.
      */
-    public static final SVGPainting SVG_FILL_DEFAULT = new SVGPainting(SVGColorScheme.getColorFromKeyword("black"));
+    public static final LSPainting SVG_FILL_DEFAULT = new LSPainting(LSColor.getColorFromKeyword("black"));
 
     /**
      * Default <<code>stroke</code>> properties, set to <code>NONE</code>.
      */
-    public static final SVGPainting SVG_STROKE_DEFAULT = new SVGPainting(SVGPaintingType.NONE);
+    public static final LSPainting SVG_STROKE_DEFAULT = new LSPainting(LSPaintingType.NONE);
 
     /**
      * Default <<code>stroke-width</code>> properties, set to <code>1<code>.
      */
-    public static final SVGLengthUnit SVG_STROKE_WIDTH_DEFAULT = new SVGLengthUnit(1);
+    public static final LSLength SVG_STROKE_WIDTH_DEFAULT = new LSLength(1);
 
     /**
      * Default <<code>stroke-linecap</code>> properties, set to <code>butt</code>.
@@ -67,22 +67,22 @@ public abstract class SVGGenericElement {
     /**
      * Ancestor element of current instance.
      */
-    private SVGContainerElement ancestorElement;
+    private LSGenericContainer ancestorElement;
 
     /**
      * <<code>fill</code>> property of current instance.
      */
-    private SVGPainting fill;
+    private LSPainting fill;
 
     /**
      * <<code>stroke</code>> property of current instance.
      */
-    private SVGPainting stroke;
+    private LSPainting stroke;
 
     /**
      * <<code>strokeWidth</code>> property of current instance.
      */
-    private SVGLengthUnit strokeWidth;
+    private LSLength strokeWidth;
 
     /**
      * <<code>strokeLineCap</code>> property of current instance.
@@ -97,12 +97,12 @@ public abstract class SVGGenericElement {
     /**
      * <<code>translateX</code>> property of current instance
      */
-    private SVGLengthUnit translateX;
+    private LSLength translateX;
 
     /**
      * <<code>translateY</code>> property of current instance
      */
-    private SVGLengthUnit translateY;
+    private LSLength translateY;
 
     /*
      * ABSTRACT METHODS
@@ -132,7 +132,7 @@ public abstract class SVGGenericElement {
     /**
      * @return Ancestor element of current instance.
      */
-    public SVGContainerElement getAncestorElement() {
+    public LSGenericContainer getAncestorElement() {
         return this.ancestorElement;
     }
 
@@ -140,7 +140,7 @@ public abstract class SVGGenericElement {
      * Returns the sibling element of the same ancestor element/parent node.
      * @return Sibling element
      */
-    public SVGGenericElement getNextSiblingElement() {
+    public LSGenericElement getNextSiblingElement() {
         if (ancestorElement != null) {
             int index = ancestorElement.indexOf(this) + 1;
 
@@ -174,7 +174,7 @@ public abstract class SVGGenericElement {
     /**
      * @return <<code>fill</code>> property of current instance.
      */
-    public SVGPainting getFill() {
+    public LSPainting getFill() {
         return this.fill;
     }
 
@@ -184,15 +184,15 @@ public abstract class SVGGenericElement {
      *
      * @return <<code>fill</code>> property of current instance.
      */
-    public SVGPainting getResultantFill() {
-        SVGPainting effFill    = this.fill;
+    public LSPainting getResultantFill() {
+        LSPainting effFill    = this.fill;
         boolean     isFillNull = (effFill == null);
 
         if (!isFillNull) {
             return effFill;
         }
 
-        for (SVGContainerElement origin = getAncestorElement(); isFillNull && (origin != null);
+        for (LSGenericContainer origin = getAncestorElement(); isFillNull && (origin != null);
                 origin = origin.getAncestorElement()) {
             if (origin.getResultantFill() != null) {
                 return origin.getResultantFill();
@@ -205,7 +205,7 @@ public abstract class SVGGenericElement {
     /**
      * @return <<code>stroke</code>> property of current instance.
      */
-    public SVGPainting getStroke() {
+    public LSPainting getStroke() {
         return this.stroke;
     }
 
@@ -215,15 +215,15 @@ public abstract class SVGGenericElement {
      *
      * @return <<code>stroke</code>> property of current instance.
      */
-    public SVGPainting getResultantStroke() {
-        SVGPainting effStroke    = this.stroke;
+    public LSPainting getResultantStroke() {
+        LSPainting effStroke    = this.stroke;
         boolean     isStrokeNull = (effStroke == null);
 
         if (!isStrokeNull) {
             return effStroke;
         }
 
-        for (SVGContainerElement origin = getAncestorElement(); isStrokeNull && (origin != null);
+        for (LSGenericContainer origin = getAncestorElement(); isStrokeNull && (origin != null);
                 origin = origin.getAncestorElement()) {
             if (origin.getResultantStroke() != null) {
                 return origin.getResultantStroke();
@@ -236,7 +236,7 @@ public abstract class SVGGenericElement {
     /**
      * @return <<code>strokeWidth</code>> property of current instance.
      */
-    public SVGLengthUnit getStrokeWidth() {
+    public LSLength getStrokeWidth() {
         return this.strokeWidth;
     }
 
@@ -246,15 +246,15 @@ public abstract class SVGGenericElement {
      *
      * @return <<code>strokeWidth</code>> property of current instance.
      */
-    public SVGLengthUnit getResultantStrokeWidth() {
-        SVGLengthUnit effStrokeWidth    = this.strokeWidth;
+    public LSLength getResultantStrokeWidth() {
+        LSLength effStrokeWidth    = this.strokeWidth;
         boolean       isStrokeWidthNull = (effStrokeWidth == null);
 
         if (!isStrokeWidthNull) {
             return effStrokeWidth;
         }
 
-        for (SVGContainerElement origin = getAncestorElement(); isStrokeWidthNull && (origin != null);
+        for (LSGenericContainer origin = getAncestorElement(); isStrokeWidthNull && (origin != null);
                 origin = origin.getAncestorElement()) {
             if (origin.getResultantStrokeWidth() != null) {
                 return origin.getResultantStrokeWidth();
@@ -281,14 +281,14 @@ public abstract class SVGGenericElement {
     /**
      * @return <<code>translateY</code>> property of current instance.
      */
-    public SVGLengthUnit getTranslateX() {
+    public LSLength getTranslateX() {
         return translateX;
     }
 
     /**
      * @return <<code>translateY</code>> property of current instance.
      */
-    public SVGLengthUnit getTranslateY() {
+    public LSLength getTranslateY() {
         return translateY;
     }
 
@@ -299,28 +299,28 @@ public abstract class SVGGenericElement {
     /**
      * @param ancestorElement Ancestor element of current instance.
      */
-    public void setAncestorElement(SVGContainerElement ancestorElement) {
+    public void setAncestorElement(LSGenericContainer ancestorElement) {
         this.ancestorElement = ancestorElement;
     }
 
     /**
      * @param fill <code>fill</code>> property of current instance.
      */
-    public void setFill(SVGPainting fill) {
+    public void setFill(LSPainting fill) {
         this.fill = fill;
     }
 
     /**
      * @param stroke <code>stroke</code>> property of current instance.
      */
-    public void setStroke(SVGPainting stroke) {
+    public void setStroke(LSPainting stroke) {
         this.stroke = stroke;
     }
 
     /**
      * @param strokeWidth <code>strokeWidth</code>> property of current instance.
      */
-    public void setStrokeWidth(SVGLengthUnit strokeWidth) {
+    public void setStrokeWidth(LSLength strokeWidth) {
         boolean valid = (strokeWidth == null) || (strokeWidth.getValue() >= 0);
 
         if (valid) {
@@ -359,8 +359,8 @@ public abstract class SVGGenericElement {
     /**
      * @param translateX <code>translateX</code>> property of current instance.
      */
-    public void setTranslateX(SVGLengthUnit translateX) {
-        if (translateX.getUnitType() != SVGLengthUnitType.NUMBER) {
+    public void setTranslateX(LSLength translateX) {
+        if (translateX.getUnitType() != LSLengthUnitType.NUMBER) {
             throw new IllegalArgumentException("tx must be in user units");
         }
 
@@ -370,8 +370,8 @@ public abstract class SVGGenericElement {
     /**
      * @param translateY <code>translateY</code>> property of current instance.
      */
-    public void setTranslateY(SVGLengthUnit translateY) {
-        if (translateY.getUnitType() != SVGLengthUnitType.NUMBER) {
+    public void setTranslateY(LSLength translateY) {
+        if (translateY.getUnitType() != LSLengthUnitType.NUMBER) {
             throw new IllegalArgumentException("ty must be in user units");
         }
 
@@ -389,8 +389,8 @@ public abstract class SVGGenericElement {
      * @param e Element from the document returned by the XMLParser
      */
     public void parseAttributes(Element e) {
-        setFill(SVGPainting.parse(e.getAttributeNS(null, "fill")));
-        setStroke(SVGPainting.parse(e.getAttributeNS(null, "stroke")));
-        setStrokeWidth(SVGLengthUnit.parse(e.getAttributeNS(null, "stroke-width")));
+        setFill(LSPainting.parse(e.getAttributeNS(null, "fill")));
+        setStroke(LSPainting.parse(e.getAttributeNS(null, "stroke")));
+        setStrokeWidth(LSLength.parse(e.getAttributeNS(null, "stroke-width")));
     }
 }

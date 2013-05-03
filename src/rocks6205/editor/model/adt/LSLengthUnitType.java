@@ -2,7 +2,7 @@ package rocks6205.editor.model.adt;
 
 //~--- non-JDK imports --------------------------------------------------------
 
-import rocks6205.system.properties.SVGCanvasProperties;
+import rocks6205.system.properties.LSCanvasProperties;
 
 /**
  * <p>List of SVG length types</p>
@@ -14,12 +14,12 @@ import rocks6205.system.properties.SVGCanvasProperties;
  *
  * @since 1.0
  */
-public enum SVGLengthUnitType {
+public enum LSLengthUnitType {
     UNKNOWN(null), NUMBER(null), EMS("em"), EXS("ex"), PX("px"), CM("cm"), MM("mm"), IN("in"), PT("pt"), PC("pc");
 
     private final String symbol;
 
-    SVGLengthUnitType(String symbol) {
+    LSLengthUnitType(String symbol) {
         this.symbol = symbol;
     }
 
@@ -52,7 +52,7 @@ public enum SVGLengthUnitType {
         float pt = in / 72.0f;
         float pc = 12.0f * pt;
         float px = 0.75f * pt;
-        float em = SVGCanvasProperties.getFontSize() * px;
+        float em = LSCanvasProperties.getFontSize() * px;
         float ex = 0.5f * em;
 
         switch (this) {
@@ -95,16 +95,16 @@ public enum SVGLengthUnitType {
      * type if matches, returns <code>NUMBER</code> type if it doesn't
      *
      * @param symbol Unit symbol string
-     * @return  <code>SVGLengthUnitType</code> symbolic constant
+     * @return  <code>LSLengthUnitType</code> symbolic constant
      */
-    public static SVGLengthUnitType getType(String symbol) {
-        for (SVGLengthUnitType type : values()) {
+    public static LSLengthUnitType getType(String symbol) {
+        for (LSLengthUnitType type : values()) {
             if (symbol.equalsIgnoreCase(type.getUnitSymbol())) {
                 return type;
             }
         }
 
-        return SVGLengthUnitType.NUMBER;
+        return LSLengthUnitType.NUMBER;
     }
 
     /**
@@ -112,7 +112,7 @@ public enum SVGLengthUnitType {
      * @return
      */
     public static String[] getSymbols() {
-        SVGLengthUnitType[] types     = values();
+        LSLengthUnitType[] types     = values();
         int                 typeCount = types.length;
         String[]            symbols   = new String[typeCount];
 

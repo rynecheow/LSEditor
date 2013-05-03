@@ -4,7 +4,7 @@ package rocks6205.editor.viewcomponents;
 
 import rocks6205.editor.mvc.SVGEditorView;
 
-import rocks6205.editor.model.adt.SVGColorScheme;
+import rocks6205.editor.model.adt.LSColor;
 
 import rocks6205.system.properties.LSSVGEditorGUITheme;
 
@@ -40,7 +40,7 @@ public final class LSUIRGBColorChooserPanel extends JPanel implements LSUIProtoc
      * PARENT COMPONENT
      */
     private SVGEditorView  parent;
-    private SVGColorScheme color;
+    private LSColor color;
     private JSlider        blueSlider;
     private JSpinner       blueSpinner;
     private JPanel         finalColorIndicator;
@@ -90,13 +90,13 @@ public final class LSUIRGBColorChooserPanel extends JPanel implements LSUIProtoc
         return parent;
     }
 
-    public void setColor(SVGColorScheme color) {
+    public void setColor(LSColor color) {
         if (color != null) {
             this.color = color;
         }
     }
 
-    public SVGColorScheme getColor() {
+    public LSColor getColor() {
         return color;
     }
 
@@ -242,7 +242,7 @@ public final class LSUIRGBColorChooserPanel extends JPanel implements LSUIProtoc
 	  }
 	  finalColorIndicator.setBackground(new Color( redSlider.getValue() , 
 		  greenSlider.getValue() , blueSlider.getValue()));
-	  color = new SVGColorScheme(redSlider.getValue() , 
+	  color = new LSColor(redSlider.getValue() , 
 		  greenSlider.getValue() , blueSlider.getValue());
       }
       

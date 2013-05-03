@@ -14,7 +14,7 @@ import java.awt.geom.Rectangle2D;
  *
  * @author Cheow Yeong Chi
  */
-public abstract class SVGShapeElement extends SVGGenericElement {
+public abstract class LSGenericShape extends LSGenericElement {
     @Override
     public abstract Rectangle2D.Float getBounds();
 

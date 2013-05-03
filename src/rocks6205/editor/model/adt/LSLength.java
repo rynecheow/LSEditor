@@ -6,18 +6,18 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * The <code>SVGLengthUnit</code> class is used to parse <code>length</code> attribute in
+ * The <code>LSLength</code> class is used to parse <code>length</code> attribute in
  * SVG documents and convert to floating points with respective type to be presented
  * on Java.
  * <p>
- * <code>SVGLengthUnit</code> is used for <code>coordinates</code>, <code>stroke-width</code>,
+ * <code>LSLength</code> is used for <code>coordinates</code>, <code>stroke-width</code>,
  * <code>width</code>, <code>height</code>, etc.
  *
  * @author Cheow Yeong Chi
  *
  * @since 1.0
  */
-public class SVGLengthUnit {
+public class LSLength {
 
     /*
      * PROPERTIES
@@ -31,7 +31,7 @@ public class SVGLengthUnit {
     /**
      * Length unit type
      */
-    private SVGLengthUnitType unitType;
+    private LSLengthUnitType unitType;
 
     /*
      * CONSTRUCTORS
@@ -39,38 +39,38 @@ public class SVGLengthUnit {
 
     /**
      * Default constructor.<p>
-     * Set current <code>SVGLengthUnit</code> instance to type <code>UNKNOWN</code>,
+     * Set current <code>LSLength</code> instance to type <code>UNKNOWN</code>,
      * and gives a float value of 0.
      */
-    public SVGLengthUnit() {
-        this(SVGLengthUnitType.UNKNOWN, Float.NaN);
+    public LSLength() {
+        this(LSLengthUnitType.UNKNOWN, Float.NaN);
     }
 
     /**
-     * Set current <code>SVGLengthUnit</code> instance to type <code>NUMBER</code>,
+     * Set current <code>LSLength</code> instance to type <code>NUMBER</code>,
      * and gives a <code>float</code> value of <code>val</code>.
      *
      * @param val Value of length unit in <code>float</code>
      */
-    public SVGLengthUnit(float val) {
-        this(SVGLengthUnitType.NUMBER, val);
+    public LSLength(float val) {
+        this(LSLengthUnitType.NUMBER, val);
     }
 
     /**
-     * Set current <code>SVGLengthUnit</code> instance to type <code>type</code>,
+     * Set current <code>LSLength</code> instance to type <code>type</code>,
      * and gives a float value of <code>val</code>.
      *
-     * @param type Type of unit as defined in {@link SVGLengthUnitType}
+     * @param type Type of unit as defined in {@link LSLengthUnitType}
      * @param val Value of length unit in <code>float</code>
      */
-    public SVGLengthUnit(SVGLengthUnitType type, float val) {
+    public LSLength(LSLengthUnitType type, float val) {
         if (Float.isNaN(value)) {
             throw new IllegalArgumentException("Length value must not be NaN");
         }
 
         setValue(val);
 
-        if (type == SVGLengthUnitType.UNKNOWN) {
+        if (type == LSLengthUnitType.UNKNOWN) {
             throw new IllegalArgumentException("Length type must not be UNKNOWN");
         }
 
@@ -88,7 +88,7 @@ public class SVGLengthUnit {
     /**
      * @return Length unit type
      */
-    public SVGLengthUnitType getUnitType() {
+    public LSLengthUnitType getUnitType() {
         return this.unitType;
     }
 
@@ -104,7 +104,7 @@ public class SVGLengthUnit {
      * @param sym Target conversion type
      * @return Length unit value with respect to the target type
      */
-    public float getValue(SVGLengthUnitType target) {
+    public float getValue(LSLengthUnitType target) {
         if (target == null) {
             throw new NullPointerException("Target type must not be null");
         }
@@ -123,7 +123,7 @@ public class SVGLengthUnit {
     /**
      * @param type Length unit type
      */
-    public final void setUnitType(SVGLengthUnitType type) {
+    public final void setUnitType(LSLengthUnitType type) {
         this.unitType = type;
     }
 
@@ -139,9 +139,9 @@ public class SVGLengthUnit {
      * Parsing length attribute by extracting symbols and matches with defined unit types.
      *
      * @param lengthAttributeValue      Attribute string that is read directly from SVG file
-     * @return  <code>SVGLengthUnit</code> object
+     * @return  <code>LSLength</code> object
      */
-    public static SVGLengthUnit parse(String lengthAttributeValue) {
+    public static LSLength parse(String lengthAttributeValue) {
         lengthAttributeValue = lengthAttributeValue.trim();
 
         if (lengthAttributeValue == null) {
@@ -149,7 +149,7 @@ public class SVGLengthUnit {
         }
 
         // initialise variables
-        SVGLengthUnit length      = null;
+        LSLength length      = null;
         Pattern       pattern     = null,
                       unitPattern = null;
         Matcher       matcher     = null;
@@ -159,7 +159,7 @@ public class SVGLengthUnit {
         int           u           = 0;
 
         // search
-        for (String symbol : SVGLengthUnitType.getSymbols()) {
+        for (String symbol : LSLengthUnitType.getSymbols()) {
             if ((symbol != null) &&!symbol.isEmpty()) {
                 if (u != 0) {
                     symbol = "|" + symbol;
@@ -178,7 +178,7 @@ public class SVGLengthUnit {
             lengthAttributeValue = lengthAttributeValue.replace(unitStr, "");
         }
 
-        pattern = Pattern.compile(SVGPrimitive.NUM);
+        pattern = Pattern.compile(LSSVGPrimitive.NUM);
         matcher = pattern.matcher(lengthAttributeValue);
 
         if (matcher.matches()) {
@@ -186,7 +186,7 @@ public class SVGLengthUnit {
         }
 
         if (!numberStr.isEmpty()) {
-            length = new SVGLengthUnit(SVGLengthUnitType.getType(unitStr), Float.parseFloat(numberStr));
+            length = new LSLength(LSLengthUnitType.getType(unitStr), Float.parseFloat(numberStr));
         }
 
         return length;
@@ -198,9 +198,9 @@ public class SVGLengthUnit {
      * @param targetType type of length unit
      * @return Converted length unit with type set to target type
      */
-    public static SVGLengthUnit convert(SVGLengthUnit length, SVGLengthUnitType targetType) {
+    public static LSLength convert(LSLength length, LSLengthUnitType targetType) {
         float value = length.getValue(targetType);
 
-        return new SVGLengthUnit(targetType, value);
+        return new LSLength(targetType, value);
     }
 }

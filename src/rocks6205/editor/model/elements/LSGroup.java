@@ -4,8 +4,8 @@ package rocks6205.editor.model.elements;
 
 import org.w3c.dom.Element;
 
-import rocks6205.editor.model.adt.SVGLengthUnit;
-import rocks6205.editor.model.adt.SVGPainting;
+import rocks6205.editor.model.adt.LSLength;
+import rocks6205.editor.model.adt.LSPainting;
 
 //~--- JDK imports ------------------------------------------------------------
 
@@ -17,7 +17,7 @@ import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 
 /**
- * The <code>SVGGElement</code> class is a container used to group objects
+ * The <code>LSGroup</code> class is a container used to group objects
  * corresponds to the <<code>g</code>> element in the SVG document.
  * Transformations applied to the <<code>g</code>> element are performed on all of its child
  * elements.
@@ -26,7 +26,7 @@ import java.util.ArrayList;
  * @since 1.1
  *
  */
-public class SVGGElement extends SVGContainerElement {
+public class LSGroup extends LSGenericContainer {
 
     /*
      * CONSTRUCTOR
@@ -35,9 +35,9 @@ public class SVGGElement extends SVGContainerElement {
     /**
      * Default constructor
      */
-    public SVGGElement() {}
+    public LSGroup() {}
 
-    public ArrayList<SVGGenericElement> ungroup() {
+    public ArrayList<LSGenericElement> ungroup() {
         recurseAttributes(this);
 
         return getDescendants();
@@ -51,7 +51,7 @@ public class SVGGElement extends SVGContainerElement {
         Rectangle2D.Float rect = null;
         Rectangle2D.Float descendantRect;
 
-        for (SVGGenericElement descendant : getDescendants()) {
+        for (LSGenericElement descendant : getDescendants()) {
             descendantRect = descendant.getBounds();
 
             if ((descendantRect.width > 0) && (descendantRect.height > 0)) {
@@ -77,7 +77,7 @@ public class SVGGElement extends SVGContainerElement {
 
         g.transform(affTrans);
 
-        for (SVGGenericElement descendant : getDescendants()) {
+        for (LSGenericElement descendant : getDescendants()) {
             descendant.drawShape(g);
         }
 
@@ -93,16 +93,16 @@ public class SVGGElement extends SVGContainerElement {
     /*
      * METHODS
      */
-    private static void recurseAttributes(SVGGElement group) {
-        SVGPainting   fill        = group.getFill();
-        SVGPainting   stroke      = group.getStroke();
-        SVGLengthUnit strokeWidth = group.getStrokeWidth();
-        SVGLengthUnit tx          = group.getTranslateX();
-        SVGLengthUnit ty          = group.getTranslateY();
-        SVGLengthUnit descendantTx;
-        SVGLengthUnit descendantTy;
+    private static void recurseAttributes(LSGroup group) {
+        LSPainting   fill        = group.getFill();
+        LSPainting   stroke      = group.getStroke();
+        LSLength strokeWidth = group.getStrokeWidth();
+        LSLength tx          = group.getTranslateX();
+        LSLength ty          = group.getTranslateY();
+        LSLength descendantTx;
+        LSLength descendantTy;
 
-        for (SVGGenericElement descendant : group.getDescendants()) {
+        for (LSGenericElement descendant : group.getDescendants()) {
             if (descendant.getFill() == null) {
                 descendant.setFill(fill);
             }
@@ -119,9 +119,9 @@ public class SVGGElement extends SVGContainerElement {
                 descendantTx = descendant.getTranslateX();
 
                 if (descendantTx == null) {
-                    descendantTx = new SVGLengthUnit(tx.getValue());
+                    descendantTx = new LSLength(tx.getValue());
                 } else {
-                    descendantTx = new SVGLengthUnit(descendantTx.getValue() + tx.getValue());
+                    descendantTx = new LSLength(descendantTx.getValue() + tx.getValue());
                 }
 
                 descendant.setTranslateX(descendantTx);
@@ -131,9 +131,9 @@ public class SVGGElement extends SVGContainerElement {
                 descendantTy = descendant.getTranslateY();
 
                 if (descendantTy == null) {
-                    descendantTy = new SVGLengthUnit(ty.getValue());
+                    descendantTy = new LSLength(ty.getValue());
                 } else {
-                    descendantTy = new SVGLengthUnit(descendantTy.getValue() + ty.getValue());
+                    descendantTy = new LSLength(descendantTy.getValue() + ty.getValue());
                 }
 
                 descendant.setTranslateY(descendantTy);
@@ -144,10 +144,10 @@ public class SVGGElement extends SVGContainerElement {
     /**
      * Parses the attributes on the  <<code>g</code>> element in the SVG document
      * @param e element from the document returned by the XMLParser
-     * @return <code>SVGGElement</code> object
+     * @return <code>LSGroup</code> object
      */
-    public static SVGGElement parseElement(Element e) {
-        SVGGElement g_e = new SVGGElement();
+    public static LSGroup parseElement(Element e) {
+        LSGroup g_e = new LSGroup();
 
         g_e.parseAttributes(e);
 

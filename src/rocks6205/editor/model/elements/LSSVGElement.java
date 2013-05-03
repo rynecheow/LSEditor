@@ -1,7 +1,7 @@
 
 /**
  *
- * Class: SVGSVGElement
+ * Class: LSSVGElement
  * Description:
  *
  * @author: Cheow Yeong Chi
@@ -17,8 +17,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
-import rocks6205.editor.model.adt.SVGLengthUnit;
-import rocks6205.editor.model.adt.SVGLengthUnitType;
+import rocks6205.editor.model.adt.LSLength;
+import rocks6205.editor.model.adt.LSLengthUnitType;
 
 //~--- JDK imports ------------------------------------------------------------
 
@@ -26,7 +26,7 @@ import java.awt.Graphics2D;
 import java.awt.geom.Rectangle2D;
 
 /**
- * The <code>SVGSVGElement</code> class is a container element
+ * The <code>LSSVGElement</code> class is a container element
  * corresponds to the <<code>svg</code>> element in the SVG document.<p>
  * It can be used to nest a standalone SVG fragment inside the current document
  * elements.
@@ -36,26 +36,26 @@ import java.awt.geom.Rectangle2D;
  * @since 1.1
  *
  */
-public class SVGSVGElement extends SVGContainerElement {
+public class LSSVGElement extends LSGenericContainer {
 
     /**
      * Width of SVG fragment
      */
-    private SVGLengthUnit width = new SVGLengthUnit(1000);    // /default to 1000x1000
+    private LSLength width = new LSLength(1000);    // /default to 1000x1000
 
     /**
      * Height of SVG fragment
      */
-    private SVGLengthUnit height = new SVGLengthUnit(1000);
+    private LSLength height = new LSLength(1000);
 
     /**
-     * Construct an instance of <code>SVGSVGElement</code> with <code>width</code> and
+     * Construct an instance of <code>LSSVGElement</code> with <code>width</code> and
      * <code>height</code>
      *
      * @param width
      * @param height
      */
-    public SVGSVGElement(SVGLengthUnit width, SVGLengthUnit height) {
+    public LSSVGElement(LSLength width, LSLength height) {
         setWidth(width);
         setHeight(height);
         setFill(SVG_FILL_DEFAULT);
@@ -68,14 +68,14 @@ public class SVGSVGElement extends SVGContainerElement {
     /**
      * @return Width of SVG fragment
      */
-    public SVGLengthUnit getWidth() {
+    public LSLength getWidth() {
         return width;
     }
 
     /**
      * @param width Width of SVG fragment
      */
-    public final void setWidth(SVGLengthUnit width) {
+    public final void setWidth(LSLength width) {
         if (width.getValue() < 0) {
             throw new IllegalArgumentException("Width must not be negative.");
         }
@@ -86,14 +86,14 @@ public class SVGSVGElement extends SVGContainerElement {
     /**
      * @return Height of SVG fragment
      */
-    public SVGLengthUnit getHeight() {
+    public LSLength getHeight() {
         return height;
     }
 
     /**
      * @param height Height of SVG fragment
      */
-    public final void setHeight(SVGLengthUnit height) {
+    public final void setHeight(LSLength height) {
         if (height.getValue() < 0) {
             throw new IllegalArgumentException("Height must not be negative");
         }
@@ -105,14 +105,14 @@ public class SVGSVGElement extends SVGContainerElement {
      * {@inheritDoc}
      */
     public Rectangle2D.Float getBounds() {
-        return new Rectangle2D.Float(0, 0, width.getValue(SVGLengthUnitType.PX), height.getValue(SVGLengthUnitType.PX));
+        return new Rectangle2D.Float(0, 0, width.getValue(LSLengthUnitType.PX), height.getValue(LSLengthUnitType.PX));
     }
 
     /**
      * {@inheritDoc}
      */
     public void drawShape(Graphics2D g) {
-        for (SVGGenericElement child : getDescendants()) {
+        for (LSGenericElement child : getDescendants()) {
             child.drawShape(g);
         }
     }
@@ -122,11 +122,11 @@ public class SVGSVGElement extends SVGContainerElement {
      * consequently constructs the vector of elements in a nest.
      *
      * @param document <code>Document</code> from XML parsed and returned by the <code>XMLParser</code>
-     * @return <code>SVGSVGElement</code> object
+     * @return <code>LSSVGElement</code> object
      */
-    public static SVGSVGElement parseDocument(Document document) {
-        SVGSVGElement       svg_e           = null;
-        SVGContainerElement ancestorElement = null, newAncestorElement;
+    public static LSSVGElement parseDocument(Document document) {
+        LSSVGElement       svg_e           = null;
+        LSGenericContainer ancestorElement = null, newAncestorElement;
         Node                node            = document.getDocumentElement();
         Element             e;
 
@@ -138,31 +138,31 @@ public class SVGSVGElement extends SVGContainerElement {
 
                 switch (e.getTagName()) {
                 case "svg" :
-                    SVGLengthUnit width     = null;
-                    SVGLengthUnit height    = null;
+                    LSLength width     = null;
+                    LSLength height    = null;
                     Attr          widthAttr = e.getAttributeNodeNS(null, "width");
 
                     if (widthAttr != null) {
-                        width = SVGLengthUnit.parse(widthAttr.getValue());
+                        width = LSLength.parse(widthAttr.getValue());
                     }
 
                     Attr heightAttr = e.getAttributeNodeNS(null, "height");
 
                     if (heightAttr != null) {
-                        height = SVGLengthUnit.parse(heightAttr.getValue());
+                        height = LSLength.parse(heightAttr.getValue());
                     }
 
                     if ((width == null) || (height == null)) {
                         break;
                     }
 
-                    svg_e           = new SVGSVGElement(width, height);
+                    svg_e           = new LSSVGElement(width, height);
                     ancestorElement = svg_e;
 
                     break;
 
                 case "g" :
-                    SVGGElement g_e = SVGGElement.parseElement(e);
+                    LSGroup g_e = LSGroup.parseElement(e);
 
                     ancestorElement.addDescendant(g_e);
                     newAncestorElement = g_e;
@@ -170,17 +170,17 @@ public class SVGSVGElement extends SVGContainerElement {
                     break;
 
                 case "rect" :
-                    ancestorElement.addDescendant(SVGRectElement.parseElement(e));
+                    ancestorElement.addDescendant(LSShapeRect.parseElement(e));
 
                     break;
 
                 case "circle" :
-                    ancestorElement.addDescendant(SVGCircleElement.parseElement(e));
+                    ancestorElement.addDescendant(LSShapeCircle.parseElement(e));
 
                     break;
 
                 case "line" :
-                    ancestorElement.addDescendant(SVGLineElement.parseElement(e));
+                    ancestorElement.addDescendant(LSShapeLine.parseElement(e));
 
                     break;
                 }

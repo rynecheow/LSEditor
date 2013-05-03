@@ -4,7 +4,7 @@ package rocks6205.editor.viewcomponents;
 
 import rocks6205.editor.mvc.SVGEditorView;
 
-import rocks6205.system.properties.SVGCanvasProperties;
+import rocks6205.system.properties.LSCanvasProperties;
 
 //~--- JDK imports ------------------------------------------------------------
 
@@ -50,8 +50,8 @@ public class LSCanvasViewport extends JPanel {
     public LSCanvasViewport(SVGEditorView view) {
         super();
         setParentView(view);
-        SVGCanvasProperties.setOutputResolution(Toolkit.getDefaultToolkit().getScreenResolution());
-        SVGCanvasProperties.setFontSize((this.getFont().getSize2D()));
+        LSCanvasProperties.setOutputResolution(Toolkit.getDefaultToolkit().getScreenResolution());
+        LSCanvasProperties.setFontSize((this.getFont().getSize2D()));
 
         /*
          * Unfinished implementation

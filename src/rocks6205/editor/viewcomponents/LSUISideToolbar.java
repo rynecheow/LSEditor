@@ -2,13 +2,13 @@ package rocks6205.editor.viewcomponents;
 
 //~--- non-JDK imports --------------------------------------------------------
 
-import rocks6205.editor.bridge.actions.LSAction.DrawCircleAction;
-import rocks6205.editor.bridge.actions.LSAction.DrawLineAction;
-import rocks6205.editor.bridge.actions.LSAction.DrawRectAction;
-import rocks6205.editor.bridge.actions.LSAction.GroupAction;
-import rocks6205.editor.bridge.actions.LSAction.PanModeAction;
-import rocks6205.editor.bridge.actions.LSAction.SelectModeAction;
-import rocks6205.editor.bridge.actions.LSAction.UngroupAction;
+import rocks6205.editor.actions.LSAbstractAction.DrawCircleAction;
+import rocks6205.editor.actions.LSAbstractAction.DrawLineAction;
+import rocks6205.editor.actions.LSAbstractAction.DrawRectAction;
+import rocks6205.editor.actions.LSAbstractAction.GroupAction;
+import rocks6205.editor.actions.LSAbstractAction.PanModeAction;
+import rocks6205.editor.actions.LSAbstractAction.SelectModeAction;
+import rocks6205.editor.actions.LSAbstractAction.UngroupAction;
 import rocks6205.editor.mvc.SVGEditorView;
 
 import rocks6205.system.properties.LSSVGEditorGUITheme;

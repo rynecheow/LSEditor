@@ -2,11 +2,11 @@ package rocks6205.editor.viewcomponents;
 
 //~--- non-JDK imports --------------------------------------------------------
 
-import rocks6205.editor.bridge.actions.LSAction.NewDocumentAction;
-import rocks6205.editor.bridge.actions.LSAction.OpenFileAction;
-import rocks6205.editor.bridge.actions.LSAction.SaveFileAction;
-import rocks6205.editor.bridge.actions.LSAction.ZoomInViewAction;
-import rocks6205.editor.bridge.actions.LSAction.ZoomOutViewAction;
+import rocks6205.editor.actions.LSAbstractAction.NewDocumentAction;
+import rocks6205.editor.actions.LSAbstractAction.OpenFileAction;
+import rocks6205.editor.actions.LSAbstractAction.SaveFileAction;
+import rocks6205.editor.actions.LSAbstractAction.ZoomInViewAction;
+import rocks6205.editor.actions.LSAbstractAction.ZoomOutViewAction;
 import rocks6205.editor.mvc.SVGEditorView;
 
 import rocks6205.system.properties.LSSVGEditorGUITheme;

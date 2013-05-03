@@ -2,10 +2,10 @@ package rocks6205.editor.viewcomponents.tree;
 
 //~--- non-JDK imports --------------------------------------------------------
 
-import rocks6205.editor.model.elements.SVGContainerElement;
-import rocks6205.editor.model.elements.SVGGElement;
-import rocks6205.editor.model.elements.SVGGenericElement;
-import rocks6205.editor.model.elements.SVGSVGElement;
+import rocks6205.editor.model.elements.LSGenericContainer;
+import rocks6205.editor.model.elements.LSGroup;
+import rocks6205.editor.model.elements.LSGenericElement;
+import rocks6205.editor.model.elements.LSSVGElement;
 
 //~--- JDK imports ------------------------------------------------------------
 
@@ -13,18 +13,18 @@ import java.util.Iterator;
 
 public class LSTreeBuilder {
 //   private static LSTreeNode svgNode  = new LSTreeNode("SVG Container Element", LSTreeNode.NODE_SVG);
-    public static LSTreeNode build(SVGSVGElement svgElement) {
+    public static LSTreeNode build(LSSVGElement svgElement) {
         LSTreeNode svgNode  = new LSTreeNode("SVG Container Element", LSTreeNode.NODE_SVG);
         iterateNode(svgElement, svgNode);
         return svgNode;
     }
 
-    private static void iterateNode(SVGContainerElement container, LSTreeNode containerNode) {
-        for (Iterator<SVGGenericElement> it = container.getDescendants().iterator(); it.hasNext(); ) {
-            SVGGenericElement e = it.next();
+    private static void iterateNode(LSGenericContainer container, LSTreeNode containerNode) {
+        for (Iterator<LSGenericElement> it = container.getDescendants().iterator(); it.hasNext(); ) {
+            LSGenericElement e = it.next();
 
-            if (e instanceof SVGGElement) {
-                SVGGElement g         = (SVGGElement) e;
+            if (e instanceof LSGroup) {
+                LSGroup g         = (LSGroup) e;
                 LSTreeNode  groupNode = buildGroupNode();
 
                 containerNode.addChild(groupNode);
@@ -35,7 +35,7 @@ public class LSTreeBuilder {
         }
     }
 
-    private static LSTreeNode buildSingularNode(SVGGenericElement el) {
+    private static LSTreeNode buildSingularNode(LSGenericElement el) {
         String title;
         int    type;
 

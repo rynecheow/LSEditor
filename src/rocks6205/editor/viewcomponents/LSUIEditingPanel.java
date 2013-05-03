@@ -2,14 +2,14 @@ package rocks6205.editor.viewcomponents;
 
 //~--- non-JDK imports --------------------------------------------------------
 
-import rocks6205.editor.model.adt.SVGLengthUnit;
-import rocks6205.editor.model.adt.SVGLengthUnitType;
-import rocks6205.editor.model.adt.SVGPainting;
-import rocks6205.editor.model.elements.SVGCircleElement;
-import rocks6205.editor.model.elements.SVGGenericElement;
-import rocks6205.editor.model.elements.SVGLineElement;
-import rocks6205.editor.model.elements.SVGRectElement;
-;
+import rocks6205.editor.model.adt.LSLength;
+import rocks6205.editor.model.adt.LSLengthUnitType;
+import rocks6205.editor.model.adt.LSPainting;
+import rocks6205.editor.model.elements.LSShapeCircle;
+import rocks6205.editor.model.elements.LSGenericElement;
+import rocks6205.editor.model.elements.LSShapeLine;
+import rocks6205.editor.model.elements.LSShapeRect;
+
 import rocks6205.editor.mvc.SVGEditorView;
 import rocks6205.editor.mvc.SVGEditorViewController;
 
@@ -44,11 +44,11 @@ import javax.swing.OverlayLayout;
 public final class LSUIEditingPanel extends JPanel {
     private SVGEditorViewController      controller;
     private SVGEditorView                parent;
-    private SVGGenericElement            activeElement, newElement;
+    private LSGenericElement            activeElement, newElement;
     private LSScribblePanel              scribbleArea;
     private LSCanvasViewport             viewArea;
-    private SVGPainting                  fill, stroke;
-    private SVGLengthUnit                strokeWidth;
+    private LSPainting                  fill, stroke;
+    private LSLength                strokeWidth;
     private Rectangle                    selectionRect, activeRect, previousActiveRect;
     private Point2D.Float                startPoint;
     private ArrayList<Rectangle2D.Float> resizeHandlers;
@@ -101,7 +101,7 @@ public final class LSUIEditingPanel extends JPanel {
         }
     }
 
-    public void setFill(SVGPainting fill) {
+    public void setFill(LSPainting fill) {
         if (activeElement != null) {
             controller.setFillForElement(fill, activeElement);
         }
@@ -109,7 +109,7 @@ public final class LSUIEditingPanel extends JPanel {
         this.fill = fill;
     }
 
-    public void setStroke(SVGPainting stroke) {
+    public void setStroke(LSPainting stroke) {
         if (activeElement != null) {
             controller.setStrokeForElement(stroke, activeElement);
         }
@@ -117,7 +117,7 @@ public final class LSUIEditingPanel extends JPanel {
         this.stroke = stroke;
     }
 
-    public void setStrokeWidth(SVGLengthUnit strokeWidth) {
+    public void setStrokeWidth(LSLength strokeWidth) {
         if (activeElement != null) {
             controller.setStrokeWidthForElement(strokeWidth, activeElement);
         }
@@ -150,12 +150,12 @@ public final class LSUIEditingPanel extends JPanel {
         return editingMode.name();
     }
 
-    public void setSelections(ArrayList<SVGGenericElement> selections) {
+    public void setSelections(ArrayList<LSGenericElement> selections) {
         ArrayList<Rectangle2D.Float> selectionRects = new ArrayList<>(selections.size());
         Rectangle2D.Float            bounds;
         float                        zoomScale = parent.getZoomScale();
 
-        for (SVGGenericElement e : selections) {
+        for (LSGenericElement e : selections) {
             bounds        = e.getBounds();
             bounds.x      *= zoomScale;
             bounds.y      *= zoomScale;
@@ -167,7 +167,7 @@ public final class LSUIEditingPanel extends JPanel {
         scribbleArea.setSelectionRectangles(selectionRects);
 
         if (selections.size() == 1) {
-            SVGGenericElement e      = selections.get(0);
+            LSGenericElement e      = selections.get(0);
             int               active = -1;
 
             activeElement = e;
@@ -181,7 +181,7 @@ public final class LSUIEditingPanel extends JPanel {
                 active = resizeHandlers.indexOf(activeResizeHandler);
             }
 
-            if (e instanceof SVGRectElement) {
+            if (e instanceof LSShapeRect) {
                 resizeHandlers = new ArrayList<>(4);
                 resizeHandlers.add(0, new Rectangle2D.Float(bounds.x - 5, bounds.y - 5, 10, 10));
                 resizeHandlers.add(1, new Rectangle2D.Float(bounds.x + bounds.width / 2 - 5, bounds.y - 5, 10, 10));
@@ -194,16 +194,16 @@ public final class LSUIEditingPanel extends JPanel {
                         bounds.y + bounds.height - 5, 10, 10));
                 resizeHandlers.add(7, new Rectangle2D.Float(bounds.x + bounds.width - 5, bounds.y + bounds.height - 5,
                         10, 10));
-            } else if (e instanceof SVGCircleElement) {
+            } else if (e instanceof LSShapeCircle) {
                 resizeHandlers = new ArrayList<>(1);
                 resizeHandlers.add(0, new Rectangle2D.Float(bounds.x + bounds.width - 5, bounds.y + bounds.height - 5,
                         10, 10));
-            } else if (e instanceof SVGLineElement) {
-                SVGLineElement line   = (SVGLineElement) e;
-                Point2D        point1 = new Point2D.Float(line.getX1().getValue(SVGLengthUnitType.PX),
-                                            line.getY1().getValue(SVGLengthUnitType.PX));
-                Point2D point2 = new Point2D.Float(line.getX2().getValue(SVGLengthUnitType.PX),
-                                                   line.getY2().getValue(SVGLengthUnitType.PX));
+            } else if (e instanceof LSShapeLine) {
+                LSShapeLine line   = (LSShapeLine) e;
+                Point2D        point1 = new Point2D.Float(line.getX1().getValue(LSLengthUnitType.PX),
+                                            line.getY1().getValue(LSLengthUnitType.PX));
+                Point2D point2 = new Point2D.Float(line.getX2().getValue(LSLengthUnitType.PX),
+                                                   line.getY2().getValue(LSLengthUnitType.PX));
 
                 e.getTransform().transform(point1, point1);
                 e.getTransform().transform(point2, point2);
@@ -338,9 +338,9 @@ public final class LSUIEditingPanel extends JPanel {
 
                             switch (resizeHandlers.indexOf(resizeHandler)) {
                             case 0 :
-                                if (activeElement instanceof SVGRectElement) {
+                                if (activeElement instanceof LSShapeRect) {
                                     setCursor(Cursor.getPredefinedCursor(Cursor.NW_RESIZE_CURSOR));
-                                } else if (activeElement instanceof SVGCircleElement) {
+                                } else if (activeElement instanceof LSShapeCircle) {
                                     setCursor(Cursor.getPredefinedCursor(Cursor.SE_RESIZE_CURSOR));
                                 } else {
                                     setCursor(Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR));
@@ -349,7 +349,7 @@ public final class LSUIEditingPanel extends JPanel {
                                 break;
 
                             case 1 :
-                                if (activeElement instanceof SVGRectElement) {
+                                if (activeElement instanceof LSShapeRect) {
                                     setCursor(Cursor.getPredefinedCursor(Cursor.N_RESIZE_CURSOR));
                                 } else {
                                     setCursor(Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR));
@@ -407,12 +407,12 @@ public final class LSUIEditingPanel extends JPanel {
                     }
                 }
             } else {
-                SVGLengthUnit x = new SVGLengthUnit(SVGLengthUnitType.PX, scaledPoint.x);
-                SVGLengthUnit y = new SVGLengthUnit(SVGLengthUnitType.PX, scaledPoint.y);
+                LSLength x = new LSLength(LSLengthUnitType.PX, scaledPoint.x);
+                LSLength y = new LSLength(LSLengthUnitType.PX, scaledPoint.y);
 
                 switch (editingMode) {
                 case DRAW_RECTANGLE :
-                    SVGRectElement svgRect = new SVGRectElement();
+                    LSShapeRect svgRect = new LSShapeRect();
 
                     svgRect.setX(x);
                     svgRect.setY(y);
@@ -421,7 +421,7 @@ public final class LSUIEditingPanel extends JPanel {
                     break;
 
                 case DRAW_CIRCLE :
-                    SVGCircleElement svgCircle = new SVGCircleElement();
+                    LSShapeCircle svgCircle = new LSShapeCircle();
 
                     svgCircle.setCx(x);
                     svgCircle.setCy(y);
@@ -430,7 +430,7 @@ public final class LSUIEditingPanel extends JPanel {
                     break;
 
                 case DRAW_LINE :
-                    SVGLineElement svgLine = new SVGLineElement();
+                    LSShapeLine svgLine = new LSShapeLine();
 
                     svgLine.setX1(x);
                     svgLine.setY1(y);
@@ -537,8 +537,8 @@ public final class LSUIEditingPanel extends JPanel {
                     break;
 
                 case MODE_RESIZE :
-                    if (activeElement instanceof SVGRectElement) {
-                        SVGRectElement rect = (SVGRectElement) activeElement;
+                    if (activeElement instanceof LSShapeRect) {
+                        LSShapeRect rect = (LSShapeRect) activeElement;
 
                         switch (resizeHandlers.indexOf(activeResizeHandler)) {
                         case 0 :
@@ -589,10 +589,10 @@ public final class LSUIEditingPanel extends JPanel {
                         default :
                             throw new AssertionError("Non-existant resize handler");
                         }
-                    } else if (activeElement instanceof SVGCircleElement) {
-                        SVGCircleElement circle      = (SVGCircleElement) activeElement;
-                        Point2D.Float    centerPoint = new Point2D.Float(circle.getCx().getValue(SVGLengthUnitType.PX),
-                                                           circle.getCy().getValue(SVGLengthUnitType.PX));
+                    } else if (activeElement instanceof LSShapeCircle) {
+                        LSShapeCircle circle      = (LSShapeCircle) activeElement;
+                        Point2D.Float    centerPoint = new Point2D.Float(circle.getCx().getValue(LSLengthUnitType.PX),
+                                                           circle.getCy().getValue(LSLengthUnitType.PX));
                         float dr = (float) (endPoint.distance(centerPoint) - startPoint.distance(centerPoint));
 
                         switch (resizeHandlers.indexOf(activeResizeHandler)) {
@@ -604,8 +604,8 @@ public final class LSUIEditingPanel extends JPanel {
                         default :
                             throw new AssertionError("Non-existant resize handler");
                         }
-                    } else if (activeElement instanceof SVGLineElement) {
-                        SVGLineElement line = (SVGLineElement) activeElement;
+                    } else if (activeElement instanceof LSShapeLine) {
+                        LSShapeLine line = (LSShapeLine) activeElement;
 
                         switch (resizeHandlers.indexOf(activeResizeHandler)) {
                         case 0 :
@@ -628,28 +628,28 @@ public final class LSUIEditingPanel extends JPanel {
                     break;
 
                 case DRAW_RECTANGLE :
-                    SVGRectElement rect = (SVGRectElement) newElement;
+                    LSShapeRect rect = (LSShapeRect) newElement;
 
                     updateSelectionRect(cursorPoint);
-                    rect.setX(new SVGLengthUnit(SVGLengthUnitType.PX, activeRect.x / zoom));
-                    rect.setY(new SVGLengthUnit(SVGLengthUnitType.PX, activeRect.y / zoom));
-                    rect.setWidth(new SVGLengthUnit(SVGLengthUnitType.PX, activeRect.width / zoom));
-                    rect.setHeight(new SVGLengthUnit(SVGLengthUnitType.PX, activeRect.height / zoom));
+                    rect.setX(new LSLength(LSLengthUnitType.PX, activeRect.x / zoom));
+                    rect.setY(new LSLength(LSLengthUnitType.PX, activeRect.y / zoom));
+                    rect.setWidth(new LSLength(LSLengthUnitType.PX, activeRect.width / zoom));
+                    rect.setHeight(new LSLength(LSLengthUnitType.PX, activeRect.height / zoom));
 
                     break;
 
                 case DRAW_CIRCLE :
-                    SVGCircleElement circle = (SVGCircleElement) newElement;
+                    LSShapeCircle circle = (LSShapeCircle) newElement;
 
-                    circle.setRadius(new SVGLengthUnit(SVGLengthUnitType.PX, (float) endPoint.distance(startPoint)));
+                    circle.setRadius(new LSLength(LSLengthUnitType.PX, (float) endPoint.distance(startPoint)));
 
                     break;
 
                 case DRAW_LINE :
-                    SVGLineElement line = (SVGLineElement) newElement;
+                    LSShapeLine line = (LSShapeLine) newElement;
 
-                    line.setX2(new SVGLengthUnit(SVGLengthUnitType.PX, endPoint.x));
-                    line.setY2(new SVGLengthUnit(SVGLengthUnitType.PX, endPoint.y));
+                    line.setX2(new LSLength(LSLengthUnitType.PX, endPoint.x));
+                    line.setY2(new LSLength(LSLengthUnitType.PX, endPoint.y));
 
                     break;
 

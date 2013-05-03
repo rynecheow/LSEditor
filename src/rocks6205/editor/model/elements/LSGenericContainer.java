@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 /**
- * The <code>SVGContainerElement</code> class is an abstract class that defines a
+ * The <code>LSGenericContainer</code> class is an abstract class that defines a
  * container for other SVG container or non-container elements and store
  * descendants of the container element
  *
@@ -15,17 +15,17 @@ import java.util.Iterator;
  * @since 1.1
  *
  */
-public abstract class SVGContainerElement extends SVGGenericElement {
+public abstract class LSGenericContainer extends LSGenericElement {
 
     /**
      * List of SVG element object descendants
      */
-    private ArrayList<SVGGenericElement> descendants;
+    private ArrayList<LSGenericElement> descendants;
 
     /**
      * Default constructor
      */
-    public SVGContainerElement() {
+    public LSGenericContainer() {
         descendants = new ArrayList<>();
     }
 
@@ -36,7 +36,7 @@ public abstract class SVGContainerElement extends SVGGenericElement {
     /**
      * @return List of SVG element object descendants
      */
-    public ArrayList<SVGGenericElement> getDescendants() {
+    public ArrayList<LSGenericElement> getDescendants() {
         return descendants;
     }
 
@@ -46,7 +46,7 @@ public abstract class SVGContainerElement extends SVGGenericElement {
      * @param index Descendant index
      * @return Descendant object at <code>index</code>
      */
-    public SVGGenericElement getDescendant(int index) {
+    public LSGenericElement getDescendant(int index) {
         return descendants.get(index);
     }
 
@@ -58,16 +58,16 @@ public abstract class SVGContainerElement extends SVGGenericElement {
         return descendants.size();
     }
 
-    public int indexOf(SVGGenericElement elem) {
+    public int indexOf(LSGenericElement elem) {
         return descendants.indexOf(elem);
     }
 
     /**
      * Add descendant to current element and sets itself as the parent element
      *
-     * @param e <code>SVGGenericElement</code> object
+     * @param e <code>LSGenericElement</code> object
      */
-    public void addDescendant(SVGGenericElement e) {
+    public void addDescendant(LSGenericElement e) {
         if (e != null) {
             descendants.add(e);
             e.setAncestorElement(this);
@@ -79,7 +79,7 @@ public abstract class SVGContainerElement extends SVGGenericElement {
      * @param e Element to be inserted
      * @param atIndex Index for <code>e</code> to be inserted
      */
-    public void insertDescendant(SVGGenericElement e, int atIndex) {
+    public void insertDescendant(LSGenericElement e, int atIndex) {
         descendants.add(atIndex, e);
         e.setAncestorElement(this);
     }
@@ -89,14 +89,14 @@ public abstract class SVGContainerElement extends SVGGenericElement {
      * @param e Element to be replaced
      * @param atIndex Index for <code>e</code> to be replaced
      */
-    public void replaceDescendant(SVGGenericElement e, int atIndex) {}
+    public void replaceDescendant(LSGenericElement e, int atIndex) {}
 
     /**
      * Replace descendant element <code>e</code> with new element <code>eNew</code>
      * @param e Element to be replaced
      * @param eNew New element to replace current element
      */
-    public void replaceDescendant(SVGGenericElement e, SVGGenericElement eNew) {}
+    public void replaceDescendant(LSGenericElement e, LSGenericElement eNew) {}
 
     /**
      * Remove descendant element at specific <code>index</code>
@@ -110,18 +110,18 @@ public abstract class SVGContainerElement extends SVGGenericElement {
      * Remove descendant element that matches <code>e</code>
      * @param e Element to be removed
      */
-    public void removeDescendant(SVGGenericElement e) {
+    public void removeDescendant(LSGenericElement e) {
         descendants.remove(e);
     }
 
-    public void listDescendants(SVGContainerElement container, int indentNumber) {
+    public void listDescendants(LSGenericContainer container, int indentNumber) {
         int level = indentNumber;
 
-        for (Iterator<SVGGenericElement> it = container.descendants.iterator(); it.hasNext(); ) {
-            SVGGenericElement e = it.next();
+        for (Iterator<LSGenericElement> it = container.descendants.iterator(); it.hasNext(); ) {
+            LSGenericElement e = it.next();
 
-            if (e instanceof SVGGElement) {
-                SVGGElement g = (SVGGElement) e;
+            if (e instanceof LSGroup) {
+                LSGroup g = (LSGroup) e;
 
                 System.out.println(getIndent(level) + g.getElementType());
                 listDescendants(g, ++level);

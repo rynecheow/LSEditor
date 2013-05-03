@@ -8,7 +8,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * The <code>SVGColorScheme</code> class is used to parse <code>color</code> attribute in SVG documents
+ * The <code>LSColor</code> class is used to parse <code>color</code> attribute in SVG documents
  * and convert to standard RGB Color scheme readable by Java. <p>
  *
  * Currently supported conversions formats are the standard RGB format e.g. <code> rgb(120,83,22)</code>,
@@ -18,7 +18,7 @@ import java.util.regex.Pattern;
  *
  * @since 1.0
  */
-public class SVGColorScheme extends Color {
+public class LSColor extends Color {
     private static final long serialVersionUID = 5839823140108294927L;
 
     /*
@@ -30,34 +30,34 @@ public class SVGColorScheme extends Color {
      *  e.g. rgb(120,83,22)<br>
      *  e.g. rgb(70%,62%,3%)
      */
-    public static final String RGB_COLOR = "rgb\\((" + SVGPrimitive._8_BIT_UINT + "," + SVGPrimitive._8_BIT_UINT + ","
-                                           + SVGPrimitive._8_BIT_UINT + "|" + SVGPrimitive.PERCENTAGE_UNUM + ","
-                                           + SVGPrimitive.PERCENTAGE_UNUM + "," + SVGPrimitive.PERCENTAGE_UNUM + ")\\)";
+    public static final String RGB_COLOR = "rgb\\((" + LSSVGPrimitive._8_BIT_UINT + "," + LSSVGPrimitive._8_BIT_UINT + ","
+                                           + LSSVGPrimitive._8_BIT_UINT + "|" + LSSVGPrimitive.PERCENTAGE_UNUM + ","
+                                           + LSSVGPrimitive.PERCENTAGE_UNUM + "," + LSSVGPrimitive.PERCENTAGE_UNUM + ")\\)";
 
     /**
      *  Regular expression for hexadecimal color format<br>
      *  e.g. #123abc , #fff
      */
-    public static final String HEXA_COLOR = "#" + "(" + SVGPrimitive._4_BIT_HEX_UINT + "{3}){1,2}";
+    public static final String HEXA_COLOR = "#" + "(" + LSSVGPrimitive._4_BIT_HEX_UINT + "{3}){1,2}";
 
     /*
      * CONSTRUCTOR
      */
 
     /**
-     * Creates <code>SVGColorScheme</code> from specified value of <code>red</code> , <code>green</code>,
+     * Creates <code>LSColor</code> from specified value of <code>red</code> , <code>green</code>,
      * and <code>blue</code> values
      *
      * @param red Red integer value
      * @param green Green integer value
      * @param blue Blue integer value
      */
-    public SVGColorScheme(int red, int green, int blue) {
+    public LSColor(int red, int green, int blue) {
         super(red, green, blue);
     }
 
     /**
-     * Creates <code>SVGColorScheme</code> from specified value of <code>red</code> , <code>green</code>,
+     * Creates <code>LSColor</code> from specified value of <code>red</code> , <code>green</code>,
      * <code>blue</code> and <code>alpha</code> values
      *
      * @param red Red integer value
@@ -65,7 +65,7 @@ public class SVGColorScheme extends Color {
      * @param blue Blue integer value
      * @param alpha Alpha integer value
      */
-    public SVGColorScheme(int red, int green, int blue, int alpha) {
+    public LSColor(int red, int green, int blue, int alpha) {
         super(red, green, blue, alpha);
     }
 
@@ -149,14 +149,14 @@ public class SVGColorScheme extends Color {
          */
 
         /**
-         * Returns a <code>SVGColorScheme</code> from a color keyword as listed in {@link SVGColorKeyword}
+         * Returns a <code>LSColor</code> from a color keyword as listed in {@link SVGColorKeyword}
          * enumerator provided
          *
-         * @return <code>SVGColorScheme</code> value in respective specified value of <code>r</code> ,
+         * @return <code>LSColor</code> value in respective specified value of <code>r</code> ,
          * <code>g</code>, and <code>b</code>
          */
-        public SVGColorScheme getSVGColorScheme() {
-            return new SVGColorScheme(red, green, blue);
+        public LSColor getSVGColorScheme() {
+            return new LSColor(red, green, blue);
         }
     }
 
@@ -169,12 +169,12 @@ public class SVGColorScheme extends Color {
      *
      *
      * @param colorAttributeString      Attribute string that is read directly from SVG file
-     * @return <code>SVGColorScheme</code> object
+     * @return <code>LSColor</code> object
      */
-    public static SVGColorScheme parse(String colorAttributeString) {
+    public static LSColor parse(String colorAttributeString) {
         colorAttributeString = colorAttributeString.trim();
 
-        SVGColorScheme color = getColorFromKeyword(colorAttributeString);
+        LSColor color = getColorFromKeyword(colorAttributeString);
 
         if (color != null) {
             return color;
@@ -205,7 +205,7 @@ public class SVGColorScheme extends Color {
                 rgb[u] = normaliseRGB(rgb[u]);
             }
 
-            return new SVGColorScheme(rgb[0], rgb[1], rgb[2]);
+            return new LSColor(rgb[0], rgb[1], rgb[2]);
         }
 
         return null;
@@ -237,9 +237,9 @@ public class SVGColorScheme extends Color {
      * Convert color keywords to Java-compatible color type where matches formats.
      *
      * @param colorAttributeString      Attribute string that is read directly from SVG file
-     * @return <code>SVGColorScheme</code> object
+     * @return <code>LSColor</code> object
      */
-    public static SVGColorScheme getColorFromKeyword(String colorAttributeString) {
+    public static LSColor getColorFromKeyword(String colorAttributeString) {
         colorAttributeString = colorAttributeString.toUpperCase();
 
         for (SVGColorKeyword keyword : SVGColorKeyword.values()) {
@@ -255,13 +255,13 @@ public class SVGColorScheme extends Color {
      * Decodes hexadecimal string, and extend if the string is in only 3 hexadecimal digit format
      *
      * @param hexColorString    Attribute string that is read directly from SVG file
-     * @return <code>SVGColorScheme</code> object
+     * @return <code>LSColor</code> object
      */
-    private static SVGColorScheme decodeHex(String hexColorString) {
+    private static LSColor decodeHex(String hexColorString) {
         try {
             Color color = Color.decode(extendHex(hexColorString));
 
-            return new SVGColorScheme(color.getRed(), color.getGreen(), color.getBlue());
+            return new LSColor(color.getRed(), color.getGreen(), color.getBlue());
         } catch (NumberFormatException nfe) {
             nfe.printStackTrace();
 
@@ -277,7 +277,7 @@ public class SVGColorScheme extends Color {
      * @return  Extended hexadecimal string
      */
     private static String extendHex(String hexColorString) {
-        Matcher shortHexaStringMatcher = Pattern.compile(SVGPrimitive._4_BIT_HEX_UINT
+        Matcher shortHexaStringMatcher = Pattern.compile(LSSVGPrimitive._4_BIT_HEX_UINT
                                              + "{3}").matcher(hexColorString.substring(1));
 
         if (shortHexaStringMatcher.matches()) {

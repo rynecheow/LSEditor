@@ -2,7 +2,7 @@ package rocks6205.editor.controllers;
 
 //~--- non-JDK imports --------------------------------------------------------
 
-import rocks6205.editor.model.elements.SVGGenericElement;
+import rocks6205.editor.model.elements.LSGenericElement;
 
 //~--- JDK imports ------------------------------------------------------------
 
@@ -27,13 +27,13 @@ public interface SVGEditorSelectionsController {
      * Return a set of elements that is of current selections
      * @return Hash set of elements
      */
-    public LinkedHashSet<SVGGenericElement> getSelections();
+    public LinkedHashSet<LSGenericElement> getSelections();
 
     /**
      * Adds element to selection set.
      * @param e SVG elements
      */
-    public void addToSelection(SVGGenericElement e);
+    public void addToSelection(LSGenericElement e);
 
     /**
      * Add any element in the selected point to selection set.

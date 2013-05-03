@@ -25,7 +25,7 @@ import javax.xml.parsers.ParserConfigurationException;
  * @since 1.0
  *
  */
-public class XMLParser {
+public class LSSVGDOMParser {
 
     /*
      * CONSTRUCTOR
@@ -34,7 +34,7 @@ public class XMLParser {
     /**
      * Default constructor
      */
-    private XMLParser() {}
+    private LSSVGDOMParser() {}
 
     /*
      * METHODS
