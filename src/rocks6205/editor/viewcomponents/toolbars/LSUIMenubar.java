@@ -7,7 +7,7 @@ import rocks6205.editor.actions.LSAbstractAction.ExitAction;
 import rocks6205.editor.actions.LSAbstractAction.OpenFileAction;
 import rocks6205.editor.actions.LSAbstractAction.ZoomInViewAction;
 import rocks6205.editor.actions.LSAbstractAction.ZoomOutViewAction;
-import rocks6205.editor.mvc.LSView;
+import rocks6205.editor.core.LSView;
 
 //~--- JDK imports ------------------------------------------------------------
 

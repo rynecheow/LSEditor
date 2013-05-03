@@ -10,8 +10,8 @@ import rocks6205.editor.model.elements.LSGenericElement;
 import rocks6205.editor.model.elements.LSShapeLine;
 import rocks6205.editor.model.elements.LSShapeRect;
 
-import rocks6205.editor.mvc.LSView;
-import rocks6205.editor.mvc.LSViewController;
+import rocks6205.editor.core.LSView;
+import rocks6205.editor.core.LSViewController;
 
 //~--- JDK imports ------------------------------------------------------------
 

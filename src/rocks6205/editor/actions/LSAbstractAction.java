@@ -3,8 +3,8 @@ package rocks6205.editor.actions;
 //~--- non-JDK imports --------------------------------------------------------
 
 import rocks6205.editor.model.adt.LSColor;
-import rocks6205.editor.mvc.LSView;
-import rocks6205.editor.mvc.LSViewController;
+import rocks6205.editor.core.LSView;
+import rocks6205.editor.core.LSViewController;
 import rocks6205.editor.viewcomponents.panels.LSUIEditingPanel;
 import rocks6205.system.properties.LSCanvasProperties;
 import rocks6205.system.properties.OSValidator;

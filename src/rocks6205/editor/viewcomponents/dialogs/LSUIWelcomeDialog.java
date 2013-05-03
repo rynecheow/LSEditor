@@ -3,7 +3,7 @@ package rocks6205.editor.viewcomponents.dialogs;
 //~--- non-JDK imports --------------------------------------------------------
 
 import rocks6205.editor.actions.LSAbstractAction.OpenFileAction;
-import rocks6205.editor.mvc.LSView;
+import rocks6205.editor.core.LSView;
 
 //~--- JDK imports ------------------------------------------------------------
 

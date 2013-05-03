@@ -9,7 +9,7 @@ import rocks6205.editor.actions.LSAbstractAction.GroupAction;
 import rocks6205.editor.actions.LSAbstractAction.PanModeAction;
 import rocks6205.editor.actions.LSAbstractAction.SelectModeAction;
 import rocks6205.editor.actions.LSAbstractAction.UngroupAction;
-import rocks6205.editor.mvc.LSView;
+import rocks6205.editor.core.LSView;
 
 import rocks6205.system.properties.LSSVGEditorGUITheme;
 

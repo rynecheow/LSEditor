@@ -2,7 +2,7 @@ package rocks6205.editor.viewcomponents.panels;
 
 //~--- non-JDK imports --------------------------------------------------------
 
-import rocks6205.editor.mvc.LSView;
+import rocks6205.editor.core.LSView;
 
 import rocks6205.editor.model.adt.LSColor;
 

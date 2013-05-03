@@ -1,4 +1,4 @@
-package rocks6205.editor.mvc;
+package rocks6205.editor.core;
 
 //~--- non-JDK imports --------------------------------------------------------
 

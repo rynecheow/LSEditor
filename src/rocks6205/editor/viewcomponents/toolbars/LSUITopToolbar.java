@@ -7,7 +7,7 @@ import rocks6205.editor.actions.LSAbstractAction.OpenFileAction;
 import rocks6205.editor.actions.LSAbstractAction.SaveFileAction;
 import rocks6205.editor.actions.LSAbstractAction.ZoomInViewAction;
 import rocks6205.editor.actions.LSAbstractAction.ZoomOutViewAction;
-import rocks6205.editor.mvc.LSView;
+import rocks6205.editor.core.LSView;
 
 import rocks6205.system.properties.LSSVGEditorGUITheme;
 
