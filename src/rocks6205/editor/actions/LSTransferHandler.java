@@ -24,6 +24,7 @@ import static javax.swing.TransferHandler.COPY;
 /**
  *
  * @author Cheow Yeong Chi
+ * @version 2.5
  */
 public class LSTransferHandler extends TransferHandler {
 
