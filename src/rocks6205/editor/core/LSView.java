@@ -159,8 +159,8 @@ public final class LSView extends JFrame implements LSUIProtocol {
         y        = (screen.height - height) / 2;
         this.setLocation(x, y);
         LSCanvasProperties.setOutputResolution(Toolkit.getDefaultToolkit().getScreenResolution());
+        setResizable(false);
     }
-
     /**
      * Initialises child components.
      */
