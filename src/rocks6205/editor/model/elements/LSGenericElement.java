@@ -16,6 +16,10 @@ import java.awt.BasicStroke;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import org.w3c.dom.Attr;
+import rocks6205.editor.model.adt.LSSVGPrimitive;
 
 /**
  * The <code>LSGenericElement</code> class models a generic SVG Element
@@ -154,11 +158,12 @@ public abstract class LSGenericElement {
 
     /**
      * Create an affine transform for current element instance if any.
+     * 
      * @return Translate instance of current element
      */
     public AffineTransform getTransform() {
-        float tx = 0;
-        float ty = 0;
+        double tx = 0;
+        double ty = 0;
 
         if (translateX != null) {
             tx = translateX.getValue();
@@ -167,7 +172,8 @@ public abstract class LSGenericElement {
         if (translateY != null) {
             ty = translateY.getValue();
         }
-
+        
+        System.out.printf("%f %f\n",tx,ty);
         return AffineTransform.getTranslateInstance(tx, ty);
     }
 
@@ -388,9 +394,63 @@ public abstract class LSGenericElement {
      *
      * @param e Element from the document returned by the XMLParser
      */
-    public void parseAttributes(Element e) {
+    
+    /**
+     * Parse all other common attributes.
+     * @param e Element from the document returned by the XMLParser
+     */
+    public void parseAttributes(Element e){
+         parseGeometricalTransformation(e);
+         parsePresentationalAttributes(e);
+      }
+    
+    private void parsePresentationalAttributes(Element e) {
         setFill(LSPainting.parse(e.getAttributeNS(null, "fill")));
         setStroke(LSPainting.parse(e.getAttributeNS(null, "stroke")));
         setStrokeWidth(LSLength.parse(e.getAttributeNS(null, "stroke-width")));
     }
+    
+    /**
+     * Parsing transform attributes, e.g. translate.
+     * @param e Element from the document returned by the XMLParser
+     */
+    private void parseGeometricalTransformation(Element e){
+       Attr transformAttr = e.getAttributeNodeNS(null, "transform");
+
+		if (transformAttr != null) {
+			Matcher translateMatcher = Pattern.compile(
+					LSSVGPrimitive.TRANSLATE).matcher(
+					transformAttr.getValue());
+			LSLength txLength;
+			LSLength tyLength;
+
+			while (translateMatcher.find()) {
+				txLength = LSLength.parse(translateMatcher.group(1));
+				if (txLength != null
+						&& txLength.getUnitType() == LSLengthUnitType.NUMBER) {
+					if (translateX == null) {
+						translateX = new LSLength(txLength.getValue());
+					} else {
+						translateX = new LSLength(translateX.getValue()
+								+ txLength.getValue());
+					}
+				}
+
+				tyLength = LSLength.parse(translateMatcher.group(7));
+				if (tyLength != null
+						&& tyLength.getUnitType() == LSLengthUnitType.NUMBER) {
+					if (translateY == null) {
+						translateY = new LSLength(tyLength.getValue());
+					} else {
+						translateY = new LSLength(translateY.getValue()
+								+ tyLength.getValue());
+					}
+				}
+			}
+		}
+      
+      
+    }
+    
+    
 }
