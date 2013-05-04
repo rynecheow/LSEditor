@@ -174,8 +174,6 @@ public abstract class LSGenericElement {
             ty = translateY.getValue();
         }
 
-        System.out.printf("%f %f\n", tx, ty);
-
         return AffineTransform.getTranslateInstance(tx, ty);
     }
 
@@ -391,13 +389,6 @@ public abstract class LSGenericElement {
      */
 
     /**
-     * Parsing other general element attributes such as fill, stroke and stroke-width from
-     * <code>e</code>
-     *
-     * @param e Element from the document returned by the XMLParser
-     */
-
-    /**
      * Parse all other common attributes.
      * @param e Element from the document returned by the XMLParser
      */
@@ -405,7 +396,13 @@ public abstract class LSGenericElement {
         parseGeometricalTransformation(e);
         parsePresentationalAttributes(e);
     }
-
+    
+    /**
+     * Parsing other general element attributes such as fill, stroke and stroke-width from
+     * <code>e</code>
+     *
+     * @param e Element from the document returned by the XMLParser
+     */
     private void parsePresentationalAttributes(Element e) {
         setFill(LSPainting.parse(e.getAttributeNS(null, "fill")));
         setStroke(LSPainting.parse(e.getAttributeNS(null, "stroke")));

@@ -3,7 +3,7 @@
    <rect x="50" y="50" width="50" height="50" fill="firebrick" stroke="lightgray" stroke-width="10px" />
    <rect x="75" y="75" width="75" height="75" fill="rgb( 211 , 216 , 34 )" stroke="tomato" stroke-width="20px" />
    <rect x="125" y="125" width="125" height="125" fill="springgreen" stroke="#666" stroke-width="30px" />
-   <rect x="200" y="200" width="200" height="200" stroke="#c960fa" stroke-width="0.4E2px" />
+   <rect x="200" y="200" width="200" height="200" stroke="#c960fa" stroke-width="0.4E2 px" />
    <g fill="skyblue" transform="translate(300,399.99)">
       <circle cx="-99.4" cy="-149.99" r="40" fill="none" stroke="gold" stroke-width="1em" />
       <circle cx="-60" cy="-85" r="50" stroke="rgb(200%,0%,-10%)" stroke-width="0.5in" />
