@@ -381,7 +381,15 @@ public final class LSView extends JFrame implements LSUIProtocol {
             }
         }
     }
-    
+
+    public void openFile(File f) {
+       try {
+          controller.fileLoad(f);
+       } catch (IOException ex) {
+          LSEditor.logger.warning(ex.getMessage());
+       }
+    }
+
     /*
      * ACCESSORS
      */
