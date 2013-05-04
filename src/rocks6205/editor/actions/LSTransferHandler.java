@@ -14,7 +14,6 @@ import java.awt.datatransfer.UnsupportedFlavorException;
 import java.io.File;
 import java.io.IOException;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.TransferHandler;
@@ -64,13 +63,20 @@ public class LSTransferHandler extends TransferHandler {
 
         Transferable t = tf.getTransferable();
         try {
-            @SuppressWarnings("unchecked") List<File> l =
-                (List<File>) t.getTransferData(DataFlavor.javaFileListFlavor);
+           List<File> l = (List<File>) t.getTransferData(DataFlavor.javaFileListFlavor);
 
             if (l.size() != 1) {
                 return false;
             }
             File f = l.get(0);
+            
+            boolean isFileTypeValid = f.getName().substring(f.getName().lastIndexOf(".")).equalsIgnoreCase(".svg");
+            
+            if(!isFileTypeValid){
+               LSEditor.logger.warning("File extension must be \'.svg\' in order to be opened.\n");
+               return false;
+            }
+            
             if (parentView.promptSaveIfNeeded()) {
                 parentView.openFile(f);
             }
