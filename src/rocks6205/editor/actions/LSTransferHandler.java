@@ -15,7 +15,6 @@ import java.io.File;
 import java.io.IOException;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.swing.TransferHandler;
 
@@ -64,20 +63,24 @@ public class LSTransferHandler extends TransferHandler {
 
         Transferable t = tf.getTransferable();
         try {
-            @SuppressWarnings("unchecked") List<File> l =
-                (List<File>) t.getTransferData(DataFlavor.javaFileListFlavor);
+            @SuppressWarnings("unchecked") ArrayList<File> l =
+                (ArrayList<File>) t.getTransferData(DataFlavor.javaFileListFlavor);
 
             if (l.size() != 1) {
                 return false;
             }
             File f = l.get(0);
             if (parentView.promptSaveIfNeeded()) {
-                parentView.openFile(f);
+               try {
+                  parentView.getController().fileLoad(f);
+               } catch (IOException ex) {
+                  LSEditor.logger.warning(ex.getMessage());
+                  return false;
+               }
             }
              
         } catch (UnsupportedFlavorException | IOException e) {
             LSEditor.logger.warning(e.getMessage());
-
             return false;
         }
 

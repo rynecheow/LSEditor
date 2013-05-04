@@ -138,8 +138,8 @@ public final class LSUISideToolbar extends JToolBar implements LSUIProtocol {
 
     private void layoutView() {
         addSeparator();
-        add(panButton);
         add(selectButton);
+        add(panButton);
         addSeparator();
         add(drawRectButton);
         add(drawCircButton);
