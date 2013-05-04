@@ -2,6 +2,8 @@ package rocks6205.editor.core;
 
 //~--- non-JDK imports --------------------------------------------------------
 
+import com.sun.org.apache.xml.internal.serialize.OutputFormat;
+import com.sun.org.apache.xml.internal.serialize.XMLSerializer;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -37,6 +39,8 @@ import java.awt.image.BufferedImage;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.StringWriter;
+import java.io.Writer;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -137,6 +141,7 @@ public class LSViewController
      * Modification time.
      */
     private long modificationStart_t;
+    private String docString;
 
     /*
      * CONSTRUCTOR
@@ -170,6 +175,10 @@ public class LSViewController
         return this.activeFile;
     }
 
+    public final String getDocumentString(){
+       return docString;
+    }
+    
     /*
      * MUTATORS
      */
@@ -210,6 +219,10 @@ public class LSViewController
         updateViews();
     }
 
+    public void setDocumentString(String d){
+       docString = d;
+    }
+    
     /*
      * DOCUMENT OPERATION
      */
@@ -433,8 +446,8 @@ public class LSViewController
     public boolean fileLoad(File file) throws IOException {
         if ((file != null) && file.getName().endsWith(".svg")) {
             Document doc = LSSVGDOMParser.parseXml(new InputSource(file.toURI().toString()));
-
             if (doc != null) {
+                setDocumentString(parseDocumentAsFormattedString(doc));
                 LSSVGContainer svg_e = LSSVGContainer.parseDocument(doc);
 
                 if (svg_e != null) {
@@ -999,6 +1012,23 @@ public class LSViewController
 
         touchDocument();
     }
+
+   private String parseDocumentAsFormattedString(Document d){
+      try {
+            OutputFormat format = new OutputFormat(d);
+            format.setLineWidth(65);
+            format.setIndenting(true);
+            format.setIndent(2);
+            Writer out = new StringWriter();
+            XMLSerializer serializer = new XMLSerializer(out, format);
+            serializer.serialize(d);
+
+            return out.toString();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+   }
+      
 }
 
 

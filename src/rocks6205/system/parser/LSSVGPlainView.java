@@ -7,6 +7,8 @@ package rocks6205.system.parser;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -30,17 +32,16 @@ import javax.swing.text.Utilities;
 public final class LSSVGPlainView extends PlainView {
 
     private final static LinkedHashMap<Pattern, Color> syntaxHighlighter;
-    private final static Color HIGHLIGHT_COLOR_START_TAG = new Color(63, 127, 127);
-    private final static Color HIGHLIGHT_COLOR_END_TAG = new Color(63, 127, 127);
-    private final static Color HIGHLIGHT_COLOR_ATTRIBUTE_VALUE = new Color(42, 0, 255);
-    private final static Color HIGHLIGHT_COLOR_ATTRIBUTE_TAG = new Color(127, 0, 127);
-    private final static Color HIGHLIGHT_COLOR_COMMENT = new Color(63, 95, 191);
-    private final static Color HIGHLIGHT_COLOR_CDATA = new Color(63, 95, 191);
+    private final static Color HIGHLIGHT_COLOR_START_END_TAG = new Color(0x808ef4);
+    private final static Color HIGHLIGHT_COLOR_ATTRIBUTE_VALUE = new Color(0xad9361);
+    private final static Color HIGHLIGHT_COLOR_ATTRIBUTE_TAG = new Color(0x93466f);
+    private final static Color HIGHLIGHT_COLOR_COMMENT = new Color(0x535454);
+    private final static Color HIGHLIGHT_COLOR_CDATA = new Color(0x535454);
     
     private final static String SYNTAX_START_TAG = "(</?[a-z]*)\\s?>?";
     private final static String SYNTAX_END_TAG = "(/>)";
-    private final static String SYNTAX_ATTRIBUTE_TAG = "\\s(\\w*)\\=";
-    private final static String SYNTAX_ATTRIBUTE_VALUE = "[a-z-]*\\=(\"[^\"]*\")";
+    private final static String SYNTAX_ATTRIBUTE_TAG = "\\s(\\p{L}+(?:(-|:)\\n?\\p{L}+)*)(\\w*)\\=";
+    private final static String SYNTAX_ATTRIBUTE_VALUE = "\\w*\\=(\"[^\"]*\")";
     private final static String SYNTAX_COMMENT = "(<!--.*-->)";
     private final static String SYNTAX_CDATA = "(\\<!\\[CDATA\\[).*";
     private final static String SYNTAX_CDATA_END = ".*(]]>)";
@@ -51,9 +52,9 @@ public final class LSSVGPlainView extends PlainView {
         syntaxHighlighter = new LinkedHashMap<>();
         syntaxHighlighter.put(Pattern.compile(SYNTAX_CDATA), HIGHLIGHT_COLOR_CDATA);
         syntaxHighlighter.put(Pattern.compile(SYNTAX_CDATA_END), HIGHLIGHT_COLOR_CDATA);
-        syntaxHighlighter.put(Pattern.compile(SYNTAX_START_TAG), HIGHLIGHT_COLOR_START_TAG);
+        syntaxHighlighter.put(Pattern.compile(SYNTAX_START_TAG), HIGHLIGHT_COLOR_START_END_TAG);
         syntaxHighlighter.put(Pattern.compile(SYNTAX_ATTRIBUTE_TAG), HIGHLIGHT_COLOR_ATTRIBUTE_TAG);
-        syntaxHighlighter.put(Pattern.compile(SYNTAX_END_TAG), HIGHLIGHT_COLOR_END_TAG);
+        syntaxHighlighter.put(Pattern.compile(SYNTAX_END_TAG), HIGHLIGHT_COLOR_START_END_TAG);
         syntaxHighlighter.put(Pattern.compile(SYNTAX_ATTRIBUTE_VALUE), HIGHLIGHT_COLOR_ATTRIBUTE_VALUE);
         syntaxHighlighter.put(Pattern.compile(SYNTAX_COMMENT), HIGHLIGHT_COLOR_COMMENT);
     }
@@ -69,7 +70,7 @@ public final class LSSVGPlainView extends PlainView {
     @Override
     protected int drawUnselectedText(Graphics g, int xCoord, int yCoord, int beginIndex,
             int endIndex) throws BadLocationException {
- 
+       ((Graphics2D) g).setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         Document doc = getDocument();
         String text = doc.getText(beginIndex, endIndex - beginIndex);
         TreeMap<Integer, Integer> startMap = new TreeMap<>();

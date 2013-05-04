@@ -107,6 +107,7 @@ public final class LSView extends JFrame implements LSUIProtocol {
      * ACTION COMPONENTS
      */
     private LSTransferHandler tfHandler;
+    private String currentDocString;
 
     /**
      * Handle pan events.
@@ -283,6 +284,7 @@ public final class LSView extends JFrame implements LSUIProtocol {
 
         if (isFileChanged) {
             displayedFile = currentFile;
+            miscPanel.updateCode(controller.getDocumentString());
         }
 
         if (needRepaint) {
@@ -422,6 +424,7 @@ public final class LSView extends JFrame implements LSUIProtocol {
     public LSUIEditingPanel getEditPanel(){
        return editPanel;
     }
+    
     /*
      * MUTATORS
      */

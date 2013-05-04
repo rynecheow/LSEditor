@@ -12,7 +12,7 @@ import rocks6205.system.properties.LSSVGEditorGUITheme;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.text.Document;
-import rocks6205.editor.viewcomponents.LSUISVGGeneratedCodeArea;
+import rocks6205.editor.viewcomponents.LSUISVGCodePane;
 
 /**
  *
@@ -30,7 +30,7 @@ public final class LSUIMiscPanel extends JPanel implements LSUIProtocol {
      */
     private LSUIRGBColorChooserPanel colorChooserPanel;
     private JScrollPane textScrollPane;
-    private LSUISVGGeneratedCodeArea textArea;
+    private LSUISVGCodePane textArea;
     
     public LSUIMiscPanel(LSView parent) {
         super();
@@ -47,7 +47,7 @@ public final class LSUIMiscPanel extends JPanel implements LSUIProtocol {
         colorChooserPanel = new LSUIRGBColorChooserPanel(parentView);
         
         textScrollPane = new JScrollPane();
-        textArea = new LSUISVGGeneratedCodeArea();
+        textArea = new LSUISVGCodePane();
         textScrollPane.setViewportView(textArea);
     }
 
@@ -89,8 +89,8 @@ public final class LSUIMiscPanel extends JPanel implements LSUIProtocol {
         enableTextAreaInView();
     }
 
-   public void updateCode(Document d){
-      textArea.setDocument(d);
+   public void updateCode(String d){
+      textArea.setText(d);
    }
 
    
