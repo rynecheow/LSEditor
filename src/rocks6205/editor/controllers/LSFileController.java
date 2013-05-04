@@ -5,6 +5,14 @@ package rocks6205.editor.controllers;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * Controller that deals with handling of files, which are the basic file operations : 
+ * Save and load file, and also tracks the modification.
+ * 
+ * @author Cheow Yeong Chi
+ * 
+ * @version 2.1
+ */
 public interface LSFileController {
     public static final File NEW_DOCUMENT = new File("file:///untitled.svg");
 

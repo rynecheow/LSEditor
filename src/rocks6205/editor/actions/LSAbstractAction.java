@@ -273,7 +273,6 @@ public abstract class LSAbstractAction extends AbstractAction {
         public void actionPerformed(ActionEvent event) {
            putValue(SELECTED_KEY, Boolean.TRUE);
             v.changeMode(LSUIEditingPanel.EditModeScheme.DRAW_LINE);
-            v.changeColor( new LSColor(0,0,0) ); /* edit */
             vc.clearSelection();
         }
     }

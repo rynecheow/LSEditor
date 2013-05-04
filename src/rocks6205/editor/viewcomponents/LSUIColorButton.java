@@ -166,11 +166,15 @@ public final class LSUIColorButton extends JButton implements LSUIProtocol{
    public LSPainting getPainting() {
 		return painting;
 	}
+   
    public void setPainting(LSPainting p){
-      painting = p;
+      setPaint(p);
       fireStateChanged();
    }
 
+   public void setPaint(LSPainting p){
+      painting = p;
+   }
    public void setPaintingNone(){
       setPainting(new LSPainting(LSPaintingType.NONE));
    }

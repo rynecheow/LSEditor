@@ -197,6 +197,12 @@ public final class LSUITopToolbar extends JToolBar implements LSUIProtocol {
      strokeButton.addPresentationChangeListener(changeList);
    }
 
+   public void checkComponentsIfNeedRepaint(LSGenericElement elem) {
+          fillButton.setPaint(elem.getResultantFill());
+          strokeButton.setPaint(elem.getResultantStroke());
+//          strokeWidthInputPanel.setLength(elem.getResultantStrokeWidth());
+   }
+
     
     
     private class SVGPresentationChangeListener implements ChangeListener {
