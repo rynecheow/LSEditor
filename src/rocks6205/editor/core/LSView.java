@@ -80,7 +80,7 @@ public final class LSView extends JFrame implements LSUIProtocol {
     private boolean isZoomChanged;
     private File    displayedFile;
     private String  documentTitle;
-
+    private static boolean codeViewFlag = (true);
     /**
      * Model object
      */
@@ -108,6 +108,7 @@ public final class LSView extends JFrame implements LSUIProtocol {
      */
     private LSTransferHandler tfHandler;
     private String currentDocString;
+   
 
     /**
      * Handle pan events.
@@ -464,4 +465,14 @@ public final class LSView extends JFrame implements LSUIProtocol {
     public void setEditPanel(LSUIEditingPanel p){
        editPanel = p;
     }
+
+   public void toggleCodeView() {
+      menuBar.toggleCodeMenuTitle(codeViewFlag);
+      if(codeViewFlag){
+         miscPanel.disableTextAreaInView();
+      }else{
+         miscPanel.enableTextAreaInView();
+      }
+      codeViewFlag = !codeViewFlag;
+   }
 }

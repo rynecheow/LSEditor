@@ -736,6 +736,47 @@ public abstract class LSAbstractAction extends AbstractAction {
         }
     }
     
+    /**
+     * The <code>SelectAllAction</code> is a class which create an <code>Action</code>
+     * instance. This action handles event by adding every element on view into selection
+     * set.
+     *
+     * @author Cheow Yeong Chi
+     *
+     * @since 2.2
+     *
+     */
+    public static class ToggleCodeViewAction extends LSAbstractAction {
+
+        /*
+         * CONSTRUCTOR
+         */
+
+        /**
+         * Construct a <code>ToggleCodeViewAction</code> instance with v component
+         * <code>v</code> and no action name.
+         * @param v Parent component
+         */
+        public ToggleCodeViewAction(LSView parent) {
+            super("Hide Code View Area..", KeyEvent.VK_D, KeyStroke.getKeyStroke(KeyEvent.VK_D, getKeyEventMask()), parent);
+        }
+
+        /**
+         * Construct a <code>SelectAllAction</code> instance with v component
+         * <code>v</code> and action name.
+         * @param v Parent component
+         * @param actionName Name of action component
+         */
+        public ToggleCodeViewAction(LSView parent, String actionName) {
+            super(actionName, "Select All", KeyEvent.VK_D, KeyStroke.getKeyStroke(KeyEvent.VK_D, getKeyEventMask()),
+                  parent);
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+           v.toggleCodeView();
+        }
+    }
     
     /**
      * The <code>UngroupAction</code> is a class which create an <code>Action</code>

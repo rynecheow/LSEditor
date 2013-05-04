@@ -25,6 +25,7 @@ import java.awt.event.KeyEvent;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import rocks6205.editor.actions.LSAbstractAction.ToggleCodeViewAction;
 
 /**
  * The main menu bar for the GUI.
@@ -66,6 +67,7 @@ public final class LSUIMenubar extends JMenuBar implements LSUIProtocol {
     private JMenuItem insertLineMenuItem;
     private JMenuItem zoomInMenuItem;
     private JMenuItem zoomOutMenuItem;
+    private JMenuItem toggleCodeAreaViewMenuItem;
     private JMenuItem faqMenuItem;
     private JMenuItem aboutMenuItem;
 
@@ -84,6 +86,7 @@ public final class LSUIMenubar extends JMenuBar implements LSUIProtocol {
     private DeleteAction      deleteAction;
     private ZoomInViewAction  zoomInAction;
     private ZoomOutViewAction zoomOutAction;
+    private ToggleCodeViewAction toggleCodeAct;
 
     /*
      * CONSTRUCTOR
@@ -128,6 +131,7 @@ public final class LSUIMenubar extends JMenuBar implements LSUIProtocol {
         insertLineMenuItem   = new JMenuItem("Line");
         zoomInMenuItem       = new JMenuItem();
         zoomOutMenuItem      = new JMenuItem();
+        toggleCodeAreaViewMenuItem = new JMenuItem();
         faqMenuItem          = new JMenuItem("FAQ");
         aboutMenuItem        = new JMenuItem("About");
         newAct               = new NewDocumentAction(parent, "New");
@@ -142,6 +146,7 @@ public final class LSUIMenubar extends JMenuBar implements LSUIProtocol {
         deleteAction         = new DeleteAction(parent, "Delete");
         zoomOutAction        = new ZoomOutViewAction(parent, "Zoom In");
         zoomInAction         = new ZoomInViewAction(parent, "Zoom Out");
+        toggleCodeAct        = new ToggleCodeViewAction(parent,"Close Code View Area..");
     }
 
     /**
@@ -230,6 +235,7 @@ public final class LSUIMenubar extends JMenuBar implements LSUIProtocol {
     private void layoutWindowMenuItemList() {
         windowMenu.add(zoomInMenuItem);
         windowMenu.add(zoomOutMenuItem);
+        windowMenu.add(toggleCodeAreaViewMenuItem);
     }
 
     /**
@@ -248,6 +254,7 @@ public final class LSUIMenubar extends JMenuBar implements LSUIProtocol {
         deleteMenuItem.setAction(deleteAction);
         zoomInMenuItem.setAction(zoomInAction);
         zoomOutMenuItem.setAction(zoomOutAction);
+        toggleCodeAreaViewMenuItem.setAction(toggleCodeAct);
     }
 
     /**
@@ -268,4 +275,8 @@ public final class LSUIMenubar extends JMenuBar implements LSUIProtocol {
         selectAllMenuItem.setEnabled(status);
         deselectAllMenuItem.setEnabled(status);
     }
+
+   public void toggleCodeMenuTitle(boolean flag) {
+      toggleCodeAreaViewMenuItem.setText(!flag ? "Close Code View Area.." : "Show Code View Area..");
+   }
 }
