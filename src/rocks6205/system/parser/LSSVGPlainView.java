@@ -32,14 +32,14 @@ import javax.swing.text.Utilities;
 public final class LSSVGPlainView extends PlainView {
 
     private final static LinkedHashMap<Pattern, Color> syntaxHighlighter;
-    private final static Color HIGHLIGHT_COLOR_START_END_TAG = new Color(0x808ef4);
-    private final static Color HIGHLIGHT_COLOR_ATTRIBUTE_VALUE = new Color(0xad9361);
-    private final static Color HIGHLIGHT_COLOR_ATTRIBUTE_TAG = new Color(0x93466f);
+    private final static Color HIGHLIGHT_COLOR_START_END_TAG = new Color(0x64d3e7);
+    private final static Color HIGHLIGHT_COLOR_ATTRIBUTE_VALUE = new Color(0xae81ff);
+    private final static Color HIGHLIGHT_COLOR_ATTRIBUTE_TAG = new Color(0xe9286a);
     private final static Color HIGHLIGHT_COLOR_COMMENT = new Color(0x535454);
     private final static Color HIGHLIGHT_COLOR_CDATA = new Color(0x535454);
     
-    private final static String SYNTAX_START_TAG = "(</?[a-z]*)\\s?>?";
-    private final static String SYNTAX_END_TAG = "(/>)";
+    private final static String SYNTAX_START_TAG = "(</?(\\?)*[a-z]*)\\s?>?";
+    private final static String SYNTAX_END_TAG = "((/*)|(\\?*))>";
     private final static String SYNTAX_ATTRIBUTE_TAG = "\\s(\\p{L}+(?:(-|:)\\n?\\p{L}+)*)(\\w*)\\=";
     private final static String SYNTAX_ATTRIBUTE_VALUE = "\\w*\\=(\"[^\"]*\")";
     private final static String SYNTAX_COMMENT = "(<!--.*-->)";

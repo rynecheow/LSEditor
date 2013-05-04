@@ -23,8 +23,6 @@ public class LSUISVGCodePane extends JTextPane{
       setEditorKitForContentType("text/xml", new LSDOMViewerToolkit());
       setContentType("text/xml");
       setFont(loadFont());
-      
-     
    }
 
    private Font loadFont() {
