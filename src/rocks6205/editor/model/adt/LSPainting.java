@@ -1,5 +1,7 @@
 package rocks6205.editor.model.adt;
 
+import java.awt.Color;
+
 /**
  * The <code>LSPainting</code> class is used to parse <code>paint</code> attribute in
  * SVG documents and convert to respective type and color to be drawn on canvas.<p>
@@ -35,6 +37,15 @@ public class LSPainting {
         setPaint(c, LSPaintingType.COLOR);
     }
 
+    /**
+     * Set current <code>LSPainting</code> instance to type <code>COLOR</code>.
+     *
+     * @param c Paint color
+     */
+    public LSPainting(Color c) {
+        setPaint(LSColor.createFromColor(c), LSPaintingType.COLOR);
+    }
+    
     /*
      * CONSTRUCTORS
      */

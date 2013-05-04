@@ -3,7 +3,6 @@ package rocks6205.system.properties;
 //~--- JDK imports ------------------------------------------------------------
 
 import java.awt.Color;
-import java.awt.Cursor;
 
 import javax.swing.BorderFactory;
 import javax.swing.border.Border;

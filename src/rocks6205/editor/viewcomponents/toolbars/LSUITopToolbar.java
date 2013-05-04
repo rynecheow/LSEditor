@@ -19,9 +19,19 @@ import rocks6205.system.properties.LSSVGEditorGUITheme;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import javax.swing.AbstractButton;
+import javax.swing.ButtonModel;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
 
 import javax.swing.JPanel;
 import javax.swing.JToolBar;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import rocks6205.editor.model.elements.LSGenericElement;
+import rocks6205.editor.viewcomponents.LSUIColorButton;
 
 /**
  *
@@ -46,9 +56,10 @@ public final class LSUITopToolbar extends JToolBar implements LSUIProtocol {
     private LSUIButton       zoomOutButton;
     private LSUIIconLabel    fillLabel;
     private LSUIIconLabel    strokeLabel;
-    private JPanel           fillButton;
-    private LSUIToggleButton strokeButton;
-
+    private LSUIColorButton fillButton;
+    private LSUIColorButton strokeButton;
+    private JCheckBox        fillCheckBox;
+    private JCheckBox        strokeCheckBox;
     /*
      * ACTION COMPONENTS
      */
@@ -74,8 +85,10 @@ public final class LSUITopToolbar extends JToolBar implements LSUIProtocol {
         zoomOutButton = LSUIButton.create();
         fillLabel     = new LSUIIconLabel();
         strokeLabel   = new LSUIIconLabel();
-        fillButton    = new JPanel();
-        strokeButton  = LSUIToggleButton.create();
+        fillButton    = LSUIColorButton.create(LSGenericElement.SVG_FILL_DEFAULT);
+        strokeButton  = LSUIColorButton.create(LSGenericElement.SVG_STROKE_DEFAULT);
+        fillCheckBox  = new JCheckBox();
+        strokeCheckBox= new JCheckBox();
         newAct        = new NewDocumentAction(parentView);
         openAct       = new OpenFileAction(parentView);
         saveAct       = new SaveFileAction(parentView);
@@ -87,6 +100,7 @@ public final class LSUITopToolbar extends JToolBar implements LSUIProtocol {
     public void customise() {
         layoutChildComponents();
         layoutView();
+        setItemListenerForCheckBox();
     }
 
     private void setParentView(LSView parent) {
@@ -138,8 +152,11 @@ public final class LSUITopToolbar extends JToolBar implements LSUIProtocol {
         add(zoomInButton);
         add(zoomOutButton);
         addSeparator();
+        add(fillCheckBox);
         add(fillLabel);
         add(fillButton);
+        addSeparator();
+        add(strokeCheckBox);
         add(strokeLabel);
         add(strokeButton);
         addSeparator();
@@ -148,12 +165,38 @@ public final class LSUITopToolbar extends JToolBar implements LSUIProtocol {
     }
 
     private void layoutChildComponents() {
-        fillButton.setMaximumSize(new Dimension(25, 25));
-        fillButton.setMinimumSize(new Dimension(25, 25));
-        fillButton.setBackground(Color.red);
-        fillButton.setBorder(LSSVGEditorGUITheme.MASTER_DEFAULT_PANEL_BORDER);
-        fillButton.setFocusable(false);
-        strokeButton.setSize(new Dimension(30, 30));
-        strokeButton.setBackground(Color.red);
+//        fillButton.setBorder(LSSVGEditorGUITheme.MASTER_DEFAULT_PANEL_BORDER);
+        fillCheckBox.setSelected(true);
+        strokeCheckBox.setSelected(false);
+    }
+    
+    private void setItemListenerForCheckBox(){
+       fillCheckBox.addItemListener(new ItemListener(){
+
+          @Override
+          public void itemStateChanged(ItemEvent e) {
+             boolean selected = e.getStateChange() == ItemEvent.SELECTED;
+             fillButton.setEnabled(selected);
+             if(selected){
+               fillButton.setPainting(LSGenericElement.SVG_FILL_DEFAULT);
+             }else{
+               fillButton.setPaintingNone();
+             }
+          }
+       });
+       
+       strokeCheckBox.addItemListener(new ItemListener(){
+
+          @Override
+          public void itemStateChanged(ItemEvent e) {
+             boolean selected = e.getStateChange() == ItemEvent.SELECTED;
+             strokeButton.setEnabled(selected);
+             if(selected){
+                strokeButton.setPaintingNone();
+             }else{
+                strokeButton.setPainting(LSGenericElement.SVG_STROKE_DEFAULT);
+             }
+          }
+       });
     }
 }

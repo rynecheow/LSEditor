@@ -295,4 +295,8 @@ public class LSColor extends Color {
 
         return hexColorString;
     }
+    
+    public static LSColor createFromColor(Color c){
+       return new LSColor (c.getRed(),c.getGreen(),c.getBlue());
+    }
 }
