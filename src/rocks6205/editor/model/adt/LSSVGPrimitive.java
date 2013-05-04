@@ -57,6 +57,4 @@ public interface LSSVGPrimitive {
      * Percentage unsigned number
      */
     public static final String PERCENTAGE_UNUM = "\\s*-?\\d+%\\s*";
-    
-    
 }

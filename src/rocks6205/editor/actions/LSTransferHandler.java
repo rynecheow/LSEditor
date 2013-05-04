@@ -62,25 +62,26 @@ public class LSTransferHandler extends TransferHandler {
         }
 
         Transferable t = tf.getTransferable();
+
         try {
-           List<File> l = (List<File>) t.getTransferData(DataFlavor.javaFileListFlavor);
+            List<File> l = (List<File>) t.getTransferData(DataFlavor.javaFileListFlavor);
 
             if (l.size() != 1) {
                 return false;
             }
-            File f = l.get(0);
-            
+
+            File    f               = l.get(0);
             boolean isFileTypeValid = f.getName().substring(f.getName().lastIndexOf(".")).equalsIgnoreCase(".svg");
-            
-            if(!isFileTypeValid){
-               LSEditor.logger.warning("File extension must be \'.svg\' in order to be opened.\n");
-               return false;
+
+            if (!isFileTypeValid) {
+                LSEditor.logger.warning("File extension must be \'.svg\' in order to be opened.\n");
+
+                return false;
             }
-            
+
             if (parentView.promptSaveIfNeeded()) {
                 parentView.openFile(f);
             }
-             
         } catch (UnsupportedFlavorException | IOException e) {
             LSEditor.logger.warning(e.getMessage());
 

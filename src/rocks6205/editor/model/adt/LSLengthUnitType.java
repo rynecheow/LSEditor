@@ -6,7 +6,8 @@ import rocks6205.system.properties.LSCanvasProperties;
 
 /**
  * <p>List of SVG length types</p>
- * Enumerates length unit type symbols recognized by data type <code>length</code> in SVG as defined in 4.5.11 of CSS2 BDT<p>
+ * Enumerates length unit type symbols recognized by data type <code>length</code> in 
+ * SVG as defined in 4.5.11 of CSS2 BDT<p>
  * Refer to: <a href="http://www.w3.org/TR/SVG/types.html#InterfaceSVGLength">Scalable Vector Graphics
  * (SVG) 1.1 - Interface SVG Length</a>
  *
@@ -113,8 +114,8 @@ public enum LSLengthUnitType {
      */
     public static String[] getSymbols() {
         LSLengthUnitType[] types     = values();
-        int                 typeCount = types.length;
-        String[]            symbols   = new String[typeCount];
+        int                typeCount = types.length;
+        String[]           symbols   = new String[typeCount];
 
         for (int i = 0; i < typeCount; i++) {
             symbols[i] = types[i].getUnitSymbol();

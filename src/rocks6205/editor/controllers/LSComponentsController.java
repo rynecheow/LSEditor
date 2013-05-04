@@ -10,11 +10,11 @@ import rocks6205.editor.model.elements.LSShapeLine;
 import rocks6205.editor.model.elements.LSShapeRect;
 
 /**
- * Controller that modifies elements, to set presentation properties such as <code>fill</code>, <code>strokeWidth</code>, 
+ * Controller that modifies elements, to set presentation properties such as <code>fill</code>, <code>strokeWidth</code>,
  * and <code>strokeWidth</code>, and resizing of shapes.
- * 
+ *
  * @author Cheow Yeong Chi
- * 
+ *
  * @version 2.1
  */
 public interface LSComponentsController {

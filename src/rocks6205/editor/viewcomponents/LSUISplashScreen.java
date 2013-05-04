@@ -1,5 +1,9 @@
 package rocks6205.editor.viewcomponents;
 
+//~--- non-JDK imports --------------------------------------------------------
+
+import rocks6205.editor.core.LSEditor;
+
 //~--- JDK imports ------------------------------------------------------------
 
 import java.awt.BorderLayout;
@@ -13,7 +17,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JWindow;
-import rocks6205.editor.core.LSEditor;
 
 /**
  * Splash screen.

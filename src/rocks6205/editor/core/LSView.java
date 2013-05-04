@@ -4,8 +4,6 @@ package rocks6205.editor.core;
 
 import rocks6205.editor.actions.LSPanMouseAdapter;
 import rocks6205.editor.actions.LSTransferHandler;
-import rocks6205.editor.model.adt.LSColor;
-import rocks6205.editor.model.adt.LSPainting;
 import rocks6205.editor.model.elements.LSGenericElement;
 import rocks6205.editor.viewcomponents.LSUIProtocol;
 import rocks6205.editor.viewcomponents.dialogs.LSUIWelcomeDialog;
@@ -17,6 +15,7 @@ import rocks6205.editor.viewcomponents.toolbars.LSUIMenubar;
 import rocks6205.editor.viewcomponents.toolbars.LSUISideToolbar;
 import rocks6205.editor.viewcomponents.toolbars.LSUITopToolbar;
 
+import rocks6205.system.properties.LSCanvasProperties;
 import rocks6205.system.properties.LSSVGEditorGUITheme;
 import rocks6205.system.properties.OSValidator;
 
@@ -43,7 +42,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JViewport;
 import javax.swing.WindowConstants;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import rocks6205.system.properties.LSCanvasProperties;
 
 /**
  * A class defining how the main user interface should look like.
@@ -56,6 +54,19 @@ import rocks6205.system.properties.LSCanvasProperties;
  */
 public final class LSView extends JFrame implements LSUIProtocol {
     private static final long serialVersionUID = 6764861773639452353L;
+    private static boolean    codeViewFlag;
+
+    /*
+     * STATIC INITIALISER
+     */
+    static {
+        codeViewFlag = (true);
+    }
+
+    /*
+     * GUI COMPONENTS
+     */
+    private Container c = getContentPane();
 
     /**
      * Model object
@@ -66,11 +77,6 @@ public final class LSView extends JFrame implements LSUIProtocol {
      * Controller object
      */
     private LSViewController controller;
-    
-    /*
-     * GUI COMPONENTS
-     */
-    private Container c = getContentPane();
 
     /*
      * SIZE PROPERTIES
@@ -90,7 +96,6 @@ public final class LSView extends JFrame implements LSUIProtocol {
     private boolean isZoomChanged;
     private File    displayedFile;
     private String  documentTitle;
-    private static boolean codeViewFlag;
 
     /*
      * GUI COMPONENTS
@@ -108,14 +113,7 @@ public final class LSView extends JFrame implements LSUIProtocol {
      * ACTION COMPONENTS
      */
     private LSTransferHandler tfHandler;
-    
-    /*
-     * STATIC INITIALISER
-     */
-    static {
-       codeViewFlag = (true);
-    }
-    
+
     /*
      * CONSTRUCTOR
      */
@@ -130,6 +128,7 @@ public final class LSView extends JFrame implements LSUIProtocol {
         setModel(c.getModel());
         initialise();
         customise();
+
 //      showWelcomeScreen();
     }
 
@@ -159,8 +158,7 @@ public final class LSView extends JFrame implements LSUIProtocol {
         x        = (screen.width - width) / 2;
         y        = (screen.height - height) / 2;
         this.setLocation(x, y);
-        LSCanvasProperties.setOutputResolution(Toolkit.getDefaultToolkit()
-				.getScreenResolution());
+        LSCanvasProperties.setOutputResolution(Toolkit.getDefaultToolkit().getScreenResolution());
     }
 
     /**
@@ -212,7 +210,7 @@ public final class LSView extends JFrame implements LSUIProtocol {
         navPanel.setBackground(LSSVGEditorGUITheme.MASTER_DEFAULT_BACKGROUND_COLOR);
         miscPanel.setBackground(LSSVGEditorGUITheme.MASTER_DEFAULT_BACKGROUND_COLOR);
     }
-    
+
     /**
      * Sets up the SVG Editing Panel.
      */
@@ -268,7 +266,7 @@ public final class LSView extends JFrame implements LSUIProtocol {
             }
         });
     }
-    
+
     /**
      * Binds handler to components.
      */
@@ -305,7 +303,7 @@ public final class LSView extends JFrame implements LSUIProtocol {
             miscPanel.updateCode(controller.getDocumentString());
         }
     }
-    
+
     /**
      * Shows the welcome screen as main view comes to load.
      */
@@ -315,7 +313,7 @@ public final class LSView extends JFrame implements LSUIProtocol {
 
     /**
      * Prompts user to save before exit or changes file
-     * 
+     *
      * @return Flag that if saving is needed
      */
     public boolean promptSaveIfNeeded() {
@@ -345,7 +343,7 @@ public final class LSView extends JFrame implements LSUIProtocol {
 
         return false;
     }
-    
+
     /**
      * Saves current file.
      * @return <code>true</code> if save successful, <code>false</code> otherwise.
@@ -391,8 +389,8 @@ public final class LSView extends JFrame implements LSUIProtocol {
 
     /**
      * Updates status of the status label.
-     * 
-     * @param status 
+     *
+     * @param status
      */
     public void updateStatus(String status) {
         statusPanel.updateStatus(status);
@@ -411,17 +409,17 @@ public final class LSView extends JFrame implements LSUIProtocol {
             }
         }
     }
-    
+
     /**
      * Instructs controller to open file.
      * @param f File to be opened.
      */
     public void openFile(File f) {
-       try {
-          controller.fileLoad(f);
-       } catch (IOException ex) {
-          LSEditor.logger.warning(ex.getMessage());
-       }
+        try {
+            controller.fileLoad(f);
+        } catch (IOException ex) {
+            LSEditor.logger.warning(ex.getMessage());
+        }
     }
 
     /*
@@ -448,26 +446,26 @@ public final class LSView extends JFrame implements LSUIProtocol {
     public float getZoomScale() {
         return zoomScale;
     }
-    
+
     /**
      * @return whether is the zoom changed
      */
     public boolean isZoomChanged() {
         return isZoomChanged;
     }
-    
+
     /**
      * @return Current displayed file
      */
     public File getDisplayedFile() {
         return displayedFile;
     }
-    
+
     /**
      * @return Current editing panel
      */
-    public LSUIEditingPanel getEditPanel(){
-       return editPanel;
+    public LSUIEditingPanel getEditPanel() {
+        return editPanel;
     }
     
     /*
@@ -489,7 +487,7 @@ public final class LSView extends JFrame implements LSUIProtocol {
     }
 
     /**
-     * @param zoom 
+     * @param zoom
      */
     public void changeZoom(float zoom) {
         isZoomChanged  = true;
@@ -517,24 +515,29 @@ public final class LSView extends JFrame implements LSUIProtocol {
     public void changeMode(LSUIEditingPanel.EditModeScheme mode) {
         editPanel.switchModeTo(mode);
     }
-    
+
     /**
      * @param p Editing panel modified.
      */
-    public void setEditPanel(LSUIEditingPanel p){
-       editPanel = p;
+    public void setEditPanel(LSUIEditingPanel p) {
+        editPanel = p;
     }
 
     /**
      * Toggles code preview.
      */
-   public void toggleCodeView() {
-      menuBar.toggleCodeMenuTitle(codeViewFlag);
-      if(codeViewFlag){
-         miscPanel.disableTextAreaInView();
-      }else{
-         miscPanel.enableTextAreaInView();
-      }
-      codeViewFlag = !codeViewFlag;
-   }
+    public void toggleCodeView() {
+        menuBar.toggleCodeMenuTitle(codeViewFlag);
+
+        if (codeViewFlag) {
+            miscPanel.disableTextAreaInView();
+        } else {
+            miscPanel.enableTextAreaInView();
+        }
+
+        codeViewFlag = !codeViewFlag;
+    }
 }
+
+
+//~ Formatted by Jindent --- http://www.jindent.com

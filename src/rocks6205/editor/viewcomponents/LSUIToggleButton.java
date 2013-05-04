@@ -2,8 +2,6 @@ package rocks6205.editor.viewcomponents;
 
 //~--- JDK imports ------------------------------------------------------------
 
-import java.awt.Image;
-
 import javax.swing.ImageIcon;
 import javax.swing.JToggleButton;
 

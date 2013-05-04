@@ -2,6 +2,7 @@ package rocks6205.editor.model.elements;
 
 //~--- non-JDK imports --------------------------------------------------------
 
+import org.w3c.dom.Attr;
 import org.w3c.dom.Element;
 
 import rocks6205.editor.model.adt.LSColor;
@@ -9,6 +10,7 @@ import rocks6205.editor.model.adt.LSLength;
 import rocks6205.editor.model.adt.LSLengthUnitType;
 import rocks6205.editor.model.adt.LSPainting;
 import rocks6205.editor.model.adt.LSPaintingType;
+import rocks6205.editor.model.adt.LSSVGPrimitive;
 
 //~--- JDK imports ------------------------------------------------------------
 
@@ -16,10 +18,9 @@ import java.awt.BasicStroke;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import org.w3c.dom.Attr;
-import rocks6205.editor.model.adt.LSSVGPrimitive;
 
 /**
  * The <code>LSGenericElement</code> class models a generic SVG Element
@@ -158,7 +159,7 @@ public abstract class LSGenericElement {
 
     /**
      * Create an affine transform for current element instance if any.
-     * 
+     *
      * @return Translate instance of current element
      */
     public AffineTransform getTransform() {
@@ -172,8 +173,9 @@ public abstract class LSGenericElement {
         if (translateY != null) {
             ty = translateY.getValue();
         }
-        
-        System.out.printf("%f %f\n",tx,ty);
+
+        System.out.printf("%f %f\n", tx, ty);
+
         return AffineTransform.getTranslateInstance(tx, ty);
     }
 
@@ -192,7 +194,7 @@ public abstract class LSGenericElement {
      */
     public LSPainting getResultantFill() {
         LSPainting effFill    = this.fill;
-        boolean     isFillNull = (effFill == null);
+        boolean    isFillNull = (effFill == null);
 
         if (!isFillNull) {
             return effFill;
@@ -223,7 +225,7 @@ public abstract class LSGenericElement {
      */
     public LSPainting getResultantStroke() {
         LSPainting effStroke    = this.stroke;
-        boolean     isStrokeNull = (effStroke == null);
+        boolean    isStrokeNull = (effStroke == null);
 
         if (!isStrokeNull) {
             return effStroke;
@@ -254,7 +256,7 @@ public abstract class LSGenericElement {
      */
     public LSLength getResultantStrokeWidth() {
         LSLength effStrokeWidth    = this.strokeWidth;
-        boolean       isStrokeWidthNull = (effStrokeWidth == null);
+        boolean  isStrokeWidthNull = (effStrokeWidth == null);
 
         if (!isStrokeWidthNull) {
             return effStrokeWidth;
@@ -394,63 +396,55 @@ public abstract class LSGenericElement {
      *
      * @param e Element from the document returned by the XMLParser
      */
-    
+
     /**
      * Parse all other common attributes.
      * @param e Element from the document returned by the XMLParser
      */
-    public void parseAttributes(Element e){
-         parseGeometricalTransformation(e);
-         parsePresentationalAttributes(e);
-      }
-    
+    public void parseAttributes(Element e) {
+        parseGeometricalTransformation(e);
+        parsePresentationalAttributes(e);
+    }
+
     private void parsePresentationalAttributes(Element e) {
         setFill(LSPainting.parse(e.getAttributeNS(null, "fill")));
         setStroke(LSPainting.parse(e.getAttributeNS(null, "stroke")));
         setStrokeWidth(LSLength.parse(e.getAttributeNS(null, "stroke-width")));
     }
-    
+
     /**
      * Parsing transform attributes, e.g. translate.
      * @param e Element from the document returned by the XMLParser
      */
-    private void parseGeometricalTransformation(Element e){
-       Attr transformAttr = e.getAttributeNodeNS(null, "transform");
+    private void parseGeometricalTransformation(Element e) {
+        Attr transformAttr = e.getAttributeNodeNS(null, "transform");
 
-		if (transformAttr != null) {
-			Matcher translateMatcher = Pattern.compile(
-					LSSVGPrimitive.TRANSLATE).matcher(
-					transformAttr.getValue());
-			LSLength txLength;
-			LSLength tyLength;
+        if (transformAttr != null) {
+            Matcher  translateMatcher = Pattern.compile(LSSVGPrimitive.TRANSLATE).matcher(transformAttr.getValue());
+            LSLength txLength;
+            LSLength tyLength;
 
-			while (translateMatcher.find()) {
-				txLength = LSLength.parse(translateMatcher.group(1));
-				if (txLength != null
-						&& txLength.getUnitType() == LSLengthUnitType.NUMBER) {
-					if (translateX == null) {
-						translateX = new LSLength(txLength.getValue());
-					} else {
-						translateX = new LSLength(translateX.getValue()
-								+ txLength.getValue());
-					}
-				}
+            while (translateMatcher.find()) {
+                txLength = LSLength.parse(translateMatcher.group(1));
 
-				tyLength = LSLength.parse(translateMatcher.group(7));
-				if (tyLength != null
-						&& tyLength.getUnitType() == LSLengthUnitType.NUMBER) {
-					if (translateY == null) {
-						translateY = new LSLength(tyLength.getValue());
-					} else {
-						translateY = new LSLength(translateY.getValue()
-								+ tyLength.getValue());
-					}
-				}
-			}
-		}
-      
-      
+                if ((txLength != null) && (txLength.getUnitType() == LSLengthUnitType.NUMBER)) {
+                    if (translateX == null) {
+                        translateX = new LSLength(txLength.getValue());
+                    } else {
+                        translateX = new LSLength(translateX.getValue() + txLength.getValue());
+                    }
+                }
+
+                tyLength = LSLength.parse(translateMatcher.group(7));
+
+                if ((tyLength != null) && (tyLength.getUnitType() == LSLengthUnitType.NUMBER)) {
+                    if (translateY == null) {
+                        translateY = new LSLength(tyLength.getValue());
+                    } else {
+                        translateY = new LSLength(translateY.getValue() + tyLength.getValue());
+                    }
+                }
+            }
+        }
     }
-    
-    
 }

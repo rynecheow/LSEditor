@@ -8,9 +8,12 @@ import rocks6205.editor.actions.LSAbstractAction.SaveFileAction;
 import rocks6205.editor.actions.LSAbstractAction.ZoomInViewAction;
 import rocks6205.editor.actions.LSAbstractAction.ZoomOutViewAction;
 import rocks6205.editor.core.LSView;
+import rocks6205.editor.model.elements.LSGenericElement;
 import rocks6205.editor.viewcomponents.LSUIButton;
+import rocks6205.editor.viewcomponents.LSUIColorButton;
 import rocks6205.editor.viewcomponents.LSUIIconLabel;
 import rocks6205.editor.viewcomponents.LSUIProtocol;
+import rocks6205.editor.viewcomponents.panels.LSUIEditingPanel;
 
 import rocks6205.system.properties.LSSVGEditorGUITheme;
 
@@ -18,14 +21,11 @@ import rocks6205.system.properties.LSSVGEditorGUITheme;
 
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import javax.swing.JCheckBox;
 
+import javax.swing.JCheckBox;
 import javax.swing.JToolBar;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import rocks6205.editor.model.elements.LSGenericElement;
-import rocks6205.editor.viewcomponents.LSUIColorButton;
-import rocks6205.editor.viewcomponents.panels.LSUIEditingPanel;
 
 /**
  *
@@ -43,17 +43,18 @@ public final class LSUITopToolbar extends JToolBar implements LSUIProtocol {
     /*
      * GUI COMPONENTS
      */
-    private LSUIButton       newButton;
-    private LSUIButton       openButton;
-    private LSUIButton       saveButton;
-    private LSUIButton       zoomInButton;
-    private LSUIButton       zoomOutButton;
-    private LSUIIconLabel    fillLabel;
-    private LSUIIconLabel    strokeLabel;
+    private LSUIButton      newButton;
+    private LSUIButton      openButton;
+    private LSUIButton      saveButton;
+    private LSUIButton      zoomInButton;
+    private LSUIButton      zoomOutButton;
+    private LSUIIconLabel   fillLabel;
+    private LSUIIconLabel   strokeLabel;
     private LSUIColorButton fillButton;
     private LSUIColorButton strokeButton;
-    private JCheckBox        fillCheckBox;
-    private JCheckBox        strokeCheckBox;
+    private JCheckBox       fillCheckBox;
+    private JCheckBox       strokeCheckBox;
+
     /*
      * ACTION COMPONENTS
      */
@@ -72,22 +73,22 @@ public final class LSUITopToolbar extends JToolBar implements LSUIProtocol {
 
     @Override
     public void initialise() {
-        newButton     = LSUIButton.create();
-        openButton    = LSUIButton.create();
-        saveButton    = LSUIButton.create();
-        zoomInButton  = LSUIButton.create();
-        zoomOutButton = LSUIButton.create();
-        fillLabel     = new LSUIIconLabel();
-        strokeLabel   = new LSUIIconLabel();
-        fillButton    = LSUIColorButton.create(LSGenericElement.SVG_FILL_DEFAULT);
-        strokeButton  = LSUIColorButton.create(LSGenericElement.SVG_STROKE_DEFAULT);
-        fillCheckBox  = new JCheckBox();
-        strokeCheckBox= new JCheckBox();
-        newAct        = new NewDocumentAction(parentView);
-        openAct       = new OpenFileAction(parentView);
-        saveAct       = new SaveFileAction(parentView);
-        zoomInAction  = new ZoomInViewAction(parentView);
-        zoomOutAction = new ZoomOutViewAction(parentView);
+        newButton      = LSUIButton.create();
+        openButton     = LSUIButton.create();
+        saveButton     = LSUIButton.create();
+        zoomInButton   = LSUIButton.create();
+        zoomOutButton  = LSUIButton.create();
+        fillLabel      = new LSUIIconLabel();
+        strokeLabel    = new LSUIIconLabel();
+        fillButton     = LSUIColorButton.create(LSGenericElement.SVG_FILL_DEFAULT);
+        strokeButton   = LSUIColorButton.create(LSGenericElement.SVG_STROKE_DEFAULT);
+        fillCheckBox   = new JCheckBox();
+        strokeCheckBox = new JCheckBox();
+        newAct         = new NewDocumentAction(parentView);
+        openAct        = new OpenFileAction(parentView);
+        saveAct        = new SaveFileAction(parentView);
+        zoomInAction   = new ZoomInViewAction(parentView);
+        zoomOutAction  = new ZoomOutViewAction(parentView);
     }
 
     @Override
@@ -125,37 +126,37 @@ public final class LSUITopToolbar extends JToolBar implements LSUIProtocol {
         fillCheckBox.setSelected(true);
         strokeCheckBox.setSelected(false);
     }
-    
-    private void setItemListenerForCheckBox(){
-       fillCheckBox.addItemListener(new ItemListener(){
 
-          @Override
-          public void itemStateChanged(ItemEvent e) {
-             boolean selected = e.getStateChange() == ItemEvent.SELECTED;
-             fillButton.setEnabled(selected);
-             if(selected){
-               fillButton.setPainting(LSGenericElement.SVG_FILL_DEFAULT);
-             }else{
-               fillButton.setPaintingNone();
-             }
-          }
-       });
-       
-       strokeCheckBox.addItemListener(new ItemListener(){
+    private void setItemListenerForCheckBox() {
+        fillCheckBox.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                boolean selected = e.getStateChange() == ItemEvent.SELECTED;
 
-          @Override
-          public void itemStateChanged(ItemEvent e) {
-             boolean selected = e.getStateChange() == ItemEvent.SELECTED;
-             strokeButton.setEnabled(selected);
-             if(selected){
-                strokeButton.setPaintingNone();
-             }else{
-                strokeButton.setPainting(LSGenericElement.SVG_STROKE_DEFAULT);
-             }
-          }
-       });
+                fillButton.setEnabled(selected);
+
+                if (selected) {
+                    fillButton.setPainting(LSGenericElement.SVG_FILL_DEFAULT);
+                } else {
+                    fillButton.setPaintingNone();
+                }
+            }
+        });
+        strokeCheckBox.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                boolean selected = e.getStateChange() == ItemEvent.SELECTED;
+
+                strokeButton.setEnabled(selected);
+
+                if (selected) {
+                    strokeButton.setPaintingNone();
+                } else {
+                    strokeButton.setPainting(LSGenericElement.SVG_STROKE_DEFAULT);
+                }
+            }
+        });
     }
-    
 
     /**
      * Setup actions for button.
@@ -190,31 +191,36 @@ public final class LSUITopToolbar extends JToolBar implements LSUIProtocol {
         strokeLabel.setIcon(strokeIconPath);
     }
 
-   private void bindHandlers() {
-     setItemListenerForCheckBox();
-     SVGPresentationChangeListener changeList = new SVGPresentationChangeListener();
-     fillButton.addPresentationChangeListener(changeList);
-     strokeButton.addPresentationChangeListener(changeList);
-   } 
-    
-    private class SVGPresentationChangeListener implements ChangeListener {
-		@Override
-		public void stateChanged(ChangeEvent e) {
-			Object source = e.getSource();
-         LSUIEditingPanel editPanel= parentView.getEditPanel();
-			if (source == fillButton) {
-				editPanel.setFill(fillButton.getPainting());
-			} else if (source == strokeButton) {
-				editPanel.setStroke(strokeButton.getPainting());}
-//			} else if (source == strokeWidthInputPanel) {
-//				editPanel.setStrokeWidth(strokeWidthInputPanel.getLength());
-//			}
-         
-         parentView.setEditPanel(editPanel);
-		}
-	}
-    
+    private void bindHandlers() {
+        setItemListenerForCheckBox();
+
+        SVGPresentationChangeListener changeList = new SVGPresentationChangeListener();
+
+        fillButton.addPresentationChangeListener(changeList);
+        strokeButton.addPresentationChangeListener(changeList);
+    }
+
     private void setParentView(LSView parent) {
         parentView = parent;
+    }
+
+    private class SVGPresentationChangeListener implements ChangeListener {
+        @Override
+        public void stateChanged(ChangeEvent e) {
+            Object           source    = e.getSource();
+            LSUIEditingPanel editPanel = parentView.getEditPanel();
+
+            if (source == fillButton) {
+                editPanel.setFill(fillButton.getPainting());
+            } else if (source == strokeButton) {
+                editPanel.setStroke(strokeButton.getPainting());
+            }
+
+//          } else if (source == strokeWidthInputPanel) {
+//                  editPanel.setStrokeWidth(strokeWidthInputPanel.getLength());
+//          }
+
+            parentView.setEditPanel(editPanel);
+        }
     }
 }

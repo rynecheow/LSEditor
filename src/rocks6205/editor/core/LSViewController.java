@@ -2,8 +2,6 @@ package rocks6205.editor.core;
 
 //~--- non-JDK imports --------------------------------------------------------
 
-import com.sun.org.apache.xml.internal.serialize.OutputFormat;
-import com.sun.org.apache.xml.internal.serialize.XMLSerializer;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -17,17 +15,22 @@ import rocks6205.editor.controllers.LSSelectionsController;
 import rocks6205.editor.model.adt.LSLength;
 import rocks6205.editor.model.adt.LSLengthUnitType;
 import rocks6205.editor.model.adt.LSPainting;
-import rocks6205.editor.model.elements.LSShapeCircle;
 import rocks6205.editor.model.elements.LSGenericContainer;
-import rocks6205.editor.model.elements.LSGroupContainer;
 import rocks6205.editor.model.elements.LSGenericElement;
+import rocks6205.editor.model.elements.LSGroupContainer;
+import rocks6205.editor.model.elements.LSSVGContainer;
+import rocks6205.editor.model.elements.LSShapeCircle;
 import rocks6205.editor.model.elements.LSShapeLine;
 import rocks6205.editor.model.elements.LSShapeRect;
-import rocks6205.editor.model.elements.LSSVGContainer;
 
 import rocks6205.system.parser.LSSVGDOMParser;
 
+import static rocks6205.editor.controllers.LSFileController.NEW_DOCUMENT;
+
 //~--- JDK imports ------------------------------------------------------------
+
+import com.sun.org.apache.xml.internal.serialize.OutputFormat;
+import com.sun.org.apache.xml.internal.serialize.XMLSerializer;
 
 import java.awt.Graphics2D;
 import java.awt.Point;
@@ -67,9 +70,7 @@ import javax.xml.transform.stream.StreamResult;
  * @since 1.2
  *
  */
-public class LSViewController
-        implements LSSelectionsController, LSFileController, LSComponentsController {
-
+public class LSViewController implements LSSelectionsController, LSFileController, LSComponentsController {
     /**
      * Default namespace for SVG documents.
      */
@@ -84,40 +85,38 @@ public class LSViewController
      * SVG element comparator reversed order
      */
     public static final Comparator<LSGenericElement> SVG_ELEMENT_REVERSE_ORDER;
-    
+
     /*
      * STATIC INITIALISER
      */
-    static{
-       SVG_ELEMENT_REVERSE_ORDER = new Comparator<LSGenericElement>() {
-        @Override
-        public int compare(LSGenericElement e1, LSGenericElement e2) {
-            if (e1 == e2) {
-                return 0;
+    static {
+        SVG_ELEMENT_REVERSE_ORDER = new Comparator<LSGenericElement>() {
+            @Override
+            public int compare(LSGenericElement e1, LSGenericElement e2) {
+                if (e1 == e2) {
+                    return 0;
+                }
+
+                LSGenericContainer ancestor = e1.getAncestorElement();
+
+                return ancestor.indexOf(e2) - ancestor.indexOf(e1);
             }
-
-            LSGenericContainer ancestor = e1.getAncestorElement();
-
-            return ancestor.indexOf(e2) - ancestor.indexOf(e1);
-        }
         };
-       
-       SVG_ELEMENT_ORDER = new Comparator<LSGenericElement>() {
-        @Override
-        public int compare(LSGenericElement e1, LSGenericElement e2) {
-            if (e1 == e2) {
-                return 0;
+        SVG_ELEMENT_ORDER = new Comparator<LSGenericElement>() {
+            @Override
+            public int compare(LSGenericElement e1, LSGenericElement e2) {
+                if (e1 == e2) {
+                    return 0;
+                }
+
+                LSGenericContainer ancestor = e1.getAncestorElement();
+
+                return ancestor.indexOf(e1) - ancestor.indexOf(e2);
             }
-
-            LSGenericContainer ancestor = e1.getAncestorElement();
-
-            return ancestor.indexOf(e1) - ancestor.indexOf(e2);
-        }
-    };
-       
-       SVGDefaultNamespace = "http://www.w3.org/2000/svg";
+        };
+        SVGDefaultNamespace = "http://www.w3.org/2000/svg";
     }
-    
+
     /*
      * PROPERTIES
      */
@@ -151,7 +150,7 @@ public class LSViewController
      * Modification time.
      */
     private long modificationStart_t;
-    
+
     /**
      * String of current document preserving linebreaks and indentations.
      */
@@ -198,17 +197,17 @@ public class LSViewController
     /**
      * @return String of current document preserving linebreaks and indentations.
      */
-    public final String getDocumentString(){
-       return docString;
+    public final String getDocumentString() {
+        return docString;
     }
-    
+
     /*
      * MUTATORS
      */
 
     /**
      * Get time elasped since modification starts.
-     * 
+     *
      * @return Time elasped in milliseconds.
      */
     public long getTimeElapsed() {
@@ -231,7 +230,6 @@ public class LSViewController
      */
     public void modifyDocument() {
         isDocumentModified = true;
-        
     }
 
     /**
@@ -249,211 +247,214 @@ public class LSViewController
             modificationStart_t = System.currentTimeMillis();
             modifyDocument();
         }
+
         updateDocumentString();
         updateViews();
     }
 
-    public void setDocumentString(String d){
-       docString = d;
+    public void setDocumentString(String d) {
+        docString = d;
     }
-    
-   /**
-    * Updates document string for code view.
-    */
-   public void updateDocumentString(){
-     setDocumentString(parseDocumentAsFormattedString(generateUpdatedDocument()));
-   }
-   
-    private Document generateUpdatedDocument(){
-       try {
-                    DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 
-                    factory.setNamespaceAware(true);
+    /**
+     * Updates document string for code view.
+     */
+    public void updateDocumentString() {
+        setDocumentString(parseDocumentAsFormattedString(generateUpdatedDocument()));
+    }
 
-                    DocumentBuilder     builder  = factory.newDocumentBuilder();
-                    Document            doc      = builder.newDocument();
-                    Node                ancestor = doc;
-                    Element             e        = null;
-                    Attr                attr;
-                    LSGenericElement   svg_e = model.getSVGElement();
-                    LSGenericContainer svgAncestor;
+    private Document generateUpdatedDocument() {
+        try {
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 
-                    while (svg_e != null) {
-                        if (svg_e instanceof LSSVGContainer) {
-                            LSSVGContainer root = (LSSVGContainer) svg_e;
+            factory.setNamespaceAware(true);
 
-                            e = doc.createElementNS(SVGDefaultNamespace, "svg");
-                            ancestor.appendChild(e);
-                            attr = doc.createAttributeNS(null, "width");
-                            attr.setValue(root.getWidth().toString());
-                            e.setAttributeNodeNS(attr);
-                            attr = doc.createAttributeNS(null, "height");
-                            attr.setValue(root.getHeight().toString());
-                            e.setAttributeNodeNS(attr);
+            DocumentBuilder    builder  = factory.newDocumentBuilder();
+            Document           doc      = builder.newDocument();
+            Node               ancestor = doc;
+            Element            e        = null;
+            Attr               attr;
+            LSGenericElement   svg_e = model.getSVGElement();
+            LSGenericContainer svgAncestor;
 
-                            if (root.hasDescendant()) {
-                                ancestor  = e;
-                                svg_e     = root.getDescendant(0);
-                                svgAncestor = root;
+            while (svg_e != null) {
+                if (svg_e instanceof LSSVGContainer) {
+                    LSSVGContainer root = (LSSVGContainer) svg_e;
 
-                                continue;
-                            }
-                        } else {
-                            Attr        fillAttr        = null;
-                            Attr        strokeAttr      = null;
-                            Attr        strokeWidthAttr = null;
-                            Attr        transformAttr   = null;
-                            LSPainting fill            = svg_e.getFill();
+                    e = doc.createElementNS(SVGDefaultNamespace, "svg");
+                    ancestor.appendChild(e);
+                    attr = doc.createAttributeNS(null, "width");
+                    attr.setValue(root.getWidth().toString());
+                    e.setAttributeNodeNS(attr);
+                    attr = doc.createAttributeNS(null, "height");
+                    attr.setValue(root.getHeight().toString());
+                    e.setAttributeNodeNS(attr);
 
-                            if (fill != null) {
-                                fillAttr = doc.createAttributeNS(null, "fill");
-                                fillAttr.setValue(fill.toString());
-                            }
+                    if (root.hasDescendant()) {
+                        ancestor    = e;
+                        svg_e       = root.getDescendant(0);
+                        svgAncestor = root;
 
-                            LSPainting stroke = svg_e.getStroke();
+                        continue;
+                    }
+                } else {
+                    Attr       fillAttr        = null;
+                    Attr       strokeAttr      = null;
+                    Attr       strokeWidthAttr = null;
+                    Attr       transformAttr   = null;
+                    LSPainting fill            = svg_e.getFill();
 
-                            if (stroke != null) {
-                                strokeAttr = doc.createAttributeNS(null, "stroke");
-                                strokeAttr.setValue(stroke.toString());
-                            }
+                    if (fill != null) {
+                        fillAttr = doc.createAttributeNS(null, "fill");
+                        fillAttr.setValue(fill.toString());
+                    }
 
-                            LSLength strokeWidth = svg_e.getStrokeWidth();
+                    LSPainting stroke = svg_e.getStroke();
 
-                            if (strokeWidth != null) {
-                                strokeWidthAttr = doc.createAttributeNS(null, "stroke-width");
-                                strokeWidthAttr.setValue(strokeWidth.toString());
-                            }
+                    if (stroke != null) {
+                        strokeAttr = doc.createAttributeNS(null, "stroke");
+                        strokeAttr.setValue(stroke.toString());
+                    }
 
-                            LSLength translateX = svg_e.getTranslateX();
-                            LSLength translateY = svg_e.getTranslateY();
+                    LSLength strokeWidth = svg_e.getStrokeWidth();
 
-                            if (translateX != null) {
-                                transformAttr = doc.createAttributeNS(null, "transform");
+                    if (strokeWidth != null) {
+                        strokeWidthAttr = doc.createAttributeNS(null, "stroke-width");
+                        strokeWidthAttr.setValue(strokeWidth.toString());
+                    }
 
-                                String value = "translate(" + translateX.getValue();
+                    LSLength translateX = svg_e.getTranslateX();
+                    LSLength translateY = svg_e.getTranslateY();
 
-                                if (translateY != null) {
-                                    value += "," + translateY.getValue();
-                                }
+                    if (translateX != null) {
+                        transformAttr = doc.createAttributeNS(null, "transform");
 
-                                value += ")";
-                                transformAttr.setValue(value);
-                            }
+                        String value = "translate(" + translateX.getValue();
 
-                            if (svg_e instanceof LSGroupContainer) {
-                                LSGroupContainer group = (LSGroupContainer) svg_e;
-
-                                e = doc.createElementNS(SVGDefaultNamespace, "g");
-
-                                if (fillAttr != null) {
-                                    e.setAttributeNode(fillAttr);
-                                }
-
-                                if (strokeAttr != null) {
-                                    e.setAttributeNode(strokeAttr);
-                                }
-
-                                if (strokeWidthAttr != null) {
-                                    e.setAttributeNode(strokeWidthAttr);
-                                }
-
-                                if (transformAttr != null) {
-                                    e.setAttributeNode(transformAttr);
-                                }
-
-                                ancestor.appendChild(e);
-
-                                if (group.hasDescendant()) {
-                                    ancestor  = e;
-                                    svg_e     = group.getDescendant(0);
-                                    svgAncestor = group;
-
-                                    continue;
-                                }
-                            } else if (svg_e instanceof LSShapeRect) {
-                                LSShapeRect rect = (LSShapeRect) svg_e;
-
-                                e    = doc.createElementNS(SVGDefaultNamespace, "rect");
-                                attr = doc.createAttributeNS(null, "x");
-                                attr.setValue(rect.getX().toString());
-                                e.setAttributeNodeNS(attr);
-                                attr = doc.createAttributeNS(null, "y");
-                                attr.setValue(rect.getY().toString());
-                                e.setAttributeNodeNS(attr);
-                                attr = doc.createAttributeNS(null, "width");
-                                attr.setValue(rect.getWidth().toString());
-                                e.setAttributeNodeNS(attr);
-                                attr = doc.createAttributeNS(null, "height");
-                                attr.setValue(rect.getHeight().toString());
-                                e.setAttributeNodeNS(attr);
-                                ancestor.appendChild(e);
-                            } else if (svg_e instanceof LSShapeCircle) {
-                                LSShapeCircle circle = (LSShapeCircle) svg_e;
-
-                                e    = doc.createElementNS(SVGDefaultNamespace, "circle");
-                                attr = doc.createAttributeNS(null, "cx");
-                                attr.setValue(circle.getCx().toString());
-                                e.setAttributeNodeNS(attr);
-                                attr = doc.createAttributeNS(null, "cy");
-                                attr.setValue(circle.getCy().toString());
-                                e.setAttributeNodeNS(attr);
-                                attr = doc.createAttributeNS(null, "r");
-                                attr.setValue(circle.getRadius().toString());
-                                e.setAttributeNodeNS(attr);
-                                ancestor.appendChild(e);
-                            } else if (svg_e instanceof LSShapeLine) {
-                                LSShapeLine line = (LSShapeLine) svg_e;
-
-                                e    = doc.createElementNS(SVGDefaultNamespace, "line");
-                                attr = doc.createAttributeNS(null, "x1");
-                                attr.setValue(line.getX1().toString());
-                                e.setAttributeNodeNS(attr);
-                                attr = doc.createAttributeNS(null, "y1");
-                                attr.setValue(line.getY1().toString());
-                                e.setAttributeNodeNS(attr);
-                                attr = doc.createAttributeNS(null, "x2");
-                                attr.setValue(line.getX2().toString());
-                                e.setAttributeNodeNS(attr);
-                                attr = doc.createAttributeNS(null, "y2");
-                                attr.setValue(line.getY2().toString());
-                                e.setAttributeNodeNS(attr);
-                                ancestor.appendChild(e);
-                            }
-                            
-                            if(e!=null){
-                            if (fillAttr != null) {
-                                e.setAttributeNode(fillAttr);
-                            }
-
-                            if (strokeAttr != null) {
-                                e.setAttributeNode(strokeAttr);
-                            }
-
-                            if (strokeWidthAttr != null) {
-                                e.setAttributeNode(strokeWidthAttr);
-                            }
-
-                            if (transformAttr != null) {
-                                e.setAttributeNode(transformAttr);
-                            }
-                        }
+                        if (translateY != null) {
+                            value += "," + translateY.getValue();
                         }
 
-                        svgAncestor = svg_e.getAncestorElement();
-                        svg_e     = svg_e.getNextSiblingElement();
+                        value += ")";
+                        transformAttr.setValue(value);
+                    }
 
-                        while ((svg_e == null) && (svgAncestor != null)) {
-                            ancestor  = ancestor.getParentNode();
-                            svg_e     = svgAncestor.getNextSiblingElement();
-                            svgAncestor = svgAncestor.getAncestorElement();
+                    if (svg_e instanceof LSGroupContainer) {
+                        LSGroupContainer group = (LSGroupContainer) svg_e;
+
+                        e = doc.createElementNS(SVGDefaultNamespace, "g");
+
+                        if (fillAttr != null) {
+                            e.setAttributeNode(fillAttr);
+                        }
+
+                        if (strokeAttr != null) {
+                            e.setAttributeNode(strokeAttr);
+                        }
+
+                        if (strokeWidthAttr != null) {
+                            e.setAttributeNode(strokeWidthAttr);
+                        }
+
+                        if (transformAttr != null) {
+                            e.setAttributeNode(transformAttr);
+                        }
+
+                        ancestor.appendChild(e);
+
+                        if (group.hasDescendant()) {
+                            ancestor    = e;
+                            svg_e       = group.getDescendant(0);
+                            svgAncestor = group;
+
+                            continue;
+                        }
+                    } else if (svg_e instanceof LSShapeRect) {
+                        LSShapeRect rect = (LSShapeRect) svg_e;
+
+                        e    = doc.createElementNS(SVGDefaultNamespace, "rect");
+                        attr = doc.createAttributeNS(null, "x");
+                        attr.setValue(rect.getX().toString());
+                        e.setAttributeNodeNS(attr);
+                        attr = doc.createAttributeNS(null, "y");
+                        attr.setValue(rect.getY().toString());
+                        e.setAttributeNodeNS(attr);
+                        attr = doc.createAttributeNS(null, "width");
+                        attr.setValue(rect.getWidth().toString());
+                        e.setAttributeNodeNS(attr);
+                        attr = doc.createAttributeNS(null, "height");
+                        attr.setValue(rect.getHeight().toString());
+                        e.setAttributeNodeNS(attr);
+                        ancestor.appendChild(e);
+                    } else if (svg_e instanceof LSShapeCircle) {
+                        LSShapeCircle circle = (LSShapeCircle) svg_e;
+
+                        e    = doc.createElementNS(SVGDefaultNamespace, "circle");
+                        attr = doc.createAttributeNS(null, "cx");
+                        attr.setValue(circle.getCx().toString());
+                        e.setAttributeNodeNS(attr);
+                        attr = doc.createAttributeNS(null, "cy");
+                        attr.setValue(circle.getCy().toString());
+                        e.setAttributeNodeNS(attr);
+                        attr = doc.createAttributeNS(null, "r");
+                        attr.setValue(circle.getRadius().toString());
+                        e.setAttributeNodeNS(attr);
+                        ancestor.appendChild(e);
+                    } else if (svg_e instanceof LSShapeLine) {
+                        LSShapeLine line = (LSShapeLine) svg_e;
+
+                        e    = doc.createElementNS(SVGDefaultNamespace, "line");
+                        attr = doc.createAttributeNS(null, "x1");
+                        attr.setValue(line.getX1().toString());
+                        e.setAttributeNodeNS(attr);
+                        attr = doc.createAttributeNS(null, "y1");
+                        attr.setValue(line.getY1().toString());
+                        e.setAttributeNodeNS(attr);
+                        attr = doc.createAttributeNS(null, "x2");
+                        attr.setValue(line.getX2().toString());
+                        e.setAttributeNodeNS(attr);
+                        attr = doc.createAttributeNS(null, "y2");
+                        attr.setValue(line.getY2().toString());
+                        e.setAttributeNodeNS(attr);
+                        ancestor.appendChild(e);
+                    }
+
+                    if (e != null) {
+                        if (fillAttr != null) {
+                            e.setAttributeNode(fillAttr);
+                        }
+
+                        if (strokeAttr != null) {
+                            e.setAttributeNode(strokeAttr);
+                        }
+
+                        if (strokeWidthAttr != null) {
+                            e.setAttributeNode(strokeWidthAttr);
+                        }
+
+                        if (transformAttr != null) {
+                            e.setAttributeNode(transformAttr);
                         }
                     }
-                    return doc;
-       } catch (ParserConfigurationException ex) {
-          LSEditor.logger.warning(ex.getMessage());
-          return null;
-       }
-   }
+                }
+
+                svgAncestor = svg_e.getAncestorElement();
+                svg_e       = svg_e.getNextSiblingElement();
+
+                while ((svg_e == null) && (svgAncestor != null)) {
+                    ancestor    = ancestor.getParentNode();
+                    svg_e       = svgAncestor.getNextSiblingElement();
+                    svgAncestor = svgAncestor.getAncestorElement();
+                }
+            }
+
+            return doc;
+        } catch (ParserConfigurationException ex) {
+            LSEditor.logger.warning(ex.getMessage());
+
+            return null;
+        }
+    }
     
     /*
      * DOCUMENT OPERATION
@@ -490,6 +491,7 @@ public class LSViewController
 
     public void createBlankDocument() {
         model = new LSModel();
+
 //      model.setSVGElement(new LSSVGContainer(LSLength.parse("916px"), LSLength.parse("578px")));
         model.setSVGElement(new LSSVGContainer(LSLength.parse("1000px"), LSLength.parse("1000px")));
         activeFile = NEW_DOCUMENT;
@@ -500,7 +502,7 @@ public class LSViewController
 
     /**
      * Renders graphics from SVG element with scale.
-     * 
+     *
      * @param scale A float value that changes according to view and controls
      * @return An image rendered from SVG element with anti-aliasing.
      */
@@ -508,12 +510,13 @@ public class LSViewController
         int           width  = (int) (model.getSVGElement().getWidth().getValue(LSLengthUnitType.PX) * scale);
         int           height = (int) (model.getSVGElement().getHeight().getValue(LSLengthUnitType.PX) * scale);
         BufferedImage image  = new BufferedImage(width, height, BufferedImage.TYPE_4BYTE_ABGR);
-        Graphics2D    g2d      = image.createGraphics();
+        Graphics2D    g2d    = image.createGraphics();
 
         g2d.scale(scale, scale);
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         model.getSVGElement().drawShape(g2d);
         g2d.dispose();
+
         return image;
     }
 
@@ -553,7 +556,7 @@ public class LSViewController
             view.update();
         }
     }
-    
+
     /**
      * {@inheritDoc}
      *
@@ -563,7 +566,7 @@ public class LSViewController
     public void addElement(LSGenericElement e) {
         model.getSVGElement().addDescendant(e);
         LSEditor.logger.info(String.format("Element of type " + e.getElementType()
-                + " is added to the root element.\n"));
+                                           + " is added to the root element.\n"));
         touchDocument();
     }
 
@@ -620,7 +623,6 @@ public class LSViewController
 
         rect.setWidth(LSLength.convert(w, rect.getWidth().getUnitType()));
         rect.setHeight(LSLength.convert(h, rect.getHeight().getUnitType()));
-        
         touchDocument();
     }
 
@@ -681,8 +683,10 @@ public class LSViewController
     public boolean fileLoad(File file) throws IOException {
         if ((file != null) && file.getName().endsWith(".svg")) {
             Document doc = LSSVGDOMParser.parseXml(new InputSource(file.toURI().toString()));
+
             if (doc != null) {
                 setDocumentString(parseDocumentAsFormattedString(doc));
+
                 LSSVGContainer svg_e = LSSVGContainer.parseDocument(doc);
 
                 if (svg_e != null) {
@@ -699,7 +703,7 @@ public class LSViewController
 
         return false;
     }
-
+    
     /**
      * {@inheritDoc}
      *
@@ -709,19 +713,17 @@ public class LSViewController
     public boolean fileSave() throws IOException {
         return fileSave(activeFile);
     }
-    
-    
+
     /**
      * {@inheritDoc}
      *
      * @author
      */
-       @Override
+    @Override
     public boolean fileSave(File file) throws IOException {
-	    if (file != null) {
+        if (file != null) {
             try {
-                Document doc = this.generateUpdatedDocument();
-
+                Document           doc         = this.generateUpdatedDocument();
                 TransformerFactory tFact       = TransformerFactory.newInstance();
                 Transformer        transformer = tFact.newTransformer();
 
@@ -730,7 +732,7 @@ public class LSViewController
 
                 DOMSource    source = new DOMSource(doc);
                 StreamResult result = new StreamResult(file);
-                
+
                 transformer.transform(source, result);
             } catch (TransformerConfigurationException e) {
                 LSEditor.logger.warning(e.getMessage());
@@ -738,15 +740,18 @@ public class LSViewController
                 Throwable exception = e.getException();
 
                 if ((exception != null) && (exception instanceof IOException)) {
-                    throw (IOException) exception;
+                    throw(IOException) exception;
                 }
             }
 
             unmodifyDocument();
+
             return true;
         }
+
         return false;
     }
+
     /**
      * {@inheritDoc}
      *
@@ -1007,9 +1012,11 @@ public class LSViewController
         }
 
         Collections.sort(selectionsList, SVG_ELEMENT_ORDER);
-        LSSVGContainer svgEl =  model.getSVGElement();
-        int         lastPos = svgEl.indexOf(selectionsList.get(selectionsList.size() - 1));
+
+        LSSVGContainer   svgEl   = model.getSVGElement();
+        int              lastPos = svgEl.indexOf(selectionsList.get(selectionsList.size() - 1));
         LSGroupContainer group   = new LSGroupContainer();
+
         svgEl.insertDescendant(group, lastPos);
 
         for (LSGenericElement e : selectionsList) {
@@ -1017,9 +1024,9 @@ public class LSViewController
             svgEl.removeDescendant(e);
             selections.remove(e);
         }
+
         model.setSVGElement(svgEl);
         selections.add(group);
-        
         touchDocument();
     }
 
@@ -1030,7 +1037,7 @@ public class LSViewController
      */
     @Override
     public void ungroup() {
-        int                          position;
+        int                         position;
         ArrayList<LSGenericElement> addList    = new ArrayList<>();
         ArrayList<LSGenericElement> removeList = new ArrayList<>();
 
@@ -1041,13 +1048,16 @@ public class LSViewController
                 if (group.getDescendantCount() == 0) {
                     continue;
                 }
-                LSSVGContainer svgEl =  model.getSVGElement();
+
+                LSSVGContainer svgEl = model.getSVGElement();
+
                 position = svgEl.indexOf(group);
 
                 for (LSGenericElement descendant : group.ungroup()) {
                     svgEl.insertDescendant(descendant, position++);
                     addList.add(descendant);
                 }
+
                 svgEl.removeDescendant(position);
                 model.setSVGElement(svgEl);
                 removeList.add(e);
@@ -1069,21 +1079,25 @@ public class LSViewController
         touchDocument();
     }
 
-   private String parseDocumentAsFormattedString(Document d){
-      try {
+    private String parseDocumentAsFormattedString(Document d) {
+        try {
             OutputFormat format = new OutputFormat(d);
+
             format.setLineWidth(65);
             format.setIndenting(true);
             format.setIndent(2);
-            Writer out = new StringWriter();
+
+            Writer        out        = new StringWriter();
             XMLSerializer serializer = new XMLSerializer(out, format);
+
             serializer.serialize(d);
 
             return out.toString();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-   }
-   
-  
+    }
 }
+
+
+//~ Formatted by Jindent --- http://www.jindent.com

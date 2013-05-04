@@ -149,14 +149,13 @@ public class LSLength {
         }
 
         // initialise variables
-        LSLength length      = null;
-        Pattern       pattern     ,
-                      unitPattern ;
-        Matcher       matcher     ;
-        String        numberStr   = "";
-        String        unitStr     = "",
-                      unitSym     = "";
-        int           u           = 0;
+        LSLength length = null;
+        Pattern  pattern, unitPattern;
+        Matcher  matcher;
+        String   numberStr = "";
+        String   unitStr   = "",
+                 unitSym   = "";
+        int      u         = 0;
 
         // search
         for (String symbol : LSLengthUnitType.getSymbols()) {
@@ -203,9 +202,12 @@ public class LSLength {
 
         return new LSLength(targetType, value);
     }
-    
-   @Override
-	public String toString() {
-		return value + unitType.getUnitSymbol();
-	}
+    /**
+     * {@inheritDoc}
+     * @return value of length with the unit symbol
+     */
+    @Override
+    public String toString() {
+        return value + unitType.getUnitSymbol();
+    }
 }

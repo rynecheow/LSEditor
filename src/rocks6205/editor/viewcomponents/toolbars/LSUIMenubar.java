@@ -12,6 +12,7 @@ import rocks6205.editor.actions.LSAbstractAction.OpenFileAction;
 import rocks6205.editor.actions.LSAbstractAction.SaveFileAction;
 import rocks6205.editor.actions.LSAbstractAction.SaveFileAsAction;
 import rocks6205.editor.actions.LSAbstractAction.SelectAllAction;
+import rocks6205.editor.actions.LSAbstractAction.ToggleCodeViewAction;
 import rocks6205.editor.actions.LSAbstractAction.UngroupAction;
 import rocks6205.editor.actions.LSAbstractAction.ZoomInViewAction;
 import rocks6205.editor.actions.LSAbstractAction.ZoomOutViewAction;
@@ -25,7 +26,6 @@ import java.awt.event.KeyEvent;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import rocks6205.editor.actions.LSAbstractAction.ToggleCodeViewAction;
 
 /**
  * The main menu bar for the GUI.
@@ -74,18 +74,18 @@ public final class LSUIMenubar extends JMenuBar implements LSUIProtocol {
     /*
      * ACTION COMPONENTS
      */
-    private NewDocumentAction newAct;
-    private OpenFileAction    openAct;
-    private SaveFileAction    saveAct;
-    private SaveFileAsAction  saveAsAct;
-    private ExitAction        exitAct;
-    private SelectAllAction   selectAllAct;
-    private DeselectAllAction deselectAllAct;
-    private GroupAction       groupAction;
-    private UngroupAction     ungroupAction;
-    private DeleteAction      deleteAction;
-    private ZoomInViewAction  zoomInAction;
-    private ZoomOutViewAction zoomOutAction;
+    private NewDocumentAction    newAct;
+    private OpenFileAction       openAct;
+    private SaveFileAction       saveAct;
+    private SaveFileAsAction     saveAsAct;
+    private ExitAction           exitAct;
+    private SelectAllAction      selectAllAct;
+    private DeselectAllAction    deselectAllAct;
+    private GroupAction          groupAction;
+    private UngroupAction        ungroupAction;
+    private DeleteAction         deleteAction;
+    private ZoomInViewAction     zoomInAction;
+    private ZoomOutViewAction    zoomOutAction;
     private ToggleCodeViewAction toggleCodeAct;
 
     /*
@@ -110,43 +110,43 @@ public final class LSUIMenubar extends JMenuBar implements LSUIProtocol {
      */
     @Override
     public void initialise() {
-        fileMenu             = new JMenu("File");
-        editMenu             = new JMenu("Edit");
-        insertMenu           = new JMenu("Insert");
-        windowMenu           = new JMenu("Window");
-        helpMenu             = new JMenu("Help");
-        newMenuItem          = new JMenuItem();
-        openMenuItem         = new JMenuItem();
-        saveMenuItem         = new JMenuItem();
-        saveAsMenuItem       = new JMenuItem();
-        docPropMenuItem      = new JMenuItem("Document Properties");
-        exitMenuItem         = new JMenuItem();
-        selectAllMenuItem    = new JMenuItem();
-        deselectAllMenuItem  = new JMenuItem();
-        groupMenuItem        = new JMenuItem();
-        ungroupMenuItem      = new JMenuItem();
-        deleteMenuItem       = new JMenuItem();
-        insertRectMenuItem   = new JMenuItem("Rectangle");
-        insertCircleMenuItem = new JMenuItem("Circle");
-        insertLineMenuItem   = new JMenuItem("Line");
-        zoomInMenuItem       = new JMenuItem();
-        zoomOutMenuItem      = new JMenuItem();
+        fileMenu                   = new JMenu("File");
+        editMenu                   = new JMenu("Edit");
+        insertMenu                 = new JMenu("Insert");
+        windowMenu                 = new JMenu("Window");
+        helpMenu                   = new JMenu("Help");
+        newMenuItem                = new JMenuItem();
+        openMenuItem               = new JMenuItem();
+        saveMenuItem               = new JMenuItem();
+        saveAsMenuItem             = new JMenuItem();
+        docPropMenuItem            = new JMenuItem("Document Properties");
+        exitMenuItem               = new JMenuItem();
+        selectAllMenuItem          = new JMenuItem();
+        deselectAllMenuItem        = new JMenuItem();
+        groupMenuItem              = new JMenuItem();
+        ungroupMenuItem            = new JMenuItem();
+        deleteMenuItem             = new JMenuItem();
+        insertRectMenuItem         = new JMenuItem("Rectangle");
+        insertCircleMenuItem       = new JMenuItem("Circle");
+        insertLineMenuItem         = new JMenuItem("Line");
+        zoomInMenuItem             = new JMenuItem();
+        zoomOutMenuItem            = new JMenuItem();
         toggleCodeAreaViewMenuItem = new JMenuItem();
-        faqMenuItem          = new JMenuItem("FAQ");
-        aboutMenuItem        = new JMenuItem("About");
-        newAct               = new NewDocumentAction(parent, "New");
-        openAct              = new OpenFileAction(parent, "Open File...");
-        saveAct              = new SaveFileAction(parent, "Save");
-        saveAsAct            = new SaveFileAsAction(parent, "Save As...");
-        exitAct              = new LSAbstractAction.ExitAction(parent, "Exit");
-        selectAllAct         = new SelectAllAction(parent, "Select All");
-        deselectAllAct       = new DeselectAllAction(parent, "Deselect All");
-        groupAction          = new GroupAction(parent, "Group");
-        ungroupAction        = new UngroupAction(parent, "Ungroup");
-        deleteAction         = new DeleteAction(parent, "Delete");
-        zoomOutAction        = new ZoomOutViewAction(parent, "Zoom In");
-        zoomInAction         = new ZoomInViewAction(parent, "Zoom Out");
-        toggleCodeAct        = new ToggleCodeViewAction(parent,"Close Code View Area..");
+        faqMenuItem                = new JMenuItem("FAQ");
+        aboutMenuItem              = new JMenuItem("About");
+        newAct                     = new NewDocumentAction(parent, "New");
+        openAct                    = new OpenFileAction(parent, "Open File...");
+        saveAct                    = new SaveFileAction(parent, "Save");
+        saveAsAct                  = new SaveFileAsAction(parent, "Save As...");
+        exitAct                    = new LSAbstractAction.ExitAction(parent, "Exit");
+        selectAllAct               = new SelectAllAction(parent, "Select All");
+        deselectAllAct             = new DeselectAllAction(parent, "Deselect All");
+        groupAction                = new GroupAction(parent, "Group");
+        ungroupAction              = new UngroupAction(parent, "Ungroup");
+        deleteAction               = new DeleteAction(parent, "Delete");
+        zoomOutAction              = new ZoomOutViewAction(parent, "Zoom In");
+        zoomInAction               = new ZoomInViewAction(parent, "Zoom Out");
+        toggleCodeAct              = new ToggleCodeViewAction(parent, "Close Code View Area..");
     }
 
     /**
@@ -276,7 +276,9 @@ public final class LSUIMenubar extends JMenuBar implements LSUIProtocol {
         deselectAllMenuItem.setEnabled(status);
     }
 
-   public void toggleCodeMenuTitle(boolean flag) {
-      toggleCodeAreaViewMenuItem.setText(!flag ? "Close Code View Area.." : "Show Code View Area..");
-   }
+    public void toggleCodeMenuTitle(boolean flag) {
+        toggleCodeAreaViewMenuItem.setText(!flag
+                                           ? "Close Code View Area.."
+                                           : "Show Code View Area..");
+    }
 }

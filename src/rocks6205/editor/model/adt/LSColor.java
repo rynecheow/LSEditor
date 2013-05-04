@@ -19,6 +19,7 @@ import java.util.regex.Pattern;
  * @since 1.0
  */
 public class LSColor extends Color {
+
     /*
      * COLOR DATA STRUCTURE FORMAT
      */
@@ -39,14 +40,13 @@ public class LSColor extends Color {
     /*
      * CONSTRUCTOR
      */
-    
-    static{
-       RGB_COLOR = "rgb\\((" + LSSVGPrimitive._8_BIT_UINT + "," + LSSVGPrimitive._8_BIT_UINT + ","
-                                           + LSSVGPrimitive._8_BIT_UINT + "|" + LSSVGPrimitive.PERCENTAGE_UNUM + ","
-                                           + LSSVGPrimitive.PERCENTAGE_UNUM + "," + LSSVGPrimitive.PERCENTAGE_UNUM + ")\\)";
-       HEXA_COLOR = "#" + "(" + LSSVGPrimitive._4_BIT_HEX_UINT + "{3}){1,2}";
+    static {
+        RGB_COLOR = "rgb\\((" + LSSVGPrimitive._8_BIT_UINT + "," + LSSVGPrimitive._8_BIT_UINT + ","
+                    + LSSVGPrimitive._8_BIT_UINT + "|" + LSSVGPrimitive.PERCENTAGE_UNUM + ","
+                    + LSSVGPrimitive.PERCENTAGE_UNUM + "," + LSSVGPrimitive.PERCENTAGE_UNUM + ")\\)";
+        HEXA_COLOR = "#" + "(" + LSSVGPrimitive._4_BIT_HEX_UINT + "{3}){1,2}";
     }
-    
+
     /**
      * Creates <code>LSColor</code> from specified value of <code>red</code> , <code>green</code>,
      * and <code>blue</code> values
@@ -298,8 +298,13 @@ public class LSColor extends Color {
 
         return hexColorString;
     }
-    
-    public static LSColor createFromColor(Color c){
-       return new LSColor (c.getRed(),c.getGreen(),c.getBlue());
+
+    /**
+     * Creates own type of color from a typecasted <code>Color</color> subclass
+     * @param c General color
+     * @return Color of type LSColor
+     */
+    public static LSColor createFromColor(Color c) {
+        return new LSColor(c.getRed(), c.getGreen(), c.getBlue());
     }
 }
