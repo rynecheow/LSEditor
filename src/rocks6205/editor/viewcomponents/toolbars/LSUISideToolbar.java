@@ -103,8 +103,8 @@ public final class LSUISideToolbar extends JToolBar implements LSUIProtocol {
      * button.
      */
     private void setActionForButtons() {
-        panButton.setAction(panModeAction);
         selectButton.setAction(selectModeAction);
+        panButton.setAction(panModeAction);
         drawRectButton.setAction(drawRectAction);
         drawCircButton.setAction(drawCircleAction);
         drawLineButton.setAction(drawLineAction);
