@@ -10,6 +10,8 @@ import rocks6205.system.properties.LSSVGEditorGUITheme;
 //~--- JDK imports ------------------------------------------------------------
 
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import rocks6205.editor.viewcomponents.LSUISVGGeneratedCodeArea;
 
 /**
  *
@@ -26,13 +28,14 @@ public final class LSUIMiscPanel extends JPanel implements LSUIProtocol {
      * GUI COMPONENTS
      */
     private LSUIRGBColorChooserPanel colorChooserPanel;
-
+    private JScrollPane textScrollPane;
+    private LSUISVGGeneratedCodeArea textArea;
+    
     public LSUIMiscPanel(LSView parent) {
         super();
         parentView = parent;
         initialise();
         customise();
-        disableColorChooserInView();
     }
 
     /**
@@ -41,6 +44,10 @@ public final class LSUIMiscPanel extends JPanel implements LSUIProtocol {
     @Override
     public void initialise() {
         colorChooserPanel = new LSUIRGBColorChooserPanel(parentView);
+        
+        textScrollPane = new JScrollPane();
+        textArea = new LSUISVGGeneratedCodeArea();
+        textScrollPane.setViewportView(textArea);
     }
 
     @Override
@@ -59,6 +66,16 @@ public final class LSUIMiscPanel extends JPanel implements LSUIProtocol {
         colorChooserPanel.setVisible(true);
     }
 
+    public void enableTextAreaInView() {
+      add(textScrollPane);
+      textScrollPane.setVisible(true);
+   }
+   
+   public void disableTextAreaInView(){
+      textScrollPane.setVisible(false);
+      remove(textScrollPane);
+   }
+    
     private void layoutView() {
         setBorder(LSSVGEditorGUITheme.MASTER_DEFAULT_PANEL_BORDER);
         setLayout(null);
@@ -66,6 +83,15 @@ public final class LSUIMiscPanel extends JPanel implements LSUIProtocol {
 
     private void layoutComponents() {
         colorChooserPanel.setBounds(10, 10, 335, 114);
-        enableColorChooserInView();
+        textScrollPane.setBounds(6, 6, 906, 138);
+        disableColorChooserInView();
+        enableTextAreaInView();
+        updateCode("Hello");
     }
+
+   public void updateCode(String string){
+      textArea.setText("Lorem\nipsum\nwhatever");
+   }
+
+   
 }
