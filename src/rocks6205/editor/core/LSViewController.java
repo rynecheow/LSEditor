@@ -46,8 +46,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedHashSet;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -75,12 +73,34 @@ public class LSViewController
     /**
      * Default namespace for SVG documents.
      */
-    public static final String SVGDefaultNamespace = "http://www.w3.org/2000/svg";
+    public static final String SVGDefaultNamespace;
 
     /**
      * SVG element order comparator
      */
-    public static final Comparator<LSGenericElement> SVG_ELEMENT_ORDER = new Comparator<LSGenericElement>() {
+    public static final Comparator<LSGenericElement> SVG_ELEMENT_ORDER;
+
+    /**
+     * SVG element comparator reversed order
+     */
+    public static final Comparator<LSGenericElement> SVG_ELEMENT_REVERSE_ORDER;
+    
+    
+    static{
+       SVG_ELEMENT_REVERSE_ORDER = new Comparator<LSGenericElement>() {
+        @Override
+        public int compare(LSGenericElement e1, LSGenericElement e2) {
+            if (e1 == e2) {
+                return 0;
+            }
+
+            LSGenericContainer ancestor = e1.getAncestorElement();
+
+            return ancestor.indexOf(e2) - ancestor.indexOf(e1);
+        }
+        };
+       
+       SVG_ELEMENT_ORDER = new Comparator<LSGenericElement>() {
         @Override
         public int compare(LSGenericElement e1, LSGenericElement e2) {
             if (e1 == e2) {
@@ -92,24 +112,10 @@ public class LSViewController
             return ancestor.indexOf(e1) - ancestor.indexOf(e2);
         }
     };
-
-    /**
-     * SVG element comparator reversed order
-     */
-    public static final Comparator<LSGenericElement> SVG_ELEMENT_REVERSE_ORDER = new Comparator<LSGenericElement>() {
-        @Override
-        public int compare(LSGenericElement e1, LSGenericElement e2) {
-            if (e1 == e2) {
-                return 0;
-            }
-
-            LSGenericContainer ancestor = e1.getAncestorElement();
-
-            return ancestor.indexOf(e2) - ancestor.indexOf(e1);
-        }
-    };
+       
+       SVGDefaultNamespace = "http://www.w3.org/2000/svg";
+    }
     
-
     /*
      * PROPERTIES
      */

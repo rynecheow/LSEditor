@@ -19,8 +19,6 @@ import java.util.regex.Pattern;
  * @since 1.0
  */
 public class LSColor extends Color {
-    private static final long serialVersionUID = 5839823140108294927L;
-
     /*
      * COLOR DATA STRUCTURE FORMAT
      */
@@ -30,20 +28,25 @@ public class LSColor extends Color {
      *  e.g. rgb(120,83,22)<br>
      *  e.g. rgb(70%,62%,3%)
      */
-    public static final String RGB_COLOR = "rgb\\((" + LSSVGPrimitive._8_BIT_UINT + "," + LSSVGPrimitive._8_BIT_UINT + ","
-                                           + LSSVGPrimitive._8_BIT_UINT + "|" + LSSVGPrimitive.PERCENTAGE_UNUM + ","
-                                           + LSSVGPrimitive.PERCENTAGE_UNUM + "," + LSSVGPrimitive.PERCENTAGE_UNUM + ")\\)";
+    public static final String RGB_COLOR;
 
     /**
      *  Regular expression for hexadecimal color format<br>
      *  e.g. #123abc , #fff
      */
-    public static final String HEXA_COLOR = "#" + "(" + LSSVGPrimitive._4_BIT_HEX_UINT + "{3}){1,2}";
+    public static final String HEXA_COLOR;
 
     /*
      * CONSTRUCTOR
      */
-
+    
+    static{
+       RGB_COLOR = "rgb\\((" + LSSVGPrimitive._8_BIT_UINT + "," + LSSVGPrimitive._8_BIT_UINT + ","
+                                           + LSSVGPrimitive._8_BIT_UINT + "|" + LSSVGPrimitive.PERCENTAGE_UNUM + ","
+                                           + LSSVGPrimitive.PERCENTAGE_UNUM + "," + LSSVGPrimitive.PERCENTAGE_UNUM + ")\\)";
+       HEXA_COLOR = "#" + "(" + LSSVGPrimitive._4_BIT_HEX_UINT + "{3}){1,2}";
+    }
+    
     /**
      * Creates <code>LSColor</code> from specified value of <code>red</code> , <code>green</code>,
      * and <code>blue</code> values

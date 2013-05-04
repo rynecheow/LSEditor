@@ -80,7 +80,7 @@ public final class LSView extends JFrame implements LSUIProtocol {
     private boolean isZoomChanged;
     private File    displayedFile;
     private String  documentTitle;
-    private static boolean codeViewFlag = (true);
+    private static boolean codeViewFlag;
     /**
      * Model object
      */
@@ -118,6 +118,9 @@ public final class LSView extends JFrame implements LSUIProtocol {
      * CONSTRUCTOR
      */
 
+    static {
+       codeViewFlag = (true);
+    }
     /**
      * Construct an <code>SVGView</code> instance with components initialised
      * and properly customised.
