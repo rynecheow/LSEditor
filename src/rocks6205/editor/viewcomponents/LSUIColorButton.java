@@ -1,8 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package rocks6205.editor.viewcomponents;
 
 import java.awt.BasicStroke;
@@ -43,9 +38,8 @@ public final class LSUIColorButton extends JButton implements LSUIProtocol{
 	Point point;
    private JPanel chooserPanel;
    
-   private LSUIColorButton(LSPainting painting){
-      super();
-      this.painting = painting;
+   private LSUIColorButton(LSPainting p){
+      painting = p;
       initialise();
       customise();
    }
@@ -174,9 +168,10 @@ public final class LSUIColorButton extends JButton implements LSUIProtocol{
 	}
    public void setPainting(LSPainting p){
       painting = p;
+      fireStateChanged();
    }
 
    public void setPaintingNone(){
-      painting = new LSPainting(LSPaintingType.NONE);
+      setPainting(new LSPainting(LSPaintingType.NONE));
    }
 }

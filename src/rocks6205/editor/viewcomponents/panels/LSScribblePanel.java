@@ -52,30 +52,30 @@ public class LSScribblePanel extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        Graphics2D g2 = (Graphics2D) g;
+        Graphics2D g2d = (Graphics2D) g;
 
         if (selectionBox != null) {
-            g2.setPaint(new Color(.3f, .3f, .3f, .25f));
-            g2.fill(selectionBox);
-            g2.setPaint(new Color(.3f, .3f, .3f, .5f));
-            g2.draw(selectionBox);
+            g2d.setPaint(new Color(.3f, .3f, .3f, .25f));
+            g2d.fill(selectionBox);
+            g2d.setPaint(new Color(.3f, .3f, .3f, .5f));
+            g2d.draw(selectionBox);
         }
 
         if (selectionRectangles != null) {
             for (Rectangle2D rect : selectionRectangles) {
-                g2.setPaint(new Color(.3f, .3f, .3f, .25f));
-                g2.fill(rect);
-                g2.setPaint(new Color(.3f, .3f, .3f, .5f));
-                g2.draw(rect);
+                g2d.setPaint(new Color(.3f, .3f, .3f, .25f));
+                g2d.fill(rect);
+                g2d.setPaint(new Color(.3f, .3f, .3f, .5f));
+                g2d.draw(rect);
             }
         }
 
         if (resizeRectangles != null) {
             for (Rectangle2D rect : resizeRectangles) {
-                g2.setPaint(Color.WHITE);
-                g2.fill(rect);
-                g2.setPaint(Color.BLACK);
-                g2.draw(rect);
+                g2d.setPaint(Color.WHITE);
+                g2d.fill(rect);
+                g2d.setPaint(Color.BLACK);
+                g2d.draw(rect);
             }
         }
     }

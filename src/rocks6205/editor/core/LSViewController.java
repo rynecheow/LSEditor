@@ -472,7 +472,7 @@ public class LSViewController
      */
        @Override
     public boolean fileSave(File file) throws IOException {
-	if (file != null) {
+	    if (file != null) {
             try {
                 DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 

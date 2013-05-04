@@ -32,6 +32,7 @@ public final class LSUIMiscPanel extends JPanel implements LSUIProtocol {
         parentView = parent;
         initialise();
         customise();
+        disableColorChooserInView();
     }
 
     /**

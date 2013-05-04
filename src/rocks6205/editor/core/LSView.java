@@ -367,7 +367,7 @@ public final class LSView extends JFrame implements LSUIProtocol {
     }
 
     public void updateStatus(String status) {
-        statusPanel.updateStatus("123");
+        statusPanel.updateStatus(status);
     }
 
     private void updateTitle() {
@@ -376,6 +376,7 @@ public final class LSView extends JFrame implements LSUIProtocol {
 
             if (documentTitle != null) {
                 setTitle(documentTitle);
+                statusPanel.updateStatus(documentTitle);
             }
         }
     }
