@@ -355,7 +355,7 @@ public final class LSView extends JFrame implements LSUIProtocol {
             try {
                 saved = controller.fileSave();
             } catch (IOException e) {
-                System.err.println(e.getMessage());
+                LSEditor.logger.warning(e.getMessage());
             }
         }
 
