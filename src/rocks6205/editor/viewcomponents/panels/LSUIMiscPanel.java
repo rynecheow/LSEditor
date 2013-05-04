@@ -11,6 +11,7 @@ import rocks6205.system.properties.LSSVGEditorGUITheme;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.text.Document;
 import rocks6205.editor.viewcomponents.LSUISVGGeneratedCodeArea;
 
 /**
@@ -86,11 +87,10 @@ public final class LSUIMiscPanel extends JPanel implements LSUIProtocol {
         textScrollPane.setBounds(6, 6, 906, 138);
         disableColorChooserInView();
         enableTextAreaInView();
-        updateCode("Hello");
     }
 
-   public void updateCode(String string){
-      textArea.setText("Lorem\nipsum\nwhatever");
+   public void updateCode(Document d){
+      textArea.setDocument(d);
    }
 
    
