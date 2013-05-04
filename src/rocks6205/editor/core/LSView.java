@@ -284,12 +284,12 @@ public final class LSView extends JFrame implements LSUIProtocol {
 
         if (isFileChanged) {
             displayedFile = currentFile;
-            miscPanel.updateCode(controller.getDocumentString());
         }
 
         if (needRepaint) {
             editPanel.paintCanvas(controller.renderImage(zoomScale));
             navPanel.updateTree();
+            miscPanel.updateCode(controller.getDocumentString());
         }
     }
 

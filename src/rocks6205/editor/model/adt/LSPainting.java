@@ -155,4 +155,17 @@ public class LSPainting {
     public final void setPaint(LSColor c) {
         setPaint(c, LSPaintingType.COLOR);
     }
+    
+   @Override
+	public String toString() {
+		switch (paintType) {
+		case NONE:
+			return "none";
+		case COLOR:
+			return "rgb(" + paintColor.getRed() + "," + paintColor.getGreen() + ","
+					+ paintColor.getBlue() + ")";
+		default:
+			return "";
+		}
+	}
 }

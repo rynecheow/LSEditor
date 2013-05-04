@@ -46,6 +46,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedHashSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -204,6 +206,7 @@ public class LSViewController
 
     public void modifyDocument() {
         isDocumentModified = true;
+        
     }
 
     public void unmodifyDocument() {
@@ -215,7 +218,7 @@ public class LSViewController
             modificationStart_t = System.currentTimeMillis();
             modifyDocument();
         }
-
+        updateDocumentString();
         updateViews();
     }
 
@@ -485,186 +488,7 @@ public class LSViewController
     public boolean fileSave(File file) throws IOException {
 	    if (file != null) {
             try {
-                DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-
-                factory.setNamespaceAware(true);
-
-                DocumentBuilder     builder  = factory.newDocumentBuilder();
-                Document            doc      = builder.newDocument();
-                Node                ancestor = doc;
-                Element             e        = null;
-                Attr                attr;
-                LSGenericElement   svg_e = model.getSVGElement();
-                LSGenericContainer svgAncestor;
-
-                while (svg_e != null) {
-                    if (svg_e instanceof LSSVGContainer) {
-                        LSSVGContainer root = (LSSVGContainer) svg_e;
-
-                        e = doc.createElementNS(SVGDefaultNamespace, "svg");
-                        ancestor.appendChild(e);
-                        attr = doc.createAttributeNS(null, "width");
-                        attr.setValue(root.getWidth().toString());
-                        e.setAttributeNodeNS(attr);
-                        attr = doc.createAttributeNS(null, "height");
-                        attr.setValue(root.getHeight().toString());
-                        e.setAttributeNodeNS(attr);
-
-                        if (root.hasDescendant()) {
-                            ancestor  = e;
-                            svg_e     = root.getDescendant(0);
-                            svgAncestor = root;
-
-                            continue;
-                        }
-                    } else {
-                        Attr        fillAttr        = null;
-                        Attr        strokeAttr      = null;
-                        Attr        strokeWidthAttr = null;
-                        Attr        transformAttr   = null;
-                        LSPainting fill            = svg_e.getFill();
-
-                        if (fill != null) {
-                            fillAttr = doc.createAttributeNS(null, "fill");
-                            fillAttr.setValue(fill.toString());
-                        }
-
-                        LSPainting stroke = svg_e.getStroke();
-
-                        if (stroke != null) {
-                            strokeAttr = doc.createAttributeNS(null, "stroke");
-                            strokeAttr.setValue(stroke.toString());
-                        }
-
-                        LSLength strokeWidth = svg_e.getStrokeWidth();
-
-                        if (strokeWidth != null) {
-                            strokeWidthAttr = doc.createAttributeNS(null, "stroke-width");
-                            strokeWidthAttr.setValue(strokeWidth.toString());
-                        }
-
-                        LSLength translateX = svg_e.getTranslateX();
-                        LSLength translateY = svg_e.getTranslateY();
-
-                        if (translateX != null) {
-                            transformAttr = doc.createAttributeNS(null, "transform");
-
-                            String value = "translate(" + translateX.getValue();
-
-                            if (translateY != null) {
-                                value += "," + translateY.getValue();
-                            }
-
-                            value += ")";
-                            transformAttr.setValue(value);
-                        }
-
-                        if (svg_e instanceof LSGroupContainer) {
-                            LSGroupContainer group = (LSGroupContainer) svg_e;
-
-                            e = doc.createElementNS(SVGDefaultNamespace, "g");
-
-                            if (fillAttr != null) {
-                                e.setAttributeNode(fillAttr);
-                            }
-
-                            if (strokeAttr != null) {
-                                e.setAttributeNode(strokeAttr);
-                            }
-
-                            if (strokeWidthAttr != null) {
-                                e.setAttributeNode(strokeWidthAttr);
-                            }
-
-                            if (transformAttr != null) {
-                                e.setAttributeNode(transformAttr);
-                            }
-
-                            ancestor.appendChild(e);
-
-                            if (group.hasDescendant()) {
-                                ancestor  = e;
-                                svg_e     = group.getDescendant(0);
-                                svgAncestor = group;
-
-                                continue;
-                            }
-                        } else if (svg_e instanceof LSShapeRect) {
-                            LSShapeRect rect = (LSShapeRect) svg_e;
-
-                            e    = doc.createElementNS(SVGDefaultNamespace, "rect");
-                            attr = doc.createAttributeNS(null, "x");
-                            attr.setValue(rect.getX().toString());
-                            e.setAttributeNodeNS(attr);
-                            attr = doc.createAttributeNS(null, "y");
-                            attr.setValue(rect.getY().toString());
-                            e.setAttributeNodeNS(attr);
-                            attr = doc.createAttributeNS(null, "width");
-                            attr.setValue(rect.getWidth().toString());
-                            e.setAttributeNodeNS(attr);
-                            attr = doc.createAttributeNS(null, "height");
-                            attr.setValue(rect.getHeight().toString());
-                            e.setAttributeNodeNS(attr);
-                            ancestor.appendChild(e);
-                        } else if (svg_e instanceof LSShapeCircle) {
-                            LSShapeCircle circle = (LSShapeCircle) svg_e;
-
-                            e    = doc.createElementNS(SVGDefaultNamespace, "circle");
-                            attr = doc.createAttributeNS(null, "cx");
-                            attr.setValue(circle.getCx().toString());
-                            e.setAttributeNodeNS(attr);
-                            attr = doc.createAttributeNS(null, "cy");
-                            attr.setValue(circle.getCy().toString());
-                            e.setAttributeNodeNS(attr);
-                            attr = doc.createAttributeNS(null, "r");
-                            attr.setValue(circle.getRadius().toString());
-                            e.setAttributeNodeNS(attr);
-                            ancestor.appendChild(e);
-                        } else if (svg_e instanceof LSShapeLine) {
-                            LSShapeLine line = (LSShapeLine) svg_e;
-
-                            e    = doc.createElementNS(SVGDefaultNamespace, "line");
-                            attr = doc.createAttributeNS(null, "x1");
-                            attr.setValue(line.getX1().toString());
-                            e.setAttributeNodeNS(attr);
-                            attr = doc.createAttributeNS(null, "y1");
-                            attr.setValue(line.getY1().toString());
-                            e.setAttributeNodeNS(attr);
-                            attr = doc.createAttributeNS(null, "x2");
-                            attr.setValue(line.getX2().toString());
-                            e.setAttributeNodeNS(attr);
-                            attr = doc.createAttributeNS(null, "y2");
-                            attr.setValue(line.getY2().toString());
-                            e.setAttributeNodeNS(attr);
-                            ancestor.appendChild(e);
-                        }
-
-                        if (fillAttr != null) {
-                            e.setAttributeNode(fillAttr);
-                        }
-
-                        if (strokeAttr != null) {
-                            e.setAttributeNode(strokeAttr);
-                        }
-
-                        if (strokeWidthAttr != null) {
-                            e.setAttributeNode(strokeWidthAttr);
-                        }
-
-                        if (transformAttr != null) {
-                            e.setAttributeNode(transformAttr);
-                        }
-                    }
-
-                    svgAncestor = svg_e.getAncestorElement();
-                    svg_e     = svg_e.getNextSiblingElement();
-
-                    while ((svg_e == null) && (svgAncestor != null)) {
-                        ancestor  = ancestor.getParentNode();
-                        svg_e     = svgAncestor.getNextSiblingElement();
-                        svgAncestor = svgAncestor.getAncestorElement();
-                    }
-                }
+                Document doc = this.generateUpdatedDocument(file);
 
                 TransformerFactory tFact       = TransformerFactory.newInstance();
                 Transformer        transformer = tFact.newTransformer();
@@ -674,9 +498,9 @@ public class LSViewController
 
                 DOMSource    source = new DOMSource(doc);
                 StreamResult result = new StreamResult(file);
-
+                
                 transformer.transform(source, result);
-            } catch (ParserConfigurationException | TransformerConfigurationException e) {
+            } catch (TransformerConfigurationException e) {
                 LSEditor.logger.warning(e.getMessage());
             } catch (TransformerException e) {
                 Throwable exception = e.getException();
@@ -1028,8 +852,199 @@ public class LSViewController
             throw new RuntimeException(e);
         }
    }
-      
+   
+   private Document generateUpdatedDocument(File file){
+       try {
+                      DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+
+                    factory.setNamespaceAware(true);
+
+                    DocumentBuilder     builder  = factory.newDocumentBuilder();
+                    Document            doc      = builder.newDocument();
+                    Node                ancestor = doc;
+                    Element             e        = null;
+                    Attr                attr;
+                    LSGenericElement   svg_e = model.getSVGElement();
+                    LSGenericContainer svgAncestor;
+
+                    while (svg_e != null) {
+                        if (svg_e instanceof LSSVGContainer) {
+                            LSSVGContainer root = (LSSVGContainer) svg_e;
+
+                            e = doc.createElementNS(SVGDefaultNamespace, "svg");
+                            ancestor.appendChild(e);
+                            attr = doc.createAttributeNS(null, "width");
+                            attr.setValue(root.getWidth().toString());
+                            e.setAttributeNodeNS(attr);
+                            attr = doc.createAttributeNS(null, "height");
+                            attr.setValue(root.getHeight().toString());
+                            e.setAttributeNodeNS(attr);
+
+                            if (root.hasDescendant()) {
+                                ancestor  = e;
+                                svg_e     = root.getDescendant(0);
+                                svgAncestor = root;
+
+                                continue;
+                            }
+                        } else {
+                            Attr        fillAttr        = null;
+                            Attr        strokeAttr      = null;
+                            Attr        strokeWidthAttr = null;
+                            Attr        transformAttr   = null;
+                            LSPainting fill            = svg_e.getFill();
+
+                            if (fill != null) {
+                                fillAttr = doc.createAttributeNS(null, "fill");
+                                fillAttr.setValue(fill.toString());
+                            }
+
+                            LSPainting stroke = svg_e.getStroke();
+
+                            if (stroke != null) {
+                                strokeAttr = doc.createAttributeNS(null, "stroke");
+                                strokeAttr.setValue(stroke.toString());
+                            }
+
+                            LSLength strokeWidth = svg_e.getStrokeWidth();
+
+                            if (strokeWidth != null) {
+                                strokeWidthAttr = doc.createAttributeNS(null, "stroke-width");
+                                strokeWidthAttr.setValue(strokeWidth.toString());
+                            }
+
+                            LSLength translateX = svg_e.getTranslateX();
+                            LSLength translateY = svg_e.getTranslateY();
+
+                            if (translateX != null) {
+                                transformAttr = doc.createAttributeNS(null, "transform");
+
+                                String value = "translate(" + translateX.getValue();
+
+                                if (translateY != null) {
+                                    value += "," + translateY.getValue();
+                                }
+
+                                value += ")";
+                                transformAttr.setValue(value);
+                            }
+
+                            if (svg_e instanceof LSGroupContainer) {
+                                LSGroupContainer group = (LSGroupContainer) svg_e;
+
+                                e = doc.createElementNS(SVGDefaultNamespace, "g");
+
+                                if (fillAttr != null) {
+                                    e.setAttributeNode(fillAttr);
+                                }
+
+                                if (strokeAttr != null) {
+                                    e.setAttributeNode(strokeAttr);
+                                }
+
+                                if (strokeWidthAttr != null) {
+                                    e.setAttributeNode(strokeWidthAttr);
+                                }
+
+                                if (transformAttr != null) {
+                                    e.setAttributeNode(transformAttr);
+                                }
+
+                                ancestor.appendChild(e);
+
+                                if (group.hasDescendant()) {
+                                    ancestor  = e;
+                                    svg_e     = group.getDescendant(0);
+                                    svgAncestor = group;
+
+                                    continue;
+                                }
+                            } else if (svg_e instanceof LSShapeRect) {
+                                LSShapeRect rect = (LSShapeRect) svg_e;
+
+                                e    = doc.createElementNS(SVGDefaultNamespace, "rect");
+                                attr = doc.createAttributeNS(null, "x");
+                                attr.setValue(rect.getX().toString());
+                                e.setAttributeNodeNS(attr);
+                                attr = doc.createAttributeNS(null, "y");
+                                attr.setValue(rect.getY().toString());
+                                e.setAttributeNodeNS(attr);
+                                attr = doc.createAttributeNS(null, "width");
+                                attr.setValue(rect.getWidth().toString());
+                                e.setAttributeNodeNS(attr);
+                                attr = doc.createAttributeNS(null, "height");
+                                attr.setValue(rect.getHeight().toString());
+                                e.setAttributeNodeNS(attr);
+                                ancestor.appendChild(e);
+                            } else if (svg_e instanceof LSShapeCircle) {
+                                LSShapeCircle circle = (LSShapeCircle) svg_e;
+
+                                e    = doc.createElementNS(SVGDefaultNamespace, "circle");
+                                attr = doc.createAttributeNS(null, "cx");
+                                attr.setValue(circle.getCx().toString());
+                                e.setAttributeNodeNS(attr);
+                                attr = doc.createAttributeNS(null, "cy");
+                                attr.setValue(circle.getCy().toString());
+                                e.setAttributeNodeNS(attr);
+                                attr = doc.createAttributeNS(null, "r");
+                                attr.setValue(circle.getRadius().toString());
+                                e.setAttributeNodeNS(attr);
+                                ancestor.appendChild(e);
+                            } else if (svg_e instanceof LSShapeLine) {
+                                LSShapeLine line = (LSShapeLine) svg_e;
+
+                                e    = doc.createElementNS(SVGDefaultNamespace, "line");
+                                attr = doc.createAttributeNS(null, "x1");
+                                attr.setValue(line.getX1().toString());
+                                e.setAttributeNodeNS(attr);
+                                attr = doc.createAttributeNS(null, "y1");
+                                attr.setValue(line.getY1().toString());
+                                e.setAttributeNodeNS(attr);
+                                attr = doc.createAttributeNS(null, "x2");
+                                attr.setValue(line.getX2().toString());
+                                e.setAttributeNodeNS(attr);
+                                attr = doc.createAttributeNS(null, "y2");
+                                attr.setValue(line.getY2().toString());
+                                e.setAttributeNodeNS(attr);
+                                ancestor.appendChild(e);
+                            }
+                            
+                            if(e!=null){
+                            if (fillAttr != null) {
+                                e.setAttributeNode(fillAttr);
+                            }
+
+                            if (strokeAttr != null) {
+                                e.setAttributeNode(strokeAttr);
+                            }
+
+                            if (strokeWidthAttr != null) {
+                                e.setAttributeNode(strokeWidthAttr);
+                            }
+
+                            if (transformAttr != null) {
+                                e.setAttributeNode(transformAttr);
+                            }
+                        }
+                        }
+
+                        svgAncestor = svg_e.getAncestorElement();
+                        svg_e     = svg_e.getNextSiblingElement();
+
+                        while ((svg_e == null) && (svgAncestor != null)) {
+                            ancestor  = ancestor.getParentNode();
+                            svg_e     = svgAncestor.getNextSiblingElement();
+                            svgAncestor = svgAncestor.getAncestorElement();
+                        }
+                    }
+                    return doc;
+       } catch (ParserConfigurationException ex) {
+          LSEditor.logger.warning(ex.getMessage());
+          return null;
+       }
+   }
+   
+   public void updateDocumentString(){
+     setDocumentString(parseDocumentAsFormattedString(generateUpdatedDocument(activeFile)));
+   }
 }
-
-
-//~ Formatted by Jindent --- http://www.jindent.com

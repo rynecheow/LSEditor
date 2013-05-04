@@ -150,9 +150,9 @@ public class LSLength {
 
         // initialise variables
         LSLength length      = null;
-        Pattern       pattern     = null,
-                      unitPattern = null;
-        Matcher       matcher     = null;
+        Pattern       pattern     ,
+                      unitPattern ;
+        Matcher       matcher     ;
         String        numberStr   = "";
         String        unitStr     = "",
                       unitSym     = "";
@@ -203,4 +203,9 @@ public class LSLength {
 
         return new LSLength(targetType, value);
     }
+    
+   @Override
+	public String toString() {
+		return value + unitType.getUnitSymbol();
+	}
 }

@@ -15,7 +15,7 @@ import rocks6205.system.properties.LSCanvasProperties;
  * @since 1.0
  */
 public enum LSLengthUnitType {
-    UNKNOWN(null), NUMBER(null), EMS("em"), EXS("ex"), PX("px"), CM("cm"), MM("mm"), IN("in"), PT("pt"), PC("pc");
+    UNKNOWN(null), NUMBER(""), EMS("em"), EXS("ex"), PX("px"), CM("cm"), MM("mm"), IN("in"), PT("pt"), PC("pc");
 
     private final String symbol;
 
