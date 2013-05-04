@@ -35,8 +35,6 @@ import java.io.IOException;
 import java.text.MessageFormat;
 
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -420,6 +418,9 @@ public final class LSView extends JFrame implements LSUIProtocol {
         return displayedFile;
     }
 
+    public LSUIEditingPanel getEditPanel(){
+       return editPanel;
+    }
     /*
      * MUTATORS
      */
@@ -454,5 +455,9 @@ public final class LSView extends JFrame implements LSUIProtocol {
 
     public void changeMode(LSUIEditingPanel.EditModeScheme mode) {
         editPanel.switchModeTo(mode);
+    }
+    
+    public void setEditPanel(LSUIEditingPanel p){
+       editPanel = p;
     }
 }

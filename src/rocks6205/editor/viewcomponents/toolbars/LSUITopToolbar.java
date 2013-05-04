@@ -11,27 +11,21 @@ import rocks6205.editor.core.LSView;
 import rocks6205.editor.viewcomponents.LSUIButton;
 import rocks6205.editor.viewcomponents.LSUIIconLabel;
 import rocks6205.editor.viewcomponents.LSUIProtocol;
-import rocks6205.editor.viewcomponents.LSUIToggleButton;
 
 import rocks6205.system.properties.LSSVGEditorGUITheme;
 
 //~--- JDK imports ------------------------------------------------------------
 
-import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import javax.swing.AbstractButton;
-import javax.swing.ButtonModel;
-import javax.swing.JButton;
 import javax.swing.JCheckBox;
 
-import javax.swing.JPanel;
 import javax.swing.JToolBar;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import rocks6205.editor.model.elements.LSGenericElement;
 import rocks6205.editor.viewcomponents.LSUIColorButton;
+import rocks6205.editor.viewcomponents.panels.LSUIEditingPanel;
 
 /**
  *
@@ -99,13 +93,69 @@ public final class LSUITopToolbar extends JToolBar implements LSUIProtocol {
     @Override
     public void customise() {
         layoutChildComponents();
+        setActionForButtons();
+        setIconsForButtons();
         layoutView();
-        setItemListenerForCheckBox();
+        bindHandlers();
     }
 
-    private void setParentView(LSView parent) {
-        parentView = parent;
+    private void layoutView() {
+        setBorder(LSSVGEditorGUITheme.MASTER_DEFAULT_PANEL_BORDER);
+        addSeparator();
+        add(newButton);
+        add(openButton);
+        add(saveButton);
+        addSeparator();
+        add(zoomInButton);
+        add(zoomOutButton);
+        addSeparator();
+        add(fillCheckBox);
+        add(fillLabel);
+        add(fillButton);
+        addSeparator();
+        add(strokeCheckBox);
+        add(strokeLabel);
+        add(strokeButton);
+        addSeparator();
+        setFloatable(false);
+        setRollover(true);
     }
+
+    private void layoutChildComponents() {
+        fillCheckBox.setSelected(true);
+        strokeCheckBox.setSelected(false);
+    }
+    
+    private void setItemListenerForCheckBox(){
+       fillCheckBox.addItemListener(new ItemListener(){
+
+          @Override
+          public void itemStateChanged(ItemEvent e) {
+             boolean selected = e.getStateChange() == ItemEvent.SELECTED;
+             fillButton.setEnabled(selected);
+             if(selected){
+               fillButton.setPainting(LSGenericElement.SVG_FILL_DEFAULT);
+             }else{
+               fillButton.setPaintingNone();
+             }
+          }
+       });
+       
+       strokeCheckBox.addItemListener(new ItemListener(){
+
+          @Override
+          public void itemStateChanged(ItemEvent e) {
+             boolean selected = e.getStateChange() == ItemEvent.SELECTED;
+             strokeButton.setEnabled(selected);
+             if(selected){
+                strokeButton.setPaintingNone();
+             }else{
+                strokeButton.setPainting(LSGenericElement.SVG_STROKE_DEFAULT);
+             }
+          }
+       });
+    }
+    
 
     /**
      * Setup actions for button.
@@ -140,63 +190,33 @@ public final class LSUITopToolbar extends JToolBar implements LSUIProtocol {
         strokeLabel.setIcon(strokeIconPath);
     }
 
-    private void layoutView() {
-        setActionForButtons();
-        setIconsForButtons();
-        setBorder(LSSVGEditorGUITheme.MASTER_DEFAULT_PANEL_BORDER);
-        addSeparator();
-        add(newButton);
-        add(openButton);
-        add(saveButton);
-        addSeparator();
-        add(zoomInButton);
-        add(zoomOutButton);
-        addSeparator();
-        add(fillCheckBox);
-        add(fillLabel);
-        add(fillButton);
-        addSeparator();
-        add(strokeCheckBox);
-        add(strokeLabel);
-        add(strokeButton);
-        addSeparator();
-        setFloatable(false);
-        setRollover(true);
-    }
+   private void bindHandlers() {
+     setItemListenerForCheckBox();
+     SVGPresentationChangeListener changeList = new SVGPresentationChangeListener();
+     fillButton.addPresentationChangeListener(changeList);
+     strokeButton.addPresentationChangeListener(changeList);
+   }
 
-    private void layoutChildComponents() {
-//        fillButton.setBorder(LSSVGEditorGUITheme.MASTER_DEFAULT_PANEL_BORDER);
-        fillCheckBox.setSelected(true);
-        strokeCheckBox.setSelected(false);
-    }
     
-    private void setItemListenerForCheckBox(){
-       fillCheckBox.addItemListener(new ItemListener(){
-
-          @Override
-          public void itemStateChanged(ItemEvent e) {
-             boolean selected = e.getStateChange() == ItemEvent.SELECTED;
-             fillButton.setEnabled(selected);
-             if(selected){
-               fillButton.setPainting(LSGenericElement.SVG_FILL_DEFAULT);
-             }else{
-               fillButton.setPaintingNone();
-             }
-          }
-       });
-       
-       strokeCheckBox.addItemListener(new ItemListener(){
-
-          @Override
-          public void itemStateChanged(ItemEvent e) {
-             boolean selected = e.getStateChange() == ItemEvent.SELECTED;
-             strokeButton.setEnabled(selected);
-             if(selected){
-                strokeButton.setPaintingNone();
-             }else{
-                strokeButton.setPainting(LSGenericElement.SVG_STROKE_DEFAULT);
-             }
-          }
-       });
+    
+    private class SVGPresentationChangeListener implements ChangeListener {
+		@Override
+		public void stateChanged(ChangeEvent e) {
+			Object source = e.getSource();
+         LSUIEditingPanel editPanel= parentView.getEditPanel();
+			if (source == fillButton) {
+				editPanel.setFill(fillButton.getPainting());
+			} else if (source == strokeButton) {
+				editPanel.setStroke(strokeButton.getPainting());}
+//			} else if (source == strokeWidthInputPanel) {
+//				editPanel.setStrokeWidth(strokeWidthInputPanel.getLength());
+//			}
+         
+         parentView.setEditPanel(editPanel);
+		}
+	}
+    
+    private void setParentView(LSView parent) {
+        parentView = parent;
     }
 }
