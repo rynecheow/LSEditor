@@ -63,13 +63,7 @@ public final class LSUINavigationPanel extends JPanel implements LSUIProtocol, T
 
     @Override
     public void valueChanged(TreeSelectionEvent e) {
-        Object node = navigationTree.getLastSelectedPathComponent();
-
-        if (node == null) {
-            return;
-        }
-
-        System.out.println("You have selected: " + node);
+//        Object node = navigationTree.getLastSelectedPathComponent();
     }
 
     public void updateTree() {

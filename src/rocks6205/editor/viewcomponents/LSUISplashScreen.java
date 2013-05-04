@@ -13,6 +13,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JWindow;
+import rocks6205.editor.core.LSEditor;
 
 /**
  * Splash screen.
@@ -61,7 +62,7 @@ public final class LSUISplashScreen extends JWindow {
         try {
             Thread.sleep(duration);
         } catch (Exception e) {
-            System.err.println(e.getMessage());
+            LSEditor.logger.warning(e.getMessage());
         }
 
         setVisible(false);

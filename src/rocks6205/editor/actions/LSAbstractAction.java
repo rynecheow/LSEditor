@@ -28,6 +28,7 @@ import static javax.swing.Action.ACCELERATOR_KEY;
 import static javax.swing.Action.MNEMONIC_KEY;
 import static javax.swing.Action.SELECTED_KEY;
 import static javax.swing.Action.SHORT_DESCRIPTION;
+import rocks6205.editor.core.LSEditor;
 
 
 /**
@@ -519,7 +520,7 @@ public abstract class LSAbstractAction extends AbstractAction {
 		try {
 			opened = vc.fileLoad(file);
 		} catch (IOException e) {
-			System.err.println(e.getMessage());
+			LSEditor.logger.warning(e.getMessage());
 		}
 		return opened;
 	}

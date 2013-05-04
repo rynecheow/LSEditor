@@ -258,14 +258,12 @@ public class LSViewController
         int           width  = (int) (model.getSVGElement().getWidth().getValue(LSLengthUnitType.PX) * scale);
         int           height = (int) (model.getSVGElement().getHeight().getValue(LSLengthUnitType.PX) * scale);
         BufferedImage image  = new BufferedImage(width, height, BufferedImage.TYPE_4BYTE_ABGR);
-        Graphics2D    g      = image.createGraphics();
+        Graphics2D    g2d      = image.createGraphics();
 
-        g.scale(scale, scale);
-        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        model.getSVGElement().drawShape(g);
-        g.dispose();
-
-//      LSEditor.logger.info(String.format("Graphic rendered: Scale=\t"+scale+ " Width=\t"+width+" Height=\t"+height+"\n"));
+        g2d.scale(scale, scale);
+        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        model.getSVGElement().drawShape(g2d);
+        g2d.dispose();
         return image;
     }
 
@@ -666,12 +664,12 @@ public class LSViewController
 
                 transformer.transform(source, result);
             } catch (ParserConfigurationException | TransformerConfigurationException e) {
-                System.err.println(e.getMessage());
+                LSEditor.logger.warning(e.getMessage());
             } catch (TransformerException e) {
                 Throwable exception = e.getException();
 
                 if ((exception != null) && (exception instanceof IOException)) {
-                    throw(IOException) exception;
+                    throw (IOException) exception;
                 }
             }
 

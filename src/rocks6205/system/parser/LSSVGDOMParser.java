@@ -16,6 +16,7 @@ import java.io.StringReader;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import rocks6205.editor.core.LSEditor;
 
 /**
  *
@@ -64,7 +65,7 @@ public class LSSVGDOMParser {
             });
             doc = builder.parse(XMLInputSource);
         } catch (IOException | SAXException | ParserConfigurationException | NullPointerException e) {
-            System.err.println(e.getMessage());
+            LSEditor.logger.warning(e.getMessage());
         }
 
         return doc;

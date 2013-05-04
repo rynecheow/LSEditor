@@ -30,9 +30,9 @@ public class LSEditor {
     public static void main(String[] rcks) {
         logger.info(String.format("The current active OS is " + OSValidator.getOS() + ".\n"));
 
-//      LSUISplashScreen splash = new LSUISplashScreen(5000);
-//
-//      splash.showSplash();
+//        LSUISplashScreen splash = new LSUISplashScreen(5000);
+//        
+//        splash.showSplash();
         setUpLookAndFeel();
 
         LSViewController c = new LSViewController();
@@ -49,7 +49,7 @@ public class LSEditor {
             try {
                 c.fileLoad(new File(rcks[0]));
             } catch (IOException e) {
-                System.err.println(e.getMessage());
+                LSEditor.logger.warning(e.getMessage());
             }
         }
 
@@ -69,21 +69,21 @@ public class LSEditor {
                 UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
             } catch (ClassNotFoundException | InstantiationException | IllegalAccessException
                      | UnsupportedLookAndFeelException ex) {
-                System.err.println(ex.getMessage());
+                LSEditor.logger.warning(ex.getMessage());
             }
         } else {
             try {
                 for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
                     if ("Nimbus".equals(info.getName())) {
                         UIManager.setLookAndFeel(info.getClassName());
-                        System.out.println(UIManager.getLookAndFeel().getName());
+                        LSEditor.logger.info(UIManager.getLookAndFeel().getName());
 
                         break;
                     }
                 }
             } catch (ClassNotFoundException | InstantiationException | IllegalAccessException
                      | UnsupportedLookAndFeelException e) {
-                System.err.println(e.getMessage());
+                LSEditor.logger.warning(e.getMessage());
             }
         }
     }

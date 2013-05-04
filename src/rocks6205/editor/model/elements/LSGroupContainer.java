@@ -15,6 +15,7 @@ import java.awt.geom.NoninvertibleTransformException;
 import java.awt.geom.Rectangle2D;
 
 import java.util.ArrayList;
+import rocks6205.editor.core.LSEditor;
 
 /**
  * The <code>LSGroupContainer</code> class is a container used to group objects
@@ -84,7 +85,7 @@ public class LSGroupContainer extends LSGenericContainer {
         try {
             affTrans.invert();
         } catch (NoninvertibleTransformException e) {
-            System.err.println(e.getMessage());
+            LSEditor.logger.warning(e.getMessage());
         }
 
         g.transform(affTrans);
