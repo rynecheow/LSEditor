@@ -58,6 +58,8 @@ public class LSUIButton extends JButton {
         ImageIcon icon = createIcon(iconName);
 
         super.setIcon(icon);
+        setOpaque(false);
+        setContentAreaFilled(false);
         setBorder(null);
         setBorderPainted(false);
     }

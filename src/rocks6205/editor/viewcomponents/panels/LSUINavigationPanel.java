@@ -68,7 +68,7 @@ public final class LSUINavigationPanel extends JPanel implements LSUIProtocol, T
     }
 
     public void updateTree() {
-        LSTreeNode                   node  = LSTreeBuilder.build(parentView.getModel().getSVGElement());
+        LSTreeNode                   node  = LSTreeBuilder.build(parentView.getController().getModel().getSVGElement());
         LSElementNavigationTreeModel model = new LSElementNavigationTreeModel(node);
 
         navigationTree.setModel(model);

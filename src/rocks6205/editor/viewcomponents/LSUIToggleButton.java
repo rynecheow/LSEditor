@@ -58,6 +58,7 @@ public class LSUIToggleButton extends JToggleButton {
         ImageIcon icon = createIcon(iconName);
 
         super.setIcon(icon);
+        setBackground(null);
         setBorder(null);
         setBorderPainted(false);
     }
