@@ -99,10 +99,9 @@ public final class LSUITopToolbar extends JToolBar implements LSUIProtocol {
     @Override
     public void customise() {
         layoutChildComponents();
-        setActionForButtons();
+        bindHandlers();
         setIconsForButtons();
         layoutView();
-        bindHandlers();
     }
 
     private void layoutView() {
@@ -206,6 +205,7 @@ public final class LSUITopToolbar extends JToolBar implements LSUIProtocol {
      */
     @Override
     public void bindHandlers() {
+        setActionForButtons();
         setItemListenerForCheckBox();
 
         SVGPresentationChangeListener changeList = new SVGPresentationChangeListener();

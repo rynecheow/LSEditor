@@ -169,5 +169,7 @@ public final class LSUISideToolbar extends JToolBar implements LSUIProtocol {
      * {@inheritDoc}
      */
     @Override
-    public void bindHandlers() {}
+    public void bindHandlers() {
+       setActionForButtons();
+    }
 }
