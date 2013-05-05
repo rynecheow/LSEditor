@@ -53,7 +53,6 @@ public final class LSUISVGCodePane extends JTextPane {
             font = font.deriveFont(Font.PLAIN, 15);
 
             String info = "Current font for code displaying: " + font.getFontName();
-
             LSEditor.logger.info(info);
         }
 
@@ -61,7 +60,7 @@ public final class LSUISVGCodePane extends JTextPane {
     }
     
     /**
-     * Set custom font of size 15pt.
+     * Set custom font of size 15<code>pt</code>.
      * @param filename File name including extension of the true type font.
      */
     public void setCustomFont(String filename){
