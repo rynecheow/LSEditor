@@ -72,6 +72,9 @@ public final class LSUIWelcomeDialog extends JDialog implements LSUIProtocol {
         openFileAction = new OpenFileAction(parentView);
     }
 
+    /**
+     * Set up dialog size properties.
+     */
     private void setUpProperties() {
         screen = Toolkit.getDefaultToolkit().getScreenSize();
         x      = (screen.width - width) / 2;

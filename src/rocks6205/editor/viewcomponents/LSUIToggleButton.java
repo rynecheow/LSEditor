@@ -4,16 +4,16 @@ package rocks6205.editor.viewcomponents;
 
 import javax.swing.ImageIcon;
 import javax.swing.JToggleButton;
+import rocks6205.system.properties.LSEditorGUIConstants;
 
 /**
- *
+ * Custom <code>JToggleButton</code> with icons.
  *
  * @author Komalah Nair
- * @since 1.3
+ * @since 2.1
  *
  */
 public class LSUIToggleButton extends JToggleButton {
-    private static final long serialVersionUID = -7348665839241378305L;
 
     /*
      * CONSTRUCTORS
@@ -27,6 +27,10 @@ public class LSUIToggleButton extends JToggleButton {
         super();
     }
 
+    /**
+     * Factory method.
+     * @return new instance of <code>LSUIToggleButton</code>
+     */
     public static LSUIToggleButton create() {
         return new LSUIToggleButton();
     }
@@ -36,14 +40,14 @@ public class LSUIToggleButton extends JToggleButton {
      */
 
     /**
-     * Creates an <code>ImageIcon</code> instance from a image path <code>path</code>
+     * Creates an <code>ImageIcon</code> instance from a image name <code>iconName</code>
      * provided.
      *
      * @param iconName Name to icon image
      * @return <code>ImageIcon</code> object
      */
-    protected static ImageIcon createIcon(String iconName) {
-        String    string = "resources/toolbar-logo/" + iconName;
+    private ImageIcon createIcon(String iconName) {
+        String    string = LSEditorGUIConstants.DEFAULT_PATH_TO_TOOLBAR_ICONS + iconName;
         ImageIcon icon   = new ImageIcon(string);
 
         return icon;
@@ -52,7 +56,7 @@ public class LSUIToggleButton extends JToggleButton {
     /**
      * Sets the button's default icon with name to icon image <code>iconName</code>.
      *
-     * @param iconPath Name to icon image
+     * @param iconName Name to icon image
      */
     public void setIcon(String iconName) {
         ImageIcon icon = createIcon(iconName);

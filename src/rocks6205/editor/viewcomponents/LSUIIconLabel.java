@@ -5,6 +5,13 @@ package rocks6205.editor.viewcomponents;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
+/**
+ * Custom JLabel with icon.
+ * 
+ * @author Cheow Yeong Chi
+ * 
+ * @since 2.2
+ */
 public class LSUIIconLabel extends JLabel {
     public LSUIIconLabel() {}
 
@@ -23,7 +30,7 @@ public class LSUIIconLabel extends JLabel {
      * @param iconName Name to icon image
      * @return <code>ImageIcon</code> object
      */
-    protected static ImageIcon createIcon(String iconName) {
+    private static ImageIcon createIcon(String iconName) {
         String    string = "resources/toolbar-logo/" + iconName;
         ImageIcon icon   = new ImageIcon(string);
 

@@ -16,7 +16,7 @@ import rocks6205.editor.viewcomponents.LSUIIconLabel;
 import rocks6205.editor.viewcomponents.LSUIProtocol;
 import rocks6205.editor.viewcomponents.panels.LSUIEditingPanel;
 
-import rocks6205.system.properties.LSSVGEditorGUITheme;
+import rocks6205.system.properties.LSEditorGUIConstants;
 
 //~--- JDK imports ------------------------------------------------------------
 
@@ -105,7 +105,7 @@ public final class LSUITopToolbar extends JToolBar implements LSUIProtocol {
     }
 
     private void layoutView() {
-        setBorder(LSSVGEditorGUITheme.MASTER_DEFAULT_PANEL_BORDER);
+        setBorder(LSEditorGUIConstants.MASTER_DEFAULT_PANEL_BORDER);
         addSeparator();
         add(newButton);
         add(openButton);

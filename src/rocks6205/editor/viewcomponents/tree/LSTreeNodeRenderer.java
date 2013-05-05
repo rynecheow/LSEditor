@@ -8,6 +8,7 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultTreeCellRenderer;
+import rocks6205.system.properties.LSEditorGUIConstants;
 
 /**
  * This class is implemented to customize the display of a node.
@@ -70,7 +71,7 @@ public class LSTreeNodeRenderer extends DefaultTreeCellRenderer {
     }
 
     private ImageIcon createIconWithImageName(String name) {
-        String    string = "resources/tree-logo/" + name + ".png";
+        String    string = LSEditorGUIConstants.DEFAULT_PATH_TO_TREE_ICONS + name + ".png";
         ImageIcon icon   = new ImageIcon(string);
 
         icon = new ImageIcon(icon.getImage().getScaledInstance(24, 20, Image.SCALE_SMOOTH));

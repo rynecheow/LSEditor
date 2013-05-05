@@ -9,7 +9,7 @@ import rocks6205.editor.viewcomponents.tree.LSTreeBuilder;
 import rocks6205.editor.viewcomponents.tree.LSTreeNode;
 import rocks6205.editor.viewcomponents.tree.LSTreeNodeRenderer;
 
-import rocks6205.system.properties.LSSVGEditorGUITheme;
+import rocks6205.system.properties.LSEditorGUIConstants;
 
 //~--- JDK imports ------------------------------------------------------------
 
@@ -56,7 +56,7 @@ public final class LSUINavigationPanel extends JPanel implements LSUIProtocol, T
 
     @Override
     public void customise() {
-        setBorder(LSSVGEditorGUITheme.MASTER_DEFAULT_PANEL_BORDER);
+        setBorder(LSEditorGUIConstants.MASTER_DEFAULT_PANEL_BORDER);
         setLayout(new BorderLayout());
         add(new JScrollPane(navigationTree), BorderLayout.CENTER);
     }

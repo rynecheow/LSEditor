@@ -6,7 +6,7 @@ import rocks6205.editor.core.LSView;
 import rocks6205.editor.model.adt.LSColor;
 import rocks6205.editor.viewcomponents.LSUIProtocol;
 
-import rocks6205.system.properties.LSSVGEditorGUITheme;
+import rocks6205.system.properties.LSEditorGUIConstants;
 
 //~--- JDK imports ------------------------------------------------------------
 
@@ -101,7 +101,7 @@ public final class LSUIRGBColorChooserPanel extends JPanel implements LSUIProtoc
     }
 
     private void layoutView() {
-        setBackground(LSSVGEditorGUITheme.MASTER_DEFAULT_BACKGROUND_COLOR);
+        setBackground(LSEditorGUIConstants.MASTER_DEFAULT_BACKGROUND_COLOR);
         setMaximumSize(new Dimension(335, 114));
         setMinimumSize(new Dimension(335, 114));
         setMainLayout();

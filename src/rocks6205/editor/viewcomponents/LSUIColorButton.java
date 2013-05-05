@@ -29,8 +29,11 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 /**
- *
+ * Custom JButtons that use to control colors of elements using a pop up.
+ * 
  * @author Cheow Yeong Chi
+ * 
+ * @since 2.4
  */
 public final class LSUIColorButton extends JButton implements LSUIProtocol {
     protected LSPainting  painting;

@@ -16,7 +16,7 @@ import rocks6205.editor.viewcomponents.toolbars.LSUISideToolbar;
 import rocks6205.editor.viewcomponents.toolbars.LSUITopToolbar;
 
 import rocks6205.system.properties.LSCanvasProperties;
-import rocks6205.system.properties.LSSVGEditorGUITheme;
+import rocks6205.system.properties.LSEditorGUIConstants;
 import rocks6205.system.properties.OSValidator;
 
 //~--- JDK imports ------------------------------------------------------------
@@ -207,10 +207,10 @@ public final class LSView extends JFrame implements LSUIProtocol {
         navPanel.setBounds(955, 35, 225, 752);
         miscPanel.setBounds(35, 555 + 81, 920, 151);
         scrollPane.setBounds(35, 55, 920, 582);
-        topBar.setBackground(LSSVGEditorGUITheme.MASTER_DEFAULT_BACKGROUND_COLOR);
-        sideBar.setBackground(LSSVGEditorGUITheme.MASTER_DEFAULT_BACKGROUND_COLOR);
-        navPanel.setBackground(LSSVGEditorGUITheme.MASTER_DEFAULT_BACKGROUND_COLOR);
-        miscPanel.setBackground(LSSVGEditorGUITheme.MASTER_DEFAULT_BACKGROUND_COLOR);
+        topBar.setBackground(LSEditorGUIConstants.MASTER_DEFAULT_BACKGROUND_COLOR);
+        sideBar.setBackground(LSEditorGUIConstants.MASTER_DEFAULT_BACKGROUND_COLOR);
+        navPanel.setBackground(LSEditorGUIConstants.MASTER_DEFAULT_BACKGROUND_COLOR);
+        miscPanel.setBackground(LSEditorGUIConstants.MASTER_DEFAULT_BACKGROUND_COLOR);
     }
 
     /**

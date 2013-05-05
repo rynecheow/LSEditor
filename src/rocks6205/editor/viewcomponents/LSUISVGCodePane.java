@@ -16,26 +16,33 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.swing.JTextPane;
+import rocks6205.system.properties.LSEditorGUIConstants;
 
 /**
  *
  * @author Cheow Yeong Chi
  */
-public class LSUISVGCodePane extends JTextPane {
+public final class LSUISVGCodePane extends JTextPane {
     public LSUISVGCodePane() {
         setEditable(false);
         setBackground(new Color(0x211e1e));
         setBorder(null);
         setEditorKitForContentType("text/xml", new LSDOMViewerToolkit());
         setContentType("text/xml");
-        setFont(loadFont());
+        setCustomFont("Inconsolata.otf");
     }
-
-    private Font loadFont() {
+    
+    /**
+     * Sets the font of the code view pane.
+     * 
+     * @param filename File name including extension of the true type font.
+     * @return Loaded font.
+     */
+    private Font loadCustomFont(String filename) {
         Font font = null;
-
+        String path = LSEditorGUIConstants.DEFAULT_PATH_TO_CUSTOM_FONTS + filename;
         try {
-            font = Font.createFont(Font.TRUETYPE_FONT, new File("resources/font/Inconsolata.otf"));
+            font = Font.createFont(Font.TRUETYPE_FONT, new File(path));
         } catch (FontFormatException | IOException ex) {
             LSEditor.logger.warning(ex.getMessage());
         }
@@ -50,4 +57,13 @@ public class LSUISVGCodePane extends JTextPane {
 
         return font;
     }
+    
+    /**
+     * Set custom font of size 15pt.
+     * @param filename File name including extension of the true type font.
+     */
+    public void setCustomFont(String filename){
+       setFont(loadCustomFont(filename));
+    }
+    
 }

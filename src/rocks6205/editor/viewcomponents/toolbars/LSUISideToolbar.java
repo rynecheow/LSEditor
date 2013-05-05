@@ -15,7 +15,7 @@ import rocks6205.editor.viewcomponents.LSUIButton;
 import rocks6205.editor.viewcomponents.LSUIProtocol;
 import rocks6205.editor.viewcomponents.LSUIToggleButton;
 
-import rocks6205.system.properties.LSSVGEditorGUITheme;
+import rocks6205.system.properties.LSEditorGUIConstants;
 
 //~--- JDK imports ------------------------------------------------------------
 
@@ -94,7 +94,7 @@ public final class LSUISideToolbar extends JToolBar implements LSUIProtocol {
         setFloatable(false);
         setRollover(true);
         setOrientation(SwingConstants.VERTICAL);
-        setBorder(LSSVGEditorGUITheme.MASTER_DEFAULT_PANEL_BORDER);
+        setBorder(LSEditorGUIConstants.MASTER_DEFAULT_PANEL_BORDER);
     }
 
     private void setParentView(LSView parent) {
