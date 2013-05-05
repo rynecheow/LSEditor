@@ -83,8 +83,9 @@ public final class LSUIWelcomeDialog extends JDialog implements LSUIProtocol {
         layoutView();
         layoutDrawPanel();
         getContentPane().add(drawPanel);
-        drawPanel.setBounds(x, y, width, height);
+        drawPanel.setBounds(0, 0, width, height);
         pack();
+        setBounds(x, y, width, height);
     }
 
     private void layoutView() {

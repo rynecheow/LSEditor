@@ -110,9 +110,9 @@ public final class LSUICanvasPropertiesDialog extends JDialog implements LSUIPro
         layoutView();
         layoutChildComponents();
         getContentPane().add(backPanel);
-        backPanel.setBounds(x, y, width, height);
+        backPanel.setBounds(0, 0, width, height);
         pack();
-        setLocationRelativeTo(null);
+        setBounds(x, y, width, height);
     }
 
     private void layoutView() {
@@ -200,6 +200,10 @@ public final class LSUICanvasPropertiesDialog extends JDialog implements LSUIPro
         cancelButton.setBounds(362, 270, 96, 29);
     }
 
+    public void display() {
+        setVisible(true);
+    }
+    
     /**
      * {@inheritDoc}
      */

@@ -43,7 +43,7 @@ import rocks6205.editor.core.LSEditor;
 public abstract class LSAbstractAction extends AbstractAction {
 
     /**
-     * Parent component (Usually an <code>SVGView</code> object.)
+     * Parent component (Usually an <code>LSView</code> object.)
      */
     protected LSView v;
     protected LSViewController vc;
@@ -207,8 +207,7 @@ public abstract class LSAbstractAction extends AbstractAction {
          * @param v Parent component
          */
         public DocumentPropertiesAction(LSView parent) {
-            super("Document Properties..", KeyEvent.VK_D,
-                  KeyStroke.getKeyStroke(KeyEvent.VK_A, getKeyEventMask() + InputEvent.SHIFT_DOWN_MASK), parent);
+            super("Document Properties..", KeyEvent.VK_P, KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, InputEvent.ALT_DOWN_MASK), parent);
         }
 
         /**
@@ -218,13 +217,12 @@ public abstract class LSAbstractAction extends AbstractAction {
          * @param actionName Name of action component
          */
         public DocumentPropertiesAction(LSView parent, String actionName) {
-            super(actionName, "Document Properties..", KeyEvent.VK_D,
-                  KeyStroke.getKeyStroke(KeyEvent.VK_A, getKeyEventMask() + InputEvent.SHIFT_DOWN_MASK), parent);
+            super(actionName, "Document Properties..", KeyEvent.VK_P, KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, InputEvent.ALT_DOWN_MASK), parent);
         }
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            
+            v.showDocumentPropertiesDialog();
         }
     }
     

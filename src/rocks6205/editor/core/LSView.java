@@ -42,6 +42,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JViewport;
 import javax.swing.WindowConstants;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import rocks6205.editor.viewcomponents.dialogs.LSUICanvasPropertiesDialog;
 
 /**
  * A class defining how the main user interface should look like.
@@ -100,15 +101,15 @@ public final class LSView extends JFrame implements LSUIProtocol {
     /*
      * GUI COMPONENTS
      */
-    private JScrollPane         scrollPane;
-    private LSUIEditingPanel    editPanel;
-    private LSUIMenubar         menuBar;
-    private LSUITopToolbar      topBar;
-    private LSUISideToolbar     sideBar;
-    private LSUIStatusPanel     statusPanel;
-    private LSUINavigationPanel navPanel;
-    private LSUIMiscPanel       miscPanel;
-
+    private JScrollPane                scrollPane;
+    private LSUIEditingPanel           editPanel;
+    private LSUIMenubar                menuBar;
+    private LSUITopToolbar             topBar;
+    private LSUISideToolbar            sideBar;
+    private LSUIStatusPanel            statusPanel;
+    private LSUINavigationPanel        navPanel;
+    private LSUIMiscPanel              miscPanel;
+    private LSUICanvasPropertiesDialog docPropDlg;
     /*
      * ACTION COMPONENTS
      */
@@ -129,7 +130,7 @@ public final class LSView extends JFrame implements LSUIProtocol {
         initialise();
         customise();
 
-//      showWelcomeScreen();
+      showWelcomeScreen();
     }
 
     /**
@@ -173,6 +174,7 @@ public final class LSView extends JFrame implements LSUIProtocol {
         miscPanel   = new LSUIMiscPanel(this);
         scrollPane  = new JScrollPane();
         editPanel   = new LSUIEditingPanel(this);
+        docPropDlg  = new LSUICanvasPropertiesDialog(this);
     }
 
     /**
@@ -538,6 +540,13 @@ public final class LSView extends JFrame implements LSUIProtocol {
 
         codeViewFlag = !codeViewFlag;
     }
+    
+   /**
+    * Show document properties dialog
+    */
+   public void showDocumentPropertiesDialog() {
+      docPropDlg.display();
+   }
 }
 
 
