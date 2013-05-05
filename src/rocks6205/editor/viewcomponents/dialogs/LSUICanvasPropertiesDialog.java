@@ -65,6 +65,10 @@ public final class LSUICanvasPropertiesDialog extends JDialog implements LSUIPro
      */
     LSView parentView;
 
+    /**
+     * Constructs a canvas properties dialog with parent component.
+     * @param parent Parent component.
+     */
     public LSUICanvasPropertiesDialog(LSView parent) {
         super(parent, "Welcome Screen", true);
         this.height = 340;
@@ -74,7 +78,9 @@ public final class LSUICanvasPropertiesDialog extends JDialog implements LSUIPro
         customise();
         bindHandlers();
     }
-
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public void initialise() {
         setUpProperties();
@@ -98,13 +104,19 @@ public final class LSUICanvasPropertiesDialog extends JDialog implements LSUIPro
         confirmButton         = new JButton();
         cancelButton          = new JButton();
     }
-
+    
+    /**
+     * Set up dialog size properties.
+     */
     private void setUpProperties() {
         screen = Toolkit.getDefaultToolkit().getScreenSize();
         x      = (screen.width - width) / 2;
         y      = (screen.height - height) / 2;
     }
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public void customise() {
         layoutView();
@@ -115,6 +127,9 @@ public final class LSUICanvasPropertiesDialog extends JDialog implements LSUIPro
         setBounds(x, y, width, height);
     }
 
+    /**
+     * Layout view.
+     */
     private void layoutView() {
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setMaximumSize(new Dimension(width, height));
@@ -126,6 +141,9 @@ public final class LSUICanvasPropertiesDialog extends JDialog implements LSUIPro
         getContentPane().setLayout(null);
     }
 
+    /**
+     * Layout child components.
+     */
     private void layoutChildComponents() {
         backPanel.setBackground(new Color(30, 30, 30));
         backPanel.setMaximumSize(new Dimension(width, height));
@@ -200,6 +218,9 @@ public final class LSUICanvasPropertiesDialog extends JDialog implements LSUIPro
         cancelButton.setBounds(362, 270, 96, 29);
     }
 
+    /**
+     * Display dialog.
+     */
     public void display() {
         setVisible(true);
     }

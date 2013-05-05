@@ -48,6 +48,10 @@ public final class LSUIWelcomeDialog extends JDialog implements LSUIProtocol {
      */
     private OpenFileAction openFileAction;
 
+    /**
+     * Constructs a welcome dialog with parent component.
+     * @param parent Parent component.
+     */
     public LSUIWelcomeDialog(LSView parent) {
         super(parent, "Welcome Screen", true);
         this.height = 450;
@@ -58,6 +62,9 @@ public final class LSUIWelcomeDialog extends JDialog implements LSUIProtocol {
         bindHandlers();
     }
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public void initialise() {
         setUpProperties();
@@ -70,14 +77,24 @@ public final class LSUIWelcomeDialog extends JDialog implements LSUIProtocol {
         x      = (screen.width - width) / 2;
         y      = (screen.height - height) / 2;
     }
-
+    
+    /**
+     * Creates a custom JPanel for welcome screen.
+     * @return  custom drawn <code>JPanel</code>.
+     */
     private JPanel drawNewWelcomePanel() {
         return new JPanel() {
+           /**
+            * {@inheritDoc}
+            */
             @Override
             protected void paintComponent(Graphics g) {}
         };
     }
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public void customise() {
         layoutView();
@@ -88,6 +105,9 @@ public final class LSUIWelcomeDialog extends JDialog implements LSUIProtocol {
         setBounds(x, y, width, height);
     }
 
+    /**
+     * Layout view.
+     */
     private void layoutView() {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setAlwaysOnTop(true);
@@ -96,7 +116,10 @@ public final class LSUIWelcomeDialog extends JDialog implements LSUIProtocol {
         setPreferredSize(new Dimension(width, height));
         getContentPane().setLayout(null);
     }
-
+    
+    /**
+     * Layout <code>drawPanel</code>
+     */
     private void layoutDrawPanel() {
         drawPanel.setMaximumSize(new Dimension(width, height));
         drawPanel.setPreferredSize(new Dimension(width, height));
