@@ -130,7 +130,7 @@ public final class LSView extends JFrame implements LSUIProtocol {
         initialise();
         customise();
 
-      showWelcomeScreen();
+//      showWelcomeScreen();
     }
 
     /**
