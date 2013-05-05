@@ -50,4 +50,10 @@ public final class LSUIStatusPanel extends JPanel implements LSUIProtocol {
     public void updateStatus(String status) {
         statusLabel.setText(status);
     }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void bindHandlers() {}
 }

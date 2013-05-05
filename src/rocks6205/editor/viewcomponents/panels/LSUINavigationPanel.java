@@ -87,4 +87,10 @@ public final class LSUINavigationPanel extends JPanel implements LSUIProtocol, T
             row++;
         }
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void bindHandlers() {}
 }

@@ -83,7 +83,7 @@ public final class LSUIRGBColorChooserPanel extends JPanel implements LSUIProtoc
     public void customise() {
         layoutView();
         layoutComponents();
-        bindListeners();
+        bindHandlers();
     }
 
     public LSView getParentView() {
@@ -214,15 +214,6 @@ public final class LSUIRGBColorChooserPanel extends JPanel implements LSUIProtoc
                 0, 30, Short.MAX_VALUE));
     }
 
-    private void bindListeners() {
-        redSlider.addChangeListener(new sliderListener());
-        redSpinner.addChangeListener(new sliderListener());
-        greenSlider.addChangeListener(new sliderListener());
-        greenSpinner.addChangeListener(new sliderListener());
-        blueSlider.addChangeListener(new sliderListener());
-        blueSpinner.addChangeListener(new sliderListener());
-    }
-
     private class sliderListener implements ChangeListener {
         @Override
         public void stateChanged(ChangeEvent e) {
@@ -244,5 +235,17 @@ public final class LSUIRGBColorChooserPanel extends JPanel implements LSUIProtoc
                     blueSlider.getValue()));
             color = new LSColor(redSlider.getValue(), greenSlider.getValue(), blueSlider.getValue());
         }
+    }
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void bindHandlers() {
+        redSlider.addChangeListener(new sliderListener());
+        redSpinner.addChangeListener(new sliderListener());
+        greenSlider.addChangeListener(new sliderListener());
+        greenSpinner.addChangeListener(new sliderListener());
+        blueSlider.addChangeListener(new sliderListener());
+        blueSpinner.addChangeListener(new sliderListener());
     }
 }

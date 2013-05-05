@@ -169,8 +169,7 @@ public final class LSUIMenubar extends JMenuBar implements LSUIProtocol {
         add(windowMenu);
 
 //      add(helpMenu);
-        zoomInAction.setZoomOutPartnerAction(zoomOutAction);
-        setActionForMenuItem();
+        bindHandlers();
     }
 
     /**
@@ -239,6 +238,14 @@ public final class LSUIMenubar extends JMenuBar implements LSUIProtocol {
     }
 
     /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void bindHandlers() {
+       setActionForMenuItem();
+    }
+    
+    /**
      * Configure action for buttons
      */
     private void setActionForMenuItem() {
@@ -254,6 +261,7 @@ public final class LSUIMenubar extends JMenuBar implements LSUIProtocol {
         deleteMenuItem.setAction(deleteAction);
         zoomInMenuItem.setAction(zoomInAction);
         zoomOutMenuItem.setAction(zoomOutAction);
+        zoomInAction.setZoomOutPartnerAction(zoomOutAction);
         toggleCodeAreaViewMenuItem.setAction(toggleCodeAct);
     }
 

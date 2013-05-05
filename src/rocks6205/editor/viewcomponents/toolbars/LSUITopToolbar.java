@@ -200,8 +200,12 @@ public final class LSUITopToolbar extends JToolBar implements LSUIProtocol {
         strokeLabel.setIcon(strokeIconPath);
         docPropButton.setIcon(docPropIconPath);
     }
-
-    private void bindHandlers() {
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void bindHandlers() {
         setItemListenerForCheckBox();
 
         SVGPresentationChangeListener changeList = new SVGPresentationChangeListener();

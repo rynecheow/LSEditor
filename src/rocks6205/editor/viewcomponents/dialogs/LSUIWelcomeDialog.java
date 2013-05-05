@@ -55,7 +55,7 @@ public final class LSUIWelcomeDialog extends JDialog implements LSUIProtocol {
         parentView  = parent;
         initialise();
         customise();
-        bindEventActions();
+        bindHandlers();
     }
 
     @Override
@@ -113,5 +113,9 @@ public final class LSUIWelcomeDialog extends JDialog implements LSUIProtocol {
         setVisible(true);
     }
 
-    private void bindEventActions() {}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void bindHandlers() {}
 }

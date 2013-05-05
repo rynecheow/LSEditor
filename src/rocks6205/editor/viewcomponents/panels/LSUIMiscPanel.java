@@ -90,4 +90,10 @@ public final class LSUIMiscPanel extends JPanel implements LSUIProtocol {
     public void updateCode(String d) {
         textArea.setText(d);
     }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void bindHandlers() {}
 }

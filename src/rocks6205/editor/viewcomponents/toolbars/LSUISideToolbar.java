@@ -2,7 +2,6 @@ package rocks6205.editor.viewcomponents.toolbars;
 
 //~--- non-JDK imports --------------------------------------------------------
 
-import javax.swing.Icon;
 import rocks6205.editor.actions.LSAbstractAction.DeleteAction;
 import rocks6205.editor.actions.LSAbstractAction.DrawCircleAction;
 import rocks6205.editor.actions.LSAbstractAction.DrawLineAction;
@@ -91,7 +90,7 @@ public final class LSUISideToolbar extends JToolBar implements LSUIProtocol {
     @Override
     public void customise() {
         layoutView();
-        setActionForButtons();
+        bindHandlers();
         setIconsForButtons();
         setFloatable(false);
         setRollover(true);
@@ -165,4 +164,10 @@ public final class LSUISideToolbar extends JToolBar implements LSUIProtocol {
         groupButton.setEnabled(status);
         ungroupButton.setEnabled(status);
     }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void bindHandlers() {}
 }

@@ -268,9 +268,10 @@ public final class LSView extends JFrame implements LSUIProtocol {
     }
 
     /**
-     * Binds handler to components.
+     * {@inheritDoc}
      */
-    private void bindHandlers() {
+    @Override
+    public void bindHandlers() {
         setTransferHandler(tfHandler);
     }
 

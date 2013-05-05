@@ -72,7 +72,7 @@ public final class LSUICanvasPropertiesDialog extends JDialog implements LSUIPro
         parentView  = parent;
         initialise();
         customise();
-        bindEventActions();
+        bindHandlers();
     }
 
     @Override
@@ -200,5 +200,9 @@ public final class LSUICanvasPropertiesDialog extends JDialog implements LSUIPro
         cancelButton.setBounds(362, 270, 96, 29);
     }
 
-    private void bindEventActions() {}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void bindHandlers() {}
 }

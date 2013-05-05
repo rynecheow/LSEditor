@@ -50,6 +50,9 @@ public final class LSUIColorButton extends JButton implements LSUIProtocol {
         return new LSUIColorButton(painting);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void initialise() {
         colorChooser = new JColorChooser(painting.getPaintColor());
@@ -58,11 +61,14 @@ public final class LSUIColorButton extends JButton implements LSUIProtocol {
         noneButton   = LSUIButton.create();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void customise() {
         layoutComponents();
         layoutParentComponent();
-        bindListeners();
+        bindHandlers();
     }
 
     private void layoutComponents() {
@@ -108,7 +114,10 @@ public final class LSUIColorButton extends JButton implements LSUIProtocol {
             }
         });
     }
-
+    
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void fireStateChanged() {
         Object[] listeners = listenerList.getListenerList();
@@ -123,8 +132,12 @@ public final class LSUIColorButton extends JButton implements LSUIProtocol {
             }
         }
     }
-
-    private void bindListeners() {
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void bindHandlers() {
         colorChooser.getSelectionModel().addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {

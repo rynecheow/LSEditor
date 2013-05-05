@@ -17,4 +17,9 @@ public interface LSUIProtocol {
      * Customisation of GUI components.
      */
     void customise();
+    
+    /**
+     * Bind action handlers to components.
+     */
+    void bindHandlers();
 }
