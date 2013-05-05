@@ -693,7 +693,7 @@ public class LSViewController implements LSSelectionsController, LSFileControlle
                     model.setSVGElement(svg_e);
                     activeFile         = file;
                     isDocumentModified = false;
-                    LSEditor.logger.info(String.format("File named %s is successfully loaded", file.getName()));
+                    LSEditor.logger.info(String.format("File named %s is successfully loaded\n", file.getName()));
                     updateViews();
 
                     return true;
