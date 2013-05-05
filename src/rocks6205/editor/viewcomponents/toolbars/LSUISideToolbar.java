@@ -2,6 +2,8 @@ package rocks6205.editor.viewcomponents.toolbars;
 
 //~--- non-JDK imports --------------------------------------------------------
 
+import javax.swing.Icon;
+import rocks6205.editor.actions.LSAbstractAction.DeleteAction;
 import rocks6205.editor.actions.LSAbstractAction.DrawCircleAction;
 import rocks6205.editor.actions.LSAbstractAction.DrawLineAction;
 import rocks6205.editor.actions.LSAbstractAction.DrawRectAction;
@@ -20,6 +22,7 @@ import rocks6205.system.properties.LSSVGEditorGUITheme;
 
 import javax.swing.JToolBar;
 import javax.swing.SwingConstants;
+
 
 /**
  *
@@ -44,6 +47,7 @@ public final class LSUISideToolbar extends JToolBar implements LSUIProtocol {
     private LSUIToggleButton drawLineButton;    // group 2
     private LSUIButton       groupButton;
     private LSUIButton       ungroupButton;     // group 3
+    private LSUIButton       deleteButton;
 
     /*
      * ACTION COMPONENTS
@@ -55,6 +59,7 @@ public final class LSUISideToolbar extends JToolBar implements LSUIProtocol {
     private SelectModeAction selectModeAction;
     private GroupAction      groupAction;
     private UngroupAction    ungroupAction;
+    private DeleteAction     deleteAction;
 
     public LSUISideToolbar(String name, LSView parent) {
         super(name);
@@ -72,6 +77,7 @@ public final class LSUISideToolbar extends JToolBar implements LSUIProtocol {
         drawLineButton   = LSUIToggleButton.create();
         groupButton      = LSUIButton.create();
         ungroupButton    = LSUIButton.create();
+        deleteButton     = LSUIButton.create();
         panModeAction    = new PanModeAction(parentView);
         selectModeAction = new SelectModeAction(parentView);
         drawRectAction   = new DrawRectAction(parentView);
@@ -79,6 +85,7 @@ public final class LSUISideToolbar extends JToolBar implements LSUIProtocol {
         drawLineAction   = new DrawLineAction(parentView);
         groupAction      = new GroupAction(parentView);
         ungroupAction    = new UngroupAction(parentView);
+        deleteAction     = new DeleteAction(parentView);
     }
 
     @Override
@@ -110,6 +117,7 @@ public final class LSUISideToolbar extends JToolBar implements LSUIProtocol {
         drawLineButton.setAction(drawLineAction);
         groupButton.setAction(groupAction);
         ungroupButton.setAction(ungroupAction);
+        deleteButton.setAction(deleteAction);
     }
 
     /**
@@ -126,7 +134,8 @@ public final class LSUISideToolbar extends JToolBar implements LSUIProtocol {
         String lineIconPath      = "line.png";
         String groupIconPath     = "group.png";
         String ungroupIconPath   = "ungroup.png";
-
+        String deleteIconPath    = "delete.png";
+        
         panButton.setIcon(panIconPath);
         selectButton.setIcon(selectIconPath);
         drawRectButton.setIcon(rectangleIconPath);
@@ -134,6 +143,7 @@ public final class LSUISideToolbar extends JToolBar implements LSUIProtocol {
         drawLineButton.setIcon(lineIconPath);
         groupButton.setIcon(groupIconPath);
         ungroupButton.setIcon(ungroupIconPath);
+        deleteButton.setIcon(deleteIconPath);
     }
 
     private void layoutView() {
@@ -148,6 +158,7 @@ public final class LSUISideToolbar extends JToolBar implements LSUIProtocol {
         add(groupButton);
         add(ungroupButton);
         addSeparator();
+        add(deleteButton);
     }
 
     public void updateActionStatusFromView(boolean status) {

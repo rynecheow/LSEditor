@@ -26,6 +26,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JToolBar;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import rocks6205.editor.actions.LSAbstractAction.DocumentPropertiesAction;
 
 /**
  *
@@ -48,6 +49,7 @@ public final class LSUITopToolbar extends JToolBar implements LSUIProtocol {
     private LSUIButton      saveButton;
     private LSUIButton      zoomInButton;
     private LSUIButton      zoomOutButton;
+    private LSUIButton      docPropButton;
     private LSUIIconLabel   fillLabel;
     private LSUIIconLabel   strokeLabel;
     private LSUIColorButton fillButton;
@@ -63,7 +65,8 @@ public final class LSUITopToolbar extends JToolBar implements LSUIProtocol {
     private SaveFileAction    saveAct;
     private ZoomInViewAction  zoomInAction;
     private ZoomOutViewAction zoomOutAction;
-
+    private DocumentPropertiesAction docPropAct;
+    
     public LSUITopToolbar(String name, LSView parent) {
         super(name);
         setParentView(parent);
@@ -78,6 +81,7 @@ public final class LSUITopToolbar extends JToolBar implements LSUIProtocol {
         saveButton     = LSUIButton.create();
         zoomInButton   = LSUIButton.create();
         zoomOutButton  = LSUIButton.create();
+        docPropButton  = LSUIButton.create();
         fillLabel      = new LSUIIconLabel();
         strokeLabel    = new LSUIIconLabel();
         fillButton     = LSUIColorButton.create(LSGenericElement.SVG_FILL_DEFAULT);
@@ -89,6 +93,7 @@ public final class LSUITopToolbar extends JToolBar implements LSUIProtocol {
         saveAct        = new SaveFileAction(parentView);
         zoomInAction   = new ZoomInViewAction(parentView);
         zoomOutAction  = new ZoomOutViewAction(parentView);
+        docPropAct     = new DocumentPropertiesAction(parentView);
     }
 
     @Override
@@ -109,6 +114,8 @@ public final class LSUITopToolbar extends JToolBar implements LSUIProtocol {
         addSeparator();
         add(zoomInButton);
         add(zoomOutButton);
+        addSeparator();
+        add(docPropButton);
         addSeparator();
         add(fillCheckBox);
         add(fillLabel);
@@ -168,6 +175,7 @@ public final class LSUITopToolbar extends JToolBar implements LSUIProtocol {
         zoomInButton.setAction(zoomInAction);
         zoomOutButton.setAction(zoomOutAction);
         zoomInAction.setZoomOutPartnerAction(zoomOutAction);
+        docPropButton.setAction(docPropAct);
     }
 
     /**
@@ -181,6 +189,7 @@ public final class LSUITopToolbar extends JToolBar implements LSUIProtocol {
         String zoomOutIconPath  = "zoomout.png";
         String fillIconPath     = "fillIcon.png";
         String strokeIconPath   = "strokeIcon.png";
+        String docPropIconPath  = "docprop.png";
 
         newButton.setIcon(newFileIconPath);
         openButton.setIcon(openFileIconPath);
@@ -189,6 +198,7 @@ public final class LSUITopToolbar extends JToolBar implements LSUIProtocol {
         zoomOutButton.setIcon(zoomOutIconPath);
         fillLabel.setIcon(fillIconPath);
         strokeLabel.setIcon(strokeIconPath);
+        docPropButton.setIcon(docPropIconPath);
     }
 
     private void bindHandlers() {

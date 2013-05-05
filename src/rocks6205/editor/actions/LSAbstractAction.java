@@ -2,7 +2,6 @@ package rocks6205.editor.actions;
 
 //~--- non-JDK imports --------------------------------------------------------
 
-import rocks6205.editor.model.adt.LSColor;
 import rocks6205.editor.core.LSView;
 import rocks6205.editor.core.LSViewController;
 import rocks6205.editor.viewcomponents.panels.LSUIEditingPanel;
@@ -186,7 +185,49 @@ public abstract class LSAbstractAction extends AbstractAction {
         }
     }
 
+    
+    /**
+     * The <code>DocumentPropertiesAction</code> is a class which create an <code>Action</code>
+     * instance. This action handles event by calling the document properties dialog.
+     *
+     * @author Cheow Yeong Chi
+     *
+     * @since 2.4
+     *
+     */
+    public static class DocumentPropertiesAction extends LSAbstractAction {
 
+        /*
+         * CONSTRUCTOR
+         */
+
+        /**
+         * Construct a <code>DocumentPropertiesAction</code> instance with v component
+         * <code>v</code> and no action name.
+         * @param v Parent component
+         */
+        public DocumentPropertiesAction(LSView parent) {
+            super("Document Properties..", KeyEvent.VK_D,
+                  KeyStroke.getKeyStroke(KeyEvent.VK_A, getKeyEventMask() + InputEvent.SHIFT_DOWN_MASK), parent);
+        }
+
+        /**
+         * Construct a <code>DocumentPropertiesAction</code> instance with v component
+         * <code>v</code> and action name.
+         * @param v Parent component
+         * @param actionName Name of action component
+         */
+        public DocumentPropertiesAction(LSView parent, String actionName) {
+            super(actionName, "Document Properties..", KeyEvent.VK_D,
+                  KeyStroke.getKeyStroke(KeyEvent.VK_A, getKeyEventMask() + InputEvent.SHIFT_DOWN_MASK), parent);
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            
+        }
+    }
+    
     /**
      * The <code>DrawCircleAction</code> is a class which create an <code>Action</code>
      * instance. This action handles event by setting the color used for painting shapes
