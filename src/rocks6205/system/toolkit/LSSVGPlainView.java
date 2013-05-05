@@ -9,7 +9,6 @@ import java.awt.RenderingHints;
 
 import java.util.Iterator;
 import java.util.LinkedHashMap;
-import java.util.Map;
 import java.util.Map.Entry;
 import java.util.TreeMap;
 import java.util.regex.Matcher;
@@ -25,6 +24,7 @@ import javax.swing.text.Utilities;
 
 /**
  *
+ *
  * @author kees
  * @author Cheow Yeong Chi
  */
@@ -35,7 +35,8 @@ public final class LSSVGPlainView extends PlainView {
     private final static Color                         HIGHLIGHT_COLOR_COMMENT         = new Color(0x535454);
     private final static Color                         HIGHLIGHT_COLOR_CDATA           = new Color(0x535454);
     private final static String                        SYNTAX_START_TAG                = "(</?!?(\\?)*[a-z]*)\\s?>?";
-    private final static String                        SYNTAX_END_TAG                  = "(<{0,1})((/*)|(\\?*))(\\w*)>{1}";
+    private final static String                        SYNTAX_END_TAG                  =
+        "(<{0,1})((/*)|(\\?*))(\\w*)>{1}";
     private final static String                        SYNTAX_ATTRIBUTE_TAG            =
         "\\s(\\p{L}+(?:(-|:)\\n?\\p{L}+)*)(\\w*)\\=";
     private final static String                        SYNTAX_ATTRIBUTE_VALUE          = "\\w*\\=(\"[^\"]*\")";
@@ -55,63 +56,62 @@ public final class LSSVGPlainView extends PlainView {
         syntaxHighlighter.put(Pattern.compile(SYNTAX_COMMENT), HIGHLIGHT_COLOR_COMMENT);
     }
 
+    /**
+     * Constructor. Sets the tab size to three spaces.
+     * @param e Element to be parsed in.
+     */
     public LSSVGPlainView(Element e) {
         super(e);
         getDocument().putProperty(PlainDocument.tabSizeAttribute, 3);
     }
 
     /**
-     *
      * {@inheritDoc}
      */
     @Override
     protected int drawUnselectedText(Graphics g, int xCoord, int yCoord, int beginIndex, int endIndex)
             throws BadLocationException {
-       
         ((Graphics2D) g).setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-        Document                  doc      = getDocument();
-        String                    text     = doc.getText(beginIndex, endIndex - beginIndex);
-        
-        TreeMap<Integer, Integer> startMap = new TreeMap<>();
-        TreeMap<Integer, Color>   colorMap = new TreeMap<>();
-        Segment                   segment  = getLineBuffer();
+        Document                  doc        = getDocument();
+        String                    docTxt     = doc.getText(beginIndex, endIndex - beginIndex);
+        TreeMap<Integer, Integer> indexMap   = new TreeMap<>();
+        TreeMap<Integer, Color>   colorMap   = new TreeMap<>();
+        Segment                   txtSegment = getLineBuffer();
 
         for (Iterator<Entry<Pattern, Color>> it = syntaxHighlighter.entrySet().iterator(); it.hasNext(); ) {
-            Entry<Pattern, Color> entry   = it.next();
-            Matcher                   matcher = entry.getKey().matcher(text);
+            Entry<Pattern, Color> currentEntry = it.next();
+            Matcher               matcher      = currentEntry.getKey().matcher(docTxt);
 
             while (matcher.find()) {
-                startMap.put(matcher.start(1), matcher.end());
-                colorMap.put(matcher.start(1), entry.getValue());
+                indexMap.put(matcher.start(1), matcher.end());
+                colorMap.put(matcher.start(1), currentEntry.getValue());
             }
         }
 
-        // TODO: check the map for overlapping parts
         int u = 0;
 
-        for (Iterator<Entry<Integer, Integer>> it = startMap.entrySet().iterator(); it.hasNext(); ) {
-            Entry<Integer, Integer> entry = it.next();
-            int                     start = entry.getKey();
-            int                     end   = entry.getValue();
+        for (Iterator<Entry<Integer, Integer>> it = indexMap.entrySet().iterator(); it.hasNext(); ) {
+            Entry<Integer, Integer> currentEntry = it.next();
+            int                     startIndex   = currentEntry.getKey();
+            int                     stopIndex    = currentEntry.getValue();
 
-            if (u < start) {
+            if (u < startIndex) {
                 g.setColor(Color.white);
-                doc.getText(beginIndex + u, start - u, segment);
-                xCoord = Utilities.drawTabbedText(segment, xCoord, yCoord, g, this, u);
+                doc.getText(beginIndex + u, startIndex - u, txtSegment);
+                xCoord = Utilities.drawTabbedText(txtSegment, xCoord, yCoord, g, this, u);
             }
 
-            g.setColor(colorMap.get(start));
-            u = end;
-            doc.getText(beginIndex + start, u - start, segment);
-            xCoord = Utilities.drawTabbedText(segment, xCoord, yCoord, g, this, start);
+            g.setColor(colorMap.get(startIndex));
+            u = stopIndex;
+            doc.getText(beginIndex + startIndex, u - startIndex, txtSegment);
+            xCoord = Utilities.drawTabbedText(txtSegment, xCoord, yCoord, g, this, startIndex);
         }
 
-        // Paint possible remaining text black
-        if (u < text.length()) {
+        if (u < docTxt.length()) {
             g.setColor(Color.black);
-            doc.getText(beginIndex + u, text.length() - u, segment);
-            xCoord = Utilities.drawTabbedText(segment, xCoord, yCoord, g, this, u);
+            doc.getText(beginIndex + u, docTxt.length() - u, txtSegment);
+            xCoord = Utilities.drawTabbedText(txtSegment, xCoord, yCoord, g, this, u);
         }
 
         return xCoord;

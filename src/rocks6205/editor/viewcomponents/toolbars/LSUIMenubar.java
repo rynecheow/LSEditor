@@ -242,9 +242,9 @@ public final class LSUIMenubar extends JMenuBar implements LSUIProtocol {
      */
     @Override
     public void bindHandlers() {
-       setActionForMenuItem();
+        setActionForMenuItem();
     }
-    
+
     /**
      * Configure action for buttons
      */

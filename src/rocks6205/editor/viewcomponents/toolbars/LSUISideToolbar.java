@@ -22,7 +22,6 @@ import rocks6205.system.properties.LSSVGEditorGUITheme;
 import javax.swing.JToolBar;
 import javax.swing.SwingConstants;
 
-
 /**
  *
  * @author Cheow Yeong Chi
@@ -134,7 +133,7 @@ public final class LSUISideToolbar extends JToolBar implements LSUIProtocol {
         String groupIconPath     = "group.png";
         String ungroupIconPath   = "ungroup.png";
         String deleteIconPath    = "delete.png";
-        
+
         panButton.setIcon(panIconPath);
         selectButton.setIcon(selectIconPath);
         drawRectButton.setIcon(rectangleIconPath);
@@ -164,12 +163,12 @@ public final class LSUISideToolbar extends JToolBar implements LSUIProtocol {
         groupButton.setEnabled(status);
         ungroupButton.setEnabled(status);
     }
-    
+
     /**
      * {@inheritDoc}
      */
     @Override
     public void bindHandlers() {
-       setActionForButtons();
+        setActionForButtons();
     }
 }

@@ -203,7 +203,7 @@ public final class LSUICanvasPropertiesDialog extends JDialog implements LSUIPro
     public void display() {
         setVisible(true);
     }
-    
+
     /**
      * {@inheritDoc}
      */

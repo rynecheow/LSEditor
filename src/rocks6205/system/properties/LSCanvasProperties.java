@@ -5,6 +5,8 @@ package rocks6205.system.properties;
  * Describes the environment where the canvas will run on, focusing on output resolution and text size.
  *
  * @author Cheow Yeong Chi
+ * @author Toh Huey Jing
+ * 
  * @since 1.3
  *
  */

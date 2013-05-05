@@ -7,14 +7,30 @@ import javax.swing.text.View;
 import javax.swing.text.ViewFactory;
 
 /**
+ * Factory class for <code>LSSVGPlainView</code>
  *
  * @author Cheow Yeong Chi
  */
 class SVGViewFactory implements ViewFactory {
-    public SVGViewFactory() {}
 
+    /*
+     * CONSTRUCTOR
+     */
+
+    /**
+     * Default constructor
+     */
+    private SVGViewFactory() {}
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public View create(Element elem) {
         return new LSSVGPlainView(elem);
+    }
+
+    public static SVGViewFactory buildFactory() {
+        return new SVGViewFactory();
     }
 }

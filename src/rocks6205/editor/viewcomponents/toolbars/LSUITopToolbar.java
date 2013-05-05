@@ -2,6 +2,7 @@ package rocks6205.editor.viewcomponents.toolbars;
 
 //~--- non-JDK imports --------------------------------------------------------
 
+import rocks6205.editor.actions.LSAbstractAction.DocumentPropertiesAction;
 import rocks6205.editor.actions.LSAbstractAction.NewDocumentAction;
 import rocks6205.editor.actions.LSAbstractAction.OpenFileAction;
 import rocks6205.editor.actions.LSAbstractAction.SaveFileAction;
@@ -26,7 +27,6 @@ import javax.swing.JCheckBox;
 import javax.swing.JToolBar;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import rocks6205.editor.actions.LSAbstractAction.DocumentPropertiesAction;
 
 /**
  *
@@ -60,13 +60,13 @@ public final class LSUITopToolbar extends JToolBar implements LSUIProtocol {
     /*
      * ACTION COMPONENTS
      */
-    private NewDocumentAction newAct;
-    private OpenFileAction    openAct;
-    private SaveFileAction    saveAct;
-    private ZoomInViewAction  zoomInAction;
-    private ZoomOutViewAction zoomOutAction;
+    private NewDocumentAction        newAct;
+    private OpenFileAction           openAct;
+    private SaveFileAction           saveAct;
+    private ZoomInViewAction         zoomInAction;
+    private ZoomOutViewAction        zoomOutAction;
     private DocumentPropertiesAction docPropAct;
-    
+
     public LSUITopToolbar(String name, LSView parent) {
         super(name);
         setParentView(parent);
@@ -199,7 +199,7 @@ public final class LSUITopToolbar extends JToolBar implements LSUIProtocol {
         strokeLabel.setIcon(strokeIconPath);
         docPropButton.setIcon(docPropIconPath);
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -233,7 +233,6 @@ public final class LSUITopToolbar extends JToolBar implements LSUIProtocol {
 //          } else if (source == strokeWidthInputPanel) {
 //                  editPanel.setStrokeWidth(strokeWidthInputPanel.getLength());
 //          }
-
             parentView.setEditPanel(editPanel);
         }
     }
