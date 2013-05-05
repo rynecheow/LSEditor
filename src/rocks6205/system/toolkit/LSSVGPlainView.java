@@ -1,4 +1,4 @@
-package rocks6205.system.parser;
+package rocks6205.system.toolkit;
 
 //~--- JDK imports ------------------------------------------------------------
 
@@ -34,8 +34,8 @@ public final class LSSVGPlainView extends PlainView {
     private final static Color                         HIGHLIGHT_COLOR_ATTRIBUTE_TAG   = new Color(0xe9286a);
     private final static Color                         HIGHLIGHT_COLOR_COMMENT         = new Color(0x535454);
     private final static Color                         HIGHLIGHT_COLOR_CDATA           = new Color(0x535454);
-    private final static String                        SYNTAX_START_TAG                = "(</?(\\?)*[a-z]*)\\s?>?";
-    private final static String                        SYNTAX_END_TAG                  = "((/*)|(\\?*))>";
+    private final static String                        SYNTAX_START_TAG                = "(</?!?(\\?)*[a-z]*)\\s?>?";
+    private final static String                        SYNTAX_END_TAG                  = "(<{0,1})((/*)|(\\?*))(\\w*)>{1}";
     private final static String                        SYNTAX_ATTRIBUTE_TAG            =
         "\\s(\\p{L}+(?:(-|:)\\n?\\p{L}+)*)(\\w*)\\=";
     private final static String                        SYNTAX_ATTRIBUTE_VALUE          = "\\w*\\=(\"[^\"]*\")";
@@ -67,16 +67,18 @@ public final class LSSVGPlainView extends PlainView {
     @Override
     protected int drawUnselectedText(Graphics g, int xCoord, int yCoord, int beginIndex, int endIndex)
             throws BadLocationException {
+       
         ((Graphics2D) g).setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
         Document                  doc      = getDocument();
         String                    text     = doc.getText(beginIndex, endIndex - beginIndex);
+        
         TreeMap<Integer, Integer> startMap = new TreeMap<>();
         TreeMap<Integer, Color>   colorMap = new TreeMap<>();
         Segment                   segment  = getLineBuffer();
 
-        for (Iterator<Map.Entry<Pattern, Color>> it = syntaxHighlighter.entrySet().iterator(); it.hasNext(); ) {
-            Map.Entry<Pattern, Color> entry   = it.next();
+        for (Iterator<Entry<Pattern, Color>> it = syntaxHighlighter.entrySet().iterator(); it.hasNext(); ) {
+            Entry<Pattern, Color> entry   = it.next();
             Matcher                   matcher = entry.getKey().matcher(text);
 
             while (matcher.find()) {
@@ -94,7 +96,7 @@ public final class LSSVGPlainView extends PlainView {
             int                     end   = entry.getValue();
 
             if (u < start) {
-                g.setColor(Color.black);
+                g.setColor(Color.white);
                 doc.getText(beginIndex + u, start - u, segment);
                 xCoord = Utilities.drawTabbedText(segment, xCoord, yCoord, g, this, u);
             }

@@ -23,7 +23,7 @@ import rocks6205.editor.model.elements.LSShapeCircle;
 import rocks6205.editor.model.elements.LSShapeLine;
 import rocks6205.editor.model.elements.LSShapeRect;
 
-import rocks6205.system.parser.LSSVGDOMParser;
+import rocks6205.system.toolkit.LSSVGDOMParser;
 
 import static rocks6205.editor.controllers.LSFileController.NEW_DOCUMENT;
 

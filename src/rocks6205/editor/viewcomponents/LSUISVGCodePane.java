@@ -4,7 +4,7 @@ package rocks6205.editor.viewcomponents;
 
 import rocks6205.editor.core.LSEditor;
 
-import rocks6205.system.parser.LSDOMViewerToolkit;
+import rocks6205.system.toolkit.LSDOMViewerToolkit;
 
 //~--- JDK imports ------------------------------------------------------------
 
