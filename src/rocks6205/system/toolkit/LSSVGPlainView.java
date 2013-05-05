@@ -27,6 +27,8 @@ import javax.swing.text.Utilities;
  *
  * @author kees
  * @author Cheow Yeong Chi
+ * 
+ * @since 2.5
  */
 public final class LSSVGPlainView extends PlainView {
     private final static Color                         HIGHLIGHT_COLOR_START_END_TAG   = new Color(0x64d3e7);

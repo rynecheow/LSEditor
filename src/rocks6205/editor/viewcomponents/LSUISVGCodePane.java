@@ -21,6 +21,8 @@ import rocks6205.system.properties.LSEditorGUIConstants;
 /**
  *
  * @author Cheow Yeong Chi
+ * 
+ * @since 2.5
  */
 public final class LSUISVGCodePane extends JTextPane {
     public LSUISVGCodePane() {

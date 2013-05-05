@@ -10,6 +10,8 @@ import javax.swing.text.ViewFactory;
  * Factory class for <code>LSSVGPlainView</code>
  *
  * @author Cheow Yeong Chi
+ * 
+ * @since 2.5
  */
 class SVGViewFactory implements ViewFactory {
 

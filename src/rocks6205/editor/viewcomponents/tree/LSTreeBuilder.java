@@ -11,18 +11,34 @@ import rocks6205.editor.model.elements.LSSVGContainer;
 
 import java.util.Iterator;
 
+/**
+ * Builds the tree by recursively check into any container elements and append to tree.
+ * 
+ * @author Cheow Yeong Chi
+ * 
+ * @since 2.4
+ */
 public class LSTreeBuilder {
-
-//  private static LSTreeNode svgNode  = new LSTreeNode("SVG Container Element", LSTreeNode.NODE_SVG);
+   /**
+    * Builder method.
+    * @param svgElement Element to be constructed as a tree.
+    * @return constructed root <code>LSTreeNode</code>
+    */
     public static LSTreeNode build(LSSVGContainer svgElement) {
         LSTreeNode svgNode = new LSTreeNode("SVG Container Element", LSTreeNode.NODE_SVG);
 
-        iterateNode(svgElement, svgNode);
+        recurseIterateNode(svgElement, svgNode);
 
         return svgNode;
     }
-
-    private static void iterateNode(LSGenericContainer container, LSTreeNode containerNode) {
+    
+    /**
+     * Recurse into container elements if they have any descendants and append to tree.
+     * 
+     * @param container Container element 
+     * @param containerNode Container node
+     */
+    private static void recurseIterateNode(LSGenericContainer container, LSTreeNode containerNode) {
         for (Iterator<LSGenericElement> it = container.getDescendants().iterator(); it.hasNext(); ) {
             LSGenericElement e = it.next();
 
@@ -31,13 +47,19 @@ public class LSTreeBuilder {
                 LSTreeNode       groupNode = buildGroupNode();
 
                 containerNode.addChild(groupNode);
-                iterateNode(g, groupNode);
+                recurseIterateNode(g, groupNode);
             } else {
                 containerNode.addChild(buildSingularNode(e));
             }
         }
     }
-
+    
+    /**
+     * Build a leaf node from any type of <code>LSShapeCircle</code>, <code>LSShapeLine</code>
+     * or <code>LSShapeRect</code>.
+     * @param el Element to process as node
+     * @return Singular node with type defined
+     */
     private static LSTreeNode buildSingularNode(LSGenericElement el) {
         String title;
         int    type;
@@ -68,6 +90,10 @@ public class LSTreeBuilder {
         return new LSTreeNode(title, type);
     }
 
+    /**
+     * Build a leaf node from any type of <code>LSGroupContainer</code>
+     * @return A new group node.
+     */
     private static LSTreeNode buildGroupNode() {
         return new LSTreeNode("Group Element", LSTreeNode.NODE_GROUP);
     }
