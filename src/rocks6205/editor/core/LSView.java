@@ -528,7 +528,17 @@ public final class LSView extends JFrame implements LSUIProtocol {
     public void setEditPanel(LSUIEditingPanel p) {
         editPanel = p;
     }
+    
+    public void registerPanListenerToScrollPane(LSPanMouseAdapter adapter) {
+      viewport.addMouseListener(adapter);
+      viewport.addMouseMotionListener(adapter);
+   }
 
+   public void deregisterPanListenerToScrollPane(LSPanMouseAdapter adapter) {
+      viewport.removeMouseListener(adapter);
+      viewport.removeMouseMotionListener(adapter);
+   }
+   
     /**
      * Toggles code preview.
      */
@@ -550,14 +560,5 @@ public final class LSView extends JFrame implements LSUIProtocol {
       docPropDlg.display();
    }
 
-   public void registerPanListenerToScrollPane(LSPanMouseAdapter adapter) {
-      viewport.addMouseListener(adapter);
-      viewport.addMouseMotionListener(adapter);
-      System.out.println(viewport + "registered");
-   }
-
-   public void deregisterPanListenerToScrollPane(LSPanMouseAdapter adapter) {
-      viewport.removeMouseListener(adapter);
-      viewport.removeMouseMotionListener(adapter);
-   }
+   
 }

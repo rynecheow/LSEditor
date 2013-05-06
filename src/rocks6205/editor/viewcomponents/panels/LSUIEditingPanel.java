@@ -549,6 +549,8 @@ public final class LSUIEditingPanel extends JPanel {
             isDragged          = false;
             selectionRect      = null;
             previousActiveRect = null;
+            
+            controller.updateDocumentString();
         }
 
         /**
@@ -704,7 +706,7 @@ public final class LSUIEditingPanel extends JPanel {
                 default :
                     throw new AssertionError("Invalid edit mode");
                 }
-
+                controller.updateDocumentString();
                 controller.updateViews();
             }
 
