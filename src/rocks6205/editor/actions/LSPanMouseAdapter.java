@@ -37,6 +37,7 @@ public class LSPanMouseAdapter extends MouseAdapter {
      */
     @Override
     public void mousePressed(MouseEvent event) {
+       System.out.println(event.getClass().toString());
         JViewport  viewport  = (JViewport) event.getSource();
         JComponent component = (JComponent) viewport.getView();
 

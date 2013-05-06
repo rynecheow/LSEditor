@@ -22,6 +22,8 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
@@ -31,6 +33,7 @@ import java.util.Iterator;
 
 import javax.swing.JPanel;
 import javax.swing.OverlayLayout;
+import rocks6205.editor.actions.LSPanMouseAdapter;
 
 /**
  * Editor panel that acts as a central view for user to edit, select, add
@@ -54,9 +57,10 @@ public final class LSUIEditingPanel extends JPanel {
     private ArrayList<Rectangle2D.Float> resizeHandlers;
     private Rectangle2D.Float            activeResizeHandler;
     private EditModeScheme               editingMode;
-    private SVGEditorDrawMouseAdaptor    drawListener;
+    private LSDrawMouseAdapter           drawListener;
+    private LSPanMouseAdapter            panListener;
     private boolean                      isDragged;
-
+    
     /**
      * Default constructor.
      */
@@ -74,10 +78,11 @@ public final class LSUIEditingPanel extends JPanel {
         viewArea = new LSCanvasViewport(view);
         add(viewArea);
         setAutoscrolls(true);
-        drawListener = new SVGEditorDrawMouseAdaptor();
-        scribbleArea.addMouseListener(drawListener);
-        scribbleArea.addMouseMotionListener(drawListener);
+        drawListener = new LSDrawMouseAdapter();
+        panListener  = new LSPanMouseAdapter();
     }
+
+
 
     /**
      *
@@ -97,7 +102,15 @@ public final class LSUIEditingPanel extends JPanel {
          * @param string
          */
         EditModeScheme(String string) {
-            this.string = string;
+            setString(string);
+        }
+        
+        public void setString(String string){
+           this.string = string;
+        }
+        
+        public final String getString(){
+           return string;
         }
     }
 
@@ -125,11 +138,34 @@ public final class LSUIEditingPanel extends JPanel {
         this.strokeWidth = strokeWidth;
     }
 
+   private void registerDrawListener() {
+      scribbleArea.addMouseListener(drawListener);
+      scribbleArea.addMouseMotionListener(drawListener);
+   }
+   
+   private void deregisterDrawListener() {
+      scribbleArea.removeMouseListener(drawListener);
+      scribbleArea.removeMouseMotionListener(drawListener);
+   }
+   
+    private void registerPanListener() {
+      addMouseListener(drawListener);
+      addMouseMotionListener(drawListener);
+   }
+   
+   private void deregisterPanListener() {
+      removeMouseListener(panListener);
+      removeMouseMotionListener(panListener);
+   }
+   
     public void switchModeTo(EditModeScheme mode) {
         if (mode == null) {
             throw new IllegalArgumentException("Edit mode not nullable");
         }
-
+        
+        deregisterDrawListener();
+        deregisterPanListener();
+        
         this.editingMode = mode;
 
         if (mode == EditModeScheme.MODE_SELECT) {
@@ -142,7 +178,11 @@ public final class LSUIEditingPanel extends JPanel {
             setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
         }
 
-        setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
+        if (mode == EditModeScheme.MODE_PAN) {
+           setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+           registerPanListener();
+        }
+        registerDrawListener();
         System.out.printf("Current mode: %s \n", mode.name());
     }
 
@@ -309,7 +349,7 @@ public final class LSUIEditingPanel extends JPanel {
      * @since 2.1
      *
      */
-    public class SVGEditorDrawMouseAdaptor extends MouseAdapter {
+    public class LSDrawMouseAdapter extends MouseAdapter {
 
         /**
          * {@inheritDoc}<p>
