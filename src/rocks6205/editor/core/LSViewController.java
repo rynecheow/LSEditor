@@ -493,10 +493,12 @@ public class LSViewController implements LSSelectionsController, LSFileControlle
         model = new LSModel();
 
 //      model.setSVGElement(new LSSVGContainer(LSLength.parse("916px"), LSLength.parse("578px")));
-        model.setSVGElement(new LSSVGContainer(LSLength.parse("1000px"), LSLength.parse("1000px")));
+        model.setSVGElement(new LSSVGContainer(LSLength.parse("500px"), LSLength.parse("500px")));
+//        model.setSVGElement(new LSSVGContainer(LSLength.parse("1000px"), LSLength.parse("1000px")));
         activeFile = NEW_DOCUMENT;
         LSEditor.logger.info("New document created with height 1000px and width 1000px. \n");
         unmodifyDocument();
+        updateDocumentString();
         updateViews();
     }
 

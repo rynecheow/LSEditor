@@ -102,6 +102,7 @@ public final class LSView extends JFrame implements LSUIProtocol {
      * GUI COMPONENTS
      */
     private JScrollPane                scrollPane;
+    private JViewport                  viewport;
     private LSUIEditingPanel           editPanel;
     private LSUIMenubar                menuBar;
     private LSUITopToolbar             topBar;
@@ -114,6 +115,7 @@ public final class LSView extends JFrame implements LSUIProtocol {
      * ACTION COMPONENTS
      */
     private LSTransferHandler tfHandler;
+   
 
     /*
      * CONSTRUCTOR
@@ -172,8 +174,9 @@ public final class LSView extends JFrame implements LSUIProtocol {
         statusPanel = new LSUIStatusPanel(this);
         navPanel    = new LSUINavigationPanel(this);
         miscPanel   = new LSUIMiscPanel(this);
-        scrollPane  = new JScrollPane();
         editPanel   = new LSUIEditingPanel(this);
+        scrollPane  = new JScrollPane(editPanel);
+        viewport    = scrollPane.getViewport();
         docPropDlg  = new LSUICanvasPropertiesDialog(this);
     }
 
@@ -537,7 +540,6 @@ public final class LSView extends JFrame implements LSUIProtocol {
         } else {
             miscPanel.enableTextAreaInView();
         }
-
         codeViewFlag = !codeViewFlag;
     }
     
@@ -547,7 +549,15 @@ public final class LSView extends JFrame implements LSUIProtocol {
    public void showDocumentPropertiesDialog() {
       docPropDlg.display();
    }
+
+   public void registerPanListenerToScrollPane(LSPanMouseAdapter adapter) {
+      viewport.addMouseListener(adapter);
+      viewport.addMouseMotionListener(adapter);
+      System.out.println(viewport + "registered");
+   }
+
+   public void deregisterPanListenerToScrollPane(LSPanMouseAdapter adapter) {
+      viewport.removeMouseListener(adapter);
+      viewport.removeMouseMotionListener(adapter);
+   }
 }
-
-
-//~ Formatted by Jindent --- http://www.jindent.com

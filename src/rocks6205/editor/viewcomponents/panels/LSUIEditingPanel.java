@@ -23,7 +23,6 @@ import java.awt.Rectangle;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
@@ -45,13 +44,13 @@ import rocks6205.editor.actions.LSPanMouseAdapter;
  *
  */
 public final class LSUIEditingPanel extends JPanel {
-    private LSViewController      controller;
-    private LSView                parent;
-    private LSGenericElement            activeElement, newElement;
+    private LSViewController             controller;
+    private LSView                       parentView;
+    private LSGenericElement             activeElement, newElement;
     private LSScribblePanel              scribbleArea;
     private LSCanvasViewport             viewArea;
-    private LSPainting                  fill, stroke;
-    private LSLength                strokeWidth;
+    private LSPainting                   fill, stroke;
+    private LSLength                     strokeWidth;
     private Rectangle                    selectionRect, activeRect, previousActiveRect;
     private Point2D.Float                startPoint;
     private ArrayList<Rectangle2D.Float> resizeHandlers;
@@ -66,7 +65,7 @@ public final class LSUIEditingPanel extends JPanel {
      */
     public LSUIEditingPanel(LSView view) {
         super();
-        parent     = view;
+        parentView     = view;
         controller = view.getController();
 
         LayoutManager overlay = new OverlayLayout(this);
@@ -77,7 +76,6 @@ public final class LSUIEditingPanel extends JPanel {
         add(scribbleArea);
         viewArea = new LSCanvasViewport(view);
         add(viewArea);
-        setAutoscrolls(true);
         drawListener = new LSDrawMouseAdapter();
         panListener  = new LSPanMouseAdapter();
     }
@@ -146,16 +144,17 @@ public final class LSUIEditingPanel extends JPanel {
    private void deregisterDrawListener() {
       scribbleArea.removeMouseListener(drawListener);
       scribbleArea.removeMouseMotionListener(drawListener);
+      for(MouseListener ml: scribbleArea.getMouseListeners()){
+         System.out.println(ml.getClass());
+      }
    }
    
     private void registerPanListener() {
-      addMouseListener(drawListener);
-      addMouseMotionListener(drawListener);
+      parentView.registerPanListenerToScrollPane(panListener);
    }
    
    private void deregisterPanListener() {
-      removeMouseListener(panListener);
-      removeMouseMotionListener(panListener);
+      parentView.deregisterPanListenerToScrollPane(panListener);
    }
    
     public void switchModeTo(EditModeScheme mode) {
@@ -164,6 +163,7 @@ public final class LSUIEditingPanel extends JPanel {
         }
         
         deregisterDrawListener();
+        registerDrawListener();
         deregisterPanListener();
         
         this.editingMode = mode;
@@ -179,10 +179,11 @@ public final class LSUIEditingPanel extends JPanel {
         }
 
         if (mode == EditModeScheme.MODE_PAN) {
+           deregisterDrawListener();
            setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
            registerPanListener();
         }
-        registerDrawListener();
+        
         System.out.printf("Current mode: %s \n", mode.name());
     }
 
@@ -193,7 +194,7 @@ public final class LSUIEditingPanel extends JPanel {
     public void setSelections(ArrayList<LSGenericElement> selections) {
         ArrayList<Rectangle2D.Float> selectionRects = new ArrayList<>(selections.size());
         Rectangle2D.Float            bounds;
-        float                        zoomScale = parent.getZoomScale();
+        float                        zoomScale = parentView.getZoomScale();
 
         for (LSGenericElement e : selections) {
             bounds        = e.getBounds();
@@ -337,7 +338,7 @@ public final class LSUIEditingPanel extends JPanel {
     }
 
     public LSView getParentView() {
-        return parent;
+        return parentView;
     }
     /**
      *
@@ -357,12 +358,13 @@ public final class LSUIEditingPanel extends JPanel {
          */
         @Override
         public void mousePressed(MouseEvent event) {
+           System.out.println("Mouse pressed : draw");
             scribbleArea.setEnabled(true);
 
             //
             Point         cursorPoint = event.getPoint();
-            Point2D.Float scaledPoint = new Point2D.Float(cursorPoint.x / parent.getZoomScale(),
-                                            cursorPoint.y / parent.getZoomScale());
+            Point2D.Float scaledPoint = new Point2D.Float(cursorPoint.x / parentView.getZoomScale(),
+                                            cursorPoint.y / parentView.getZoomScale());
 
             startPoint = scaledPoint;
 
@@ -516,7 +518,7 @@ public final class LSUIEditingPanel extends JPanel {
          */
         @Override
         public void mouseReleased(MouseEvent event) {
-            float              zoom      = parent.getZoomScale();
+            float              zoom      = parentView.getZoomScale();
             Rectangle2D.Double realRect  = null;
             Point2D.Double     realPoint = null;
 
@@ -556,7 +558,7 @@ public final class LSUIEditingPanel extends JPanel {
         @Override
         public void mouseDragged(MouseEvent event) {
             Point         cursorPoint = event.getPoint();
-            float         zoom        = parent.getZoomScale();
+            float         zoom        = parentView.getZoomScale();
             Point2D.Float endPoint    = new Point2D.Float(cursorPoint.x / zoom, cursorPoint.y / zoom);
 
             isDragged = true;

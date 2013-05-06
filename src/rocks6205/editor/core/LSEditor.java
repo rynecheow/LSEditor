@@ -30,11 +30,11 @@ public class LSEditor {
     public static void main(String[] rcks) {
         logger.info(String.format("The current active OS is " + OSValidator.getOS() + ".\n"));
 
+
+        setUpLookAndFeel();
 //      LSUISplashScreen splash = new LSUISplashScreen(5000);
 //      
 //      splash.showSplash();
-        setUpLookAndFeel();
-
         LSViewController c = new LSViewController();
 
         c.createBlankDocument();
