@@ -1100,6 +1100,3 @@ public class LSViewController implements LSSelectionsController, LSFileControlle
         }
     }
 }
-
-
-//~ Formatted by Jindent --- http://www.jindent.com

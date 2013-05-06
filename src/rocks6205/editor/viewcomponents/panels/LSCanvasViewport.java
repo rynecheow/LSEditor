@@ -52,11 +52,6 @@ public class LSCanvasViewport extends JPanel {
         setParentView(view);
         LSCanvasProperties.setOutputResolution(Toolkit.getDefaultToolkit().getScreenResolution());
         LSCanvasProperties.setFontSize((this.getFont().getSize2D()));
-
-        /*
-         * Unfinished implementation
-         * addMouseWheelListener(new SVGViewMouseWheelZoomAdaptor());
-         */
     }
 
     /**
