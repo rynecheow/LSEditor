@@ -4,6 +4,7 @@ package rocks6205.editor.viewcomponents;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import rocks6205.system.properties.LSEditorGUIConstants;
 
 /**
  * Custom JLabel with icon.
@@ -31,7 +32,7 @@ public class LSUIIconLabel extends JLabel {
      * @return <code>ImageIcon</code> object
      */
     private static ImageIcon createIcon(String iconName) {
-        String    string = "resources/toolbar-logo/" + iconName;
+        String    string = LSEditorGUIConstants.DEFAULT_PATH_TO_TOOLBAR_ICONS + iconName;
         ImageIcon icon   = new ImageIcon(string);
 
         return icon;
