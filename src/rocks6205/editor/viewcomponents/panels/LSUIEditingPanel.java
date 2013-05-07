@@ -358,7 +358,6 @@ public final class LSUIEditingPanel extends JPanel {
          */
         @Override
         public void mousePressed(MouseEvent event) {
-           System.out.println("Mouse pressed : draw");
             scribbleArea.setEnabled(true);
 
             //
