@@ -2,16 +2,16 @@ package rocks6205.editor.viewcomponents.panels;
 
 //~--- non-JDK imports --------------------------------------------------------
 
+import rocks6205.editor.actions.LSPanMouseAdapter;
+import rocks6205.editor.core.LSView;
+import rocks6205.editor.core.LSViewController;
 import rocks6205.editor.model.adt.LSLength;
 import rocks6205.editor.model.adt.LSLengthUnitType;
 import rocks6205.editor.model.adt.LSPainting;
-import rocks6205.editor.model.elements.LSShapeCircle;
 import rocks6205.editor.model.elements.LSGenericElement;
+import rocks6205.editor.model.elements.LSShapeCircle;
 import rocks6205.editor.model.elements.LSShapeLine;
 import rocks6205.editor.model.elements.LSShapeRect;
-
-import rocks6205.editor.core.LSView;
-import rocks6205.editor.core.LSViewController;
 
 //~--- JDK imports ------------------------------------------------------------
 
@@ -32,7 +32,6 @@ import java.util.Iterator;
 
 import javax.swing.JPanel;
 import javax.swing.OverlayLayout;
-import rocks6205.editor.actions.LSPanMouseAdapter;
 
 /**
  * Editor panel that acts as a central view for user to edit, select, add
@@ -59,13 +58,13 @@ public final class LSUIEditingPanel extends JPanel {
     private LSDrawMouseAdapter           drawListener;
     private LSPanMouseAdapter            panListener;
     private boolean                      isDragged;
-    
+
     /**
      * Default constructor.
      */
     public LSUIEditingPanel(LSView view) {
         super();
-        parentView     = view;
+        parentView = view;
         controller = view.getController();
 
         LayoutManager overlay = new OverlayLayout(this);
@@ -79,8 +78,6 @@ public final class LSUIEditingPanel extends JPanel {
         drawListener = new LSDrawMouseAdapter();
         panListener  = new LSPanMouseAdapter();
     }
-
-
 
     /**
      *
@@ -102,13 +99,13 @@ public final class LSUIEditingPanel extends JPanel {
         EditModeScheme(String string) {
             setString(string);
         }
-        
-        public void setString(String string){
-           this.string = string;
+
+        public void setString(String string) {
+            this.string = string;
         }
-        
-        public final String getString(){
-           return string;
+
+        public final String getString() {
+            return string;
         }
     }
 
@@ -136,36 +133,36 @@ public final class LSUIEditingPanel extends JPanel {
         this.strokeWidth = strokeWidth;
     }
 
-   private void registerDrawListener() {
-      scribbleArea.addMouseListener(drawListener);
-      scribbleArea.addMouseMotionListener(drawListener);
-   }
-   
-   private void deregisterDrawListener() {
-      scribbleArea.removeMouseListener(drawListener);
-      scribbleArea.removeMouseMotionListener(drawListener);
-      for(MouseListener ml: scribbleArea.getMouseListeners()){
-         System.out.println(ml.getClass());
-      }
-   }
-   
+    private void registerDrawListener() {
+        scribbleArea.addMouseListener(drawListener);
+        scribbleArea.addMouseMotionListener(drawListener);
+    }
+
+    private void deregisterDrawListener() {
+        scribbleArea.removeMouseListener(drawListener);
+        scribbleArea.removeMouseMotionListener(drawListener);
+
+        for (MouseListener ml : scribbleArea.getMouseListeners()) {
+            System.out.println(ml.getClass());
+        }
+    }
+
     private void registerPanListener() {
-      parentView.registerPanListenerToScrollPane(panListener);
-   }
-   
-   private void deregisterPanListener() {
-      parentView.deregisterPanListenerToScrollPane(panListener);
-   }
-   
+        parentView.registerPanListenerToScrollPane(panListener);
+    }
+
+    private void deregisterPanListener() {
+        parentView.deregisterPanListenerToScrollPane(panListener);
+    }
+
     public void switchModeTo(EditModeScheme mode) {
         if (mode == null) {
             throw new IllegalArgumentException("Edit mode not nullable");
         }
-        
+
         deregisterDrawListener();
         registerDrawListener();
         deregisterPanListener();
-        
         this.editingMode = mode;
 
         if (mode == EditModeScheme.MODE_SELECT) {
@@ -179,11 +176,11 @@ public final class LSUIEditingPanel extends JPanel {
         }
 
         if (mode == EditModeScheme.MODE_PAN) {
-           deregisterDrawListener();
-           setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-           registerPanListener();
+            deregisterDrawListener();
+            setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+            registerPanListener();
         }
-        
+
         System.out.printf("Current mode: %s \n", mode.name());
     }
 
@@ -209,7 +206,7 @@ public final class LSUIEditingPanel extends JPanel {
 
         if (selections.size() == 1) {
             LSGenericElement e      = selections.get(0);
-            int               active = -1;
+            int              active = -1;
 
             activeElement = e;
             bounds        = e.getBounds();
@@ -241,8 +238,8 @@ public final class LSUIEditingPanel extends JPanel {
                         10, 10));
             } else if (e instanceof LSShapeLine) {
                 LSShapeLine line   = (LSShapeLine) e;
-                Point2D        point1 = new Point2D.Float(line.getX1().getValue(LSLengthUnitType.PX),
-                                            line.getY1().getValue(LSLengthUnitType.PX));
+                Point2D     point1 = new Point2D.Float(line.getX1().getValue(LSLengthUnitType.PX),
+                                         line.getY1().getValue(LSLengthUnitType.PX));
                 Point2D point2 = new Point2D.Float(line.getX2().getValue(LSLengthUnitType.PX),
                                                    line.getY2().getValue(LSLengthUnitType.PX));
 
@@ -340,6 +337,7 @@ public final class LSUIEditingPanel extends JPanel {
     public LSView getParentView() {
         return parentView;
     }
+    
     /**
      *
      * Handles event for drawing 3 different shapes on canvas
@@ -553,7 +551,7 @@ public final class LSUIEditingPanel extends JPanel {
         }
 
         /**
-     * {@inheritDoc}<p>
+        * {@inheritDoc}<p>
      *
      */
         @Override

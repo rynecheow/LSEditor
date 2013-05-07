@@ -6,6 +6,7 @@ import rocks6205.editor.actions.LSPanMouseAdapter;
 import rocks6205.editor.actions.LSTransferHandler;
 import rocks6205.editor.model.elements.LSGenericElement;
 import rocks6205.editor.viewcomponents.LSUIProtocol;
+import rocks6205.editor.viewcomponents.dialogs.LSUICanvasPropertiesDialog;
 import rocks6205.editor.viewcomponents.dialogs.LSUIWelcomeDialog;
 import rocks6205.editor.viewcomponents.panels.LSUIEditingPanel;
 import rocks6205.editor.viewcomponents.panels.LSUIMiscPanel;
@@ -42,7 +43,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JViewport;
 import javax.swing.WindowConstants;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import rocks6205.editor.viewcomponents.dialogs.LSUICanvasPropertiesDialog;
 
 /**
  * A class defining how the main user interface should look like.
@@ -111,11 +111,11 @@ public final class LSView extends JFrame implements LSUIProtocol {
     private LSUINavigationPanel        navPanel;
     private LSUIMiscPanel              miscPanel;
     private LSUICanvasPropertiesDialog docPropDlg;
+
     /*
      * ACTION COMPONENTS
      */
     private LSTransferHandler tfHandler;
-   
 
     /*
      * CONSTRUCTOR
@@ -164,6 +164,7 @@ public final class LSView extends JFrame implements LSUIProtocol {
         LSCanvasProperties.setOutputResolution(Toolkit.getDefaultToolkit().getScreenResolution());
         setResizable(false);
     }
+
     /**
      * Initialises child components.
      */
@@ -244,12 +245,6 @@ public final class LSView extends JFrame implements LSUIProtocol {
         c.add(navPanel);
         c.add(miscPanel);
         c.add(scrollPane);
-
-        JViewport         viewport    = scrollPane.getViewport();
-        LSPanMouseAdapter panListener = new LSPanMouseAdapter();
-
-        viewport.addMouseListener(panListener);
-        viewport.addMouseMotionListener(panListener);
         setJMenuBar(menuBar);
         updateTitle();
         pack();
@@ -427,7 +422,7 @@ public final class LSView extends JFrame implements LSUIProtocol {
             LSEditor.logger.warning(ex.getMessage());
         }
     }
-
+    
     /*
      * ACCESSORS
      */
@@ -473,7 +468,7 @@ public final class LSView extends JFrame implements LSUIProtocol {
     public LSUIEditingPanel getEditPanel() {
         return editPanel;
     }
-    
+
     /*
      * MUTATORS
      */
@@ -528,17 +523,17 @@ public final class LSView extends JFrame implements LSUIProtocol {
     public void setEditPanel(LSUIEditingPanel p) {
         editPanel = p;
     }
-    
-    public void registerPanListenerToScrollPane(LSPanMouseAdapter adapter) {
-      viewport.addMouseListener(adapter);
-      viewport.addMouseMotionListener(adapter);
-   }
 
-   public void deregisterPanListenerToScrollPane(LSPanMouseAdapter adapter) {
-      viewport.removeMouseListener(adapter);
-      viewport.removeMouseMotionListener(adapter);
-   }
-   
+    public void registerPanListenerToScrollPane(LSPanMouseAdapter adapter) {
+        viewport.addMouseListener(adapter);
+        viewport.addMouseMotionListener(adapter);
+    }
+
+    public void deregisterPanListenerToScrollPane(LSPanMouseAdapter adapter) {
+        viewport.removeMouseListener(adapter);
+        viewport.removeMouseMotionListener(adapter);
+    }
+
     /**
      * Toggles code preview.
      */
@@ -550,15 +545,17 @@ public final class LSView extends JFrame implements LSUIProtocol {
         } else {
             miscPanel.enableTextAreaInView();
         }
+
         codeViewFlag = !codeViewFlag;
     }
-    
-   /**
-    * Show document properties dialog
-    */
-   public void showDocumentPropertiesDialog() {
-      docPropDlg.display();
-   }
 
-   
+    /**
+     * Show document properties dialog
+     */
+    public void showDocumentPropertiesDialog() {
+        docPropDlg.display();
+    }
 }
+
+
+//~ Formatted by Jindent --- http://www.jindent.com

@@ -492,9 +492,9 @@ public class LSViewController implements LSSelectionsController, LSFileControlle
     public void createBlankDocument() {
         model = new LSModel();
 
-      model.setSVGElement(new LSSVGContainer(LSLength.parse("916px"), LSLength.parse("578px")));
-//        model.setSVGElement(new LSSVGContainer(LSLength.parse("500px"), LSLength.parse("500px")));
-//        model.setSVGElement(new LSSVGContainer(LSLength.parse("1000px"), LSLength.parse("1000px")));
+        model.setSVGElement(new LSSVGContainer(LSLength.parse("916px"), LSLength.parse("578px")));
+        model.setSVGElement(new LSSVGContainer(LSLength.parse("500px"), LSLength.parse("500px")));
+        model.setSVGElement(new LSSVGContainer(LSLength.parse("1000px"), LSLength.parse("1000px")));
         activeFile = NEW_DOCUMENT;
         LSEditor.logger.info(String.format("\"New document created with height %fpx and width %fpx. \\n\"", model.getSVGElement().getWidth().getValue(),model.getSVGElement().getHeight().getValue()));
         unmodifyDocument();
