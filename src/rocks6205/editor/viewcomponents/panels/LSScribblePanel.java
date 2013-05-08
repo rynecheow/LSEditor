@@ -55,7 +55,7 @@ public class LSScribblePanel extends JPanel {
         Graphics2D g2d = (Graphics2D) g;
 
         if (selectionBox != null) {
-            g2d.setPaint(new Color(.3f, .3f, .3f, .25f));
+            g2d.setPaint(new Color(.8f, .8f, .8f, .2f));
             g2d.fill(selectionBox);
             g2d.setPaint(new Color(.3f, .3f, .3f, .5f));
             g2d.draw(selectionBox);

@@ -245,19 +245,6 @@ public final class LSUICanvasPropertiesDialog extends JDialog implements LSUIPro
        updateWidth(canvasData.getWidth());
        setVisible(true);
     }
-
-    /**
-     * Display dialog.
-     */
-    public void display() {
-       documentNameTextField.setText("untitled.svg");
-       presetComboBox.setEnabled(true);
-       sizeComboBox.setEnabled(true);
-       documentNameTextField.setEditable(true);
-       updateHeight(canvasData.getHeight());
-       updateWidth(canvasData.getWidth());
-       setVisible(true);
-    }
     
     /**
      * {@inheritDoc}
