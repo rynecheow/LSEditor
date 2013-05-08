@@ -235,6 +235,7 @@ public final class LSUICanvasPropertiesDialog extends JDialog implements LSUIPro
        documentNameTextField.setText(canvasData.getTitle());
        presetComboBox.setEnabled(false);
        sizeComboBox.setEnabled(false);
+       documentNameTextField.setEditable(false);
        updateHeight(canvasData.getHeight());
        updateWidth(canvasData.getWidth());
        setVisible(true);
@@ -247,6 +248,7 @@ public final class LSUICanvasPropertiesDialog extends JDialog implements LSUIPro
        documentNameTextField.setText("untitled.svg");
        presetComboBox.setEnabled(true);
        sizeComboBox.setEnabled(true);
+       documentNameTextField.setEditable(true);
        updateHeight(canvasData.getHeight());
        updateWidth(canvasData.getWidth());
        setVisible(true);
@@ -258,7 +260,6 @@ public final class LSUICanvasPropertiesDialog extends JDialog implements LSUIPro
     @Override
     public void bindHandlers() {
        confirmButton.addActionListener(new ActionListener(){
-
           @Override
           public void actionPerformed(ActionEvent e) {
              updateCanvasData(generateCanvasDTO());
@@ -272,6 +273,15 @@ public final class LSUICanvasPropertiesDialog extends JDialog implements LSUIPro
              parentView.getController().setModel(model);
           }
        });
+       
+       cancelButton.addActionListener(new ActionListener(){
+          @Override
+          public void actionPerformed(ActionEvent e) {
+            
+             dispose();
+          }
+       });
+       
     }
     
     private void updateHeight(LSLength length){

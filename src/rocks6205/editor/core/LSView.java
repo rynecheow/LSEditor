@@ -192,6 +192,7 @@ public final class LSView extends JFrame implements LSUIProtocol {
         layoutFrame();
         setClosingEvent();
         bindHandlers();
+        updateTitle();
     }
 
     /**
@@ -291,7 +292,7 @@ public final class LSView extends JFrame implements LSUIProtocol {
         if (isFileChanged) {
             displayedFile = currentFile;
         }
-
+        updateTitle();
         if (needRepaint) {
             editPanel.paintCanvas(controller.renderImage(zoomScale));
             navPanel.updateTree();
@@ -399,8 +400,9 @@ public final class LSView extends JFrame implements LSUIProtocol {
             documentTitle = displayedFile.getName();
 
             if (documentTitle != null) {
-                setTitle(documentTitle);
+//                setTitle(documentTitle);
                 statusPanel.updateStatus(documentTitle);
+                repaint();
             }
         }
     }
@@ -536,5 +538,6 @@ public final class LSView extends JFrame implements LSUIProtocol {
     public void showDocumentPropertiesDialog() {
         docPropDlg.updateCanvasData(controller.getModel().getCanvasDTO());
         docPropDlg.displayLimited();
+        controller.resizeDocument(controller.getModel().getCanvasDTO().getWidth(), controller.getModel().getCanvasDTO().getHeight());
     }
 }

@@ -777,7 +777,7 @@ public class LSViewController implements LSSelectionsController, LSFileControlle
         activeFile = null;
         unmodifyDocument();
     }
-
+    
     /**
      * LSFileController
      */
@@ -1100,4 +1100,6 @@ public class LSViewController implements LSSelectionsController, LSFileControlle
             throw new RuntimeException(e);
         }
     }
+
+   
 }
