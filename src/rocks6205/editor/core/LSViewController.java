@@ -491,10 +491,10 @@ public class LSViewController implements LSSelectionsController, LSFileControlle
 
     public void createBlankDocument() {
         model = new LSModel();
-
-        model.setSVGElement(new LSSVGContainer(LSLength.parse("916px"), LSLength.parse("578px")));
-        model.setSVGElement(new LSSVGContainer(LSLength.parse("500px"), LSLength.parse("500px")));
+//        model.setSVGElement(new LSSVGContainer(LSLength.parse("916px"), LSLength.parse("578px")));
         model.setSVGElement(new LSSVGContainer(LSLength.parse("1000px"), LSLength.parse("1000px")));
+        model.setTitle(NEW_DOCUMENT.getName());
+        model.updateCanvasDTO();
         activeFile = NEW_DOCUMENT;
         LSEditor.logger.info(String.format("\"New document created with height %fpx and width %fpx. \\n\"", model.getSVGElement().getWidth().getValue(),model.getSVGElement().getHeight().getValue()));
         unmodifyDocument();
@@ -693,6 +693,7 @@ public class LSViewController implements LSSelectionsController, LSFileControlle
 
                 if (svg_e != null) {
                     model.setSVGElement(svg_e);
+                    model.setTitle(file.getName());
                     activeFile         = file;
                     isDocumentModified = false;
                     LSEditor.logger.info(String.format("File named %s is successfully loaded\n", file.getName()));

@@ -19,6 +19,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
+import rocks6205.editor.dto.LSCanvasDataObject;
 
 /**
  *
@@ -65,6 +66,11 @@ public final class LSUICanvasPropertiesDialog extends JDialog implements LSUIPro
      */
     LSView parentView;
 
+    /**
+     * DATA COMPONENT
+     */
+    LSCanvasDataObject canvasData;
+    
     /**
      * Constructs a canvas properties dialog with parent component.
      * @param parent Parent component.
