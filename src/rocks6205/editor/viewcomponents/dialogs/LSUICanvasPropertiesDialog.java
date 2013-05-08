@@ -2,16 +2,18 @@ package rocks6205.editor.viewcomponents.dialogs;
 
 //~--- non-JDK imports --------------------------------------------------------
 
+import java.awt.Color;
 import rocks6205.editor.core.LSView;
 import rocks6205.editor.viewcomponents.LSUIProtocol;
 
 //~--- JDK imports ------------------------------------------------------------
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -166,6 +168,9 @@ public final class LSUICanvasPropertiesDialog extends JDialog implements LSUIPro
         documentNameLabel.setText("Document Name:");
         backPanel.add(documentNameLabel);
         documentNameLabel.setBounds(49, 37, 109, 16);
+        documentNameTextField.setBackground(backPanel.getBackground());
+        documentNameTextField.setBorder(null);
+        documentNameTextField.setForeground(new Color(255, 255, 255));
         backPanel.add(documentNameTextField);
         documentNameTextField.setBounds(176, 31, 202, 28);
         presetLabel.setForeground(new Color(255, 255, 255));
@@ -194,12 +199,12 @@ public final class LSUICanvasPropertiesDialog extends JDialog implements LSUIPro
         widthTextField.setBounds(176, 131, 100, 28);
         backPanel.add(heightTextField);
         heightTextField.setBounds(176, 166, 100, 28);
-        widthUnitComboBox.setModel(new DefaultComboBoxModel(new String[] { "Pixels", "Inches", "Centimeter",
-                "Millimeter", "Points" }));
+        widthUnitComboBox.setModel(new DefaultComboBoxModel(new String[] { "px", "in", "cm",
+                "mm", "pt" }));
         backPanel.add(widthUnitComboBox);
         widthUnitComboBox.setBounds(288, 133, 90, 27);
-        heightUnitComboBox.setModel(new DefaultComboBoxModel(new String[] { "Pixels", "Inches", "Centimeter",
-                "Millimeter", "Points" }));
+        heightUnitComboBox.setModel(new DefaultComboBoxModel(new String[] { "px", "in", "cm",
+                "mm", "pt" }));
         backPanel.add(heightUnitComboBox);
         heightUnitComboBox.setBounds(288, 168, 90, 27);
         resolutionLabel.setBackground(new Color(255, 255, 255));
@@ -232,7 +237,7 @@ public final class LSUICanvasPropertiesDialog extends JDialog implements LSUIPro
      * Display dialog with certain fields disabled.
      */
     public void displayLimited() {
-       documentNameTextField.setText(canvasData.getTitle());
+       documentNameTextField.setText("  " + canvasData.getTitle());
        presetComboBox.setEnabled(false);
        sizeComboBox.setEnabled(false);
        documentNameTextField.setEditable(false);
@@ -282,6 +287,34 @@ public final class LSUICanvasPropertiesDialog extends JDialog implements LSUIPro
           }
        });
        
+       widthUnitComboBox.addItemListener(new ItemListener(){
+          float val;
+          
+          @Override
+          public void itemStateChanged(ItemEvent e) {
+             switch(widthUnitComboBox.getSelectedIndex()){
+                case 0:
+                    val = canvasData.getWidth().getValue(LSLengthUnitType.PX);
+                    break;
+                case 1:
+                    val = canvasData.getWidth().getValue(LSLengthUnitType.IN);
+                    break;
+                case 2:
+                    val = canvasData.getWidth().getValue(LSLengthUnitType.CM);
+                    break;   
+                case 3:
+                    val = canvasData.getWidth().getValue(LSLengthUnitType.MM);
+                    break;   
+                case 4:
+                    val = canvasData.getWidth().getValue(LSLengthUnitType.PT);
+                    break;   
+                default:
+                    throw new AssertionError("Invalid symbol for conversion");
+             }
+             widthTextField.setText(String.format("%.1f", val));
+          }
+          
+       });
     }
     
     private void updateHeight(LSLength length){
