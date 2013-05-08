@@ -70,11 +70,6 @@ public final class LSView extends JFrame implements LSUIProtocol {
     private Container c = getContentPane();
 
     /**
-     * Model object
-     */
-    private LSModel model;
-
-    /**
      * Controller object
      */
     private LSViewController controller;
@@ -128,7 +123,6 @@ public final class LSView extends JFrame implements LSUIProtocol {
     public LSView(LSViewController c) {
         super();
         setController(c);
-        setModel(c.getModel());
         initialise();
         customise();
 
@@ -289,7 +283,7 @@ public final class LSView extends JFrame implements LSUIProtocol {
         menuBar.updateActionStatusFromView(isAnySelected);
         editPanel.setSelections(selections);
         editPanel.drawOverlay();
-
+        
         if (isZoomChanged) {
             isZoomChanged = false;
         }
@@ -427,12 +421,6 @@ public final class LSView extends JFrame implements LSUIProtocol {
      * ACCESSORS
      */
 
-    /**
-     * @return Model object
-     */
-    public LSModel getModel() {
-        return model;
-    }
 
     /**
      * @return Controller object
@@ -478,13 +466,6 @@ public final class LSView extends JFrame implements LSUIProtocol {
      */
     public void setController(LSViewController controller) {
         this.controller = controller;
-    }
-
-    /**
-     * @param model Model object
-     */
-    public void setModel(LSModel model) {
-        this.model = model;
     }
 
     /**
@@ -553,9 +534,7 @@ public final class LSView extends JFrame implements LSUIProtocol {
      * Show document properties dialog
      */
     public void showDocumentPropertiesDialog() {
-        docPropDlg.display();
+        docPropDlg.updateCanvasData(controller.getModel().getCanvasDTO());
+        docPropDlg.displayLimited();
     }
 }
-
-
-//~ Formatted by Jindent --- http://www.jindent.com

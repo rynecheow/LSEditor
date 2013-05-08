@@ -47,12 +47,14 @@ public class LSModel {
     /**
      * @param svgElement SVG Element to be drawn.
      */
-    public void setSVGElement(LSSVGContainer svgElement) {
+    public final void setSVGElement(LSSVGContainer svgElement) {
         SVGElement = svgElement;
+        updateCanvasDTO();
     }
     
-    public void setCanvasDTO(LSCanvasDataObject data){
+    public final void setCanvasDTO(LSCanvasDataObject data){
        canvasDTO = data;
+       updateModelFromDTO();
     }
     
     public void setTitle(String t){
@@ -68,10 +70,18 @@ public class LSModel {
     }
     
     public void updateCanvasDTO(){
-       if(SVGElement!=null){
+       if(SVGElement!=null && canvasDTO!= null){
             canvasDTO.setHeight(SVGElement.getHeight());
             canvasDTO.setWidth(SVGElement.getWidth());
             canvasDTO.setTitle(title);
+       }
+    }
+    
+    public void updateModelFromDTO(){
+       if(SVGElement!=null && canvasDTO!= null){
+            SVGElement.setHeight(canvasDTO.getHeight());
+            SVGElement.setWidth(canvasDTO.getWidth());
+            title = canvasDTO.getTitle();
        }
     }
 }
