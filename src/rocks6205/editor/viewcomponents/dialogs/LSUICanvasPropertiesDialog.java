@@ -27,6 +27,7 @@ import rocks6205.editor.core.LSModel;
 import rocks6205.editor.dto.LSCanvasDataObject;
 import rocks6205.editor.model.adt.LSLength;
 import rocks6205.editor.model.adt.LSLengthUnitType;
+import rocks6205.editor.viewcomponents.LSNumericTextField;
 
 /**
  *
@@ -106,8 +107,8 @@ public final class LSUICanvasPropertiesDialog extends JDialog implements LSUIPro
         sizeComboBox          = new JComboBox();
         widthLabel            = new JLabel();
         heightLabel           = new JLabel();
-        widthTextField        = new JTextField();
-        heightTextField       = new JTextField();
+        widthTextField        = new LSNumericTextField();
+        heightTextField       = new LSNumericTextField();
         widthUnitComboBox     = new JComboBox();
         heightUnitComboBox    = new JComboBox();
         resolutionLabel       = new JLabel();
@@ -309,7 +310,7 @@ public final class LSUICanvasPropertiesDialog extends JDialog implements LSUIPro
        int comboBoxIndex;
        float value = length.getValue();
        
-       heightTextField.setText(String.format("%.1f", value));
+       heightTextField.setText(String.format("%d",(int) value));
        switch(unit){
           case "px":
              comboBoxIndex = 0;
@@ -338,7 +339,7 @@ public final class LSUICanvasPropertiesDialog extends JDialog implements LSUIPro
        int comboBoxIndex;
        float value = length.getValue();
        
-       widthTextField.setText(String.format("%.1f", value));
+       widthTextField.setText(String.format("%d", (int)value));
        switch(unit){
           case "px":
              comboBoxIndex = 0;

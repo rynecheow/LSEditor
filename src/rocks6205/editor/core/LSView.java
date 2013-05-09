@@ -371,8 +371,6 @@ public final class LSView extends JFrame implements LSUIProtocol {
 
         fileChoooser.setFileFilter(extFilter);
         fileChoooser.setSelectedFile(getDisplayedFile());
-
-        System.out.println(fileChoooser.getSelectedFile());
         
         if (fileChoooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
 			try {
@@ -401,7 +399,6 @@ public final class LSView extends JFrame implements LSUIProtocol {
             documentTitle = displayedFile.getName();
 
             if (documentTitle != null) {
-//                setTitle(documentTitle);
                 statusPanel.updateStatus(documentTitle);
                 repaint();
             }
