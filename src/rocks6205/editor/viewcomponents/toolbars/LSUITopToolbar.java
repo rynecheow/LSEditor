@@ -2,6 +2,7 @@ package rocks6205.editor.viewcomponents.toolbars;
 
 //~--- non-JDK imports --------------------------------------------------------
 
+import java.awt.Dimension;
 import rocks6205.editor.actions.LSAbstractAction.DocumentPropertiesAction;
 import rocks6205.editor.actions.LSAbstractAction.NewDocumentAction;
 import rocks6205.editor.actions.LSAbstractAction.OpenFileAction;
@@ -24,9 +25,13 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
 import javax.swing.JCheckBox;
+import javax.swing.JSpinner;
 import javax.swing.JToolBar;
+import javax.swing.SpinnerModel;
+import javax.swing.SpinnerNumberModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import rocks6205.editor.model.adt.LSLength;
 
 /**
  *
@@ -56,7 +61,8 @@ public final class LSUITopToolbar extends JToolBar implements LSUIProtocol {
     private LSUIColorButton strokeButton;
     private JCheckBox       fillCheckBox;
     private JCheckBox       strokeCheckBox;
-
+    private JSpinner        strokeWidthSpinner;
+    private SpinnerModel    strokeWidthModel;
     /*
      * ACTION COMPONENTS
      */
@@ -94,6 +100,8 @@ public final class LSUITopToolbar extends JToolBar implements LSUIProtocol {
         zoomInAction   = new ZoomInViewAction(parentView);
         zoomOutAction  = new ZoomOutViewAction(parentView);
         docPropAct     = new DocumentPropertiesAction(parentView);
+        strokeWidthModel = new SpinnerNumberModel(Float.valueOf(1.0f), Float.valueOf(0.0f), Float.valueOf(10.0f), Float.valueOf(0.5f));
+        strokeWidthSpinner = new JSpinner(strokeWidthModel);
     }
 
     @Override
@@ -123,6 +131,7 @@ public final class LSUITopToolbar extends JToolBar implements LSUIProtocol {
         add(strokeCheckBox);
         add(strokeLabel);
         add(strokeButton);
+        add(strokeWidthSpinner);
         addSeparator();
         setFloatable(false);
         setRollover(true);
@@ -131,6 +140,8 @@ public final class LSUITopToolbar extends JToolBar implements LSUIProtocol {
     private void layoutChildComponents() {
         fillCheckBox.setSelected(true);
         strokeCheckBox.setSelected(false);
+        strokeWidthSpinner.setMaximumSize(new Dimension(90,25));
+        strokeWidthSpinner.setEnabled(false);
     }
 
     private void setItemListenerForCheckBox() {
@@ -154,7 +165,7 @@ public final class LSUITopToolbar extends JToolBar implements LSUIProtocol {
                 boolean selected = e.getStateChange() == ItemEvent.SELECTED;
 
                 strokeButton.setEnabled(selected);
-
+                strokeWidthSpinner.setEnabled(selected);
                 if (selected) {
                     strokeButton.setPaintingNone();
                 } else {
@@ -228,11 +239,11 @@ public final class LSUITopToolbar extends JToolBar implements LSUIProtocol {
                 editPanel.setFill(fillButton.getPainting());
             } else if (source == strokeButton) {
                 editPanel.setStroke(strokeButton.getPainting());
-            }
+            
 
-//          } else if (source == strokeWidthInputPanel) {
-//                  editPanel.setStrokeWidth(strokeWidthInputPanel.getLength());
-//          }
+          } else if (source == strokeWidthSpinner) {
+                  editPanel.setStrokeWidth(new LSLength(Float.parseFloat((String)strokeWidthSpinner.getValue())));
+          }
             parentView.setEditPanel(editPanel);
         }
     }
