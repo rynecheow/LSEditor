@@ -735,7 +735,7 @@ public class LSViewController implements LSSelectionsController, LSFileControlle
 
                 DOMSource    source = new DOMSource(doc);
                 StreamResult result = new StreamResult(file);
-
+                
                 transformer.transform(source, result);
             } catch (TransformerConfigurationException e) {
                 LSEditor.logger.warning(e.getMessage());

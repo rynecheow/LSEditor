@@ -352,8 +352,8 @@ public final class LSView extends JFrame implements LSUIProtocol {
         } catch (IOException e) {
             saved = fileSaveAs();
         }
-
-        return false;
+        
+        return saved;
     }
 
     /**
@@ -372,14 +372,15 @@ public final class LSView extends JFrame implements LSUIProtocol {
         fileChoooser.setFileFilter(extFilter);
         fileChoooser.setSelectedFile(getDisplayedFile());
 
+        System.out.println(fileChoooser.getSelectedFile());
+        
         if (fileChoooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
-            try {
-                saved = controller.fileSave();
-            } catch (IOException e) {
-                LSEditor.logger.warning(e.getMessage());
-            }
+			try {
+				saved = controller.fileSave(fileChoooser.getSelectedFile());
+			} catch (IOException e) {
+				LSEditor.logger.warning(e.getMessage());
+			}
         }
-
         return saved;
     }
 

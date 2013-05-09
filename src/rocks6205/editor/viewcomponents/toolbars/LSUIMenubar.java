@@ -280,7 +280,7 @@ public final class LSUIMenubar extends JMenuBar implements LSUIProtocol {
     }
 
     public void updateActionStatusFromView(boolean status) {
-        selectAllMenuItem.setEnabled(status);
+        selectAllMenuItem.setEnabled(!status);
         deselectAllMenuItem.setEnabled(status);
     }
 

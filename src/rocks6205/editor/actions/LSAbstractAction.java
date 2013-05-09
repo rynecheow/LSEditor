@@ -775,7 +775,7 @@ public abstract class LSAbstractAction extends AbstractAction {
     }
     
     /**
-     * The <code>SelectAllAction</code> is a class which create an <code>Action</code>
+     * The <code>ToggleCodeViewAction</code> is a class which create an <code>Action</code>
      * instance. This action handles event by adding every element on view into selection
      * set.
      *
