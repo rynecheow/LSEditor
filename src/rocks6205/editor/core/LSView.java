@@ -35,6 +35,7 @@ import java.io.IOException;
 import java.text.MessageFormat;
 
 import java.util.ArrayList;
+import java.util.ResourceBundle;
 
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -540,6 +541,11 @@ public final class LSView extends JFrame implements LSUIProtocol {
     }
 
    public void reloadBundle() {
-      throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+      ResourceBundle bundle = LSEditor.titleBundle;
+      topBar.reloadString(bundle);
+      sideBar.reloadString(bundle);
+      menuBar.reloadString(bundle);
+      docPropDlg.reloadString(bundle);
+      navPanel.reloadString(bundle);
    }
 }

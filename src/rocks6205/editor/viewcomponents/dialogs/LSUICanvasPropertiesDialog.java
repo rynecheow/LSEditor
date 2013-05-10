@@ -19,6 +19,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.util.ResourceBundle;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -475,4 +476,20 @@ public final class LSUICanvasPropertiesDialog extends JDialog implements LSUIPro
 
         return new LSLength(unitType, val);
     }
+
+   public void reloadString(ResourceBundle b) {
+      documentNameLabel.setText(b.getString("dpd.docname.text"));
+      heightLabel.setText(b.getString("dpd.height.text"));
+      widthLabel.setText(b.getString("dpd.width.text"));
+      presetLabel.setText(b.getString("dpd.preset.text"));
+      sizeLabel.setText(b.getString("dpd.size.text"));
+      resolutionLabel.setText(b.getString("dpd.resolution.title"));
+      resolutionInfoLabel.setText(b.getString("dpd.resolution.desc"));
+      colorModeLabel.setText(b.getString("dpd.colormode.title"));
+      colorModeInfoLabel.setText(b.getString("dpd.colormode.desc"));
+      confirmButton.setText(b.getString("dpd.confirmbutton.text"));
+      cancelButton.setText(b.getString("dpd.cancelbutton.text"));
+   }
+   
+   
 }

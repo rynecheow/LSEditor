@@ -22,6 +22,7 @@ import rocks6205.editor.viewcomponents.LSUIProtocol;
 //~--- JDK imports ------------------------------------------------------------
 
 import java.awt.event.KeyEvent;
+import java.util.ResourceBundle;
 
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -289,4 +290,7 @@ public final class LSUIMenubar extends JMenuBar implements LSUIProtocol {
                                            ? "Close Code View Area.."
                                            : "Show Code View Area..");
     }
+
+   public void reloadString(ResourceBundle b) {
+   }
 }

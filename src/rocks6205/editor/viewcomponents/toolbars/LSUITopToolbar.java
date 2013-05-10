@@ -25,6 +25,7 @@ import rocks6205.system.properties.LSEditorGUIConstants;
 import java.awt.Dimension;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.util.ResourceBundle;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JCheckBox;
@@ -258,6 +259,10 @@ public final class LSUITopToolbar extends JToolBar implements LSUIProtocol {
     private void setParentView(LSView parent) {
         parentView = parent;
     }
+
+   public void reloadString(ResourceBundle b) {
+      
+   }
 
     private class SVGPresentationChangeListener implements ChangeListener {
         @Override

@@ -14,6 +14,7 @@ import rocks6205.system.properties.LSEditorGUIConstants;
 //~--- JDK imports ------------------------------------------------------------
 
 import java.awt.BorderLayout;
+import java.util.ResourceBundle;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -93,4 +94,8 @@ public final class LSUINavigationPanel extends JPanel implements LSUIProtocol, T
      */
     @Override
     public void bindHandlers() {}
+
+   public void reloadString(ResourceBundle b) {
+      
+   }
 }

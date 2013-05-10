@@ -2,6 +2,7 @@ package rocks6205.editor.viewcomponents.toolbars;
 
 //~--- non-JDK imports --------------------------------------------------------
 
+import java.util.ResourceBundle;
 import rocks6205.editor.actions.LSAbstractAction.DeleteAction;
 import rocks6205.editor.actions.LSAbstractAction.DrawCircleAction;
 import rocks6205.editor.actions.LSAbstractAction.DrawLineAction;
@@ -171,4 +172,7 @@ public final class LSUISideToolbar extends JToolBar implements LSUIProtocol {
     public void bindHandlers() {
         setActionForButtons();
     }
+
+   public void reloadString(ResourceBundle b) {
+   }
 }
