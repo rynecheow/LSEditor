@@ -2,12 +2,17 @@ package rocks6205.editor.viewcomponents.dialogs;
 
 //~--- non-JDK imports --------------------------------------------------------
 
-import java.awt.Color;
+import rocks6205.editor.core.LSModel;
 import rocks6205.editor.core.LSView;
+import rocks6205.editor.dto.LSCanvasDataObject;
+import rocks6205.editor.model.adt.LSLength;
+import rocks6205.editor.model.adt.LSLengthUnitType;
+import rocks6205.editor.viewcomponents.LSNumericTextField;
 import rocks6205.editor.viewcomponents.LSUIProtocol;
 
 //~--- JDK imports ------------------------------------------------------------
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -23,11 +28,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
-import rocks6205.editor.core.LSModel;
-import rocks6205.editor.dto.LSCanvasDataObject;
-import rocks6205.editor.model.adt.LSLength;
-import rocks6205.editor.model.adt.LSLengthUnitType;
-import rocks6205.editor.viewcomponents.LSNumericTextField;
 
 /**
  *
@@ -78,7 +78,7 @@ public final class LSUICanvasPropertiesDialog extends JDialog implements LSUIPro
      * DATA COMPONENT
      */
     LSCanvasDataObject canvasData;
-    
+
     /**
      * Constructs a canvas properties dialog with parent component.
      * @param parent Parent component.
@@ -92,6 +92,7 @@ public final class LSUICanvasPropertiesDialog extends JDialog implements LSUIPro
         customise();
         bindHandlers();
     }
+
     /**
      * {@inheritDoc }
      */
@@ -118,7 +119,7 @@ public final class LSUICanvasPropertiesDialog extends JDialog implements LSUIPro
         confirmButton         = new JButton();
         cancelButton          = new JButton();
     }
-    
+
     /**
      * Set up dialog size properties.
      */
@@ -200,12 +201,10 @@ public final class LSUICanvasPropertiesDialog extends JDialog implements LSUIPro
         widthTextField.setBounds(176, 131, 100, 28);
         backPanel.add(heightTextField);
         heightTextField.setBounds(176, 166, 100, 28);
-        widthUnitComboBox.setModel(new DefaultComboBoxModel(new String[] { "px", "in", "cm",
-                "mm", "pt" }));
+        widthUnitComboBox.setModel(new DefaultComboBoxModel(new String[] { "px", "in", "cm", "mm", "pt" }));
         backPanel.add(widthUnitComboBox);
         widthUnitComboBox.setBounds(288, 133, 90, 27);
-        heightUnitComboBox.setModel(new DefaultComboBoxModel(new String[] { "px", "in", "cm",
-                "mm", "pt" }));
+        heightUnitComboBox.setModel(new DefaultComboBoxModel(new String[] { "px", "in", "cm", "mm", "pt" }));
         backPanel.add(heightUnitComboBox);
         heightUnitComboBox.setBounds(288, 168, 90, 27);
         resolutionLabel.setBackground(new Color(255, 255, 255));
@@ -238,195 +237,242 @@ public final class LSUICanvasPropertiesDialog extends JDialog implements LSUIPro
      * Display dialog with certain fields disabled.
      */
     public void displayLimited() {
-       documentNameTextField.setText("  " + canvasData.getTitle());
-       presetComboBox.setEnabled(false);
-       sizeComboBox.setEnabled(false);
-       documentNameTextField.setEditable(false);
-       updateHeight(canvasData.getHeight());
-       updateWidth(canvasData.getWidth());
-       setVisible(true);
+        documentNameTextField.setText("  " + canvasData.getTitle());
+        presetComboBox.setEnabled(false);
+        sizeComboBox.setEnabled(false);
+        documentNameTextField.setEditable(false);
+        updateHeight(canvasData.getHeight());
+        updateWidth(canvasData.getWidth());
+        setVisible(true);
     }
-    
+
     /**
      * {@inheritDoc}
      */
     @Override
     public void bindHandlers() {
-       confirmButton.addActionListener(new ActionListener(){
-          @Override
-          public void actionPerformed(ActionEvent e) {
-             updateCanvasData(generateCanvasDTO());
-             updateModel();
-             dispose();
-          }
+        confirmButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                updateCanvasData(generateCanvasDTO());
+                updateModel();
+                dispose();
+            }
+            private void updateModel() {
+                LSModel model = parentView.getController().getModel();
 
-          private void updateModel() {
-             LSModel model = parentView.getController().getModel();
-             model.setCanvasDTO(canvasData);
-             parentView.getController().setModel(model);
-          }
-       });
-       
-       cancelButton.addActionListener(new ActionListener(){
-          @Override
-          public void actionPerformed(ActionEvent e) {
-            
-             dispose();
-          }
-       });
-       
-       widthUnitComboBox.addItemListener(new ItemListener(){
-          float val;
-          
-          @Override
-          public void itemStateChanged(ItemEvent e) {
-             switch(widthUnitComboBox.getSelectedIndex()){
-                case 0:
+                model.setCanvasDTO(canvasData);
+                parentView.getController().setModel(model);
+            }
+        });
+        cancelButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+            }
+        });
+        widthUnitComboBox.addItemListener(new ItemListener() {
+            float val;
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                switch (widthUnitComboBox.getSelectedIndex()) {
+                case 0 :
                     val = canvasData.getWidth().getValue(LSLengthUnitType.PX);
+
                     break;
-                case 1:
+
+                case 1 :
                     val = canvasData.getWidth().getValue(LSLengthUnitType.IN);
+
                     break;
-                case 2:
+
+                case 2 :
                     val = canvasData.getWidth().getValue(LSLengthUnitType.CM);
-                    break;   
-                case 3:
+
+                    break;
+
+                case 3 :
                     val = canvasData.getWidth().getValue(LSLengthUnitType.MM);
-                    break;   
-                case 4:
+
+                    break;
+
+                case 4 :
                     val = canvasData.getWidth().getValue(LSLengthUnitType.PT);
-                    break;   
-                default:
+
+                    break;
+
+                default :
                     throw new AssertionError("Invalid symbol for conversion");
-             }
-             widthTextField.setText(String.format("%.1f", val));
-          }
-          
-       });
+                }
+
+                widthTextField.setText(String.format("%.1f", val));
+            }
+        });
     }
-    
-    private void updateHeight(LSLength length){
-       String unit = length.getUnitType().getUnitSymbol();
-       int comboBoxIndex;
-       float value = length.getValue();
-       
-       heightTextField.setText(String.format("%d",(int) value));
-       switch(unit){
-          case "px":
-             comboBoxIndex = 0;
-             break;
-          case "in":
-             comboBoxIndex = 1;
-             break;
-          case "cm" :
-             comboBoxIndex = 2;
-             break;
-          case "mm":
-             comboBoxIndex = 3;
-             break;
-          case "pt":
-             comboBoxIndex = 4;
-             break;
-          default:
-             throw new AssertionError("Invalid symbol");
-       }
-       
-       heightUnitComboBox.setSelectedIndex(comboBoxIndex);
+
+    private void updateHeight(LSLength length) {
+        String unit = length.getUnitType().getUnitSymbol();
+        int    comboBoxIndex;
+        float  value = length.getValue();
+
+        heightTextField.setText(String.format("%d", (int) value));
+
+        switch (unit) {
+        case "px" :
+            comboBoxIndex = 0;
+
+            break;
+
+        case "in" :
+            comboBoxIndex = 1;
+
+            break;
+
+        case "cm" :
+            comboBoxIndex = 2;
+
+            break;
+
+        case "mm" :
+            comboBoxIndex = 3;
+
+            break;
+
+        case "pt" :
+            comboBoxIndex = 4;
+
+            break;
+
+        default :
+            throw new AssertionError("Invalid symbol");
+        }
+
+        heightUnitComboBox.setSelectedIndex(comboBoxIndex);
     }
-    
-    private void updateWidth(LSLength length){
-       String unit = length.getUnitType().getUnitSymbol();
-       int comboBoxIndex;
-       float value = length.getValue();
-       
-       widthTextField.setText(String.format("%d", (int)value));
-       switch(unit){
-          case "px":
-             comboBoxIndex = 0;
-             break;
-          case "in":
-             comboBoxIndex = 1;
-             break;
-          case "cm" :
-             comboBoxIndex = 2;
-             break;
-          case "mm":
-             comboBoxIndex = 3;
-             break;
-          case "pt":
-             comboBoxIndex = 4;
-             break;
-          default:
-             throw new AssertionError("Invalid symbol");
-       }
-       
-       widthUnitComboBox.setSelectedIndex(comboBoxIndex);
+
+    private void updateWidth(LSLength length) {
+        String unit = length.getUnitType().getUnitSymbol();
+        int    comboBoxIndex;
+        float  value = length.getValue();
+
+        widthTextField.setText(String.format("%d", (int) value));
+
+        switch (unit) {
+        case "px" :
+            comboBoxIndex = 0;
+
+            break;
+
+        case "in" :
+            comboBoxIndex = 1;
+
+            break;
+
+        case "cm" :
+            comboBoxIndex = 2;
+
+            break;
+
+        case "mm" :
+            comboBoxIndex = 3;
+
+            break;
+
+        case "pt" :
+            comboBoxIndex = 4;
+
+            break;
+
+        default :
+            throw new AssertionError("Invalid symbol");
+        }
+
+        widthUnitComboBox.setSelectedIndex(comboBoxIndex);
     }
-    
+
     /**
-     * 
+     *
      */
-    public void updateCanvasData(LSCanvasDataObject dto){
-       canvasData = dto;
-    }
-    
-    public LSCanvasDataObject generateCanvasDTO(){
-       return new LSCanvasDataObject(generateEffectiveWidth(), generateEffectiveHeight(), documentNameTextField.getText());
+    public void updateCanvasData(LSCanvasDataObject dto) {
+        canvasData = dto;
     }
 
-   private LSLength generateEffectiveHeight() {
-      float val = Float.parseFloat(heightTextField.getText());
-      LSLengthUnitType unitType;
-      
-      switch(heightUnitComboBox.getSelectedIndex()){
-         case 0:
-            unitType = LSLengthUnitType.PX;
-            break;
-         case 1:
-            unitType = LSLengthUnitType.IN;
-            break;
-         case 2:
-            unitType = LSLengthUnitType.CM;
-            break;
-         case 3:
-            unitType = LSLengthUnitType.MM;
-            break;
-         case 4:
-            unitType = LSLengthUnitType.PT;
-            break;   
-         default:
-            throw new AssertionError("Invalid INDEX");
-      }
-      
-      return new LSLength(unitType ,val);
-   }
+    public LSCanvasDataObject generateCanvasDTO() {
+        return new LSCanvasDataObject(generateEffectiveWidth(), generateEffectiveHeight(),
+                                      documentNameTextField.getText());
+    }
 
-   private LSLength generateEffectiveWidth() {
-      float val = Float.parseFloat(widthTextField.getText());
-      LSLengthUnitType unitType;
-      
-      switch(widthUnitComboBox.getSelectedIndex()){
-         case 0:
+    private LSLength generateEffectiveHeight() {
+        float            val = Float.parseFloat(heightTextField.getText());
+        LSLengthUnitType unitType;
+
+        switch (heightUnitComboBox.getSelectedIndex()) {
+        case 0 :
             unitType = LSLengthUnitType.PX;
+
             break;
-         case 1:
+
+        case 1 :
             unitType = LSLengthUnitType.IN;
+
             break;
-         case 2:
+
+        case 2 :
             unitType = LSLengthUnitType.CM;
+
             break;
-         case 3:
+
+        case 3 :
             unitType = LSLengthUnitType.MM;
+
             break;
-         case 4:
+
+        case 4 :
             unitType = LSLengthUnitType.PT;
-            break;   
-         default:
+
+            break;
+
+        default :
             throw new AssertionError("Invalid INDEX");
-      }
-      
-      return new LSLength(unitType ,val);
-   }
-    
-    
+        }
+
+        return new LSLength(unitType, val);
+    }
+
+    private LSLength generateEffectiveWidth() {
+        float            val = Float.parseFloat(widthTextField.getText());
+        LSLengthUnitType unitType;
+
+        switch (widthUnitComboBox.getSelectedIndex()) {
+        case 0 :
+            unitType = LSLengthUnitType.PX;
+
+            break;
+
+        case 1 :
+            unitType = LSLengthUnitType.IN;
+
+            break;
+
+        case 2 :
+            unitType = LSLengthUnitType.CM;
+
+            break;
+
+        case 3 :
+            unitType = LSLengthUnitType.MM;
+
+            break;
+
+        case 4 :
+            unitType = LSLengthUnitType.PT;
+
+            break;
+
+        default :
+            throw new AssertionError("Invalid INDEX");
+        }
+
+        return new LSLength(unitType, val);
+    }
 }

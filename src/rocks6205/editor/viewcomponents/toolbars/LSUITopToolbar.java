@@ -2,7 +2,6 @@ package rocks6205.editor.viewcomponents.toolbars;
 
 //~--- non-JDK imports --------------------------------------------------------
 
-import java.awt.Dimension;
 import rocks6205.editor.actions.LSAbstractAction.DocumentPropertiesAction;
 import rocks6205.editor.actions.LSAbstractAction.NewDocumentAction;
 import rocks6205.editor.actions.LSAbstractAction.OpenFileAction;
@@ -10,6 +9,8 @@ import rocks6205.editor.actions.LSAbstractAction.SaveFileAction;
 import rocks6205.editor.actions.LSAbstractAction.ZoomInViewAction;
 import rocks6205.editor.actions.LSAbstractAction.ZoomOutViewAction;
 import rocks6205.editor.core.LSView;
+import rocks6205.editor.model.adt.LSLength;
+import rocks6205.editor.model.adt.LSLengthUnitType;
 import rocks6205.editor.model.elements.LSGenericElement;
 import rocks6205.editor.viewcomponents.LSUIButton;
 import rocks6205.editor.viewcomponents.LSUIColorButton;
@@ -21,10 +22,11 @@ import rocks6205.system.properties.LSEditorGUIConstants;
 
 //~--- JDK imports ------------------------------------------------------------
 
+import java.awt.Dimension;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import javax.swing.DefaultComboBoxModel;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JSpinner;
@@ -33,8 +35,6 @@ import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import rocks6205.editor.model.adt.LSLength;
-import rocks6205.editor.model.adt.LSLengthUnitType;
 
 /**
  *
@@ -67,6 +67,7 @@ public final class LSUITopToolbar extends JToolBar implements LSUIProtocol {
     private JSpinner        strokeWidthSpinner;
     private SpinnerModel    strokeWidthModel;
     private JComboBox       strokeWidthUnitComboBox;
+
     /*
      * ACTION COMPONENTS
      */
@@ -86,28 +87,30 @@ public final class LSUITopToolbar extends JToolBar implements LSUIProtocol {
 
     @Override
     public void initialise() {
-        newButton      = LSUIButton.create();
-        openButton     = LSUIButton.create();
-        saveButton     = LSUIButton.create();
-        zoomInButton   = LSUIButton.create();
-        zoomOutButton  = LSUIButton.create();
-        docPropButton  = LSUIButton.create();
-        fillLabel      = new LSUIIconLabel();
-        strokeLabel    = new LSUIIconLabel();
-        fillButton     = LSUIColorButton.create(LSGenericElement.SVG_FILL_DEFAULT);
-        strokeButton   = LSUIColorButton.create(LSGenericElement.SVG_STROKE_DEFAULT);
-        fillCheckBox   = new JCheckBox();
-        strokeCheckBox = new JCheckBox();
-        newAct         = new NewDocumentAction(parentView);
-        openAct        = new OpenFileAction(parentView);
-        saveAct        = new SaveFileAction(parentView);
-        zoomInAction   = new ZoomInViewAction(parentView);
-        zoomOutAction  = new ZoomOutViewAction(parentView);
-        docPropAct     = new DocumentPropertiesAction(parentView);
-        strokeWidthModel = new SpinnerNumberModel(Float.valueOf(1.0f), Float.valueOf(0.0f), Float.valueOf(200.0f), Float.valueOf(0.5f));
-        strokeWidthSpinner = new JSpinner(strokeWidthModel);
-        strokeWidthUnitComboBox = new JComboBox(new DefaultComboBoxModel(new String[] { "px", "in", "cm",
-                "mm", "in" ,"pt", "pc" }));
+        newButton        = LSUIButton.create();
+        openButton       = LSUIButton.create();
+        saveButton       = LSUIButton.create();
+        zoomInButton     = LSUIButton.create();
+        zoomOutButton    = LSUIButton.create();
+        docPropButton    = LSUIButton.create();
+        fillLabel        = new LSUIIconLabel();
+        strokeLabel      = new LSUIIconLabel();
+        fillButton       = LSUIColorButton.create(LSGenericElement.SVG_FILL_DEFAULT);
+        strokeButton     = LSUIColorButton.create(LSGenericElement.SVG_STROKE_DEFAULT);
+        fillCheckBox     = new JCheckBox();
+        strokeCheckBox   = new JCheckBox();
+        newAct           = new NewDocumentAction(parentView);
+        openAct          = new OpenFileAction(parentView);
+        saveAct          = new SaveFileAction(parentView);
+        zoomInAction     = new ZoomInViewAction(parentView);
+        zoomOutAction    = new ZoomOutViewAction(parentView);
+        docPropAct       = new DocumentPropertiesAction(parentView);
+        strokeWidthModel = new SpinnerNumberModel(Float.valueOf(1.0f), Float.valueOf(0.0f), Float.valueOf(200.0f),
+                Float.valueOf(0.5f));
+        strokeWidthSpinner      = new JSpinner(strokeWidthModel);
+        strokeWidthUnitComboBox = new JComboBox(new DefaultComboBoxModel(new String[] {
+            "px", "in", "cm", "mm", "in", "pt", "pc"
+        }));
     }
 
     @Override
@@ -149,8 +152,8 @@ public final class LSUITopToolbar extends JToolBar implements LSUIProtocol {
         fillCheckBox.setSelected(true);
         strokeCheckBox.setSelected(false);
         strokeButton.setEnabled(false);
-        strokeWidthSpinner.setMaximumSize(new Dimension(90,25));
-        strokeWidthUnitComboBox.setMaximumSize(new Dimension(90,25));
+        strokeWidthSpinner.setMaximumSize(new Dimension(90, 25));
+        strokeWidthUnitComboBox.setMaximumSize(new Dimension(90, 25));
         strokeWidthSpinner.setEnabled(false);
         strokeWidthUnitComboBox.setEnabled(false);
     }
@@ -170,7 +173,6 @@ public final class LSUITopToolbar extends JToolBar implements LSUIProtocol {
                 }
             }
         });
-        
         strokeCheckBox.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
@@ -179,7 +181,7 @@ public final class LSUITopToolbar extends JToolBar implements LSUIProtocol {
                 strokeButton.setEnabled(selected);
                 strokeWidthSpinner.setEnabled(selected);
                 strokeWidthUnitComboBox.setEnabled(selected);
-               
+
                 if (selected) {
                     strokeButton.setPainting(LSGenericElement.SVG_STROKE_DEFAULT);
                 } else {
@@ -238,17 +240,18 @@ public final class LSUITopToolbar extends JToolBar implements LSUIProtocol {
         fillButton.addPresentationChangeListener(changeList);
         strokeButton.addPresentationChangeListener(changeList);
         strokeWidthSpinner.addChangeListener(changeList);
-        
-        strokeWidthUnitComboBox.addItemListener(new ItemListener(){
-            
-           @Override
-           public void itemStateChanged(ItemEvent e) {
-                  LSUIEditingPanel editPanel = parentView.getEditPanel();
-                  String val = ((JSpinner.NumberEditor) strokeWidthSpinner.getEditor()).getTextField().getText();
-                  LSLengthUnitType type = LSLengthUnitType.getType((String) strokeWidthUnitComboBox.getSelectedItem());
-                  editPanel.setStrokeWidth(new LSLength(type,Float.parseFloat(val)));
-                  parentView.setEditPanel(editPanel);
-           }
+        strokeWidthUnitComboBox.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                LSUIEditingPanel editPanel = parentView.getEditPanel();
+                String           val       =
+                    ((JSpinner.NumberEditor) strokeWidthSpinner.getEditor()).getTextField().getText();
+                LSLengthUnitType type      =
+                    LSLengthUnitType.getType((String) strokeWidthUnitComboBox.getSelectedItem());
+
+                editPanel.setStrokeWidth(new LSLength(type, Float.parseFloat(val)));
+                parentView.setEditPanel(editPanel);
+            }
         });
     }
 
@@ -266,14 +269,14 @@ public final class LSUITopToolbar extends JToolBar implements LSUIProtocol {
                 editPanel.setFill(fillButton.getPainting());
             } else if (source == strokeButton) {
                 editPanel.setStroke(strokeButton.getPainting());
-          } else if (source == strokeWidthSpinner || source == strokeWidthUnitComboBox) {
-                  String val = ((JSpinner.NumberEditor) strokeWidthSpinner.getEditor()).getTextField().getText();
-                  LSLengthUnitType type = LSLengthUnitType.getType((String) strokeWidthUnitComboBox.getSelectedItem());
-                  
-                  editPanel.setStrokeWidth(new LSLength(type,Float.parseFloat(val)));
-          } else if (source == strokeWidthSpinner) {
-             
-          }
+            } else if ((source == strokeWidthSpinner) || (source == strokeWidthUnitComboBox)) {
+                String           val  =
+                    ((JSpinner.NumberEditor) strokeWidthSpinner.getEditor()).getTextField().getText();
+                LSLengthUnitType type = LSLengthUnitType.getType((String) strokeWidthUnitComboBox.getSelectedItem());
+
+                editPanel.setStrokeWidth(new LSLength(type, Float.parseFloat(val)));
+            }
+
             parentView.setEditPanel(editPanel);
         }
     }
