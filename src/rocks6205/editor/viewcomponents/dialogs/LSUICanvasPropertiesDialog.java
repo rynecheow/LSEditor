@@ -489,6 +489,8 @@ public final class LSUICanvasPropertiesDialog extends JDialog implements LSUIPro
       colorModeInfoLabel.setText(b.getString("dpd.colormode.desc"));
       confirmButton.setText(b.getString("dpd.confirmbutton.text"));
       cancelButton.setText(b.getString("dpd.cancelbutton.text"));
+      
+      repaint();
    }
    
    
