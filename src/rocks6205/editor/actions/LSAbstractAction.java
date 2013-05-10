@@ -15,6 +15,8 @@ import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
@@ -1002,6 +1004,215 @@ public abstract class LSAbstractAction extends AbstractAction {
 				v.changeZoom(zoom);
 				v.update();
 			}
+        }
+    }
+    
+    /*
+     * LANGUAGE TOGGLES
+     */
+    
+    /**
+     * The <code>EnglishLanguageToggleAction</code> is a class which create an <code>Action</code>
+     * instance. This action handles event by setting the environment to be in English language.
+     *
+     * @author Cheow Yeong Chi
+     *
+     * @since 2.6
+     *
+     */
+    public static class EnglishLanguageToggleAction extends LSAbstractAction {
+        /*
+         * CONSTRUCTOR
+         */
+
+        /**
+         * Construct a <code>EnglishLanguageToggleAction</code> instance with v component
+         * <code>v</code> and no action name. 
+         * @param v Parent component
+         */
+        public EnglishLanguageToggleAction(LSView parent) {
+            super("English", KeyEvent.VK_E, null, parent);
+        }
+
+        /**
+         * Construct a <code>EnglishLanguageToggleAction</code> instance with v component
+         * <code>v</code> and action name. <p>
+         * @param v Parent component
+         * @param actionName Name of action component
+         */
+        public EnglishLanguageToggleAction(LSView parent, String actionName) {
+            super(actionName, "English", KeyEvent.VK_E, null, parent);
+        }
+        
+        @Override
+        public void actionPerformed(ActionEvent event) {
+           putValue(SELECTED_KEY, Boolean.TRUE);
+           LSEditor.titleBundle = ResourceBundle.getBundle("rocks6205.system.properties.en_us", new Locale("en", "US"));
+           v.reloadBundle();
+        }
+    }
+    
+    /**
+     * The <code>ChineseLanguageToggleAction</code> is a class which create an <code>Action</code>
+     * instance. This action handles event by setting the environment to be in Chinese language.
+     *
+     * @author Cheow Yeong Chi
+     *
+     * @since 2.6
+     *
+     */
+    public static class ChineseLanguageToggleAction extends LSAbstractAction {
+        /*
+         * CONSTRUCTOR
+         */
+
+        /**
+         * Construct a <code>ChineseLanguageToggleAction</code> instance with v component
+         * <code>v</code> and no action name. 
+         * @param v Parent component
+         */
+        public ChineseLanguageToggleAction(LSView parent) {
+            super("Chinese", KeyEvent.VK_C, null, parent);
+        }
+
+        /**
+         * Construct a <code>ChineseLanguageToggleAction</code> instance with v component
+         * <code>v</code> and action name. <p>
+         * @param v Parent component
+         * @param actionName Name of action component
+         */
+        public ChineseLanguageToggleAction(LSView parent, String actionName) {
+            super(actionName, "Chinese", KeyEvent.VK_C, null, parent);
+        }
+        
+        @Override
+        public void actionPerformed(ActionEvent event) {
+           putValue(SELECTED_KEY, Boolean.TRUE);
+           LSEditor.titleBundle = ResourceBundle.getBundle("rocks6205.system.properties.zh_cn", new Locale("zh", "CN"));
+           v.reloadBundle();
+        }
+    }
+    
+    /**
+     * The <code>TamilLanguageToggleAction</code> is a class which create an <code>Action</code>
+     * instance. This action handles event by setting the environment to be in Tamil language.
+     *
+     * @author Cheow Yeong Chi
+     *
+     * @since 2.6
+     *
+     */
+    public static class TamilLanguageToggleAction extends LSAbstractAction {
+        /*
+         * CONSTRUCTOR
+         */
+
+        /**
+         * Construct a <code>TamilLanguageToggleAction</code> instance with v component
+         * <code>v</code> and no action name. 
+         * @param v Parent component
+         */
+        public TamilLanguageToggleAction(LSView parent) {
+            super("Tamil", KeyEvent.VK_T, null, parent);
+        }
+
+        /**
+         * Construct a <code>TamilLanguageToggleAction</code> instance with v component
+         * <code>v</code> and action name. <p>
+         * @param v Parent component
+         * @param actionName Name of action component
+         */
+        public TamilLanguageToggleAction(LSView parent, String actionName) {
+            super(actionName, "Tamil", KeyEvent.VK_T, null, parent);
+        }
+        
+        @Override
+        public void actionPerformed(ActionEvent event) {
+           putValue(SELECTED_KEY, Boolean.TRUE);
+           LSEditor.titleBundle = ResourceBundle.getBundle("rocks6205.system.properties.ta_in", new Locale("ta", "IN"));
+           v.reloadBundle();
+        }
+    }
+    
+    /**
+     * The <code>MalayLanguageToggleAction</code> is a class which create an <code>Action</code>
+     * instance. This action handles event by setting the environment to be in Malay language.
+     *
+     * @author Cheow Yeong Chi
+     *
+     * @since 2.6
+     *
+     */
+    public static class MalayLanguageToggleAction extends LSAbstractAction {
+        /*
+         * CONSTRUCTOR
+         */
+
+        /**
+         * Construct a <code>MalayLanguageToggleAction</code> instance with v component
+         * <code>v</code> and no action name. 
+         * @param v Parent component
+         */
+        public MalayLanguageToggleAction(LSView parent) {
+            super("Malay", KeyEvent.VK_M, null, parent);
+        }
+
+        /**
+         * Construct a <code>TamilLanguageToggleAction</code> instance with v component
+         * <code>v</code> and action name. <p>
+         * @param v Parent component
+         * @param actionName Name of action component
+         */
+        public MalayLanguageToggleAction(LSView parent, String actionName) {
+            super(actionName, "Malay", KeyEvent.VK_M, null, parent);
+        }
+        
+        @Override
+        public void actionPerformed(ActionEvent event) {
+           putValue(SELECTED_KEY, Boolean.TRUE);
+           LSEditor.titleBundle = ResourceBundle.getBundle("rocks6205.system.properties.ms_my", new Locale("ms", "MY"));
+           v.reloadBundle();
+        }
+    }
+    
+    /**
+     * The <code>JapaneseLanguageToggleAction</code> is a class which create an <code>Action</code>
+     * instance. This action handles event by setting the environment to be in Japanese language.
+     *
+     * @author Cheow Yeong Chi
+     *
+     * @since 2.6
+     *
+     */
+    public static class JapaneseLanguageToggleAction extends LSAbstractAction {
+        /*
+         * CONSTRUCTOR
+         */
+
+        /**
+         * Construct a <code>JapaneseLanguageToggleAction</code> instance with v component
+         * <code>v</code> and no action name. 
+         * @param v Parent component
+         */
+        public JapaneseLanguageToggleAction(LSView parent) {
+            super("Japanese", KeyEvent.VK_J, null, parent);
+        }
+
+        /**
+         * Construct a <code>JapaneseLanguageToggleAction</code> instance with v component
+         * <code>v</code> and action name. <p>
+         * @param v Parent component
+         * @param actionName Name of action component
+         */
+        public JapaneseLanguageToggleAction(LSView parent, String actionName) {
+            super(actionName, "Japanese", KeyEvent.VK_J, null, parent);
+        }
+        
+        @Override
+        public void actionPerformed(ActionEvent event) {
+           putValue(SELECTED_KEY, Boolean.TRUE);
+           LSEditor.titleBundle = ResourceBundle.getBundle("rocks6205.system.properties.ja_jp", new Locale("ja", "JP"));
+           v.reloadBundle();
         }
     }
 }

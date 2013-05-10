@@ -538,4 +538,8 @@ public final class LSView extends JFrame implements LSUIProtocol {
         docPropDlg.displayLimited();
         controller.resizeDocument(controller.getModel().getCanvasDTO().getWidth(), controller.getModel().getCanvasDTO().getHeight());
     }
+
+   public void reloadBundle() {
+      throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+   }
 }
