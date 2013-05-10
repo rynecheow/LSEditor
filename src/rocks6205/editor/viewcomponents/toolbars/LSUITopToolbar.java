@@ -152,6 +152,7 @@ public final class LSUITopToolbar extends JToolBar implements LSUIProtocol {
         strokeWidthSpinner.setMaximumSize(new Dimension(90,25));
         strokeWidthUnitComboBox.setMaximumSize(new Dimension(90,25));
         strokeWidthSpinner.setEnabled(false);
+        strokeWidthUnitComboBox.setEnabled(false);
     }
 
     private void setItemListenerForCheckBox() {
@@ -178,6 +179,7 @@ public final class LSUITopToolbar extends JToolBar implements LSUIProtocol {
                 strokeButton.setEnabled(selected);
                 strokeWidthSpinner.setEnabled(selected);
                 strokeWidthUnitComboBox.setEnabled(selected);
+               
                 if (selected) {
                     strokeButton.setPainting(LSGenericElement.SVG_STROKE_DEFAULT);
                 } else {
@@ -238,15 +240,15 @@ public final class LSUITopToolbar extends JToolBar implements LSUIProtocol {
         strokeWidthSpinner.addChangeListener(changeList);
         
         strokeWidthUnitComboBox.addItemListener(new ItemListener(){
-            LSUIEditingPanel editPanel = parentView.getEditPanel();
+            
            @Override
            public void itemStateChanged(ItemEvent e) {
+                  LSUIEditingPanel editPanel = parentView.getEditPanel();
                   String val = ((JSpinner.NumberEditor) strokeWidthSpinner.getEditor()).getTextField().getText();
                   LSLengthUnitType type = LSLengthUnitType.getType((String) strokeWidthUnitComboBox.getSelectedItem());
                   editPanel.setStrokeWidth(new LSLength(type,Float.parseFloat(val)));
                   parentView.setEditPanel(editPanel);
            }
-            
         });
     }
 
