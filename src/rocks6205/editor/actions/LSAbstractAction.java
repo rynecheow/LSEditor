@@ -994,7 +994,7 @@ public abstract class LSAbstractAction extends AbstractAction {
             if (zoom > LSCanvasProperties.DEFAULT_MIN_ZOOM_LEVEL) {
 				zoom /= 2;
 
-				if (zoom >= LSCanvasProperties.DEFAULT_MIN_ZOOM_LEVEL) {
+				if (zoom <= LSCanvasProperties.DEFAULT_MIN_ZOOM_LEVEL) {
 					setEnabled(false);
 				}
 				zoomInPartnerAction.setEnabled(true);
