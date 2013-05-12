@@ -79,30 +79,19 @@ public class LSViewController implements LSSelectionsController, LSFileControlle
     /**
      * SVG element order comparator
      */
-    public static final Comparator<LSGenericElement> SVG_ELEMENT_ORDER;
+    public static final Comparator<LSGenericElement> ELEMENT_IN_ORDER;
 
     /**
      * SVG element comparator reversed order
      */
-    public static final Comparator<LSGenericElement> SVG_ELEMENT_REVERSE_ORDER;
+    public static final Comparator<LSGenericElement> ELEMENT_REVERSED_ORDER;
 
     /*
      * STATIC INITIALISER
      */
     static {
-        SVG_ELEMENT_REVERSE_ORDER = new Comparator<LSGenericElement>() {
-            @Override
-            public int compare(LSGenericElement e1, LSGenericElement e2) {
-                if (e1 == e2) {
-                    return 0;
-                }
-
-                LSGenericContainer ancestor = e1.getAncestorElement();
-
-                return ancestor.indexOf(e2) - ancestor.indexOf(e1);
-            }
-        };
-        SVG_ELEMENT_ORDER = new Comparator<LSGenericElement>() {
+        
+        ELEMENT_IN_ORDER = new Comparator<LSGenericElement>() {
             @Override
             public int compare(LSGenericElement e1, LSGenericElement e2) {
                 if (e1 == e2) {
@@ -114,6 +103,20 @@ public class LSViewController implements LSSelectionsController, LSFileControlle
                 return ancestor.indexOf(e1) - ancestor.indexOf(e2);
             }
         };
+        
+        ELEMENT_REVERSED_ORDER = new Comparator<LSGenericElement>() {
+            @Override
+            public int compare(LSGenericElement e1, LSGenericElement e2) {
+                if (e1 == e2) {
+                    return 0;
+                }
+
+                LSGenericContainer ancestor = e1.getAncestorElement();
+
+                return ancestor.indexOf(e2) - ancestor.indexOf(e1);
+            }
+        };
+        
         SVGDefaultNamespace = "http://www.w3.org/2000/svg";
     }
 
@@ -1014,7 +1017,7 @@ public class LSViewController implements LSSelectionsController, LSFileControlle
             return;
         }
 
-        Collections.sort(selectionsList, SVG_ELEMENT_ORDER);
+        Collections.sort(selectionsList, ELEMENT_IN_ORDER);
 
         LSSVGContainer   svgEl   = model.getSVGElement();
         int              lastPos = svgEl.indexOf(selectionsList.get(selectionsList.size() - 1));

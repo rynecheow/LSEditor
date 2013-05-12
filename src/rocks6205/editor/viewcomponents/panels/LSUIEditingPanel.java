@@ -267,6 +267,7 @@ public final class LSUIEditingPanel extends JPanel {
         viewArea.setPreferredSize(new Dimension(canvas.getWidth(), canvas.getHeight()));
         viewArea.setCanvas(canvas);
         viewArea.repaint();
+        scribbleArea.repaint();
         setPreferredSize(viewArea.getPreferredSize());
         revalidate();
     }
