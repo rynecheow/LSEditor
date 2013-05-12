@@ -80,6 +80,3 @@ public class LSScribblePanel extends JPanel {
         }
     }
 }
-
-
-//~ Formatted by Jindent --- http://www.jindent.com

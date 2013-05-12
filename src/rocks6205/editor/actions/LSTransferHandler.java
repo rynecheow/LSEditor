@@ -16,6 +16,7 @@ import java.io.IOException;
 
 import java.util.List;
 
+import javax.swing.JOptionPane;
 import javax.swing.TransferHandler;
 
 import static javax.swing.TransferHandler.COPY;
@@ -75,6 +76,8 @@ public class LSTransferHandler extends TransferHandler {
 
             if (!isFileTypeValid) {
                 LSEditor.logger.warning("File extension must be \'.svg\' in order to be opened.\n");
+                JOptionPane.showMessageDialog(parentView, "File extension must be \'.svg\' in order to be opened.\n",
+                                              "File extension error", JOptionPane.WARNING_MESSAGE);
 
                 return false;
             }

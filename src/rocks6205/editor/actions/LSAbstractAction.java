@@ -2,9 +2,11 @@ package rocks6205.editor.actions;
 
 //~--- non-JDK imports --------------------------------------------------------
 
+import rocks6205.editor.core.LSEditor;
 import rocks6205.editor.core.LSView;
 import rocks6205.editor.core.LSViewController;
 import rocks6205.editor.viewcomponents.panels.LSUIEditingPanel;
+
 import rocks6205.system.properties.LSCanvasProperties;
 import rocks6205.system.properties.OSValidator;
 
@@ -13,8 +15,10 @@ import rocks6205.system.properties.OSValidator;
 import java.awt.event.ActionEvent;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
+
 import java.io.File;
 import java.io.IOException;
+
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -29,8 +33,6 @@ import static javax.swing.Action.ACCELERATOR_KEY;
 import static javax.swing.Action.MNEMONIC_KEY;
 import static javax.swing.Action.SELECTED_KEY;
 import static javax.swing.Action.SHORT_DESCRIPTION;
-import rocks6205.editor.core.LSEditor;
-
 
 /**
  * The <code>LSAbstractAction</code> is an abstract class which create <code>Action</code>
@@ -47,8 +49,9 @@ public abstract class LSAbstractAction extends AbstractAction {
     /**
      * Parent component (Usually an <code>LSView</code> object.)
      */
-    protected LSView v;
+    protected LSView           v;
     protected LSViewController vc;
+
     /*
      * CONSTRUCTOR
      */
@@ -67,7 +70,7 @@ public abstract class LSAbstractAction extends AbstractAction {
         putValue(SHORT_DESCRIPTION, tooltipText);
         putValue(MNEMONIC_KEY, mnemonic);
         putValue(ACCELERATOR_KEY, keyStroke);
-        this.v = parent;
+        this.v  = parent;
         this.vc = parent.getController();
     }
 
@@ -87,13 +90,13 @@ public abstract class LSAbstractAction extends AbstractAction {
         putValue(SHORT_DESCRIPTION, tooltipText);
         putValue(MNEMONIC_KEY, mnemonic);
         putValue(ACCELERATOR_KEY, keyStroke);
-        this.v = parent;
+        this.v  = parent;
         this.vc = parent.getController();
     }
 
     /**
      * Masks for Mac OS X to change <code>CTRL</code> masks to <code>COMMAND</code> masks
-     * @return 
+     * @return
      */
     private static int getKeyEventMask() {
         if (OSValidator.isMac()) {
@@ -102,8 +105,8 @@ public abstract class LSAbstractAction extends AbstractAction {
 
         return ActionEvent.CTRL_MASK;
     }
-
-     /**
+    
+            /**
      * The <code>DeleteAction</code> is a class which create an <code>Action</code>
      * instance. This action handles event by removing elements from the model.
      *
@@ -187,7 +190,7 @@ public abstract class LSAbstractAction extends AbstractAction {
         }
     }
 
-    
+
     /**
      * The <code>DocumentPropertiesAction</code> is a class which create an <code>Action</code>
      * instance. This action handles event by calling the document properties dialog.
@@ -209,7 +212,8 @@ public abstract class LSAbstractAction extends AbstractAction {
          * @param v Parent component
          */
         public DocumentPropertiesAction(LSView parent) {
-            super("Document Properties..", KeyEvent.VK_P, KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, InputEvent.ALT_DOWN_MASK), parent);
+            super("Document Properties..", KeyEvent.VK_P,
+                  KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, InputEvent.ALT_DOWN_MASK), parent);
         }
 
         /**
@@ -219,7 +223,8 @@ public abstract class LSAbstractAction extends AbstractAction {
          * @param actionName Name of action component
          */
         public DocumentPropertiesAction(LSView parent, String actionName) {
-            super(actionName, "Document Properties..", KeyEvent.VK_P, KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, InputEvent.ALT_DOWN_MASK), parent);
+            super(actionName, "Document Properties..", KeyEvent.VK_P,
+                  KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, InputEvent.ALT_DOWN_MASK), parent);
         }
 
         @Override
@@ -227,7 +232,7 @@ public abstract class LSAbstractAction extends AbstractAction {
             v.showDocumentPropertiesDialog();
         }
     }
-    
+
     /**
      * The <code>DrawCircleAction</code> is a class which create an <code>Action</code>
      * instance. This action handles event by setting the color used for painting shapes
@@ -268,7 +273,6 @@ public abstract class LSAbstractAction extends AbstractAction {
         public void actionPerformed(ActionEvent event) {
             putValue(SELECTED_KEY, Boolean.TRUE);
             v.changeMode(LSUIEditingPanel.EditModeScheme.DRAW_CIRCLE);
-            
             vc.clearSelection();
         }
     }
@@ -312,7 +316,7 @@ public abstract class LSAbstractAction extends AbstractAction {
 
         @Override
         public void actionPerformed(ActionEvent event) {
-           putValue(SELECTED_KEY, Boolean.TRUE);
+            putValue(SELECTED_KEY, Boolean.TRUE);
             v.changeMode(LSUIEditingPanel.EditModeScheme.DRAW_LINE);
             vc.clearSelection();
         }
@@ -357,7 +361,7 @@ public abstract class LSAbstractAction extends AbstractAction {
 
         @Override
         public void actionPerformed(ActionEvent event) {
-           putValue(SELECTED_KEY, Boolean.TRUE);
+            putValue(SELECTED_KEY, Boolean.TRUE);
             v.changeMode(LSUIEditingPanel.EditModeScheme.DRAW_RECTANGLE);
             vc.clearSelection();
         }
@@ -414,7 +418,8 @@ public abstract class LSAbstractAction extends AbstractAction {
             }
         }
     }
-    
+
+
     /**
      * The <code>GroupAction</code> is a class which create an <code>Action</code>
      * instance. This action handles event by grouping elements in selection.
@@ -454,7 +459,6 @@ public abstract class LSAbstractAction extends AbstractAction {
         }
     }
 
-
     /**
      * The <code>NewDocumentAction</code> is a class which create an <code>Action</code>
      * instance. This action handles event by creating a new document according to user
@@ -491,12 +495,13 @@ public abstract class LSAbstractAction extends AbstractAction {
         @Override
         public void actionPerformed(ActionEvent e) {
             if (v.promptSaveIfNeeded()) {
-				v.setDisplayedFile(null);
-				vc.createBlankDocument();
-			}
+                v.setDisplayedFile(null);
+                vc.createBlankDocument();
+            }
         }
     }
-    
+
+
     /**
      * The <code>OpenFileAction</code> is a class which create an <code>Action</code>
      * instance. This action handles event by prompting user to select an SVG document
@@ -549,22 +554,24 @@ public abstract class LSAbstractAction extends AbstractAction {
 
             fileChoooser.setFileFilter(extFilter);
 
-            
-          if (fileChoooser.showOpenDialog(super.v) == JFileChooser.APPROVE_OPTION) {
+            if (fileChoooser.showOpenDialog(super.v) == JFileChooser.APPROVE_OPTION) {
                 openFile(fileChoooser.getSelectedFile());
-          }
+            }
         }
-        
+
         private boolean openFile(File file) {
-		boolean opened = false;
-		try {
-			opened = vc.fileLoad(file);
-		} catch (IOException e) {
-			LSEditor.logger.warning(e.getMessage());
-		}
-		return opened;
-	}
+            boolean opened = false;
+
+            try {
+                opened = vc.fileLoad(file);
+            } catch (IOException e) {
+                LSEditor.logger.warning(e.getMessage());
+            }
+
+            return opened;
+        }
     }
+
 
     /**
      * The <code>PanModeAction</code> is a class which create an <code>Action</code>
@@ -605,7 +612,8 @@ public abstract class LSAbstractAction extends AbstractAction {
             v.changeMode(LSUIEditingPanel.EditModeScheme.MODE_PAN);
         }
     }
-    
+
+
     /**
      * The <code>SaveFileAction</code> is a class which create an <code>Action</code>
      * instance. This action handles event by saving the current file as it is on the
@@ -693,48 +701,6 @@ public abstract class LSAbstractAction extends AbstractAction {
 
 
     /**
-     * The <code>SelectModeAction</code> is a class which create an <code>Action</code>
-     * instance. This action handles event changing the current mode to selection mode.
-     *
-     * @author Cheow Yeong Chi
-     *
-     * @since 2.2
-     *
-     */
-    public static class SelectModeAction extends LSAbstractAction {
-
-        /*
-         * CONSTRUCTOR
-         */
-
-        /**
-         * Construct a <code>SelectModeAction</code> instance with v component
-         * <code>v</code> and no action name.
-         * @param v Parent component
-         */
-        public SelectModeAction(LSView parent) {
-            super("Selection Tool", KeyEvent.VK_S, null, parent);
-        }
-
-        /**
-         * Construct a <code>SelectModeAction</code> instance with v component
-         * <code>v</code> and action name.
-         * @param v Parent component
-         * @param actionName Name of action component
-         */
-        public SelectModeAction(LSView parent, String actionName) {
-            super(actionName, "Selection Tool", KeyEvent.VK_S, null, parent);
-        }
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            v.changeMode(LSUIEditingPanel.EditModeScheme.MODE_SELECT);
-        }
-    }
-
-    
-    
-    /**
      * The <code>SelectAllAction</code> is a class which create an <code>Action</code>
      * instance. This action handles event by adding every element on view into selection
      * set.
@@ -775,7 +741,48 @@ public abstract class LSAbstractAction extends AbstractAction {
             vc.selectAll();
         }
     }
-    
+
+
+    /**
+     * The <code>SelectModeAction</code> is a class which create an <code>Action</code>
+     * instance. This action handles event changing the current mode to selection mode.
+     *
+     * @author Cheow Yeong Chi
+     *
+     * @since 2.2
+     *
+     */
+    public static class SelectModeAction extends LSAbstractAction {
+
+        /*
+         * CONSTRUCTOR
+         */
+
+        /**
+         * Construct a <code>SelectModeAction</code> instance with v component
+         * <code>v</code> and no action name.
+         * @param v Parent component
+         */
+        public SelectModeAction(LSView parent) {
+            super("Selection Tool", KeyEvent.VK_S, null, parent);
+        }
+
+        /**
+         * Construct a <code>SelectModeAction</code> instance with v component
+         * <code>v</code> and action name.
+         * @param v Parent component
+         * @param actionName Name of action component
+         */
+        public SelectModeAction(LSView parent, String actionName) {
+            super(actionName, "Selection Tool", KeyEvent.VK_S, null, parent);
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            v.changeMode(LSUIEditingPanel.EditModeScheme.MODE_SELECT);
+        }
+    }
+
     /**
      * The <code>ToggleCodeViewAction</code> is a class which create an <code>Action</code>
      * instance. This action handles event by adding every element on view into selection
@@ -798,7 +805,8 @@ public abstract class LSAbstractAction extends AbstractAction {
          * @param v Parent component
          */
         public ToggleCodeViewAction(LSView parent) {
-            super("Hide Code View Area..", KeyEvent.VK_D, KeyStroke.getKeyStroke(KeyEvent.VK_D, getKeyEventMask()), parent);
+            super("Hide Code View Area..", KeyEvent.VK_D, KeyStroke.getKeyStroke(KeyEvent.VK_D, getKeyEventMask()),
+                  parent);
         }
 
         /**
@@ -814,10 +822,11 @@ public abstract class LSAbstractAction extends AbstractAction {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-           v.toggleCodeView();
+            v.toggleCodeView();
         }
     }
-    
+
+
     /**
      * The <code>UngroupAction</code> is a class which create an <code>Action</code>
      * instance. This action handles event by grouping elements in selection.
@@ -922,17 +931,18 @@ public abstract class LSAbstractAction extends AbstractAction {
         @Override
         public void actionPerformed(ActionEvent event) {
             float zoom = v.getZoomScale();
-            if ( zoom < LSCanvasProperties.DEFAULT_MAX_ZOOM_LEVEL) {
-				zoom *= 2;
 
-				if (zoom >= LSCanvasProperties.DEFAULT_MAX_ZOOM_LEVEL) {
-					setEnabled(false);
-				}
-				zoomOutPartnerAction.setEnabled(true);
-                                
-				v.changeZoom(zoom);
-				v.update();
-			}
+            if (zoom < LSCanvasProperties.DEFAULT_MAX_ZOOM_LEVEL) {
+                zoom *= 2;
+
+                if (zoom >= LSCanvasProperties.DEFAULT_MAX_ZOOM_LEVEL) {
+                    setEnabled(false);
+                }
+
+                zoomOutPartnerAction.setEnabled(true);
+                v.changeZoom(zoom);
+                v.update();
+            }
         }
     }
 
@@ -948,11 +958,12 @@ public abstract class LSAbstractAction extends AbstractAction {
      *
      */
     public static class ZoomOutViewAction extends LSAbstractAction {
+
         /**
          * Partner action component that perform zoom out action.
          */
         private ZoomInViewAction zoomInPartnerAction;
-        
+
         /*
          * CONSTRUCTOR
          */
@@ -984,7 +995,7 @@ public abstract class LSAbstractAction extends AbstractAction {
         public void setZoomInPartnerAction(ZoomInViewAction zoomInPartnerAction) {
             this.zoomInPartnerAction = zoomInPartnerAction;
         }
-        
+
         /**
          * <p>Decrease the <code>zoomScale</code> by 100% and sets the partner
          * to be enabled.</p>
@@ -993,64 +1004,24 @@ public abstract class LSAbstractAction extends AbstractAction {
         @Override
         public void actionPerformed(ActionEvent event) {
             float zoom = v.getZoomScale();
+
             if (zoom > LSCanvasProperties.DEFAULT_MIN_ZOOM_LEVEL) {
-				zoom /= 2;
+                zoom /= 2;
 
-				if (zoom <= LSCanvasProperties.DEFAULT_MIN_ZOOM_LEVEL) {
-					setEnabled(false);
-				}
-				zoomInPartnerAction.setEnabled(true);
+                if (zoom <= LSCanvasProperties.DEFAULT_MIN_ZOOM_LEVEL) {
+                    setEnabled(false);
+                }
 
-				v.changeZoom(zoom);
-				v.update();
-			}
+                zoomInPartnerAction.setEnabled(true);
+                v.changeZoom(zoom);
+                v.update();
+            }
         }
     }
-    
+
     /*
      * LANGUAGE TOGGLES
      */
-    
-    /**
-     * The <code>EnglishLanguageToggleAction</code> is a class which create an <code>Action</code>
-     * instance. This action handles event by setting the environment to be in English language.
-     *
-     * @author Cheow Yeong Chi
-     *
-     * @since 2.6
-     *
-     */
-    public static class EnglishLanguageToggleAction extends LSAbstractAction {
-        /*
-         * CONSTRUCTOR
-         */
-
-        /**
-         * Construct a <code>EnglishLanguageToggleAction</code> instance with v component
-         * <code>v</code> and no action name. 
-         * @param v Parent component
-         */
-        public EnglishLanguageToggleAction(LSView parent) {
-            super("English", KeyEvent.VK_E, null, parent);
-        }
-
-        /**
-         * Construct a <code>EnglishLanguageToggleAction</code> instance with v component
-         * <code>v</code> and action name. <p>
-         * @param v Parent component
-         * @param actionName Name of action component
-         */
-        public EnglishLanguageToggleAction(LSView parent, String actionName) {
-            super(actionName, "English", KeyEvent.VK_E, null, parent);
-        }
-        
-        @Override
-        public void actionPerformed(ActionEvent event) {
-           putValue(SELECTED_KEY, Boolean.TRUE);
-           LSEditor.titleBundle = ResourceBundle.getBundle("rocks6205.system.properties.LSEditor", new Locale("en", "US"));
-           v.reloadBundle();
-        }
-    }
     
     /**
      * The <code>ChineseLanguageToggleAction</code> is a class which create an <code>Action</code>
@@ -1062,13 +1033,14 @@ public abstract class LSAbstractAction extends AbstractAction {
      *
      */
     public static class ChineseLanguageToggleAction extends LSAbstractAction {
+
         /*
          * CONSTRUCTOR
          */
 
         /**
          * Construct a <code>ChineseLanguageToggleAction</code> instance with v component
-         * <code>v</code> and no action name. 
+         * <code>v</code> and no action name.
          * @param v Parent component
          */
         public ChineseLanguageToggleAction(LSView parent) {
@@ -1084,97 +1056,60 @@ public abstract class LSAbstractAction extends AbstractAction {
         public ChineseLanguageToggleAction(LSView parent, String actionName) {
             super(actionName, "Chinese", KeyEvent.VK_C, null, parent);
         }
-        
+
         @Override
         public void actionPerformed(ActionEvent event) {
-           putValue(SELECTED_KEY, Boolean.TRUE);
-           LSEditor.titleBundle = ResourceBundle.getBundle("rocks6205.system.properties.LSEditor", new Locale("zh", "CN"));
-           v.reloadBundle();
+            putValue(SELECTED_KEY, Boolean.TRUE);
+            LSEditor.titleBundle = ResourceBundle.getBundle("rocks6205.system.properties.LSEditor",
+                    new Locale("zh", "CN"));
+            v.reloadBundle();
         }
     }
     
     /**
-     * The <code>TamilLanguageToggleAction</code> is a class which create an <code>Action</code>
-     * instance. This action handles event by setting the environment to be in Tamil language.
+     * The <code>EnglishLanguageToggleAction</code> is a class which create an <code>Action</code>
+     * instance. This action handles event by setting the environment to be in English language.
      *
      * @author Cheow Yeong Chi
      *
      * @since 2.6
      *
      */
-    public static class TamilLanguageToggleAction extends LSAbstractAction {
+    public static class EnglishLanguageToggleAction extends LSAbstractAction {
+
         /*
          * CONSTRUCTOR
          */
 
         /**
-         * Construct a <code>TamilLanguageToggleAction</code> instance with v component
-         * <code>v</code> and no action name. 
+         * Construct a <code>EnglishLanguageToggleAction</code> instance with v component
+         * <code>v</code> and no action name.
          * @param v Parent component
          */
-        public TamilLanguageToggleAction(LSView parent) {
-            super("Tamil", KeyEvent.VK_T, null, parent);
+        public EnglishLanguageToggleAction(LSView parent) {
+            super("English", KeyEvent.VK_E, null, parent);
         }
 
         /**
-         * Construct a <code>TamilLanguageToggleAction</code> instance with v component
+         * Construct a <code>EnglishLanguageToggleAction</code> instance with v component
          * <code>v</code> and action name. <p>
          * @param v Parent component
          * @param actionName Name of action component
          */
-        public TamilLanguageToggleAction(LSView parent, String actionName) {
-            super(actionName, "Tamil", KeyEvent.VK_T, null, parent);
-        }
-        
-        @Override
-        public void actionPerformed(ActionEvent event) {
-           putValue(SELECTED_KEY, Boolean.TRUE);
-           LSEditor.titleBundle = ResourceBundle.getBundle("rocks6205.system.properties.LSEditor", new Locale("ta", "IN"));
-           v.reloadBundle();
-        }
-    }
-    
-    /**
-     * The <code>MalayLanguageToggleAction</code> is a class which create an <code>Action</code>
-     * instance. This action handles event by setting the environment to be in Malay language.
-     *
-     * @author Cheow Yeong Chi
-     *
-     * @since 2.6
-     *
-     */
-    public static class MalayLanguageToggleAction extends LSAbstractAction {
-        /*
-         * CONSTRUCTOR
-         */
-
-        /**
-         * Construct a <code>MalayLanguageToggleAction</code> instance with v component
-         * <code>v</code> and no action name. 
-         * @param v Parent component
-         */
-        public MalayLanguageToggleAction(LSView parent) {
-            super("Malay", KeyEvent.VK_M, null, parent);
+        public EnglishLanguageToggleAction(LSView parent, String actionName) {
+            super(actionName, "English", KeyEvent.VK_E, null, parent);
         }
 
-        /**
-         * Construct a <code>TamilLanguageToggleAction</code> instance with v component
-         * <code>v</code> and action name. <p>
-         * @param v Parent component
-         * @param actionName Name of action component
-         */
-        public MalayLanguageToggleAction(LSView parent, String actionName) {
-            super(actionName, "Malay", KeyEvent.VK_M, null, parent);
-        }
-        
         @Override
         public void actionPerformed(ActionEvent event) {
-           putValue(SELECTED_KEY, Boolean.TRUE);
-           LSEditor.titleBundle = ResourceBundle.getBundle("rocks6205.system.properties.LSEditor", new Locale("ms", "MY"));
-           v.reloadBundle();
+            putValue(SELECTED_KEY, Boolean.TRUE);
+            LSEditor.titleBundle = ResourceBundle.getBundle("rocks6205.system.properties.LSEditor",
+                    new Locale("en", "US"));
+            v.reloadBundle();
         }
     }
-    
+
+
     /**
      * The <code>JapaneseLanguageToggleAction</code> is a class which create an <code>Action</code>
      * instance. This action handles event by setting the environment to be in Japanese language.
@@ -1185,13 +1120,14 @@ public abstract class LSAbstractAction extends AbstractAction {
      *
      */
     public static class JapaneseLanguageToggleAction extends LSAbstractAction {
+
         /*
          * CONSTRUCTOR
          */
 
         /**
          * Construct a <code>JapaneseLanguageToggleAction</code> instance with v component
-         * <code>v</code> and no action name. 
+         * <code>v</code> and no action name.
          * @param v Parent component
          */
         public JapaneseLanguageToggleAction(LSView parent) {
@@ -1207,12 +1143,101 @@ public abstract class LSAbstractAction extends AbstractAction {
         public JapaneseLanguageToggleAction(LSView parent, String actionName) {
             super(actionName, "Japanese", KeyEvent.VK_J, null, parent);
         }
-        
+
         @Override
         public void actionPerformed(ActionEvent event) {
-           putValue(SELECTED_KEY, Boolean.TRUE);
-           LSEditor.titleBundle = ResourceBundle.getBundle("rocks6205.system.properties.LSEditor", new Locale("ja", "JP"));
-           v.reloadBundle();
+            putValue(SELECTED_KEY, Boolean.TRUE);
+            LSEditor.titleBundle = ResourceBundle.getBundle("rocks6205.system.properties.LSEditor",
+                    new Locale("ja", "JP"));
+            v.reloadBundle();
+        }
+    }
+
+
+    /**
+     * The <code>MalayLanguageToggleAction</code> is a class which create an <code>Action</code>
+     * instance. This action handles event by setting the environment to be in Malay language.
+     *
+     * @author Cheow Yeong Chi
+     *
+     * @since 2.6
+     *
+     */
+    public static class MalayLanguageToggleAction extends LSAbstractAction {
+
+        /*
+         * CONSTRUCTOR
+         */
+
+        /**
+         * Construct a <code>MalayLanguageToggleAction</code> instance with v component
+         * <code>v</code> and no action name.
+         * @param v Parent component
+         */
+        public MalayLanguageToggleAction(LSView parent) {
+            super("Malay", KeyEvent.VK_M, null, parent);
+        }
+
+        /**
+         * Construct a <code>TamilLanguageToggleAction</code> instance with v component
+         * <code>v</code> and action name. <p>
+         * @param v Parent component
+         * @param actionName Name of action component
+         */
+        public MalayLanguageToggleAction(LSView parent, String actionName) {
+            super(actionName, "Malay", KeyEvent.VK_M, null, parent);
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent event) {
+            putValue(SELECTED_KEY, Boolean.TRUE);
+            LSEditor.titleBundle = ResourceBundle.getBundle("rocks6205.system.properties.LSEditor",
+                    new Locale("ms", "MY"));
+            v.reloadBundle();
+        }
+    }
+
+
+    /**
+     * The <code>TamilLanguageToggleAction</code> is a class which create an <code>Action</code>
+     * instance. This action handles event by setting the environment to be in Tamil language.
+     *
+     * @author Cheow Yeong Chi
+     *
+     * @since 2.6
+     *
+     */
+    public static class TamilLanguageToggleAction extends LSAbstractAction {
+
+        /*
+         * CONSTRUCTOR
+         */
+
+        /**
+         * Construct a <code>TamilLanguageToggleAction</code> instance with v component
+         * <code>v</code> and no action name.
+         * @param v Parent component
+         */
+        public TamilLanguageToggleAction(LSView parent) {
+            super("Tamil", KeyEvent.VK_T, null, parent);
+        }
+
+        /**
+         * Construct a <code>TamilLanguageToggleAction</code> instance with v component
+         * <code>v</code> and action name. <p>
+         * @param v Parent component
+         * @param actionName Name of action component
+         */
+        public TamilLanguageToggleAction(LSView parent, String actionName) {
+            super(actionName, "Tamil", KeyEvent.VK_T, null, parent);
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent event) {
+            putValue(SELECTED_KEY, Boolean.TRUE);
+            LSEditor.titleBundle = ResourceBundle.getBundle("rocks6205.system.properties.LSEditor",
+                    new Locale("ta", "IN"));
+            v.reloadBundle();
         }
     }
 }
