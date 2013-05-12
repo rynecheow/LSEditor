@@ -1047,7 +1047,7 @@ public abstract class LSAbstractAction extends AbstractAction {
         @Override
         public void actionPerformed(ActionEvent event) {
            putValue(SELECTED_KEY, Boolean.TRUE);
-           LSEditor.titleBundle = ResourceBundle.getBundle("rocks6205.system.properties.en_us", new Locale("en", "US"));
+           LSEditor.titleBundle = ResourceBundle.getBundle("rocks6205.system.properties.LSEditor", new Locale("en", "US"));
            v.reloadBundle();
         }
     }
@@ -1088,7 +1088,7 @@ public abstract class LSAbstractAction extends AbstractAction {
         @Override
         public void actionPerformed(ActionEvent event) {
            putValue(SELECTED_KEY, Boolean.TRUE);
-           LSEditor.titleBundle = ResourceBundle.getBundle("rocks6205.system.properties.zh_cn", new Locale("zh", "CN"));
+           LSEditor.titleBundle = ResourceBundle.getBundle("rocks6205.system.properties.LSEditor", new Locale("zh", "CN"));
            v.reloadBundle();
         }
     }
@@ -1129,7 +1129,7 @@ public abstract class LSAbstractAction extends AbstractAction {
         @Override
         public void actionPerformed(ActionEvent event) {
            putValue(SELECTED_KEY, Boolean.TRUE);
-           LSEditor.titleBundle = ResourceBundle.getBundle("rocks6205.system.properties.ta_in", new Locale("ta", "IN"));
+           LSEditor.titleBundle = ResourceBundle.getBundle("rocks6205.system.properties.LSEditor", new Locale("ta", "IN"));
            v.reloadBundle();
         }
     }
@@ -1170,7 +1170,7 @@ public abstract class LSAbstractAction extends AbstractAction {
         @Override
         public void actionPerformed(ActionEvent event) {
            putValue(SELECTED_KEY, Boolean.TRUE);
-           LSEditor.titleBundle = ResourceBundle.getBundle("rocks6205.system.properties.ms_my", new Locale("ms", "MY"));
+           LSEditor.titleBundle = ResourceBundle.getBundle("rocks6205.system.properties.LSEditor", new Locale("ms", "MY"));
            v.reloadBundle();
         }
     }
@@ -1211,7 +1211,7 @@ public abstract class LSAbstractAction extends AbstractAction {
         @Override
         public void actionPerformed(ActionEvent event) {
            putValue(SELECTED_KEY, Boolean.TRUE);
-           LSEditor.titleBundle = ResourceBundle.getBundle("rocks6205.system.properties.ja_jp", new Locale("ja", "JP"));
+           LSEditor.titleBundle = ResourceBundle.getBundle("rocks6205.system.properties.LSEditor", new Locale("ja", "JP"));
            v.reloadBundle();
         }
     }

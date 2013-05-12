@@ -28,7 +28,7 @@ import javax.swing.UnsupportedLookAndFeelException;
  */
 public class LSEditor {
     public static final Logger logger = Logger.getLogger(Thread.currentThread().getStackTrace()[0].getClassName());
-    public static ResourceBundle titleBundle = ResourceBundle.getBundle("rocks6205.system.properties.en_us", Locale.getDefault());;
+    public static ResourceBundle titleBundle = ResourceBundle.getBundle("rocks6205.system.properties.LSEditor", Locale.getDefault());;
     
     public static void main(String[] rcks) {
         logger.info(String.format("The current active OS is " + OSValidator.getOS() + ".\n"));

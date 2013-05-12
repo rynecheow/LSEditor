@@ -23,10 +23,16 @@ import rocks6205.editor.viewcomponents.LSUIProtocol;
 
 import java.awt.event.KeyEvent;
 import java.util.ResourceBundle;
+import javax.swing.ButtonGroup;
 
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import rocks6205.editor.actions.LSAbstractAction.ChineseLanguageToggleAction;
+import rocks6205.editor.actions.LSAbstractAction.EnglishLanguageToggleAction;
+import rocks6205.editor.actions.LSAbstractAction.JapaneseLanguageToggleAction;
+import rocks6205.editor.actions.LSAbstractAction.MalayLanguageToggleAction;
+import rocks6205.editor.actions.LSAbstractAction.TamilLanguageToggleAction;
 
 /**
  * The main menu bar for the GUI.
@@ -52,6 +58,8 @@ public final class LSUIMenubar extends JMenuBar implements LSUIProtocol {
     private JMenu     insertMenu;
     private JMenu     windowMenu;
     private JMenu     helpMenu;
+    private JMenu     languageMenu;
+    private ButtonGroup languageGrp;
     private JMenuItem newMenuItem;
     private JMenuItem openMenuItem;
     private JMenuItem saveMenuItem;
@@ -71,7 +79,12 @@ public final class LSUIMenubar extends JMenuBar implements LSUIProtocol {
     private JMenuItem toggleCodeAreaViewMenuItem;
     private JMenuItem faqMenuItem;
     private JMenuItem aboutMenuItem;
-
+    private JMenuItem malayLanguageMenuItem;
+    private JMenuItem englishLanguageMenuItem;
+    private JMenuItem japaneseLanguageMenuItem;
+    private JMenuItem chineseLanguageMenuItem;
+    private JMenuItem tamilLanguageMenuItem;
+    
     /*
      * ACTION COMPONENTS
      */
@@ -88,7 +101,12 @@ public final class LSUIMenubar extends JMenuBar implements LSUIProtocol {
     private ZoomInViewAction     zoomInAction;
     private ZoomOutViewAction    zoomOutAction;
     private ToggleCodeViewAction toggleCodeAct;
-
+    private MalayLanguageToggleAction malayLanguageToggleAction;
+    private EnglishLanguageToggleAction englishLanguageToggleAction;
+    private JapaneseLanguageToggleAction japaneseLanguageToggleAction;
+    private ChineseLanguageToggleAction chineseLanguageToggleAction;
+    private TamilLanguageToggleAction tamilLanguageToggleAction;
+    
     /*
      * CONSTRUCTOR
      */
@@ -116,6 +134,7 @@ public final class LSUIMenubar extends JMenuBar implements LSUIProtocol {
         insertMenu                 = new JMenu("Insert");
         windowMenu                 = new JMenu("Window");
         helpMenu                   = new JMenu("Help");
+        languageMenu               = new JMenu("Language");
         newMenuItem                = new JMenuItem();
         openMenuItem               = new JMenuItem();
         saveMenuItem               = new JMenuItem();
@@ -135,6 +154,16 @@ public final class LSUIMenubar extends JMenuBar implements LSUIProtocol {
         toggleCodeAreaViewMenuItem = new JMenuItem();
         faqMenuItem                = new JMenuItem("FAQ");
         aboutMenuItem              = new JMenuItem("About");
+        malayLanguageMenuItem      = new JMenuItem("Malay");
+        englishLanguageMenuItem    = new JMenuItem("English");
+        japaneseLanguageMenuItem   = new JMenuItem("Japanese");
+        chineseLanguageMenuItem    = new JMenuItem("Chinese");
+        tamilLanguageMenuItem      = new JMenuItem("Tamil");
+        languageGrp                = new ButtonGroup();
+        /**
+         * Initialising actions
+         */        
+        
         newAct                     = new NewDocumentAction(parent, "New");
         openAct                    = new OpenFileAction(parent, "Open File...");
         saveAct                    = new SaveFileAction(parent, "Save");
@@ -148,6 +177,11 @@ public final class LSUIMenubar extends JMenuBar implements LSUIProtocol {
         zoomOutAction              = new ZoomOutViewAction(parent, "Zoom In");
         zoomInAction               = new ZoomInViewAction(parent, "Zoom Out");
         toggleCodeAct              = new ToggleCodeViewAction(parent, "Close Code View Area..");
+        malayLanguageToggleAction  = new MalayLanguageToggleAction(parent, "Malay");
+        englishLanguageToggleAction= new EnglishLanguageToggleAction(parent, "English");
+        japaneseLanguageToggleAction= new JapaneseLanguageToggleAction(parent, "Japanese");
+        chineseLanguageToggleAction = new ChineseLanguageToggleAction(parent, "Chinese");
+        tamilLanguageToggleAction  = new TamilLanguageToggleAction(parent, "Tamil");
     }
 
     /**
@@ -162,14 +196,14 @@ public final class LSUIMenubar extends JMenuBar implements LSUIProtocol {
 //      layoutInsertMenuItemList();
         layoutWindowMenuItemList();
 
-//      layoutHelpMenuItemList();
+        layoutHelpMenuItemList();  
         add(fileMenu);
         add(editMenu);
 
 //      add(insertMenu);
         add(windowMenu);
 
-//      add(helpMenu);
+        add(helpMenu);
         bindHandlers();
     }
 
@@ -225,8 +259,21 @@ public final class LSUIMenubar extends JMenuBar implements LSUIProtocol {
      * Layout file menu with menu items
      */
     private void layoutHelpMenuItemList() {
-        helpMenu.add(faqMenuItem);
-        helpMenu.add(aboutMenuItem);
+//        helpMenu.add(faqMenuItem);
+//        helpMenu.add(aboutMenuItem);
+       englishLanguageMenuItem.setSelected(true);
+       
+       languageMenu.add(englishLanguageMenuItem);
+       languageMenu.add(malayLanguageMenuItem);
+       languageMenu.add(japaneseLanguageMenuItem);
+       languageMenu.add(chineseLanguageMenuItem);
+       languageMenu.add(tamilLanguageMenuItem);
+       helpMenu.add(languageMenu);
+       languageGrp.add(englishLanguageMenuItem);
+       languageGrp.add(malayLanguageMenuItem);
+       languageGrp.add(japaneseLanguageMenuItem);
+       languageGrp.add(chineseLanguageMenuItem);
+       languageGrp.add(tamilLanguageMenuItem);
     }
 
     /**
@@ -250,20 +297,30 @@ public final class LSUIMenubar extends JMenuBar implements LSUIProtocol {
      * Configure action for buttons
      */
     private void setActionForMenuItem() {
+       //Group 1
         newMenuItem.setAction(newAct);
         openMenuItem.setAction(openAct);
         saveMenuItem.setAction(saveAct);
         saveAsMenuItem.setAction(saveAsAct);
         exitMenuItem.setAction(exitAct);
+        //Group 2
         selectAllMenuItem.setAction(selectAllAct);
         deselectAllMenuItem.setAction(deselectAllAct);
         groupMenuItem.setAction(groupAction);
         ungroupMenuItem.setAction(ungroupAction);
         deleteMenuItem.setAction(deleteAction);
+        //Group 3
         zoomInMenuItem.setAction(zoomInAction);
         zoomOutMenuItem.setAction(zoomOutAction);
         zoomInAction.setZoomOutPartnerAction(zoomOutAction);
         toggleCodeAreaViewMenuItem.setAction(toggleCodeAct);
+        // Group 4
+        englishLanguageMenuItem.setAction(englishLanguageToggleAction);
+        malayLanguageMenuItem.setAction(malayLanguageToggleAction);
+        japaneseLanguageMenuItem.setAction(japaneseLanguageToggleAction);
+        chineseLanguageMenuItem.setAction(chineseLanguageToggleAction);
+        tamilLanguageMenuItem.setAction(tamilLanguageToggleAction);
+        
     }
 
     /**
