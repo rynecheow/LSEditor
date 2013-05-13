@@ -499,7 +499,7 @@ public class LSViewController implements LSSelectionsController, LSFileControlle
         model.setTitle(NEW_DOCUMENT.getName());
         model.updateCanvasDTO();
         activeFile = NEW_DOCUMENT;
-        LSEditor.logger.info(String.format("\"New document created with height %fpx and width %fpx. \\n\"", model.getSVGElement().getWidth().getValue(),model.getSVGElement().getHeight().getValue()));
+        LSEditor.logger.info(String.format("New document created with height %.1f px and width %.1f px.\n", model.getSVGElement().getWidth().getValue(),model.getSVGElement().getHeight().getValue()));
         unmodifyDocument();
         updateDocumentString();
         updateViews();
