@@ -494,8 +494,8 @@ public class LSViewController implements LSSelectionsController, LSFileControlle
 
     public void createBlankDocument() {
         model = new LSModel();
-//        model.setSVGElement(new LSSVGContainer(LSLength.parse("916px"), LSLength.parse("578px")));
-        model.setSVGElement(new LSSVGContainer(LSLength.parse("1000px"), LSLength.parse("1000px")));
+        model.setSVGElement(new LSSVGContainer(LSLength.parse("916px"), LSLength.parse("578px")));
+//        model.setSVGElement(new LSSVGContainer(LSLength.parse("1000px"), LSLength.parse("1000px")));
         model.setTitle(NEW_DOCUMENT.getName());
         model.updateCanvasDTO();
         activeFile = NEW_DOCUMENT;
