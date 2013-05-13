@@ -38,13 +38,14 @@ public class LSEditor {
 
         logger.info(message);
 
-        if (!OSValidator.isMac()) {
-            JOptionPane.showMessageDialog(
-                new JFrame(),
-                message + "The current application only provide support for Mac OS X. The application will exit now.",
-                "Operating system not supported", JOptionPane.WARNING_MESSAGE);
-            System.exit(0);
-        }
+        
+//        if (!OSValidator.isMac()) {
+//            JOptionPane.showMessageDialog(
+//                new JFrame(),
+//                message + "The current application only provide support for Mac OS X. The application will exit now.",
+//                "Operating system not supported", JOptionPane.WARNING_MESSAGE);
+//            System.exit(0);
+//        }
 
         setUpLookAndFeel();
 
