@@ -570,7 +570,7 @@ public class LSViewController implements LSSelectionsController, LSFileControlle
     @Override
     public void addElement(LSGenericElement e) {
         model.getSVGElement().addDescendant(e);
-        LSEditor.logger.info(String.format("Element of type " + e.getElementType()
+        LSEditor.logger.info(String.format("Element of type " + e.toString()
                                            + " is added to the root element.\n"));
         touchDocument();
     }

@@ -1,5 +1,9 @@
 package rocks6205.editor.model.adt;
 
+//~--- non-JDK imports --------------------------------------------------------
+
+import rocks6205.editor.core.LSEditor;
+
 //~--- JDK imports ------------------------------------------------------------
 
 import java.awt.Color;
@@ -39,6 +43,10 @@ public class LSColor extends Color {
 
     /*
      * CONSTRUCTOR
+     */
+
+    /*
+     * STATIC INITIALISER
      */
     static {
         RGB_COLOR = "rgb\\((" + LSSVGPrimitive._8_BIT_UINT + "," + LSSVGPrimitive._8_BIT_UINT + ","
@@ -173,6 +181,9 @@ public class LSColor extends Color {
      *
      * @param colorAttributeString      Attribute string that is read directly from SVG file
      * @return <code>LSColor</code> object
+     *
+     * @see #getColorFromKeyword(java.lang.String)
+     * @see #decodeHex(java.lang.String)
      */
     public static LSColor parse(String colorAttributeString) {
         colorAttributeString = colorAttributeString.trim();
@@ -259,6 +270,8 @@ public class LSColor extends Color {
      *
      * @param hexColorString    Attribute string that is read directly from SVG file
      * @return <code>LSColor</code> object
+     *
+     * @see #decode(java.lang.String)
      */
     private static LSColor decodeHex(String hexColorString) {
         try {
@@ -266,7 +279,7 @@ public class LSColor extends Color {
 
             return new LSColor(color.getRed(), color.getGreen(), color.getBlue());
         } catch (NumberFormatException nfe) {
-            nfe.printStackTrace();
+            LSEditor.logger.warning(nfe.getLocalizedMessage());
 
             return null;
         }

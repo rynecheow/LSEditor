@@ -9,6 +9,8 @@ import rocks6205.editor.model.adt.LSLength;
 import rocks6205.editor.model.adt.LSLengthUnitType;
 import rocks6205.editor.model.adt.LSPaintingType;
 
+import static rocks6205.editor.model.elements.LSGenericShape.SHAPE_LINE;
+
 //~--- JDK imports ------------------------------------------------------------
 
 import java.awt.BasicStroke;
@@ -220,7 +222,7 @@ public final class LSShapeRect extends LSGenericShape {
         }
 
         LSShapeRect rect  = new LSShapeRect();
-        Attr           xAttr = element.getAttributeNodeNS(null, "x");
+        Attr        xAttr = element.getAttributeNodeNS(null, "x");
 
         if (xAttr != null) {
             rect.setX(LSLength.parse(xAttr.getValue()));
@@ -244,7 +246,15 @@ public final class LSShapeRect extends LSGenericShape {
      * {@inheritDoc}
      */
     @Override
-    public String getElementType() {
-        return "SVGRectElement";
+    public String toString() {
+        return LSShapeRect.class.getSimpleName();
+    }
+
+    /**
+      * {@inheritDoc}
+      */
+    @Override
+    public int getShapeType() {
+        return SHAPE_RECT;
     }
 }

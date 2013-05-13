@@ -62,6 +62,8 @@ public class LSLength {
      *
      * @param type Type of unit as defined in {@link LSLengthUnitType}
      * @param val Value of length unit in <code>float</code>
+     *
+     * @see #setValue(float)
      */
     public LSLength(LSLengthUnitType type, float val) {
         if (Float.isNaN(value)) {
@@ -103,6 +105,7 @@ public class LSLength {
      * Get the value of length unit by specific unit type.
      * @param sym Target conversion type
      * @return Length unit value with respect to the target type
+     *
      */
     public float getValue(LSLengthUnitType target) {
         if (target == null) {
@@ -202,6 +205,7 @@ public class LSLength {
 
         return new LSLength(targetType, value);
     }
+
     /**
      * {@inheritDoc}
      * @return value of length with the unit symbol

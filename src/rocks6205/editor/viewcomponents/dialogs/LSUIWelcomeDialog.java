@@ -17,7 +17,7 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 
 /**
- *
+ * Welcome screen when user first use the application.
  * @author Cheow Yeong Chi
  *
  * @since 2.2
@@ -80,16 +80,17 @@ public final class LSUIWelcomeDialog extends JDialog implements LSUIProtocol {
         x      = (screen.width - width) / 2;
         y      = (screen.height - height) / 2;
     }
-    
+
     /**
      * Creates a custom JPanel for welcome screen.
      * @return  custom drawn <code>JPanel</code>.
      */
     private JPanel drawNewWelcomePanel() {
         return new JPanel() {
-           /**
-            * {@inheritDoc}
-            */
+
+            /**
+             * {@inheritDoc}
+             */
             @Override
             protected void paintComponent(Graphics g) {}
         };
@@ -119,7 +120,7 @@ public final class LSUIWelcomeDialog extends JDialog implements LSUIProtocol {
         setPreferredSize(new Dimension(width, height));
         getContentPane().setLayout(null);
     }
-    
+
     /**
      * Layout <code>drawPanel</code>
      */

@@ -4,7 +4,7 @@ package rocks6205.editor.viewcomponents.dialogs;
 
 import rocks6205.editor.core.LSModel;
 import rocks6205.editor.core.LSView;
-import rocks6205.editor.dto.LSCanvasDataObject;
+import rocks6205.editor.dto.LSDocumentDataObject;
 import rocks6205.editor.model.adt.LSLength;
 import rocks6205.editor.model.adt.LSLengthUnitType;
 import rocks6205.editor.viewcomponents.LSNumericTextField;
@@ -19,6 +19,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+
 import java.util.ResourceBundle;
 
 import javax.swing.DefaultComboBoxModel;
@@ -31,7 +32,8 @@ import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
 /**
- *
+ * Document properties modal dialog.
+ * 
  * @author Cheow Yeong Chi
  *
  * @since 2.2
@@ -78,7 +80,7 @@ public final class LSUICanvasPropertiesDialog extends JDialog implements LSUIPro
     /**
      * DATA COMPONENT
      */
-    LSCanvasDataObject canvasData;
+    LSDocumentDataObject canvasData;
 
     /**
      * Constructs a canvas properties dialog with parent component.
@@ -394,12 +396,12 @@ public final class LSUICanvasPropertiesDialog extends JDialog implements LSUIPro
     /**
      *
      */
-    public void updateCanvasData(LSCanvasDataObject dto) {
+    public void updateCanvasData(LSDocumentDataObject dto) {
         canvasData = dto;
     }
 
-    public LSCanvasDataObject generateCanvasDTO() {
-        return new LSCanvasDataObject(generateEffectiveWidth(), generateEffectiveHeight(),
+    public LSDocumentDataObject generateCanvasDTO() {
+        return new LSDocumentDataObject(generateEffectiveWidth(), generateEffectiveHeight(),
                                       documentNameTextField.getText());
     }
 
@@ -477,21 +479,21 @@ public final class LSUICanvasPropertiesDialog extends JDialog implements LSUIPro
         return new LSLength(unitType, val);
     }
 
-   public void reloadString(ResourceBundle b) {
-      documentNameLabel.setText(b.getString("dpd.docname.text"));
-      heightLabel.setText(b.getString("dpd.height.text"));
-      widthLabel.setText(b.getString("dpd.width.text"));
-      presetLabel.setText(b.getString("dpd.preset.text"));
-      sizeLabel.setText(b.getString("dpd.size.text"));
-      resolutionLabel.setText(b.getString("dpd.resolution.title"));
-      resolutionInfoLabel.setText(b.getString("dpd.resolution.desc"));
-      colorModeLabel.setText(b.getString("dpd.colormode.title"));
-      colorModeInfoLabel.setText(b.getString("dpd.colormode.desc"));
-      confirmButton.setText(b.getString("dpd.confirmbutton.text"));
-      cancelButton.setText(b.getString("dpd.cancelbutton.text"));
-      
-      repaint();
-   }
-   
-   
+    public void reloadString(ResourceBundle b) {
+        documentNameLabel.setText(b.getString("dpd.docname.text"));
+        heightLabel.setText(b.getString("dpd.height.text"));
+        widthLabel.setText(b.getString("dpd.width.text"));
+        presetLabel.setText(b.getString("dpd.preset.text"));
+        sizeLabel.setText(b.getString("dpd.size.text"));
+        resolutionLabel.setText(b.getString("dpd.resolution.title"));
+        resolutionInfoLabel.setText(b.getString("dpd.resolution.desc"));
+        colorModeLabel.setText(b.getString("dpd.colormode.title"));
+        colorModeInfoLabel.setText(b.getString("dpd.colormode.desc"));
+        confirmButton.setText(b.getString("dpd.confirmbutton.text"));
+        cancelButton.setText(b.getString("dpd.cancelbutton.text"));
+        repaint();
+    }
 }
+
+
+//~ Formatted by Jindent --- http://www.jindent.com

@@ -167,9 +167,8 @@ public final class LSShapeCircle extends LSGenericShape {
         if (radius.getValue(LSLengthUnitType.PX) > 0) {
             Shape ellipse = new Ellipse2D.Float(cx.getValue(LSLengthUnitType.PX)
                                 - radius.getValue(LSLengthUnitType.PX), cy.getValue(LSLengthUnitType.PX)
-                                    - radius.getValue(LSLengthUnitType.PX), 2
-                                      * radius.getValue(LSLengthUnitType.PX), 2
-                                          * radius.getValue(LSLengthUnitType.PX));
+                                    - radius.getValue(LSLengthUnitType.PX), 2 * radius.getValue(LSLengthUnitType.PX), 2
+                                      * radius.getValue(LSLengthUnitType.PX));
 
             ellipse = getTransform().createTransformedShape(ellipse);
             g.setPaint(getResultantFill().getPaintColor());
@@ -195,7 +194,7 @@ public final class LSShapeCircle extends LSGenericShape {
      */
     public static LSShapeCircle parseElement(Element element) {
         LSShapeCircle circ        = new LSShapeCircle();
-        Attr             centreXAttr = element.getAttributeNodeNS(null, "cx");
+        Attr          centreXAttr = element.getAttributeNodeNS(null, "cx");
 
         if (centreXAttr != null) {
             circ.setCx(LSLength.parse(centreXAttr.getValue()));
@@ -219,11 +218,18 @@ public final class LSShapeCircle extends LSGenericShape {
     }
 
     /**
-      *
       * {@inheritDoc}
       */
     @Override
-    public String getElementType() {
-        return "SVGCircleElement";
+    public String toString() {
+        return LSShapeCircle.class.getSimpleName();
+    }
+
+    /**
+      * {@inheritDoc}
+      */
+    @Override
+    public int getShapeType() {
+        return SHAPE_CIRCLE;
     }
 }

@@ -14,6 +14,7 @@ import javax.swing.border.Border;
  * @author Cheow Yeong Chi
  *
  * @since 1.6
+ * 
  *
  */
 public interface LSEditorGUIConstants {
@@ -31,12 +32,26 @@ public interface LSEditorGUIConstants {
     /**
      * Default master border color
      */
-    public static final Color  MASTER_DEFAULT_BORDER_COLOR = new Color(0x211e1e);
-    public static final Border MASTER_DEFAULT_PANEL_BORDER = BorderFactory.createLineBorder(MASTER_DEFAULT_BORDER_COLOR, 1);
+    public static final Color MASTER_DEFAULT_BORDER_COLOR = new Color(0x211e1e);
 
+    /**
+     * Default border
+     */
+    public static final Border MASTER_DEFAULT_PANEL_BORDER =
+        BorderFactory.createLineBorder(MASTER_DEFAULT_BORDER_COLOR, 1);
+
+    /**
+     * Path to toolbar icons
+     */
     public static final String DEFAULT_PATH_TO_TOOLBAR_ICONS = "resources/toolbar-icons/";
-    
+
+    /**
+     * Path to tree icons
+     */
     public static final String DEFAULT_PATH_TO_TREE_ICONS = "resources/tree-icons/";
-    
+
+    /**
+     * Path to custom fonts
+     */
     public static final String DEFAULT_PATH_TO_CUSTOM_FONTS = "resources/fonts/";
 }

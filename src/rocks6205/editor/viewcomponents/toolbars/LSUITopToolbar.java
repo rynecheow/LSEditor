@@ -25,6 +25,7 @@ import rocks6205.system.properties.LSEditorGUIConstants;
 import java.awt.Dimension;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+
 import java.util.ResourceBundle;
 
 import javax.swing.DefaultComboBoxModel;
@@ -94,8 +95,8 @@ public final class LSUITopToolbar extends JToolBar implements LSUIProtocol {
         zoomInButton     = LSUIButton.create();
         zoomOutButton    = LSUIButton.create();
         docPropButton    = LSUIButton.create();
-        fillLabel        = new LSUIIconLabel();
-        strokeLabel      = new LSUIIconLabel();
+        fillLabel        = LSUIIconLabel.create();
+        strokeLabel      = LSUIIconLabel.create();
         fillButton       = LSUIColorButton.create(LSGenericElement.SVG_FILL_DEFAULT);
         strokeButton     = LSUIColorButton.create(LSGenericElement.SVG_STROKE_DEFAULT);
         fillCheckBox     = new JCheckBox();
@@ -260,9 +261,7 @@ public final class LSUITopToolbar extends JToolBar implements LSUIProtocol {
         parentView = parent;
     }
 
-   public void reloadString(ResourceBundle b) {
-      
-   }
+    public void reloadString(ResourceBundle b) {}
 
     private class SVGPresentationChangeListener implements ChangeListener {
         @Override

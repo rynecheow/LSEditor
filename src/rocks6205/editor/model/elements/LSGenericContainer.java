@@ -3,7 +3,6 @@ package rocks6205.editor.model.elements;
 //~--- JDK imports ------------------------------------------------------------
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 /**
  * The <code>LSGenericContainer</code> class is an abstract class that defines a
@@ -16,10 +15,6 @@ import java.util.Iterator;
  *
  */
 public abstract class LSGenericContainer extends LSGenericElement {
-
-    /**
-     * List of SVG element object descendants
-     */
     private ArrayList<LSGenericElement> descendants;
 
     /**
@@ -50,14 +45,32 @@ public abstract class LSGenericContainer extends LSGenericElement {
         return descendants.get(index);
     }
 
+    /**
+     * Check if the descendant list of the document is empty.
+     *
+     * @return <code>true</code> if descendant list is not empty, <code>false
+     * </code> otherwise.
+     */
     public boolean hasDescendant() {
         return !descendants.isEmpty();
     }
 
+    /**
+     * Get the number of descendants in the container.
+     *
+     * @return Number of descendants
+     */
     public int getDescendantCount() {
         return descendants.size();
     }
 
+    /**
+     * Check the index of the current element in the descendant list of the
+     * container.
+     *
+     * @param elem
+     * @return index of current element
+     */
     public int indexOf(LSGenericElement elem) {
         return descendants.indexOf(elem);
     }
@@ -112,34 +125,5 @@ public abstract class LSGenericContainer extends LSGenericElement {
      */
     public void removeDescendant(LSGenericElement e) {
         descendants.remove(e);
-    }
-
-    public void listDescendants(LSGenericContainer container, int indentNumber) {
-        int level = indentNumber;
-
-        for (Iterator<LSGenericElement> it = container.descendants.iterator(); it.hasNext(); ) {
-            LSGenericElement e = it.next();
-
-            if (e instanceof LSGroupContainer) {
-                LSGroupContainer g = (LSGroupContainer) e;
-
-                System.out.println(getIndent(level) + g.getElementType());
-                listDescendants(g, ++level);
-                level--;
-            } else {
-                System.out.println(getIndent(level) + e.getElementType());
-            }
-        }
-    }
-
-    public String getIndent(int indentNumber) {
-        String indent = "";
-
-        while (indentNumber > 0) {
-            indent += " ";
-            indentNumber--;
-        }
-
-        return indent;
     }
 }

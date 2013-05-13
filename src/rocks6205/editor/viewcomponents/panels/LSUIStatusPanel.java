@@ -13,8 +13,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
- *
+ * 
+ * 
  * @author Cheow Yeong Chi
+ * 
+ * @since 2.1
  */
 public final class LSUIStatusPanel extends JPanel implements LSUIProtocol {
 
@@ -50,7 +53,7 @@ public final class LSUIStatusPanel extends JPanel implements LSUIProtocol {
     public void updateStatus(String status) {
         statusLabel.setText(status);
     }
-    
+
     /**
      * {@inheritDoc}
      */

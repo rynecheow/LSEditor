@@ -30,9 +30,9 @@ import javax.swing.event.ChangeListener;
 
 /**
  * Custom JButtons that use to control colors of elements using a pop up.
- * 
+ *
  * @author Cheow Yeong Chi
- * 
+ *
  * @since 2.4
  */
 public final class LSUIColorButton extends JButton implements LSUIProtocol {
@@ -49,6 +49,12 @@ public final class LSUIColorButton extends JButton implements LSUIProtocol {
         customise();
     }
 
+    /**
+     * Factory method.
+     *
+     * @param painting Paint object
+     * @return new instance of <code>LSUIColorButton</code>
+     */
     public static LSUIColorButton create(LSPainting painting) {
         return new LSUIColorButton(painting);
     }
@@ -117,7 +123,7 @@ public final class LSUIColorButton extends JButton implements LSUIProtocol {
             }
         });
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -135,7 +141,7 @@ public final class LSUIColorButton extends JButton implements LSUIProtocol {
             }
         }
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -168,27 +174,54 @@ public final class LSUIColorButton extends JButton implements LSUIProtocol {
         });
     }
 
+    /**
+     * Add change listener for <i>presentation</i> to current list of listeners.
+     *
+     * @param l Change listener
+     */
     public void addPresentationChangeListener(ChangeListener l) {
         listenerList.add(ChangeListener.class, l);
     }
 
+    /**
+     * Remove change listener for <i>presentation</i> to current list of listeners.
+     * @param l
+     */
     public void removePresentationChangeListener(ChangeListener l) {
         listenerList.remove(ChangeListener.class, l);
     }
 
+    /*
+     * ACCESSOR
+     */
+
+    /**
+     * @return Current paint object
+     */
     public LSPainting getPainting() {
         return painting;
     }
 
+    /*
+     * MUTATORS.
+     */
+    
+    /**
+     * Set paint for current button and fires changes.
+     * @param p Paint object
+     */
     public void setPainting(LSPainting p) {
         setPaint(p);
         fireStateChanged();
     }
 
-    public void setPaint(LSPainting p) {
+    private void setPaint(LSPainting p) {
         painting = p;
     }
 
+    /**
+     * Set current button's <code>paint</code> component to <i>NONE</i>.
+     */
     public void setPaintingNone() {
         setPainting(new LSPainting(LSPaintingType.NONE));
     }

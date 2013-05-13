@@ -4,6 +4,7 @@ package rocks6205.editor.model.elements;
 
 import org.w3c.dom.Element;
 
+import rocks6205.editor.core.LSEditor;
 import rocks6205.editor.model.adt.LSLength;
 import rocks6205.editor.model.adt.LSPainting;
 
@@ -15,7 +16,6 @@ import java.awt.geom.NoninvertibleTransformException;
 import java.awt.geom.Rectangle2D;
 
 import java.util.ArrayList;
-import rocks6205.editor.core.LSEditor;
 
 /**
  * The <code>LSGroupContainer</code> class is a container used to group objects
@@ -38,6 +38,10 @@ public class LSGroupContainer extends LSGenericContainer {
      */
     public LSGroupContainer() {}
 
+    /**
+     * Ungroup function.
+     * @return descendants of group.
+     */
     public ArrayList<LSGenericElement> ungroup() {
         recurseAttributes(this);
 
@@ -94,14 +98,15 @@ public class LSGroupContainer extends LSGenericContainer {
     /*
      * METHODS
      */
+    
     private static void recurseAttributes(LSGroupContainer group) {
-        LSPainting   fill        = group.getFill();
-        LSPainting   stroke      = group.getStroke();
-        LSLength strokeWidth = group.getStrokeWidth();
-        LSLength tx          = group.getTranslateX();
-        LSLength ty          = group.getTranslateY();
-        LSLength descendantTx;
-        LSLength descendantTy;
+        LSPainting fill        = group.getFill();
+        LSPainting stroke      = group.getStroke();
+        LSLength   strokeWidth = group.getStrokeWidth();
+        LSLength   tx          = group.getTranslateX();
+        LSLength   ty          = group.getTranslateY();
+        LSLength   descendantTx;
+        LSLength   descendantTy;
 
         for (LSGenericElement descendant : group.getDescendants()) {
             if (descendant.getFill() == null) {
@@ -156,11 +161,10 @@ public class LSGroupContainer extends LSGenericContainer {
     }
 
     /**
-     *
      * {@inheritDoc}
      */
     @Override
-    public String getElementType() {
-        return "SVGGElement";
+    public String toString() {
+        return LSGroupContainer.class.getSimpleName();
     }
 }

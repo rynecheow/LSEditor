@@ -120,6 +120,10 @@ public final class LSView extends JFrame implements LSUIProtocol {
     /**
      * Construct an <code>SVGView</code> instance with components initialised
      * and properly customised.
+     * 
+     * @see #setController(rocks6205.editor.core.LSViewController) 
+     * @see #initialise() 
+     * @see #customise() 
      */
     public LSView(LSViewController c) {
         super();
@@ -132,6 +136,10 @@ public final class LSView extends JFrame implements LSUIProtocol {
 
     /**
      * {@inheritDoc}
+     * 
+     * @see #setUpProperties() 
+     * @see #initialiseComponents() 
+     * @see #initialiseHandlers() 
      */
     @Override
     public void initialise() {
@@ -155,7 +163,7 @@ public final class LSView extends JFrame implements LSUIProtocol {
         screen   = Toolkit.getDefaultToolkit().getScreenSize();
         x        = (screen.width - width) / 2;
         y        = (screen.height - height) / 2;
-        this.setLocation(x, y);
+        setLocation(x, y);
         LSCanvasProperties.setOutputResolution(Toolkit.getDefaultToolkit().getScreenResolution());
         setResizable(false);
     }
@@ -185,6 +193,13 @@ public final class LSView extends JFrame implements LSUIProtocol {
 
     /**
      * {@inheritDoc}
+     * 
+     * @see #layoutChildComponents()
+     * @see #setUpEditingPanel()
+     * @see #layoutFrame()
+     * @see #setClosingEvent()
+     * @see #bindHandlers()
+     * @see #updateTitle()
      */
     @Override
     public void customise() {
@@ -285,7 +300,7 @@ public final class LSView extends JFrame implements LSUIProtocol {
         menuBar.updateActionStatusFromView(isAnySelected);
         editPanel.setSelections(selections);
         editPanel.drawOverlay();
-        
+
         if (isZoomChanged) {
             isZoomChanged = false;
         }
@@ -293,7 +308,9 @@ public final class LSView extends JFrame implements LSUIProtocol {
         if (isFileChanged) {
             displayedFile = currentFile;
         }
+
         updateTitle();
+
         if (needRepaint) {
             editPanel.paintCanvas(controller.renderImage(zoomScale));
             navPanel.updateTree();
@@ -340,10 +357,12 @@ public final class LSView extends JFrame implements LSUIProtocol {
 
         return false;
     }
-
+    
     /**
      * Saves current file.
      * @return <code>true</code> if save successful, <code>false</code> otherwise.
+     * 
+     * @see #fileSaveAs() 
      */
     public boolean saveFile() {
         boolean saved;
@@ -353,7 +372,7 @@ public final class LSView extends JFrame implements LSUIProtocol {
         } catch (IOException e) {
             saved = fileSaveAs();
         }
-        
+
         return saved;
     }
 
@@ -372,14 +391,15 @@ public final class LSView extends JFrame implements LSUIProtocol {
 
         fileChoooser.setFileFilter(extFilter);
         fileChoooser.setSelectedFile(getDisplayedFile());
-        
+
         if (fileChoooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
-			try {
-				saved = controller.fileSave(fileChoooser.getSelectedFile());
-			} catch (IOException e) {
-				LSEditor.logger.warning(e.getMessage());
-			}
+            try {
+                saved = controller.fileSave(fileChoooser.getSelectedFile());
+            } catch (IOException e) {
+                LSEditor.logger.warning(e.getMessage());
+            }
         }
+
         return saved;
     }
 
@@ -417,11 +437,55 @@ public final class LSView extends JFrame implements LSUIProtocol {
             LSEditor.logger.warning(ex.getMessage());
         }
     }
-    
+
+    public void registerPanListenerToScrollPane(LSPanMouseAdapter adapter) {
+        viewport.addMouseListener(adapter);
+        viewport.addMouseMotionListener(adapter);
+    }
+
+    public void deregisterPanListenerToScrollPane(LSPanMouseAdapter adapter) {
+        viewport.removeMouseListener(adapter);
+        viewport.removeMouseMotionListener(adapter);
+    }
+
+    /**
+     * Toggles code preview.
+     */
+    public void toggleCodeView() {
+        menuBar.toggleCodeMenuTitle(codeViewFlag);
+
+        if (codeViewFlag) {
+            miscPanel.disableTextAreaInView();
+        } else {
+            miscPanel.enableTextAreaInView();
+        }
+
+        codeViewFlag = !codeViewFlag;
+    }
+
+    /**
+     * Show document properties dialog
+     */
+    public void showDocumentPropertiesDialog() {
+        docPropDlg.updateCanvasData(controller.getModel().getCanvasDTO());
+        docPropDlg.displayLimited();
+        controller.resizeDocument(controller.getModel().getCanvasDTO().getWidth(),
+                                  controller.getModel().getCanvasDTO().getHeight());
+    }
+
+    public void reloadBundle() {
+        ResourceBundle bundle = LSEditor.titleBundle;
+
+        topBar.reloadString(bundle);
+        sideBar.reloadString(bundle);
+        menuBar.reloadString(bundle);
+        docPropDlg.reloadString(bundle);
+        navPanel.reloadString(bundle);
+    }
+
     /*
      * ACCESSORS
      */
-
 
     /**
      * @return Controller object
@@ -505,47 +569,4 @@ public final class LSView extends JFrame implements LSUIProtocol {
     public void setEditPanel(LSUIEditingPanel p) {
         editPanel = p;
     }
-
-    public void registerPanListenerToScrollPane(LSPanMouseAdapter adapter) {
-        viewport.addMouseListener(adapter);
-        viewport.addMouseMotionListener(adapter);
-    }
-
-    public void deregisterPanListenerToScrollPane(LSPanMouseAdapter adapter) {
-        viewport.removeMouseListener(adapter);
-        viewport.removeMouseMotionListener(adapter);
-    }
-
-    /**
-     * Toggles code preview.
-     */
-    public void toggleCodeView() {
-        menuBar.toggleCodeMenuTitle(codeViewFlag);
-
-        if (codeViewFlag) {
-            miscPanel.disableTextAreaInView();
-        } else {
-            miscPanel.enableTextAreaInView();
-        }
-
-        codeViewFlag = !codeViewFlag;
-    }
-
-    /**
-     * Show document properties dialog
-     */
-    public void showDocumentPropertiesDialog() {
-        docPropDlg.updateCanvasData(controller.getModel().getCanvasDTO());
-        docPropDlg.displayLimited();
-        controller.resizeDocument(controller.getModel().getCanvasDTO().getWidth(), controller.getModel().getCanvasDTO().getHeight());
-    }
-
-   public void reloadBundle() {
-      ResourceBundle bundle = LSEditor.titleBundle;
-      topBar.reloadString(bundle);
-      sideBar.reloadString(bundle);
-      menuBar.reloadString(bundle);
-      docPropDlg.reloadString(bundle);
-      navPanel.reloadString(bundle);
-   }
 }

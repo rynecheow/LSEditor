@@ -6,7 +6,7 @@ package rocks6205.system.properties;
  *
  * @author Cheow Yeong Chi
  * @author Toh Huey Jing
- * 
+ *
  * @since 1.3
  *
  */

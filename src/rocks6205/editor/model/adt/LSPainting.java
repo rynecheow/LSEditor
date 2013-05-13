@@ -26,7 +26,7 @@ public class LSPainting {
     LSColor paintColor;
 
     /**
-     * Paint type of current instance
+     * Paint type of current instance.
      */
     LSPaintingType paintType;
 
@@ -34,6 +34,8 @@ public class LSPainting {
      * Set current <code>LSPainting</code> instance to type <code>COLOR</code>.
      *
      * @param c Paint color
+     *
+     * @see #setPaint(rocks6205.editor.model.adt.LSColor, rocks6205.editor.model.adt.LSPaintingType)
      */
     public LSPainting(Color c) {
         setPaint(LSColor.createFromColor(c), LSPaintingType.COLOR);
@@ -43,6 +45,8 @@ public class LSPainting {
      * Set current <code>LSPainting</code> instance to type <code>COLOR</code>.
      *
      * @param c Paint color
+     *
+     * @see #setPaint(rocks6205.editor.model.adt.LSColor, rocks6205.editor.model.adt.LSPaintingType)
      */
     public LSPainting(LSColor c) {
         setPaint(c, LSPaintingType.COLOR);
@@ -56,6 +60,7 @@ public class LSPainting {
      * Set current <code>LSPainting</code> instance to type <code>type</code>.
      *
      * @param type Paint type
+     * @see #setPaintType(rocks6205.editor.model.adt.LSPaintingType)
      */
     public LSPainting(LSPaintingType type) {
         setPaintType(type);
@@ -140,6 +145,9 @@ public class LSPainting {
      * Set current <code>LSPainting</code> instance to color <code>c</code> and type <code>type</code>
      * @param c Paint color
      * @param type Paint type
+     *
+     * @see #setPaintType(rocks6205.editor.model.adt.LSPaintingType)
+     * @see #setPaintColor(rocks6205.editor.model.adt.LSColor)
      */
     public final void setPaint(LSColor c, LSPaintingType type) {
         setPaintType(type);
@@ -153,6 +161,8 @@ public class LSPainting {
      * Variant. Setting the color of paint.
      *
      * @param c Paint color
+     *
+     * @see #setPaint(rocks6205.editor.model.adt.LSColor, rocks6205.editor.model.adt.LSPaintingType)
      */
     public final void setPaint(LSColor c) {
         setPaint(c, LSPaintingType.COLOR);

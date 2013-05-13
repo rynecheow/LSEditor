@@ -27,7 +27,7 @@ import javax.swing.text.Utilities;
  *
  * @author kees
  * @author Cheow Yeong Chi
- * 
+ *
  * @since 2.5
  */
 public final class LSSVGPlainView extends PlainView {
@@ -37,8 +37,10 @@ public final class LSSVGPlainView extends PlainView {
     private final static Color                         HIGHLIGHT_COLOR_COMMENT         = new Color(0x535454);
     private final static Color                         HIGHLIGHT_COLOR_CDATA           = new Color(0x535454);
     private final static String                        SYNTAX_START_TAG                = "(</?!?(\\?)*[a-z]*)\\s?>?";
-    private final static String                        SYNTAX_END_TAG                  = "(<{0,1})((/*)|(\\?*))(\\w*)>{1}";
-    private final static String                        SYNTAX_ATTRIBUTE_TAG            = "\\s(\\p{L}+(?:(-|:)\\n?\\p{L}+)*)(\\w*)\\=";
+    private final static String                        SYNTAX_END_TAG                  =
+        "(<{0,1})((/*)|(\\?*))(\\w*)>{1}";
+    private final static String                        SYNTAX_ATTRIBUTE_TAG            =
+        "\\s(\\p{L}+(?:(-|:)\\n?\\p{L}+)*)(\\w*)\\=";
     private final static String                        SYNTAX_ATTRIBUTE_VALUE          = "\\w*\\=(\"[^\"]*\")";
     private final static String                        SYNTAX_COMMENT                  = "(<!--.*-->)";
     private final static String                        SYNTAX_CDATA                    = "(\\<!\\[CDATA\\[).*";

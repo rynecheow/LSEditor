@@ -16,6 +16,7 @@ import java.awt.Graphics2D;
 import java.awt.Shape;
 import java.awt.geom.Line2D;
 import java.awt.geom.Rectangle2D;
+import static rocks6205.editor.model.elements.LSGenericShape.SHAPE_CIRCLE;
 
 /**
  * The <code>LSShapeLine</code> class is used to parse <<code>line</code>> element in
@@ -245,7 +246,15 @@ public final class LSShapeLine extends LSGenericShape {
      * {@inheritDoc}
      */
     @Override
-    public String getElementType() {
-        return "SVGLineElement";
+    public String toString() {
+        return LSShapeLine.class.getSimpleName();
+    }
+    
+    /**
+      * {@inheritDoc}
+      */
+    @Override
+    public int getShapeType() {
+        return SHAPE_LINE;
     }
 }

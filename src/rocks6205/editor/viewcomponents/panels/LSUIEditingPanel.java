@@ -43,7 +43,7 @@ import javax.swing.OverlayLayout;
  *
  */
 public final class LSUIEditingPanel extends JPanel {
-    private LSViewController             controller;
+        private LSViewController             controller;
     private LSView                       parentView;
     private LSGenericElement             activeElement, newElement;
     private LSScribblePanel              scribbleArea;
@@ -547,7 +547,6 @@ public final class LSUIEditingPanel extends JPanel {
             isDragged          = false;
             selectionRect      = null;
             previousActiveRect = null;
-            
             controller.updateDocumentString();
         }
 
@@ -633,8 +632,8 @@ public final class LSUIEditingPanel extends JPanel {
                         }
                     } else if (activeElement instanceof LSShapeCircle) {
                         LSShapeCircle circle      = (LSShapeCircle) activeElement;
-                        Point2D.Float    centerPoint = new Point2D.Float(circle.getCx().getValue(LSLengthUnitType.PX),
-                                                           circle.getCy().getValue(LSLengthUnitType.PX));
+                        Point2D.Float centerPoint = new Point2D.Float(circle.getCx().getValue(LSLengthUnitType.PX),
+                                                        circle.getCy().getValue(LSLengthUnitType.PX));
                         float dr = (float) (endPoint.distance(centerPoint) - startPoint.distance(centerPoint));
 
                         switch (resizeHandlers.indexOf(activeResizeHandler)) {
@@ -704,6 +703,7 @@ public final class LSUIEditingPanel extends JPanel {
                 default :
                     throw new AssertionError("Invalid edit mode");
                 }
+
                 controller.updateDocumentString();
                 controller.updateViews();
             }
@@ -712,6 +712,3 @@ public final class LSUIEditingPanel extends JPanel {
         }
     }
 }
-
-
-//~ Formatted by Jindent --- http://www.jindent.com

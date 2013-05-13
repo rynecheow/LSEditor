@@ -1,5 +1,9 @@
 package rocks6205.editor.viewcomponents.tree;
 
+//~--- non-JDK imports --------------------------------------------------------
+
+import rocks6205.system.properties.LSEditorGUIConstants;
+
 //~--- JDK imports ------------------------------------------------------------
 
 import java.awt.Component;
@@ -8,13 +12,12 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultTreeCellRenderer;
-import rocks6205.system.properties.LSEditorGUIConstants;
 
 /**
  * This class is implemented to customize the display of a node.
  *
  * @author Cheow Yeong Chi
- * 
+ *
  * @since 2.4
  */
 public class LSTreeNodeRenderer extends DefaultTreeCellRenderer {
@@ -25,15 +28,8 @@ public class LSTreeNodeRenderer extends DefaultTreeCellRenderer {
     private ImageIcon iconRect   = createIconWithImageName("Rect-Logo");
 
     /**
-     *
-     * @param tree
-     * @param value
-     * @param sel
-     * @param expanded
-     * @param leaf
-     * @param row
-     * @param hasFocus
-     * @return
+     * {@inheritDoc}
+     * Set icons of respective nodes for respective types.
      */
     @Override
     public Component getTreeCellRendererComponent(JTree tree, Object value, boolean sel, boolean expanded,
@@ -71,14 +67,7 @@ public class LSTreeNodeRenderer extends DefaultTreeCellRenderer {
 
         return this;
     }
-    
-    /**
-     * Creates an <code>ImageIcon</code> instance from a image name <code>name</code>
-     * provided.
-     *
-     * @param name Name to icon image
-     * @return <code>ImageIcon</code> object
-     */
+
     private ImageIcon createIconWithImageName(String name) {
         String    string = LSEditorGUIConstants.DEFAULT_PATH_TO_TREE_ICONS + name + ".png";
         ImageIcon icon   = new ImageIcon(string);

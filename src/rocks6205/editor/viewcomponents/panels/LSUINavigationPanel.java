@@ -14,6 +14,7 @@ import rocks6205.system.properties.LSEditorGUIConstants;
 //~--- JDK imports ------------------------------------------------------------
 
 import java.awt.BorderLayout;
+
 import java.util.ResourceBundle;
 
 import javax.swing.JPanel;
@@ -23,11 +24,14 @@ import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 
 /**
- *
+ * Panel which contains the navigation tree.
+ * 
  * @author Cheow Yeong Chi
+ * 
+ * @since 2.1 
  */
-public final class LSUINavigationPanel extends JPanel implements LSUIProtocol, TreeSelectionListener {
 
+public final class LSUINavigationPanel extends JPanel implements LSUIProtocol, TreeSelectionListener {
     /**
      * PARENT COMPONENT
      */
@@ -95,7 +99,5 @@ public final class LSUINavigationPanel extends JPanel implements LSUIProtocol, T
     @Override
     public void bindHandlers() {}
 
-   public void reloadString(ResourceBundle b) {
-      
-   }
+    public void reloadString(ResourceBundle b) {}
 }

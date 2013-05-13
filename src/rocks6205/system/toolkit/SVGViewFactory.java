@@ -31,7 +31,11 @@ class SVGViewFactory implements ViewFactory {
     public View create(Element elem) {
         return new LSSVGPlainView(elem);
     }
-
+    
+    /**
+     * Instantiate a factory object.
+     * @return Factory object which creates <code>View</code>.
+     */
     public static SVGViewFactory buildFactory() {
         return new SVGViewFactory();
     }

@@ -128,7 +128,8 @@ public abstract class LSGenericElement {
     /**
      * Return type of itself in <code>String</code> format
      */
-    public abstract String getElementType();
+    @Override
+    public abstract String toString();
 
     /*
      * ACCESSORS
@@ -396,23 +397,13 @@ public abstract class LSGenericElement {
         parseGeometricalTransformation(e);
         parsePresentationalAttributes(e);
     }
-    
-    /**
-     * Parsing other general element attributes such as fill, stroke and stroke-width from
-     * <code>e</code>
-     *
-     * @param e Element from the document returned by the XMLParser
-     */
+
     private void parsePresentationalAttributes(Element e) {
         setFill(LSPainting.parse(e.getAttributeNS(null, "fill")));
         setStroke(LSPainting.parse(e.getAttributeNS(null, "stroke")));
         setStrokeWidth(LSLength.parse(e.getAttributeNS(null, "stroke-width")));
     }
 
-    /**
-     * Parsing transform attributes, e.g. translate.
-     * @param e Element from the document returned by the XMLParser
-     */
     private void parseGeometricalTransformation(Element e) {
         Attr transformAttr = e.getAttributeNodeNS(null, "transform");
 

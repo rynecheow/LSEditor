@@ -2,7 +2,7 @@ package rocks6205.editor.core;
 
 //~--- non-JDK imports --------------------------------------------------------
 
-import rocks6205.editor.dto.LSCanvasDataObject;
+import rocks6205.editor.dto.LSDocumentDataObject;
 import rocks6205.editor.model.elements.LSSVGContainer;
 
 /**
@@ -18,15 +18,15 @@ public class LSModel {
     /**
      * SVG Element to be drawn.
      */
-    private LSSVGContainer SVGElement;
-    private LSCanvasDataObject canvasDTO;
-    private String title;
-    
+    private LSSVGContainer       SVGElement;
+    private LSDocumentDataObject canvasDTO;
+    private String               title;
+
     /**
      * Default constructor.
      */
     public LSModel() {
-       canvasDTO = new LSCanvasDataObject();
+        canvasDTO = new LSDocumentDataObject();
     }
 
     /*
@@ -46,42 +46,61 @@ public class LSModel {
 
     /**
      * @param svgElement SVG Element to be drawn.
+     *
+     * @see #updateCanvasDTO()
      */
     public final void setSVGElement(LSSVGContainer svgElement) {
         SVGElement = svgElement;
         updateCanvasDTO();
     }
-    
-    public final void setCanvasDTO(LSCanvasDataObject data){
-       canvasDTO = data;
-       updateModelFromDTO();
+
+    /**
+     * @param data Data object
+     *
+     * @see #updateCanvasDTO()
+     */
+    public final void setCanvasDTO(LSDocumentDataObject data) {
+        canvasDTO = data;
+        updateModelFromDTO();
     }
-    
-    public void setTitle(String t){
-       title = t;
+
+    /**
+     * @param t Title of data object
+     */
+    public void setTitle(String t) {
+        title = t;
     }
-    
-    public String getTitle(){
-       return title;
+
+    /**
+     * @return Title of data object
+     */
+    public String getTitle() {
+        return title;
     }
-    
-    public LSCanvasDataObject getCanvasDTO(){
-       return canvasDTO;
+
+    /**
+     * @return Data object
+     */
+    public LSDocumentDataObject getCanvasDTO() {
+        return canvasDTO;
     }
-    
-    public void updateCanvasDTO(){
-       if(SVGElement!=null && canvasDTO!= null){
+
+    /**
+     * Updates the data object
+     */
+    public void updateCanvasDTO() {
+        if ((SVGElement != null) && (canvasDTO != null)) {
             canvasDTO.setHeight(SVGElement.getHeight());
             canvasDTO.setWidth(SVGElement.getWidth());
             canvasDTO.setTitle(title);
-       }
+        }
     }
-    
-    public void updateModelFromDTO(){
-       if(SVGElement!=null && canvasDTO!= null){
+
+    private void updateModelFromDTO() {
+        if ((SVGElement != null) && (canvasDTO != null)) {
             SVGElement.setHeight(canvasDTO.getHeight());
             SVGElement.setWidth(canvasDTO.getWidth());
             title = canvasDTO.getTitle();
-       }
+        }
     }
 }

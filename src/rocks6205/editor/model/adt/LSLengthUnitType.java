@@ -6,7 +6,7 @@ import rocks6205.system.properties.LSCanvasProperties;
 
 /**
  * <p>List of SVG length types</p>
- * Enumerates length unit type symbols recognized by data type <code>length</code> in 
+ * Enumerates length unit type symbols recognized by data type <code>length</code> in
  * SVG as defined in 4.5.11 of CSS2 BDT<p>
  * Refer to: <a href="http://www.w3.org/TR/SVG/types.html#InterfaceSVGLength">Scalable Vector Graphics
  * (SVG) 1.1 - Interface SVG Length</a>

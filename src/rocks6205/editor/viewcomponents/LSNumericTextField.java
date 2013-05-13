@@ -23,7 +23,11 @@ public class LSNumericTextField extends JTextField {
     public LSNumericTextField() {
         super();
     }
-
+    
+    /**
+     * {@inheritDoc}
+     * @return new instance of <code>LSNumericDocument</code>.
+     */
     @Override
     protected Document createDefaultModel() {
         return new LSNumericDocument();

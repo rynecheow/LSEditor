@@ -14,8 +14,10 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 /**
- *
+ * Panel which contains the code view or other miscellaneous functioning tools.
  * @author Cheow Yeong Chi
+ * 
+ * @since 2.0
  */
 public final class LSUIMiscPanel extends JPanel implements LSUIProtocol {
 

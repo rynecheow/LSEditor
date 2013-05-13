@@ -10,12 +10,13 @@ import rocks6205.system.properties.OSValidator;
 
 import java.io.File;
 import java.io.IOException;
+
 import java.util.Locale;
 import java.util.ResourceBundle;
-
 import java.util.logging.Logger;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
@@ -27,11 +28,24 @@ import javax.swing.UnsupportedLookAndFeelException;
  *
  */
 public class LSEditor {
-    public static final Logger logger = Logger.getLogger(Thread.currentThread().getStackTrace()[0].getClassName());
-    public static ResourceBundle titleBundle = ResourceBundle.getBundle("rocks6205.system.properties.LSEditor", Locale.getDefault());;
-    
+    public static final Logger   logger      =
+        Logger.getLogger(Thread.currentThread().getStackTrace()[0].getClassName());
+    public static ResourceBundle titleBundle = ResourceBundle.getBundle("rocks6205.system.properties.LSEditor",
+                                                   Locale.getDefault());;
+
     public static void main(String[] rcks) {
-        logger.info(String.format("The current active OS is " + OSValidator.getOS() + ".\n"));
+        String message = String.format("The current active OS is " + OSValidator.getOS() + ".\n");
+
+        logger.info(message);
+
+        if (!OSValidator.isMac()) {
+            JOptionPane.showMessageDialog(
+                new JFrame(),
+                message + "The current application only provide support for Mac OS X. The application will exit now.",
+                "Operating system not supported", JOptionPane.WARNING_MESSAGE);
+            System.exit(0);
+        }
+
         setUpLookAndFeel();
 
 //      LSUISplashScreen splash = new LSUISplashScreen(5000);

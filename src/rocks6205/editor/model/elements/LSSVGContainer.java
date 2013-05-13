@@ -1,13 +1,3 @@
-
-/**
- *
- * Class: LSSVGContainer
- * Description:
- *
- * @author: Cheow Yeong Chi
- * @date: 14/03/2013
- *
- */
 package rocks6205.editor.model.elements;
 
 //~--- non-JDK imports --------------------------------------------------------
@@ -17,6 +7,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
+import rocks6205.editor.core.LSEditor;
 import rocks6205.editor.model.adt.LSLength;
 import rocks6205.editor.model.adt.LSLengthUnitType;
 
@@ -104,6 +95,7 @@ public class LSSVGContainer extends LSGenericContainer {
     /**
      * {@inheritDoc}
      */
+    @Override
     public Rectangle2D.Float getBounds() {
         return new Rectangle2D.Float(0, 0, width.getValue(LSLengthUnitType.PX), height.getValue(LSLengthUnitType.PX));
     }
@@ -111,6 +103,7 @@ public class LSSVGContainer extends LSGenericContainer {
     /**
      * {@inheritDoc}
      */
+    @Override
     public void drawShape(Graphics2D g) {
         for (LSGenericElement child : getDescendants()) {
             child.drawShape(g);
@@ -125,10 +118,10 @@ public class LSSVGContainer extends LSGenericContainer {
      * @return <code>LSSVGContainer</code> object
      */
     public static LSSVGContainer parseDocument(Document document) {
-        LSSVGContainer       svg_e           = null;
+        LSSVGContainer     svg_e           = null;
         LSGenericContainer ancestorElement = null, newAncestorElement;
-        Node                node            = document.getDocumentElement();
-        Element             e;
+        Node               node            = document.getDocumentElement();
+        Element            e;
 
         while (node != null) {
             newAncestorElement = null;
@@ -140,7 +133,7 @@ public class LSSVGContainer extends LSGenericContainer {
                 case "svg" :
                     LSLength width     = null;
                     LSLength height    = null;
-                    Attr          widthAttr = e.getAttributeNodeNS(null, "width");
+                    Attr     widthAttr = e.getAttributeNodeNS(null, "width");
 
                     if (widthAttr != null) {
                         width = LSLength.parse(widthAttr.getValue());
@@ -164,23 +157,41 @@ public class LSSVGContainer extends LSGenericContainer {
                 case "g" :
                     LSGroupContainer g_e = LSGroupContainer.parseElement(e);
 
-                    ancestorElement.addDescendant(g_e);
+                    if (ancestorElement != null) {
+                        ancestorElement.addDescendant(g_e);
+                    } else {
+                        LSEditor.logger.warning("Null pointer dereferencing while parsing group ancestor element\n");
+                    }
+
                     newAncestorElement = g_e;
 
                     break;
 
                 case "rect" :
-                    ancestorElement.addDescendant(LSShapeRect.parseElement(e));
+                    if (ancestorElement != null) {
+                        ancestorElement.addDescendant(LSShapeRect.parseElement(e));
+                    } else {
+                        LSEditor.logger.warning(
+                            "Null pointer dereferencing while parsing rectangle ancestor element\n");
+                    }
 
                     break;
 
                 case "circle" :
-                    ancestorElement.addDescendant(LSShapeCircle.parseElement(e));
+                    if (ancestorElement != null) {
+                        ancestorElement.addDescendant(LSShapeCircle.parseElement(e));
+                    } else {
+                        LSEditor.logger.warning("Null pointer dereferencing while parsing circle ancestor element\n");
+                    }
 
                     break;
 
                 case "line" :
-                    ancestorElement.addDescendant(LSShapeLine.parseElement(e));
+                    if (ancestorElement != null) {
+                        ancestorElement.addDescendant(LSShapeLine.parseElement(e));
+                    } else {
+                        LSEditor.logger.warning("Null pointer dereferencing while parsing line ancestor element\n");
+                    }
 
                     break;
                 }
@@ -197,8 +208,12 @@ public class LSSVGContainer extends LSGenericContainer {
             } else {
                 node = node.getParentNode().getNextSibling();
 
-                if (ancestorElement.getAncestorElement() != null) {
-                    ancestorElement = ancestorElement.getAncestorElement();
+                if (ancestorElement != null) {
+                    if (ancestorElement.getAncestorElement() != null) {
+                        ancestorElement = ancestorElement.getAncestorElement();
+                    }
+                } else {
+                    LSEditor.logger.warning("Null pointer dereferencing.\n");
                 }
             }
         }
@@ -211,11 +226,7 @@ public class LSSVGContainer extends LSGenericContainer {
      * {@inheritDoc}
      */
     @Override
-    public String getElementType() {
-        return "SVGSVGElement";
-    }
-
-    public void listDescendants() {
-        super.listDescendants(this, 0);
+    public String toString() {
+        return LSSVGContainer.class.getSimpleName();
     }
 }

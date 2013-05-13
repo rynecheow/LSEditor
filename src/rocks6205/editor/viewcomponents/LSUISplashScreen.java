@@ -41,8 +41,8 @@ public final class LSUISplashScreen extends JWindow {
      */
     public void showSplash() {
         JPanel content = (JPanel) getContentPane();
-        content.setBackground(Color.white);
 
+        content.setBackground(Color.white);
         setUpProperties();
 
         // Build the splash screen
@@ -70,17 +70,18 @@ public final class LSUISplashScreen extends JWindow {
         setVisible(false);
         dispose();
     }
-    
+
     /**
      * Set up splash screen size properties.<br>
      * Set the window's bounds, centering the window.
      */
-   private void setUpProperties() {
+    private void setUpProperties() {
         int       width  = 450;
         int       height = 115;
         Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
         int       x      = (screen.width - width) / 2;
         int       y      = (screen.height - height) / 2;
+
         setBounds(x, y, width, height);
-   }
+    }
 }

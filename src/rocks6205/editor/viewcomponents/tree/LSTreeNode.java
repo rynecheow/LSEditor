@@ -9,9 +9,10 @@ import java.util.Enumeration;
 import javax.swing.tree.TreeNode;
 
 /**
+ * Defines the tree node of the navigation tree.
  *
  * @author Cheow Yeong Chi
- * 
+ *
  * @since 2.4
  */
 public class LSTreeNode implements TreeNode {
@@ -24,7 +25,7 @@ public class LSTreeNode implements TreeNode {
     public static final int NODE_LINE   = 2;
     public static final int NODE_RECT   = 3;
     public static final int NODE_CIRCLE = 4;
-    
+
     /**
      *     The title will be displayed in the tree
      */
@@ -33,33 +34,33 @@ public class LSTreeNode implements TreeNode {
     /*
      * Type of current node.
      */
-    private int                 type;
-    
+    private int type;
+
     /**
      * Children of node.
      */
     private ArrayList<TreeNode> children;
-    
+
     /**
      * Parent node of current node.
      */
-    private TreeNode            parent;
-    
+    private TreeNode parent;
+
     /*
      * CONSTRUCTOR
      */
-    
+
     /**
      * Constructs a tree node by accepting a title and a type.
      * @param title
-     * @param type 
+     * @param type
      */
     public LSTreeNode(String title, int type) {
         this.children = new ArrayList<>();
         this.title    = title;
         this.type     = type;
     }
-    
+
     /**
      * Append child to current node
      * @param child Child tree node.
@@ -67,7 +68,7 @@ public class LSTreeNode implements TreeNode {
     public void addChild(TreeNode child) {
         children.add(child);
     }
-    
+
     /**
      * Set parent node.
      * @param parent parent node.
@@ -91,7 +92,7 @@ public class LSTreeNode implements TreeNode {
     public boolean getAllowsChildren() {
         return true;
     }
-    
+
     /**
      * {@inheritDoc }
      */
@@ -99,7 +100,7 @@ public class LSTreeNode implements TreeNode {
     public TreeNode getChildAt(int childIndex) {
         return children.get(childIndex);
     }
-    
+
     /**
      * {@inheritDoc }
      */
@@ -107,7 +108,7 @@ public class LSTreeNode implements TreeNode {
     public int getChildCount() {
         return children.size();
     }
-    
+
     /**
      * {@inheritDoc }
      */
@@ -124,6 +125,7 @@ public class LSTreeNode implements TreeNode {
     public TreeNode getParent() {
         return this.parent;
     }
+
     /**
      * {@inheritDoc }
      * @return If there is not children
