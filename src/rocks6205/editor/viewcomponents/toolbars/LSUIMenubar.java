@@ -273,6 +273,8 @@ public final class LSUIMenubar extends JMenuBar implements LSUIProtocol {
         languageGrp.add(japaneseLanguageMenuItem);
         languageGrp.add(chineseLanguageMenuItem);
         languageGrp.add(tamilLanguageMenuItem);
+        
+        languageMenu.setEnabled(false);
     }
 
     /**
