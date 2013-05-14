@@ -30,6 +30,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
+import rocks6205.editor.core.LSEditor;
 
 /**
  * Document properties modal dialog.
@@ -137,6 +138,7 @@ public final class LSUICanvasPropertiesDialog extends JDialog implements LSUIPro
      */
     @Override
     public void customise() {
+        reloadString(LSEditor.titleBundle);
         layoutView();
         layoutChildComponents();
         getContentPane().add(backPanel);
@@ -170,7 +172,6 @@ public final class LSUICanvasPropertiesDialog extends JDialog implements LSUIPro
         backPanel.setLayout(null);
         documentNameLabel.setBackground(new Color(255, 255, 255));
         documentNameLabel.setForeground(new Color(255, 255, 255));
-        documentNameLabel.setText("Document Name:");
         backPanel.add(documentNameLabel);
         documentNameLabel.setBounds(49, 37, 109, 16);
         documentNameTextField.setBackground(backPanel.getBackground());
@@ -179,25 +180,21 @@ public final class LSUICanvasPropertiesDialog extends JDialog implements LSUIPro
         backPanel.add(documentNameTextField);
         documentNameTextField.setBounds(176, 31, 202, 28);
         presetLabel.setForeground(new Color(255, 255, 255));
-        presetLabel.setText("Preset:");
         backPanel.add(presetLabel);
         presetLabel.setBounds(49, 69, 42, 16);
         presetComboBox.setModel(new DefaultComboBoxModel(new String[] { "Default Editor Size", "Web" }));
         backPanel.add(presetComboBox);
         presetComboBox.setBounds(176, 65, 202, 27);
         sizeLabel.setForeground(new Color(255, 255, 255));
-        sizeLabel.setText("Size:");
         backPanel.add(sizeLabel);
         sizeLabel.setBounds(49, 102, 29, 16);
         sizeComboBox.setModel(new DefaultComboBoxModel(new String[] { "800 x 600", "1024 x 768", "1152 x 864" }));
         backPanel.add(sizeComboBox);
         sizeComboBox.setBounds(176, 98, 202, 27);
         widthLabel.setForeground(new Color(255, 255, 255));
-        widthLabel.setText("Width:");
         backPanel.add(widthLabel);
         widthLabel.setBounds(49, 137, 40, 16);
         heightLabel.setForeground(new Color(255, 255, 255));
-        heightLabel.setText("Height:");
         backPanel.add(heightLabel);
         heightLabel.setBounds(49, 172, 46, 16);
         backPanel.add(widthTextField);
@@ -212,26 +209,20 @@ public final class LSUICanvasPropertiesDialog extends JDialog implements LSUIPro
         heightUnitComboBox.setBounds(288, 168, 90, 27);
         resolutionLabel.setBackground(new Color(255, 255, 255));
         resolutionLabel.setForeground(new Color(255, 255, 255));
-        resolutionLabel.setText("Resolution:");
         backPanel.add(resolutionLabel);
         resolutionLabel.setBounds(50, 208, 71, 16);
         resolutionInfoLabel.setForeground(new Color(255, 255, 255));
-        resolutionInfoLabel.setText("72 Pixel/Inch");
         backPanel.add(resolutionInfoLabel);
         resolutionInfoLabel.setBounds(176, 208, 84, 16);
         colorModeLabel.setBackground(new Color(255, 255, 255));
         colorModeLabel.setForeground(new Color(255, 255, 255));
-        colorModeLabel.setText("Color Mode:");
         backPanel.add(colorModeLabel);
         colorModeLabel.setBounds(50, 242, 76, 16);
         colorModeInfoLabel.setForeground(new Color(255, 255, 255));
-        colorModeInfoLabel.setText("RGB Color - 8 bit");
         backPanel.add(colorModeInfoLabel);
         colorModeInfoLabel.setBounds(176, 242, 107, 16);
-        confirmButton.setText("OK");
         backPanel.add(confirmButton);
         confirmButton.setBounds(362, 303, 96, 29);
-        cancelButton.setText("Cancel");
         backPanel.add(cancelButton);
         cancelButton.setBounds(362, 270, 96, 29);
     }

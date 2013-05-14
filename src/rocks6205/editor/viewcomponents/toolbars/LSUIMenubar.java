@@ -361,32 +361,32 @@ public final class LSUIMenubar extends JMenuBar implements LSUIProtocol {
     }
 
     public void reloadString(ResourceBundle b) {
-       fileMenu.setText(LSEditor.titleBundle.getString("menubar.file.title"));
-       editMenu.setText(LSEditor.titleBundle.getString("menubar.edit.title"));
-       windowMenu.setText(LSEditor.titleBundle.getString("menubar.window.title"));
-       helpMenu.setText(LSEditor.titleBundle.getString("menubar.help.title"));
-       languageMenu.setText(LSEditor.titleBundle.getString("menubar.language.title"));
-       docPropMenuItem.setText(LSEditor.titleBundle.getString("action.docprop.title"));
+       fileMenu.setText(b.getString("menubar.file.title"));
+       editMenu.setText(b.getString("menubar.edit.title"));
+       windowMenu.setText(b.getString("menubar.window.title"));
+       helpMenu.setText(b.getString("menubar.help.title"));
+       languageMenu.setText(b.getString("menubar.language.title"));
+       docPropMenuItem.setText(b.getString("action.docprop.title"));
        
-       newAct.setText(LSEditor.titleBundle.getString("action.new.title"));
-       openAct.setText(LSEditor.titleBundle.getString("action.open.title"));
-       saveAct.setText(LSEditor.titleBundle.getString("action.save.title"));
-       saveAsAct.setText(LSEditor.titleBundle.getString("action.saveas.title"));
+       newAct.setText(b.getString("action.new.title"));
+       openAct.setText(b.getString("action.open.title"));
+       saveAct.setText(b.getString("action.save.title"));
+       saveAsAct.setText(b.getString("action.saveas.title"));
        
-       exitAct.setText(LSEditor.titleBundle.getString("action.exit.title"));
-       selectAllAct.setText(LSEditor.titleBundle.getString("action.selall.title"));
-       deselectAllAct.setText(LSEditor.titleBundle.getString("action.deselall.title"));
-       groupAction.setText(LSEditor.titleBundle.getString("action.group.title"));
-       ungroupAction.setText(LSEditor.titleBundle.getString("action.ungroup.title"));
-       deleteAction.setText(LSEditor.titleBundle.getString("action.delete.title"));
-       zoomOutAction.setText(LSEditor.titleBundle.getString("action.zoomout.title"));
-       zoomInAction.setText(LSEditor.titleBundle.getString("action.zoomin.title"));
-       toggleCodeAct.setText(LSEditor.titleBundle.getString("action.closecodeview.title"));
-       malayLanguageToggleAction.setText(LSEditor.titleBundle.getString("action.malayLanguage.name"));
-       englishLanguageToggleAction.setText(LSEditor.titleBundle.getString("action.englishLanguage.name"));
-       japaneseLanguageToggleAction.setText(LSEditor.titleBundle.getString("action.japaneseLanguage.name"));
-       chineseLanguageToggleAction.setText(LSEditor.titleBundle.getString("action.chineseLanguage.name"));
-       tamilLanguageToggleAction.setText(LSEditor.titleBundle.getString("action.tamilLanguage.name"));
-       thaiLanguageToggleAction.setText(LSEditor.titleBundle.getString("action.thaiLanguage.name"));
+       exitAct.setText(b.getString("action.exit.title"));
+       selectAllAct.setText(b.getString("action.selall.title"));
+       deselectAllAct.setText(b.getString("action.deselall.title"));
+       groupAction.setText(b.getString("action.group.title"));
+       ungroupAction.setText(b.getString("action.ungroup.title"));
+       deleteAction.setText(b.getString("action.delete.title"));
+       zoomOutAction.setText(b.getString("action.zoomout.title"));
+       zoomInAction.setText(b.getString("action.zoomin.title"));
+       toggleCodeAct.setText(b.getString("action.closecodeview.title"));
+       malayLanguageToggleAction.setText(b.getString("action.malayLanguage.name"));
+       englishLanguageToggleAction.setText(b.getString("action.englishLanguage.name"));
+       japaneseLanguageToggleAction.setText(b.getString("action.japaneseLanguage.name"));
+       chineseLanguageToggleAction.setText(b.getString("action.chineseLanguage.name"));
+       tamilLanguageToggleAction.setText(b.getString("action.tamilLanguage.name"));
+       thaiLanguageToggleAction.setText(b.getString("action.thaiLanguage.name"));
     }
 }
