@@ -13,17 +13,10 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontFormatException;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URISyntaxException;
 
-import java.net.URL;
-import java.net.URLDecoder;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-
 import javax.swing.JTextPane;
 
 /**
@@ -51,10 +44,10 @@ public final class LSUISVGCodePane extends JTextPane {
     }
 
     private Font loadCustomFont(String filename) {
-        Font   font   = null;
-        String path   = LSEditorGUIConstants.DEFAULT_PATH_TO_CUSTOM_FONTS + filename;
-        InputStream    imgURL = LSUISVGCodePane.class.getResourceAsStream(path);
-        
+        Font        font   = null;
+        String      path   = LSEditorGUIConstants.DEFAULT_PATH_TO_CUSTOM_FONTS + filename;
+        InputStream imgURL = LSUISVGCodePane.class.getResourceAsStream(path);
+
         try {
             font = Font.createFont(Font.TRUETYPE_FONT, imgURL);
         } catch (FontFormatException | IOException ex) {
