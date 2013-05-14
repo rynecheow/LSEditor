@@ -53,6 +53,7 @@ public class LSUIButton extends JButton {
     private ImageIcon createIcon(String iconName) {
         String    path   = LSEditorGUIConstants.DEFAULT_PATH_TO_TOOLBAR_ICONS + iconName;
         URL       imgURL = LSUIToggleButton.class.getResource(path);
+        
         ImageIcon icon   = new ImageIcon(imgURL);
 
         return icon;

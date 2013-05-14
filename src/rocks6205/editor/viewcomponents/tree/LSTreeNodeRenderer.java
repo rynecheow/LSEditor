@@ -8,10 +8,12 @@ import rocks6205.system.properties.LSEditorGUIConstants;
 
 import java.awt.Component;
 import java.awt.Image;
+import java.net.URL;
 
 import javax.swing.ImageIcon;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultTreeCellRenderer;
+import rocks6205.editor.viewcomponents.LSUIToggleButton;
 
 /**
  * This class is implemented to customize the display of a node.
@@ -69,8 +71,9 @@ public class LSTreeNodeRenderer extends DefaultTreeCellRenderer {
     }
 
     private ImageIcon createIconWithImageName(String name) {
-        String    string = LSEditorGUIConstants.DEFAULT_PATH_TO_TREE_ICONS + name + ".png";
-        ImageIcon icon   = new ImageIcon(string);
+        String    path = LSEditorGUIConstants.DEFAULT_PATH_TO_TREE_ICONS + name + ".png";
+        URL       imgURL = LSUIToggleButton.class.getResource(path);
+        ImageIcon icon   = new ImageIcon(imgURL);
 
         icon = new ImageIcon(icon.getImage().getScaledInstance(24, 20, Image.SCALE_SMOOTH));
 
