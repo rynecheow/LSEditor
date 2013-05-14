@@ -71,4 +71,22 @@
     nbproject/build-impl.xml file. 
 
     -->
+    <property environment="env" />
+    
+    <taskdef 
+    name="bundleapp" 
+    classname="com.oracle.appbundler.AppBundlerTask" 
+    classpath="lib/appbundler-1.0.jar" />
+
+    <target name="bundle">
+        <bundleapp outputdirectory="dist"
+            name="LSEditor"
+            displayname="LSEditor"
+            identifier="rocks6205.core.LSEditor"
+            shortversion="2.6"
+            mainclassname="rocks6205.editor.core.LSEditor">
+            <runtime dir="${env.JAVA_HOME}" />
+            <classpath file="dist/SVGEditor-rocks6205.jar" />
+        </bundleapp>
+    </target>
 </project>
