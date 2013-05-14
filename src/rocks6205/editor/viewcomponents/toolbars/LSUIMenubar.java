@@ -34,6 +34,8 @@ import javax.swing.ButtonGroup;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import rocks6205.editor.actions.LSAbstractAction.ThaiLanguageToggleAction;
+import rocks6205.editor.core.LSEditor;
 
 /**
  * The main menu bar for the GUI.
@@ -44,7 +46,6 @@ import javax.swing.JMenuItem;
  *
  */
 public final class LSUIMenubar extends JMenuBar implements LSUIProtocol {
-    private static final long serialVersionUID = 57709812552137078L;
 
     /**
      * Parent component
@@ -85,7 +86,7 @@ public final class LSUIMenubar extends JMenuBar implements LSUIProtocol {
     private JMenuItem   japaneseLanguageMenuItem;
     private JMenuItem   chineseLanguageMenuItem;
     private JMenuItem   tamilLanguageMenuItem;
-
+    private JMenuItem   thaiLanguageMenuItem;
     /*
      * ACTION COMPONENTS
      */
@@ -107,6 +108,7 @@ public final class LSUIMenubar extends JMenuBar implements LSUIProtocol {
     private JapaneseLanguageToggleAction japaneseLanguageToggleAction;
     private ChineseLanguageToggleAction  chineseLanguageToggleAction;
     private TamilLanguageToggleAction    tamilLanguageToggleAction;
+    private ThaiLanguageToggleAction     thaiLanguageToggleAction;
 
     /*
      * CONSTRUCTOR
@@ -130,17 +132,17 @@ public final class LSUIMenubar extends JMenuBar implements LSUIProtocol {
      */
     @Override
     public void initialise() {
-        fileMenu                   = new JMenu("File");
-        editMenu                   = new JMenu("Edit");
+        fileMenu                   = new JMenu();
+        editMenu                   = new JMenu();
         insertMenu                 = new JMenu("Insert");
-        windowMenu                 = new JMenu("Window");
-        helpMenu                   = new JMenu("Help");
-        languageMenu               = new JMenu("Language");
+        windowMenu                 = new JMenu();
+        helpMenu                   = new JMenu();
+        languageMenu               = new JMenu();
         newMenuItem                = new JMenuItem();
         openMenuItem               = new JMenuItem();
         saveMenuItem               = new JMenuItem();
         saveAsMenuItem             = new JMenuItem();
-        docPropMenuItem            = new JMenuItem("Document Properties");
+        docPropMenuItem            = new JMenuItem();
         exitMenuItem               = new JMenuItem();
         selectAllMenuItem          = new JMenuItem();
         deselectAllMenuItem        = new JMenuItem();
@@ -155,34 +157,36 @@ public final class LSUIMenubar extends JMenuBar implements LSUIProtocol {
         toggleCodeAreaViewMenuItem = new JMenuItem();
         faqMenuItem                = new JMenuItem("FAQ");
         aboutMenuItem              = new JMenuItem("About");
-        malayLanguageMenuItem      = new JMenuItem("Malay");
-        englishLanguageMenuItem    = new JMenuItem("English");
-        japaneseLanguageMenuItem   = new JMenuItem("Japanese");
-        chineseLanguageMenuItem    = new JMenuItem("Chinese");
-        tamilLanguageMenuItem      = new JMenuItem("Tamil");
+        malayLanguageMenuItem      = new JMenuItem();
+        englishLanguageMenuItem    = new JMenuItem();
+        japaneseLanguageMenuItem   = new JMenuItem();
+        chineseLanguageMenuItem    = new JMenuItem();
+        tamilLanguageMenuItem      = new JMenuItem();
+        thaiLanguageMenuItem       = new JMenuItem();
         languageGrp                = new ButtonGroup();
 
         /**
          * Initialising actions
          */
-        newAct                       = new NewDocumentAction(parent, "New");
-        openAct                      = new OpenFileAction(parent, "Open File...");
-        saveAct                      = new SaveFileAction(parent, "Save");
-        saveAsAct                    = new SaveFileAsAction(parent, "Save As...");
-        exitAct                      = new LSAbstractAction.ExitAction(parent, "Exit");
-        selectAllAct                 = new SelectAllAction(parent, "Select All");
-        deselectAllAct               = new DeselectAllAction(parent, "Deselect All");
-        groupAction                  = new GroupAction(parent, "Group");
-        ungroupAction                = new UngroupAction(parent, "Ungroup");
-        deleteAction                 = new DeleteAction(parent, "Delete");
-        zoomOutAction                = new ZoomOutViewAction(parent, "Zoom In");
-        zoomInAction                 = new ZoomInViewAction(parent, "Zoom Out");
-        toggleCodeAct                = new ToggleCodeViewAction(parent, "Close Code View Area..");
-        malayLanguageToggleAction    = new MalayLanguageToggleAction(parent, "Malay");
-        englishLanguageToggleAction  = new EnglishLanguageToggleAction(parent, "English");
-        japaneseLanguageToggleAction = new JapaneseLanguageToggleAction(parent, "Japanese");
-        chineseLanguageToggleAction  = new ChineseLanguageToggleAction(parent, "Chinese");
-        tamilLanguageToggleAction    = new TamilLanguageToggleAction(parent, "Tamil");
+        newAct                       = new NewDocumentAction(parent);
+        openAct                      = new OpenFileAction(parent);
+        saveAct                      = new SaveFileAction(parent);
+        saveAsAct                    = new SaveFileAsAction(parent);
+        exitAct                      = new ExitAction(parent);
+        selectAllAct                 = new SelectAllAction(parent);
+        deselectAllAct               = new DeselectAllAction(parent);
+        groupAction                  = new GroupAction(parent);
+        ungroupAction                = new UngroupAction(parent);
+        deleteAction                 = new DeleteAction(parent);
+        zoomOutAction                = new ZoomOutViewAction(parent);
+        zoomInAction                 = new ZoomInViewAction(parent);
+        toggleCodeAct                = new ToggleCodeViewAction(parent);
+        malayLanguageToggleAction    = new MalayLanguageToggleAction(parent);
+        englishLanguageToggleAction  = new EnglishLanguageToggleAction(parent);
+        japaneseLanguageToggleAction = new JapaneseLanguageToggleAction(parent);
+        chineseLanguageToggleAction  = new ChineseLanguageToggleAction(parent);
+        tamilLanguageToggleAction    = new TamilLanguageToggleAction(parent);
+        thaiLanguageToggleAction     = new ThaiLanguageToggleAction(parent);
     }
 
     /**
@@ -190,6 +194,7 @@ public final class LSUIMenubar extends JMenuBar implements LSUIProtocol {
      */
     @Override
     public void customise() {
+        reloadString(LSEditor.titleBundle);
         setMnemonicForMenus();
         layoutFileMenuItemList();
         layoutEditMenuItemList();
@@ -267,14 +272,16 @@ public final class LSUIMenubar extends JMenuBar implements LSUIProtocol {
         languageMenu.add(japaneseLanguageMenuItem);
         languageMenu.add(chineseLanguageMenuItem);
         languageMenu.add(tamilLanguageMenuItem);
+        languageMenu.add(thaiLanguageMenuItem);
         helpMenu.add(languageMenu);
         languageGrp.add(englishLanguageMenuItem);
         languageGrp.add(malayLanguageMenuItem);
         languageGrp.add(japaneseLanguageMenuItem);
         languageGrp.add(chineseLanguageMenuItem);
         languageGrp.add(tamilLanguageMenuItem);
+        languageGrp.add(thaiLanguageMenuItem);
         
-        languageMenu.setEnabled(false);
+//        languageMenu.setEnabled(false);
     }
 
     /**
@@ -325,6 +332,7 @@ public final class LSUIMenubar extends JMenuBar implements LSUIProtocol {
         japaneseLanguageMenuItem.setAction(japaneseLanguageToggleAction);
         chineseLanguageMenuItem.setAction(chineseLanguageToggleAction);
         tamilLanguageMenuItem.setAction(tamilLanguageToggleAction);
+        thaiLanguageMenuItem.setAction(thaiLanguageToggleAction);
     }
 
     /**
@@ -348,9 +356,37 @@ public final class LSUIMenubar extends JMenuBar implements LSUIProtocol {
 
     public void toggleCodeMenuTitle(boolean flag) {
         toggleCodeAreaViewMenuItem.setText(!flag
-                                           ? "Close Code View Area.."
-                                           : "Show Code View Area..");
+                                           ? LSEditor.titleBundle.getString("action.closecodeview.title")
+                                           : LSEditor.titleBundle.getString("action.showcodeview.title"));
     }
 
-    public void reloadString(ResourceBundle b) {}
+    public void reloadString(ResourceBundle b) {
+       fileMenu.setText(LSEditor.titleBundle.getString("menubar.file.title"));
+       editMenu.setText(LSEditor.titleBundle.getString("menubar.edit.title"));
+       windowMenu.setText(LSEditor.titleBundle.getString("menubar.window.title"));
+       helpMenu.setText(LSEditor.titleBundle.getString("menubar.help.title"));
+       languageMenu.setText(LSEditor.titleBundle.getString("menubar.language.title"));
+       docPropMenuItem.setText(LSEditor.titleBundle.getString("action.docprop.title"));
+       
+       newAct.setText(LSEditor.titleBundle.getString("action.new.title"));
+       openAct.setText(LSEditor.titleBundle.getString("action.open.title"));
+       saveAct.setText(LSEditor.titleBundle.getString("action.save.title"));
+       saveAsAct.setText(LSEditor.titleBundle.getString("action.saveas.title"));
+       
+       exitAct.setText(LSEditor.titleBundle.getString("action.exit.title"));
+       selectAllAct.setText(LSEditor.titleBundle.getString("action.selall.title"));
+       deselectAllAct.setText(LSEditor.titleBundle.getString("action.deselall.title"));
+       groupAction.setText(LSEditor.titleBundle.getString("action.group.title"));
+       ungroupAction.setText(LSEditor.titleBundle.getString("action.ungroup.title"));
+       deleteAction.setText(LSEditor.titleBundle.getString("action.delete.title"));
+       zoomOutAction.setText(LSEditor.titleBundle.getString("action.zoomout.title"));
+       zoomInAction.setText(LSEditor.titleBundle.getString("action.zoomin.title"));
+       toggleCodeAct.setText(LSEditor.titleBundle.getString("action.closecodeview.title"));
+       malayLanguageToggleAction.setText(LSEditor.titleBundle.getString("action.malayLanguage.name"));
+       englishLanguageToggleAction.setText(LSEditor.titleBundle.getString("action.englishLanguage.name"));
+       japaneseLanguageToggleAction.setText(LSEditor.titleBundle.getString("action.japaneseLanguage.name"));
+       chineseLanguageToggleAction.setText(LSEditor.titleBundle.getString("action.chineseLanguage.name"));
+       tamilLanguageToggleAction.setText(LSEditor.titleBundle.getString("action.tamilLanguage.name"));
+       thaiLanguageToggleAction.setText(LSEditor.titleBundle.getString("action.thaiLanguage.name"));
+    }
 }

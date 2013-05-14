@@ -106,7 +106,15 @@ public abstract class LSAbstractAction extends AbstractAction {
         return ActionEvent.CTRL_MASK;
     }
     
-            /**
+    /**
+     * Sets action name.
+     * @param name 
+     */
+    public void setText(String name){
+       putValue(Action.NAME, name);
+    }
+    
+    /**
      * The <code>DeleteAction</code> is a class which create an <code>Action</code>
      * instance. This action handles event by removing elements from the model.
      *
@@ -1237,6 +1245,49 @@ public abstract class LSAbstractAction extends AbstractAction {
             putValue(SELECTED_KEY, Boolean.TRUE);
             LSEditor.titleBundle = ResourceBundle.getBundle("rocks6205.system.properties.LSEditor",
                     new Locale("ta", "IN"));
+            v.reloadBundle();
+        }
+    }
+    
+    /**
+     * The <code>ThaiLanguageToggleAction</code> is a class which create an <code>Action</code>
+     * instance. This action handles event by setting the environment to be in Thai language.
+     *
+     * @author Cheow Yeong Chi
+     *
+     * @since 2.6
+     *
+     */
+    public static class ThaiLanguageToggleAction extends LSAbstractAction {
+
+        /*
+         * CONSTRUCTOR
+         */
+
+        /**
+         * Construct a <code>ThaiLanguageToggleAction</code> instance with v component
+         * <code>v</code> and no action name.
+         * @param v Parent component
+         */
+        public ThaiLanguageToggleAction(LSView parent) {
+            super("Thai", KeyEvent.VK_T, null, parent);
+        }
+
+        /**
+         * Construct a <code>ThaiLanguageToggleAction</code> instance with v component
+         * <code>v</code> and action name. <p>
+         * @param v Parent component
+         * @param actionName Name of action component
+         */
+        public ThaiLanguageToggleAction(LSView parent, String actionName) {
+            super(actionName, "Thai", KeyEvent.VK_T, null, parent);
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent event) {
+            putValue(SELECTED_KEY, Boolean.TRUE);
+            LSEditor.titleBundle = ResourceBundle.getBundle("rocks6205.system.properties.LSEditor",
+                    new Locale("th", "TH"));
             v.reloadBundle();
         }
     }
