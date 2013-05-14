@@ -6,6 +6,8 @@ import rocks6205.system.properties.LSEditorGUIConstants;
 
 //~--- JDK imports ------------------------------------------------------------
 
+import java.net.URL;
+
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
@@ -62,8 +64,9 @@ public class LSUIIconLabel extends JLabel {
     }
 
     private static ImageIcon createIcon(String iconName) {
-        String    string = LSEditorGUIConstants.DEFAULT_PATH_TO_TOOLBAR_ICONS + iconName;
-        ImageIcon icon   = new ImageIcon(string);
+        String    path   = LSEditorGUIConstants.DEFAULT_PATH_TO_TOOLBAR_ICONS + iconName;
+        URL       imgURL = LSUIIconLabel.class.getResource(path);
+        ImageIcon icon   = new ImageIcon(imgURL);
 
         return icon;
     }

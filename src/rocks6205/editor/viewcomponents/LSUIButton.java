@@ -6,6 +6,8 @@ import rocks6205.system.properties.LSEditorGUIConstants;
 
 //~--- JDK imports ------------------------------------------------------------
 
+import java.net.URL;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
@@ -49,8 +51,9 @@ public class LSUIButton extends JButton {
     }
 
     private ImageIcon createIcon(String iconName) {
-        String    string = LSEditorGUIConstants.DEFAULT_PATH_TO_TOOLBAR_ICONS + iconName;
-        ImageIcon icon   = new ImageIcon(string);
+        String    path   = LSEditorGUIConstants.DEFAULT_PATH_TO_TOOLBAR_ICONS + iconName;
+        URL       imgURL = LSUIToggleButton.class.getResource(path);
+        ImageIcon icon   = new ImageIcon(imgURL);
 
         return icon;
     }

@@ -14,7 +14,7 @@ import javax.swing.border.Border;
  * @author Cheow Yeong Chi
  *
  * @since 1.6
- * 
+ *
  *
  */
 public interface LSEditorGUIConstants {
@@ -43,15 +43,15 @@ public interface LSEditorGUIConstants {
     /**
      * Path to toolbar icons
      */
-    public static final String DEFAULT_PATH_TO_TOOLBAR_ICONS = "resources/toolbar-icons/";
+    public static final String DEFAULT_PATH_TO_TOOLBAR_ICONS = "/rocks6205/resources/toolbar-icons/";
 
     /**
      * Path to tree icons
      */
-    public static final String DEFAULT_PATH_TO_TREE_ICONS = "resources/tree-icons/";
+    public static final String DEFAULT_PATH_TO_TREE_ICONS = "/rocks6205/resources/tree-icons/";
 
     /**
      * Path to custom fonts
      */
-    public static final String DEFAULT_PATH_TO_CUSTOM_FONTS = "resources/fonts/";
+    public static final String DEFAULT_PATH_TO_CUSTOM_FONTS = "/rocks6205/resources/fonts/";
 }

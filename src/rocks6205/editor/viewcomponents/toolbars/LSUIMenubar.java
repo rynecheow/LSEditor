@@ -17,10 +17,12 @@ import rocks6205.editor.actions.LSAbstractAction.SaveFileAction;
 import rocks6205.editor.actions.LSAbstractAction.SaveFileAsAction;
 import rocks6205.editor.actions.LSAbstractAction.SelectAllAction;
 import rocks6205.editor.actions.LSAbstractAction.TamilLanguageToggleAction;
+import rocks6205.editor.actions.LSAbstractAction.ThaiLanguageToggleAction;
 import rocks6205.editor.actions.LSAbstractAction.ToggleCodeViewAction;
 import rocks6205.editor.actions.LSAbstractAction.UngroupAction;
 import rocks6205.editor.actions.LSAbstractAction.ZoomInViewAction;
 import rocks6205.editor.actions.LSAbstractAction.ZoomOutViewAction;
+import rocks6205.editor.core.LSEditor;
 import rocks6205.editor.core.LSView;
 import rocks6205.editor.viewcomponents.LSUIProtocol;
 
@@ -34,8 +36,6 @@ import javax.swing.ButtonGroup;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import rocks6205.editor.actions.LSAbstractAction.ThaiLanguageToggleAction;
-import rocks6205.editor.core.LSEditor;
 
 /**
  * The main menu bar for the GUI.
@@ -87,6 +87,7 @@ public final class LSUIMenubar extends JMenuBar implements LSUIProtocol {
     private JMenuItem   chineseLanguageMenuItem;
     private JMenuItem   tamilLanguageMenuItem;
     private JMenuItem   thaiLanguageMenuItem;
+
     /*
      * ACTION COMPONENTS
      */
@@ -280,8 +281,8 @@ public final class LSUIMenubar extends JMenuBar implements LSUIProtocol {
         languageGrp.add(chineseLanguageMenuItem);
         languageGrp.add(tamilLanguageMenuItem);
         languageGrp.add(thaiLanguageMenuItem);
-        
-//        languageMenu.setEnabled(false);
+
+//      languageMenu.setEnabled(false);
     }
 
     /**
@@ -361,32 +362,30 @@ public final class LSUIMenubar extends JMenuBar implements LSUIProtocol {
     }
 
     public void reloadString(ResourceBundle b) {
-       fileMenu.setText(b.getString("menubar.file.title"));
-       editMenu.setText(b.getString("menubar.edit.title"));
-       windowMenu.setText(b.getString("menubar.window.title"));
-       helpMenu.setText(b.getString("menubar.help.title"));
-       languageMenu.setText(b.getString("menubar.language.title"));
-       docPropMenuItem.setText(b.getString("action.docprop.title"));
-       
-       newAct.setText(b.getString("action.new.title"));
-       openAct.setText(b.getString("action.open.title"));
-       saveAct.setText(b.getString("action.save.title"));
-       saveAsAct.setText(b.getString("action.saveas.title"));
-       
-       exitAct.setText(b.getString("action.exit.title"));
-       selectAllAct.setText(b.getString("action.selall.title"));
-       deselectAllAct.setText(b.getString("action.deselall.title"));
-       groupAction.setText(b.getString("action.group.title"));
-       ungroupAction.setText(b.getString("action.ungroup.title"));
-       deleteAction.setText(b.getString("action.delete.title"));
-       zoomOutAction.setText(b.getString("action.zoomout.title"));
-       zoomInAction.setText(b.getString("action.zoomin.title"));
-       toggleCodeAct.setText(b.getString("action.closecodeview.title"));
-       malayLanguageToggleAction.setText(b.getString("action.malayLanguage.name"));
-       englishLanguageToggleAction.setText(b.getString("action.englishLanguage.name"));
-       japaneseLanguageToggleAction.setText(b.getString("action.japaneseLanguage.name"));
-       chineseLanguageToggleAction.setText(b.getString("action.chineseLanguage.name"));
-       tamilLanguageToggleAction.setText(b.getString("action.tamilLanguage.name"));
-       thaiLanguageToggleAction.setText(b.getString("action.thaiLanguage.name"));
+        fileMenu.setText(b.getString("menubar.file.title"));
+        editMenu.setText(b.getString("menubar.edit.title"));
+        windowMenu.setText(b.getString("menubar.window.title"));
+        helpMenu.setText(b.getString("menubar.help.title"));
+        languageMenu.setText(b.getString("menubar.language.title"));
+        docPropMenuItem.setText(b.getString("action.docprop.title"));
+        newAct.setText(b.getString("action.new.title"));
+        openAct.setText(b.getString("action.open.title"));
+        saveAct.setText(b.getString("action.save.title"));
+        saveAsAct.setText(b.getString("action.saveas.title"));
+        exitAct.setText(b.getString("action.exit.title"));
+        selectAllAct.setText(b.getString("action.selall.title"));
+        deselectAllAct.setText(b.getString("action.deselall.title"));
+        groupAction.setText(b.getString("action.group.title"));
+        ungroupAction.setText(b.getString("action.ungroup.title"));
+        deleteAction.setText(b.getString("action.delete.title"));
+        zoomOutAction.setText(b.getString("action.zoomout.title"));
+        zoomInAction.setText(b.getString("action.zoomin.title"));
+        toggleCodeAct.setText(b.getString("action.closecodeview.title"));
+        malayLanguageToggleAction.setText(b.getString("action.malayLanguage.name"));
+        englishLanguageToggleAction.setText(b.getString("action.englishLanguage.name"));
+        japaneseLanguageToggleAction.setText(b.getString("action.japaneseLanguage.name"));
+        chineseLanguageToggleAction.setText(b.getString("action.chineseLanguage.name"));
+        tamilLanguageToggleAction.setText(b.getString("action.tamilLanguage.name"));
+        thaiLanguageToggleAction.setText(b.getString("action.thaiLanguage.name"));
     }
 }

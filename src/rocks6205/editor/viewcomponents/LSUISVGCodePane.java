@@ -16,6 +16,9 @@ import java.awt.FontFormatException;
 import java.io.File;
 import java.io.IOException;
 
+import java.net.URL;
+import java.net.URLDecoder;
+
 import javax.swing.JTextPane;
 
 /**
@@ -43,11 +46,12 @@ public final class LSUISVGCodePane extends JTextPane {
     }
 
     private Font loadCustomFont(String filename) {
-        Font   font = null;
-        String path = LSEditorGUIConstants.DEFAULT_PATH_TO_CUSTOM_FONTS + filename;
+        Font   font   = null;
+        String path   = LSEditorGUIConstants.DEFAULT_PATH_TO_CUSTOM_FONTS + filename;
+        URL    imgURL = LSUISVGCodePane.class.getResource(path);
 
         try {
-            font = Font.createFont(Font.TRUETYPE_FONT, new File(path));
+            font = Font.createFont(Font.TRUETYPE_FONT, new File(URLDecoder.decode(imgURL.getFile(), "UTF-8")));
         } catch (FontFormatException | IOException ex) {
             LSEditor.logger.warning(ex.getMessage());
         }
