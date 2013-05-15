@@ -2,6 +2,7 @@ package rocks6205.editor.core;
 
 //~--- non-JDK imports --------------------------------------------------------
 
+import com.memetix.mst.language.Language;
 import rocks6205.editor.viewcomponents.LSUISplashScreen;
 
 import rocks6205.system.properties.OSValidator;
@@ -10,8 +11,12 @@ import rocks6205.system.properties.OSValidator;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.util.ArrayList;
 
 import java.util.Locale;
+import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 import java.util.logging.Logger;
 
@@ -19,6 +24,8 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import rocks6205.system.properties.LSEditorLocale;
+import rocks6205.system.properties.Translator;
 
 /**
  * Execute main function.
@@ -29,19 +36,26 @@ import javax.swing.UnsupportedLookAndFeelException;
  *
  */
 public class LSEditor {
+    
     public static final Logger   logger      =
         Logger.getLogger(Thread.currentThread().getStackTrace()[0].getClassName());
-    /*public static ResourceBundle titleBundle = ResourceBundle.getBundle("rocks6205.system.properties.LSEditor",
-                                                   Locale.getDefault());*/
-    public static ResourceBundle titleBundle = ResourceBundle.getBundle("rocks6205.system.properties.LSEditor",
-                                                   Locale.US);
-   
-    public static void main(String[] rcks) {
+    public static ResourceBundle titleBundle;
+    
+    public static void main(String[] rcks) throws Exception {
+        File file = new File( "build/classes/rocks6205/system/properties/" + "LSEditor_" + 
+                Locale.getDefault() + ".properties" ); /* Locale.FRANCE */
         
-        try{
-        }catch( Exception ex) {
-            
+        logger.info("Your default locale is " + Locale.getDefault().toString() + "\n" );
+        
+        if( !file.exists() ) {
+            Translator.translate( 
+                    new File( "build/classes/rocks6205/system/properties/" + "LSEditor_" + 
+                Locale.US + ".properties" ) , file , 
+                Language.fromString( Locale.getDefault().getLanguage() ) ); /* Locale.FRANCE.getLanguage() */
         }
+        
+        titleBundle = ResourceBundle.getBundle("rocks6205.system.properties.LSEditor",
+                                                   Locale.getDefault() ); /* Locale.FRANCE */
         
         String message = String.format("The current active OS is " + OSValidator.getOS() + ".\n");
 
