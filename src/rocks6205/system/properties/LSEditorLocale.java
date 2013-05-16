@@ -1,11 +1,6 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package rocks6205.system.properties;
 
 /**
- *
  * @author Sugar CheeSheen Chan
  */
 public class LSEditorLocale {
@@ -14,7 +9,7 @@ public class LSEditorLocale {
 
     public LSEditorLocale(String property, String value) {
         this.property = property;
-        this.value = value;
+        this.value    = value;
     }
 
     public String getProperty() {
@@ -32,6 +27,4 @@ public class LSEditorLocale {
     public void setValue(String value) {
         this.value = value;
     }
-    
-    
 }
