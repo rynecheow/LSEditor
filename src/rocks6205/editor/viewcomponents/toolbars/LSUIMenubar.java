@@ -2,10 +2,10 @@ package rocks6205.editor.viewcomponents.toolbars;
 
 //~--- non-JDK imports --------------------------------------------------------
 
-import rocks6205.editor.actions.LSAbstractAction;
 import rocks6205.editor.actions.LSAbstractAction.ChineseLanguageToggleAction;
 import rocks6205.editor.actions.LSAbstractAction.DeleteAction;
 import rocks6205.editor.actions.LSAbstractAction.DeselectAllAction;
+import rocks6205.editor.actions.LSAbstractAction.DocumentPropertiesAction;
 import rocks6205.editor.actions.LSAbstractAction.EnglishLanguageToggleAction;
 import rocks6205.editor.actions.LSAbstractAction.ExitAction;
 import rocks6205.editor.actions.LSAbstractAction.GroupAction;
@@ -110,6 +110,7 @@ public final class LSUIMenubar extends JMenuBar implements LSUIProtocol {
     private ChineseLanguageToggleAction  chineseLanguageToggleAction;
     private TamilLanguageToggleAction    tamilLanguageToggleAction;
     private ThaiLanguageToggleAction     thaiLanguageToggleAction;
+    private DocumentPropertiesAction     docPropAct;
 
     /*
      * CONSTRUCTOR
@@ -182,6 +183,7 @@ public final class LSUIMenubar extends JMenuBar implements LSUIProtocol {
         zoomOutAction                = new ZoomOutViewAction(parent);
         zoomInAction                 = new ZoomInViewAction(parent);
         toggleCodeAct                = new ToggleCodeViewAction(parent);
+        docPropAct                   = new DocumentPropertiesAction(parent);
         malayLanguageToggleAction    = new MalayLanguageToggleAction(parent);
         englishLanguageToggleAction  = new EnglishLanguageToggleAction(parent);
         japaneseLanguageToggleAction = new JapaneseLanguageToggleAction(parent);
@@ -313,6 +315,7 @@ public final class LSUIMenubar extends JMenuBar implements LSUIProtocol {
         saveMenuItem.setAction(saveAct);
         saveAsMenuItem.setAction(saveAsAct);
         exitMenuItem.setAction(exitAct);
+        docPropMenuItem.setAction(docPropAct);
 
         // Group 2
         selectAllMenuItem.setAction(selectAllAct);
@@ -358,7 +361,7 @@ public final class LSUIMenubar extends JMenuBar implements LSUIProtocol {
     public void toggleCodeMenuTitle(boolean flag) {
         toggleCodeAreaViewMenuItem.setText(!flag
                                            ? LSEditor.titleBundle.getString("action.closecodeview.title")
-                                           : LSEditor.titleBundle.getString("action.showcodeview.title"));
+                                           : LSEditor.titleBundle.getString("action.opencodeview.title"));
     }
 
     public void reloadString(ResourceBundle b) {
@@ -367,7 +370,7 @@ public final class LSUIMenubar extends JMenuBar implements LSUIProtocol {
         windowMenu.setText(b.getString("menubar.window.title"));
         helpMenu.setText(b.getString("menubar.help.title"));
         languageMenu.setText(b.getString("menubar.language.title"));
-        docPropMenuItem.setText(b.getString("action.docprop.title"));
+        docPropAct.setText(b.getString("action.docprop.title"));
         newAct.setText(b.getString("action.new.title"));
         openAct.setText(b.getString("action.open.title"));
         saveAct.setText(b.getString("action.save.title"));
