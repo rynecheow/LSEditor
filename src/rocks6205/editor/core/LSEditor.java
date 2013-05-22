@@ -25,6 +25,7 @@ import javax.swing.UnsupportedLookAndFeelException;
  *
  * @author Cheow Yeong Chi
  * @author Sugar Chee-Sheen Chan
+ * 
  * @since 1.0
  *
  */
@@ -43,8 +44,7 @@ public class LSEditor {
                                           + ".properties"), file,
                                               Language.fromString(Locale.getDefault().getLanguage()));    /* Locale.FRANCE.getLanguage() */
         }
-
-        titleBundle = ResourceBundle.getBundle("rocks6205.system.properties.LSEditor", Locale.getDefault());    /* Locale.FRANCE */
+        titleBundle = ResourceBundle.getBundle("rocks6205.system.properties.LSEditor", Locale.US);    /* Locale.FRANCE */
 
         String message = String.format("The current active OS is " + OSValidator.getOS() + ".\n");
 
