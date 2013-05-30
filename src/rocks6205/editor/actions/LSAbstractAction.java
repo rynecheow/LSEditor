@@ -134,8 +134,8 @@ public abstract class LSAbstractAction extends AbstractAction {
          * <code>v</code> and no action name.
          * @param v Parent component
          */
-        public DeleteAction(LSView parent) {
-            super("Delete", KeyEvent.VK_E, KeyStroke.getKeyStroke(KeyEvent.VK_DELETE, 0), parent);
+        public DeleteAction(ResourceBundle b,LSView parent) {
+            super(b.getString("action.delete.title"), KeyEvent.VK_E, KeyStroke.getKeyStroke(KeyEvent.VK_DELETE, 0), parent);
         }
 
         /**
@@ -176,8 +176,8 @@ public abstract class LSAbstractAction extends AbstractAction {
          * <code>v</code> and no action name.
          * @param v Parent component
          */
-        public DeselectAllAction(LSView parent) {
-            super("Deselect All", KeyEvent.VK_D,
+        public DeselectAllAction(ResourceBundle b,LSView parent) {
+            super(b.getString("action.deselall.title"), KeyEvent.VK_D,
                   KeyStroke.getKeyStroke(KeyEvent.VK_A, getKeyEventMask() + InputEvent.SHIFT_DOWN_MASK), parent);
         }
 
@@ -219,8 +219,8 @@ public abstract class LSAbstractAction extends AbstractAction {
          * <code>v</code> and no action name.
          * @param v Parent component
          */
-        public DocumentPropertiesAction(LSView parent) {
-            super("Document Properties..", KeyEvent.VK_P,
+        public DocumentPropertiesAction(ResourceBundle b,LSView parent) {
+            super(b.getString("action.docprop.title"), KeyEvent.VK_P,
                   KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, InputEvent.ALT_DOWN_MASK), parent);
         }
 
@@ -262,8 +262,8 @@ public abstract class LSAbstractAction extends AbstractAction {
          * <code>v</code> and no action name. <p>Disabled by default.
          * @param v Parent component
          */
-        public DrawCircleAction(LSView parent) {
-            super("Draw Circle", KeyEvent.VK_C, KeyStroke.getKeyStroke(KeyEvent.VK_C, getKeyEventMask()), parent);
+        public DrawCircleAction(ResourceBundle b,LSView parent) {
+            super(b.getString("action.drawCircle.title"), KeyEvent.VK_C, KeyStroke.getKeyStroke(KeyEvent.VK_C, getKeyEventMask()), parent);
         }
 
         /**
@@ -307,8 +307,8 @@ public abstract class LSAbstractAction extends AbstractAction {
          * <code>v</code> and no action name. <p>Disabled by default.
          * @param v Parent component
          */
-        public DrawLineAction(LSView parent) {
-            super("Draw Line", KeyEvent.VK_L, KeyStroke.getKeyStroke(KeyEvent.VK_L, getKeyEventMask()), parent);
+        public DrawLineAction(ResourceBundle b,LSView parent) {
+            super(b.getString("action.drawLine.title"), KeyEvent.VK_L, KeyStroke.getKeyStroke(KeyEvent.VK_L, getKeyEventMask()), parent);
         }
 
         /**
@@ -352,8 +352,8 @@ public abstract class LSAbstractAction extends AbstractAction {
          * <code>v</code> and no action name. <p>Disabled by default.
          * @param v Parent component
          */
-        public DrawRectAction(LSView parent) {
-            super("Draw Rect", KeyEvent.VK_R, KeyStroke.getKeyStroke(KeyEvent.VK_R, getKeyEventMask()), parent);
+        public DrawRectAction(ResourceBundle b,LSView parent) {
+            super(b.getString("action.drawRect.title"), KeyEvent.VK_R, KeyStroke.getKeyStroke(KeyEvent.VK_R, getKeyEventMask()), parent);
         }
 
         /**
@@ -397,8 +397,8 @@ public abstract class LSAbstractAction extends AbstractAction {
          * <code>v</code> and no action name.
          * @param v Parent component
          */
-        public ExitAction(LSView parent) {
-            super("Exit Program", KeyEvent.VK_X, KeyStroke.getKeyStroke(KeyEvent.VK_F4, ActionEvent.ALT_MASK), parent);
+        public ExitAction(ResourceBundle b,LSView parent) {
+            super(b.getString("action.exit.title"), KeyEvent.VK_X, KeyStroke.getKeyStroke(KeyEvent.VK_F4, ActionEvent.ALT_MASK), parent);
         }
 
         /**
@@ -447,8 +447,8 @@ public abstract class LSAbstractAction extends AbstractAction {
          * <code>v</code> and no action name.
          * @param v Parent component
          */
-        public GroupAction(LSView parent) {
-            super("Group", KeyEvent.VK_G, KeyStroke.getKeyStroke(KeyEvent.VK_G, getKeyEventMask()), parent);
+        public GroupAction(ResourceBundle b,LSView parent) {
+            super(b.getString("action.group.title"), KeyEvent.VK_G, KeyStroke.getKeyStroke(KeyEvent.VK_G, getKeyEventMask()), parent);
         }
 
         /**
@@ -486,8 +486,8 @@ public abstract class LSAbstractAction extends AbstractAction {
          * <code>v</code> and no action name.
          * @param v Parent component
          */
-        public NewDocumentAction(LSView parent) {
-            super("New..", KeyEvent.VK_N, KeyStroke.getKeyStroke(KeyEvent.VK_N, getKeyEventMask()), parent);
+        public NewDocumentAction(ResourceBundle b , LSView parent) {
+            super(b.getString("action.new.title"), KeyEvent.VK_N, KeyStroke.getKeyStroke(KeyEvent.VK_N, getKeyEventMask()), parent);
         }
 
         /**
@@ -532,8 +532,8 @@ public abstract class LSAbstractAction extends AbstractAction {
          *
          * @param v Parent component
          */
-        public OpenFileAction(LSView parent) {
-            super("Open a file", KeyEvent.VK_O, KeyStroke.getKeyStroke(KeyEvent.VK_O, getKeyEventMask()), parent);
+        public OpenFileAction(ResourceBundle b,LSView parent) {
+            super(b.getString("action.open.title"), KeyEvent.VK_O, KeyStroke.getKeyStroke(KeyEvent.VK_O, getKeyEventMask()), parent);
         }
 
         /**
@@ -601,8 +601,8 @@ public abstract class LSAbstractAction extends AbstractAction {
          * <code>v</code> and no action name.
          * @param v Parent component
          */
-        public PanModeAction(LSView parent) {
-            super("Pan Tool", KeyEvent.VK_P, null, parent);
+        public PanModeAction(ResourceBundle b,LSView parent) {
+            super(b.getString("action.pan.title"), KeyEvent.VK_P, null, parent);
         }
 
         /**
@@ -612,7 +612,7 @@ public abstract class LSAbstractAction extends AbstractAction {
          * @param actionName Name of action component
          */
         public PanModeAction(LSView parent, String actionName) {
-            super(actionName, "Selection Tool", KeyEvent.VK_P, null, parent);
+            super(actionName, "Pan Tool", KeyEvent.VK_P, null, parent);
         }
 
         @Override
@@ -643,8 +643,8 @@ public abstract class LSAbstractAction extends AbstractAction {
          * <code>v</code> and no action name.
          * @param v Parent component
          */
-        public SaveFileAction(LSView parent) {
-            super("Save", KeyEvent.VK_S, KeyStroke.getKeyStroke(KeyEvent.VK_S, getKeyEventMask()), parent);
+        public SaveFileAction(ResourceBundle b,LSView parent) {
+            super(b.getString("action.save.title"), KeyEvent.VK_S, KeyStroke.getKeyStroke(KeyEvent.VK_S, getKeyEventMask()), parent);
         }
 
         /**
@@ -685,8 +685,8 @@ public abstract class LSAbstractAction extends AbstractAction {
          * <code>v</code> and no action name.
          * @param v Parent component
          */
-        public SaveFileAsAction(LSView parent) {
-            super("Save As", KeyEvent.VK_A,
+        public SaveFileAsAction(ResourceBundle b,LSView parent) {
+            super(b.getString("action.saveas.title"), KeyEvent.VK_A,
                   KeyStroke.getKeyStroke(KeyEvent.VK_S, getKeyEventMask() + InputEvent.SHIFT_DOWN_MASK), parent);
         }
 
@@ -729,8 +729,8 @@ public abstract class LSAbstractAction extends AbstractAction {
          * <code>v</code> and no action name.
          * @param v Parent component
          */
-        public SelectAllAction(LSView parent) {
-            super("Select All", KeyEvent.VK_A, KeyStroke.getKeyStroke(KeyEvent.VK_A, getKeyEventMask()), parent);
+        public SelectAllAction(ResourceBundle b,LSView parent) {
+            super(b.getString("action.selall.title"), KeyEvent.VK_A, KeyStroke.getKeyStroke(KeyEvent.VK_A, getKeyEventMask()), parent);
         }
 
         /**
@@ -771,8 +771,8 @@ public abstract class LSAbstractAction extends AbstractAction {
          * <code>v</code> and no action name.
          * @param v Parent component
          */
-        public SelectModeAction(LSView parent) {
-            super("Selection Tool", KeyEvent.VK_S, null, parent);
+        public SelectModeAction(ResourceBundle b,LSView parent) {
+            super(b.getString("action.selection.title"), KeyEvent.VK_S, null, parent);
         }
 
         /**
@@ -812,8 +812,8 @@ public abstract class LSAbstractAction extends AbstractAction {
          * <code>v</code> and no action name.
          * @param v Parent component
          */
-        public ToggleCodeViewAction(LSView parent) {
-            super("Hide Code View Area..", KeyEvent.VK_D, KeyStroke.getKeyStroke(KeyEvent.VK_D, getKeyEventMask()),
+        public ToggleCodeViewAction(ResourceBundle b,LSView parent) {
+            super(b.getString("action.closecodeview.title"), KeyEvent.VK_D, KeyStroke.getKeyStroke(KeyEvent.VK_D, getKeyEventMask()),
                   parent);
         }
 
@@ -824,7 +824,7 @@ public abstract class LSAbstractAction extends AbstractAction {
          * @param actionName Name of action component
          */
         public ToggleCodeViewAction(LSView parent, String actionName) {
-            super(actionName, "Select All", KeyEvent.VK_D, KeyStroke.getKeyStroke(KeyEvent.VK_D, getKeyEventMask()),
+            super(actionName, "Hide code view area", KeyEvent.VK_D, KeyStroke.getKeyStroke(KeyEvent.VK_D, getKeyEventMask()),
                   parent);
         }
 
@@ -854,8 +854,8 @@ public abstract class LSAbstractAction extends AbstractAction {
          * <code>v</code> and no action name.
          * @param v Parent component
          */
-        public UngroupAction(LSView parent) {
-            super("Ungroup", KeyEvent.VK_U,
+        public UngroupAction(ResourceBundle b,LSView parent) {
+            super(b.getString("action.ungroup.title"), KeyEvent.VK_U,
                   KeyStroke.getKeyStroke(KeyEvent.VK_G, getKeyEventMask() + InputEvent.SHIFT_DOWN_MASK), parent);
         }
 
@@ -907,8 +907,8 @@ public abstract class LSAbstractAction extends AbstractAction {
          * <code>v</code> and no action name.
          * @param v Parent component
          */
-        public ZoomInViewAction(LSView parent) {
-            super("Zoom In", KeyEvent.VK_I, KeyStroke.getKeyStroke(KeyEvent.VK_EQUALS, getKeyEventMask()), parent);
+        public ZoomInViewAction(ResourceBundle b,LSView parent) {
+            super(b.getString("action.zoomin.title"), KeyEvent.VK_I, KeyStroke.getKeyStroke(KeyEvent.VK_EQUALS, getKeyEventMask()), parent);
         }
 
         /**
@@ -981,8 +981,8 @@ public abstract class LSAbstractAction extends AbstractAction {
          * <code>v</code> and no action name. <p>Disabled by default.
          * @param v Parent component
          */
-        public ZoomOutViewAction(LSView parent) {
-            super("Zoom Out", KeyEvent.VK_O, KeyStroke.getKeyStroke(KeyEvent.VK_MINUS, getKeyEventMask()), parent);
+        public ZoomOutViewAction(ResourceBundle b,LSView parent) {
+            super(b.getString("action.zoomout.title"), KeyEvent.VK_O, KeyStroke.getKeyStroke(KeyEvent.VK_MINUS, getKeyEventMask()), parent);
         }
 
         /**
@@ -1051,8 +1051,8 @@ public abstract class LSAbstractAction extends AbstractAction {
          * <code>v</code> and no action name.
          * @param v Parent component
          */
-        public ChineseLanguageToggleAction(LSView parent) {
-            super("Chinese", KeyEvent.VK_C, null, parent);
+        public ChineseLanguageToggleAction(ResourceBundle b,LSView parent) {
+            super(b.getString("action.chineseLanguage.name"), KeyEvent.VK_C, null, parent);
         }
 
         /**
@@ -1094,8 +1094,8 @@ public abstract class LSAbstractAction extends AbstractAction {
          * <code>v</code> and no action name.
          * @param v Parent component
          */
-        public EnglishLanguageToggleAction(LSView parent) {
-            super("English", KeyEvent.VK_E, null, parent);
+        public EnglishLanguageToggleAction(ResourceBundle b,LSView parent) {
+            super(b.getString("action.englishLanguage.name"), KeyEvent.VK_E, null, parent);
         }
 
         /**
@@ -1138,8 +1138,8 @@ public abstract class LSAbstractAction extends AbstractAction {
          * <code>v</code> and no action name.
          * @param v Parent component
          */
-        public JapaneseLanguageToggleAction(LSView parent) {
-            super("Japanese", KeyEvent.VK_J, null, parent);
+        public JapaneseLanguageToggleAction(ResourceBundle b,LSView parent) {
+            super(b.getString("action.japaneseLanguage.name"), KeyEvent.VK_J, null, parent);
         }
 
         /**
@@ -1182,8 +1182,8 @@ public abstract class LSAbstractAction extends AbstractAction {
          * <code>v</code> and no action name.
          * @param v Parent component
          */
-        public MalayLanguageToggleAction(LSView parent) {
-            super("Malay", KeyEvent.VK_M, null, parent);
+        public MalayLanguageToggleAction(ResourceBundle b,LSView parent) {
+            super(b.getString("action.malayLanguage.name"), KeyEvent.VK_M, null, parent);
         }
 
         /**
@@ -1269,8 +1269,8 @@ public abstract class LSAbstractAction extends AbstractAction {
          * <code>v</code> and no action name.
          * @param v Parent component
          */
-        public ThaiLanguageToggleAction(LSView parent) {
-            super("Thai", KeyEvent.VK_T, null, parent);
+        public ThaiLanguageToggleAction(ResourceBundle b,LSView parent) {
+            super(b.getString("action.thaiLanguage.name"), KeyEvent.VK_T, null, parent);
         }
 
         /**

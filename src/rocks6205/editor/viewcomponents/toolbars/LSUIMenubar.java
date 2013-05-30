@@ -163,33 +163,31 @@ public final class LSUIMenubar extends JMenuBar implements LSUIProtocol {
         englishLanguageMenuItem    = new JMenuItem();
         japaneseLanguageMenuItem   = new JMenuItem();
         chineseLanguageMenuItem    = new JMenuItem();
-        tamilLanguageMenuItem      = new JMenuItem();
         thaiLanguageMenuItem       = new JMenuItem();
         languageGrp                = new ButtonGroup();
 
         /**
          * Initialising actions
          */
-        newAct                       = new NewDocumentAction(parent);
-        openAct                      = new OpenFileAction(parent);
-        saveAct                      = new SaveFileAction(parent);
-        saveAsAct                    = new SaveFileAsAction(parent);
-        exitAct                      = new ExitAction(parent);
-        selectAllAct                 = new SelectAllAction(parent);
-        deselectAllAct               = new DeselectAllAction(parent);
-        groupAction                  = new GroupAction(parent);
-        ungroupAction                = new UngroupAction(parent);
-        deleteAction                 = new DeleteAction(parent);
-        zoomOutAction                = new ZoomOutViewAction(parent);
-        zoomInAction                 = new ZoomInViewAction(parent);
-        toggleCodeAct                = new ToggleCodeViewAction(parent);
-        docPropAct                   = new DocumentPropertiesAction(parent);
-        malayLanguageToggleAction    = new MalayLanguageToggleAction(parent);
-        englishLanguageToggleAction  = new EnglishLanguageToggleAction(parent);
-        japaneseLanguageToggleAction = new JapaneseLanguageToggleAction(parent);
-        chineseLanguageToggleAction  = new ChineseLanguageToggleAction(parent);
-        tamilLanguageToggleAction    = new TamilLanguageToggleAction(parent);
-        thaiLanguageToggleAction     = new ThaiLanguageToggleAction(parent);
+        newAct                       = new NewDocumentAction( LSEditor.titleBundle , parent);
+        openAct                      = new OpenFileAction( LSEditor.titleBundle , parent);
+        saveAct                      = new SaveFileAction( LSEditor.titleBundle , parent);
+        saveAsAct                    = new SaveFileAsAction( LSEditor.titleBundle , parent);
+        exitAct                      = new ExitAction( LSEditor.titleBundle , parent);
+        selectAllAct                 = new SelectAllAction( LSEditor.titleBundle , parent);
+        deselectAllAct               = new DeselectAllAction( LSEditor.titleBundle , parent);
+        groupAction                  = new GroupAction( LSEditor.titleBundle , parent);
+        ungroupAction                = new UngroupAction( LSEditor.titleBundle , parent);
+        deleteAction                 = new DeleteAction( LSEditor.titleBundle , parent);
+        zoomOutAction                = new ZoomOutViewAction( LSEditor.titleBundle , parent);
+        zoomInAction                 = new ZoomInViewAction( LSEditor.titleBundle , parent);
+        toggleCodeAct                = new ToggleCodeViewAction( LSEditor.titleBundle , parent);
+        docPropAct                   = new DocumentPropertiesAction( LSEditor.titleBundle , parent);
+        malayLanguageToggleAction    = new MalayLanguageToggleAction( LSEditor.titleBundle , parent);
+        englishLanguageToggleAction  = new EnglishLanguageToggleAction( LSEditor.titleBundle , parent);
+        japaneseLanguageToggleAction = new JapaneseLanguageToggleAction( LSEditor.titleBundle , parent);
+        chineseLanguageToggleAction  = new ChineseLanguageToggleAction( LSEditor.titleBundle , parent);
+        thaiLanguageToggleAction     = new ThaiLanguageToggleAction( LSEditor.titleBundle , parent);
     }
 
     /**
@@ -274,14 +272,12 @@ public final class LSUIMenubar extends JMenuBar implements LSUIProtocol {
         languageMenu.add(malayLanguageMenuItem);
         languageMenu.add(japaneseLanguageMenuItem);
         languageMenu.add(chineseLanguageMenuItem);
-        languageMenu.add(tamilLanguageMenuItem);
         languageMenu.add(thaiLanguageMenuItem);
         helpMenu.add(languageMenu);
         languageGrp.add(englishLanguageMenuItem);
         languageGrp.add(malayLanguageMenuItem);
         languageGrp.add(japaneseLanguageMenuItem);
         languageGrp.add(chineseLanguageMenuItem);
-        languageGrp.add(tamilLanguageMenuItem);
         languageGrp.add(thaiLanguageMenuItem);
 
 //      languageMenu.setEnabled(false);
@@ -335,7 +331,6 @@ public final class LSUIMenubar extends JMenuBar implements LSUIProtocol {
         malayLanguageMenuItem.setAction(malayLanguageToggleAction);
         japaneseLanguageMenuItem.setAction(japaneseLanguageToggleAction);
         chineseLanguageMenuItem.setAction(chineseLanguageToggleAction);
-        tamilLanguageMenuItem.setAction(tamilLanguageToggleAction);
         thaiLanguageMenuItem.setAction(thaiLanguageToggleAction);
     }
 
@@ -388,7 +383,39 @@ public final class LSUIMenubar extends JMenuBar implements LSUIProtocol {
         englishLanguageToggleAction.setText(b.getString("action.englishLanguage.name"));
         japaneseLanguageToggleAction.setText(b.getString("action.japaneseLanguage.name"));
         chineseLanguageToggleAction.setText(b.getString("action.chineseLanguage.name"));
-        tamilLanguageToggleAction.setText(b.getString("action.tamilLanguage.name"));
         thaiLanguageToggleAction.setText(b.getString("action.thaiLanguage.name"));
+        
+        fileMenu.setToolTipText(b.getString("menubar.file.title"));
+        editMenu.setToolTipText(b.getString("menubar.edit.title"));
+        windowMenu.setToolTipText(b.getString("menubar.window.title"));
+        helpMenu.setToolTipText(b.getString("menubar.help.title"));
+        languageMenu.setToolTipText(b.getString("menubar.language.title"));
+        
+        newMenuItem.setToolTipText(b.getString("action.new.title"));
+        openMenuItem.setToolTipText(b.getString("action.open.title"));
+        saveMenuItem.setToolTipText(b.getString("action.save.title"));
+        saveAsMenuItem.setToolTipText(b.getString("action.saveas.title"));
+        exitMenuItem.setToolTipText(b.getString("action.exit.title"));
+        docPropMenuItem.setToolTipText(b.getString("action.docprop.title"));
+
+        // Group 2
+        selectAllMenuItem.setToolTipText(b.getString("action.selall.title"));
+        deselectAllMenuItem.setToolTipText(b.getString("action.deselall.title"));
+        groupMenuItem.setToolTipText(b.getString("action.group.title"));
+        ungroupMenuItem.setToolTipText(b.getString("action.ungroup.title"));
+        deleteMenuItem.setToolTipText(b.getString("action.delete.title"));
+
+        // Group 3
+        zoomInMenuItem.setAction(zoomInAction);
+        zoomOutMenuItem.setAction(zoomOutAction);
+        zoomInAction.setZoomOutPartnerAction(zoomOutAction);
+        toggleCodeAreaViewMenuItem.setAction(toggleCodeAct);
+
+        // Group 4
+        englishLanguageMenuItem.setAction(englishLanguageToggleAction);
+        malayLanguageMenuItem.setAction(malayLanguageToggleAction);
+        japaneseLanguageMenuItem.setAction(japaneseLanguageToggleAction);
+        chineseLanguageMenuItem.setAction(chineseLanguageToggleAction);
+        thaiLanguageMenuItem.setAction(thaiLanguageToggleAction);
     }
 }

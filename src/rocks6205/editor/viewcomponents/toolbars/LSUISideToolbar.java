@@ -23,6 +23,7 @@ import java.util.ResourceBundle;
 
 import javax.swing.JToolBar;
 import javax.swing.SwingConstants;
+import rocks6205.editor.core.LSEditor;
 
 /**
  *
@@ -78,18 +79,19 @@ public final class LSUISideToolbar extends JToolBar implements LSUIProtocol {
         groupButton      = LSUIButton.create();
         ungroupButton    = LSUIButton.create();
         deleteButton     = LSUIButton.create();
-        panModeAction    = new PanModeAction(parentView);
-        selectModeAction = new SelectModeAction(parentView);
-        drawRectAction   = new DrawRectAction(parentView);
-        drawCircleAction = new DrawCircleAction(parentView);
-        drawLineAction   = new DrawLineAction(parentView);
-        groupAction      = new GroupAction(parentView);
-        ungroupAction    = new UngroupAction(parentView);
-        deleteAction     = new DeleteAction(parentView);
+        panModeAction    = new PanModeAction( LSEditor.titleBundle , parentView);
+        selectModeAction = new SelectModeAction( LSEditor.titleBundle , parentView);
+        drawRectAction   = new DrawRectAction( LSEditor.titleBundle , parentView);
+        drawCircleAction = new DrawCircleAction( LSEditor.titleBundle , parentView);
+        drawLineAction   = new DrawLineAction( LSEditor.titleBundle , parentView);
+        groupAction      = new GroupAction( LSEditor.titleBundle , parentView);
+        ungroupAction    = new UngroupAction( LSEditor.titleBundle , parentView);
+        deleteAction     = new DeleteAction( LSEditor.titleBundle , parentView);
     }
 
     @Override
     public void customise() {
+        reloadString(LSEditor.titleBundle);
         layoutView();
         bindHandlers();
         setIconsForButtons();
@@ -174,5 +176,15 @@ public final class LSUISideToolbar extends JToolBar implements LSUIProtocol {
         setActionForButtons();
     }
 
-    public void reloadString(ResourceBundle b) {}
+    public void reloadString(ResourceBundle b) {
+        //panButton.setToolTipText(TOOL_TIP_TEXT_KEY);
+        /*selectButton     = LSUIToggleButton.create();
+        drawRectButton   = LSUIToggleButton.create();
+        drawCircButton   = LSUIToggleButton.create();
+        drawLineButton   = LSUIToggleButton.create();
+        groupButton      = LSUIButton.create();
+        ungroupButton    = LSUIButton.create();*/
+        
+        deleteButton.setToolTipText("action.delete.title");
+    }
 }

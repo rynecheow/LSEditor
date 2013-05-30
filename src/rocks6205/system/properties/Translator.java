@@ -45,8 +45,10 @@ public class Translator {
         Translate.setClientId("RCKS_SEPT");
         Translate.setClientSecret("vtpcr7K3Xz2sqlW4BPbHiTeCEI8DWbQnztU2JbWSU1Q");
 
-        try (BufferedWriter writer = new BufferedWriter(new PrintWriter(outputFile, "UTF-8"))) {
-            try {
+        try (
+            BufferedWriter writer = new BufferedWriter(new PrintWriter(outputFile, "UTF-8"))) {
+            try { 
+                LSEditor.logger.warning(inputFile.getAbsolutePath());
                 Scanner scanner = new Scanner(inputFile);
 
                 while (scanner.hasNextLine()) {
@@ -54,14 +56,15 @@ public class Translator {
 
                     if (line.indexOf("=") != -1) {
                         String[] token          = line.split("=");
+                        LSEditor.logger.warning(token[1].trim());
                         String   translatedText = Translate.execute(token[1].trim(), language);
 
                         LSEditor.logger.info(String.format("%s \n", translatedText));
                         writer.write(token[0].trim() + " = " + translatedText + "\n");
                     }
                 }
-            } catch (FileNotFoundException ex) {
-                LSEditor.logger.warning(ex.getLocalizedMessage());
+            } catch (Exception ex) {
+                LSEditor.logger.warning(ex.toString());
             }
         }
     }

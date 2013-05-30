@@ -15,6 +15,7 @@ import java.awt.Toolkit;
 import javax.swing.GroupLayout;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
+import rocks6205.editor.core.LSEditor;
 
 /**
  * Welcome screen when user first use the application.
@@ -69,7 +70,7 @@ public final class LSUIWelcomeDialog extends JDialog implements LSUIProtocol {
     public void initialise() {
         setUpProperties();
         drawPanel      = drawNewWelcomePanel();
-        openFileAction = new OpenFileAction(parentView);
+        openFileAction = new OpenFileAction(LSEditor.titleBundle , parentView);
     }
 
     /**

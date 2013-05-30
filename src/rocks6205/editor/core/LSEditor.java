@@ -34,17 +34,18 @@ public class LSEditor {
     public static ResourceBundle titleBundle;
 
     public static void main(String[] rcks) throws Exception {
-        File file = new File("build/classes/rocks6205/system/properties/" + "LSEditor_" + Locale.getDefault()
+        File file = new File("src/rocks6205/system/properties/" + "LSEditor_" + Locale.GERMANY
                              + ".properties");    /* Locale.FRANCE */
 
         logger.info(String.format("Your default locale is %s \n", Locale.getDefault().toString()));
 
         if (!file.exists()) {
-            Translator.translate(new File("build/classes/rocks6205/system/properties/" + "LSEditor_" + Locale.US
-                                          + ".properties"), file,
-                                              Language.fromString(Locale.getDefault().getLanguage()));    /* Locale.FRANCE.getLanguage() */
+            Translator.translate(new File("src/rocks6205/system/properties/" + "LSEditor_" + Locale.US
+                   + ".properties"), file,
+                    Language.fromString(Locale.GERMANY.getLanguage()));    /* Locale.FRANCE.getLanguage() */
         }
-        titleBundle = ResourceBundle.getBundle("rocks6205.system.properties.LSEditor", Locale.US);    /* Locale.FRANCE */
+        Thread.sleep(4000);
+        titleBundle = ResourceBundle.getBundle("rocks6205.system.properties.LSEditor", Locale.GERMANY);    /* Locale.FRANCE */
 
         String message = String.format("The current active OS is " + OSValidator.getOS() + ".\n");
 

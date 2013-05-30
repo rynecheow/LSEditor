@@ -37,6 +37,7 @@ import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import rocks6205.editor.core.LSEditor;
 
 /**
  *
@@ -101,12 +102,12 @@ public final class LSUITopToolbar extends JToolBar implements LSUIProtocol {
         strokeButton     = LSUIColorButton.create(LSGenericElement.SVG_STROKE_DEFAULT);
         fillCheckBox     = new JCheckBox();
         strokeCheckBox   = new JCheckBox();
-        newAct           = new NewDocumentAction(parentView);
-        openAct          = new OpenFileAction(parentView);
-        saveAct          = new SaveFileAction(parentView);
-        zoomInAction     = new ZoomInViewAction(parentView);
-        zoomOutAction    = new ZoomOutViewAction(parentView);
-        docPropAct       = new DocumentPropertiesAction(parentView);
+        newAct           = new NewDocumentAction( LSEditor.titleBundle, parentView);
+        openAct          = new OpenFileAction(LSEditor.titleBundle,parentView);
+        saveAct          = new SaveFileAction(LSEditor.titleBundle,parentView);
+        zoomInAction     = new ZoomInViewAction(LSEditor.titleBundle,parentView);
+        zoomOutAction    = new ZoomOutViewAction(LSEditor.titleBundle,parentView);
+        docPropAct       = new DocumentPropertiesAction(LSEditor.titleBundle,parentView);
         strokeWidthModel = new SpinnerNumberModel(Float.valueOf(1.0f), Float.valueOf(0.0f), Float.valueOf(200.0f),
                 Float.valueOf(0.5f));
         strokeWidthSpinner      = new JSpinner(strokeWidthModel);
