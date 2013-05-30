@@ -387,6 +387,7 @@ public abstract class LSAbstractAction extends AbstractAction {
      *
      */
     public static class ExitAction extends LSAbstractAction {
+        ResourceBundle b;
 
         /*
          * CONSTRUCTOR
@@ -399,6 +400,7 @@ public abstract class LSAbstractAction extends AbstractAction {
          */
         public ExitAction(ResourceBundle b,LSView parent) {
             super(b.getString("action.exit.title"), KeyEvent.VK_X, KeyStroke.getKeyStroke(KeyEvent.VK_F4, ActionEvent.ALT_MASK), parent);
+            this.b = b;
         }
 
         /**
@@ -418,8 +420,10 @@ public abstract class LSAbstractAction extends AbstractAction {
          */
         @Override
         public void actionPerformed(ActionEvent event) {
-            int closeCf = JOptionPane.showConfirmDialog(null, "Exit SVG Editor?", "Confirm exit",
-                              JOptionPane.WARNING_MESSAGE);
+            int closeCf = JOptionPane.showOptionDialog(null, b.getString("action.exit.question") , 
+                    b.getString("action.exit.questionTitle"), JOptionPane.OK_CANCEL_OPTION,
+                    JOptionPane.WARNING_MESSAGE,null,new String[]{b.getString("action.exit.yesOption"),
+                    b.getString("action.exit.noOption")},"Default");
 
             if (closeCf == JOptionPane.YES_OPTION) {
                 System.exit(0);
