@@ -11,12 +11,10 @@ import rocks6205.editor.core.LSEditor;
 
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 
 import java.util.Locale;
 import java.util.Scanner;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -27,7 +25,7 @@ public class Translator {
     public static final Logger logger = Logger.getLogger(Thread.currentThread().getStackTrace()[0].getClassName());
 
     public static File makeNewPropertiesFile(Locale locale) {
-        File file = new File("build/classes/rocks6205/system/properties/" + "LSEditor_" + Locale.getDefault()
+        File file = new File("src/rocks6205/system/properties/" + "LSEditor_" + Locale.getDefault()
                              + ".properties");
 
         try {
