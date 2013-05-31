@@ -11,4 +11,4 @@
 /dist/
 CVS/
 
-lib/
+!appbundler-1.0.jar
