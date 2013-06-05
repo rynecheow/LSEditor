@@ -1056,7 +1056,7 @@ public abstract class LSAbstractAction extends AbstractAction {
          * @param v Parent component
          */
         public ChineseLanguageToggleAction(ResourceBundle b,LSView parent) {
-            super(b.getString("action.chineseLanguage.name"), KeyEvent.VK_C, null, parent);
+            super("中文", KeyEvent.VK_C, null, parent);
         }
 
         /**
@@ -1066,14 +1066,14 @@ public abstract class LSAbstractAction extends AbstractAction {
          * @param actionName Name of action component
          */
         public ChineseLanguageToggleAction(LSView parent, String actionName) {
-            super(actionName, "Chinese", KeyEvent.VK_C, null, parent);
+            super(actionName, "中文", KeyEvent.VK_C, null, parent);
         }
 
         @Override
         public void actionPerformed(ActionEvent event) {
             putValue(SELECTED_KEY, Boolean.TRUE);
-            LSEditor.titleBundle = ResourceBundle.getBundle("rocks6205.system.properties.LSEditor",
-                    new Locale("zh", "CN"));
+            LSEditor.titleBundle = ResourceBundle.getBundle("LSEditor",
+                    new Locale("zh", "CN"),LSEditor.languageLoader);
             v.reloadBundle();
         }
     }
@@ -1099,7 +1099,7 @@ public abstract class LSAbstractAction extends AbstractAction {
          * @param v Parent component
          */
         public EnglishLanguageToggleAction(ResourceBundle b,LSView parent) {
-            super(b.getString("action.englishLanguage.name"), KeyEvent.VK_E, null, parent);
+            super("English", KeyEvent.VK_E, null, parent);
         }
 
         /**
@@ -1115,8 +1115,8 @@ public abstract class LSAbstractAction extends AbstractAction {
         @Override
         public void actionPerformed(ActionEvent event) {
             putValue(SELECTED_KEY, Boolean.TRUE);
-            LSEditor.titleBundle = ResourceBundle.getBundle("rocks6205.system.properties.LSEditor",
-                    new Locale("en", "US"));
+            LSEditor.titleBundle = ResourceBundle.getBundle("LSEditor",
+                    new Locale("en", "US"),LSEditor.languageLoader);
             v.reloadBundle();
         }
     }
@@ -1143,7 +1143,7 @@ public abstract class LSAbstractAction extends AbstractAction {
          * @param v Parent component
          */
         public JapaneseLanguageToggleAction(ResourceBundle b,LSView parent) {
-            super(b.getString("action.japaneseLanguage.name"), KeyEvent.VK_J, null, parent);
+            super("日本語", KeyEvent.VK_J, null, parent);
         }
 
         /**
@@ -1153,14 +1153,14 @@ public abstract class LSAbstractAction extends AbstractAction {
          * @param actionName Name of action component
          */
         public JapaneseLanguageToggleAction(LSView parent, String actionName) {
-            super(actionName, "Japanese", KeyEvent.VK_J, null, parent);
+            super(actionName, "日本語", KeyEvent.VK_J, null, parent);
         }
 
         @Override
         public void actionPerformed(ActionEvent event) {
             putValue(SELECTED_KEY, Boolean.TRUE);
-            LSEditor.titleBundle = ResourceBundle.getBundle("rocks6205.system.properties.LSEditor",
-                    new Locale("ja", "JP"));
+            LSEditor.titleBundle = ResourceBundle.getBundle("LSEditor",
+                    new Locale("ja", "JP"),LSEditor.languageLoader);
             v.reloadBundle();
         }
     }
@@ -1187,7 +1187,7 @@ public abstract class LSAbstractAction extends AbstractAction {
          * @param v Parent component
          */
         public MalayLanguageToggleAction(ResourceBundle b,LSView parent) {
-            super(b.getString("action.malayLanguage.name"), KeyEvent.VK_M, null, parent);
+            super("Malay", KeyEvent.VK_M, null, parent);
         }
 
         /**
@@ -1203,8 +1203,8 @@ public abstract class LSAbstractAction extends AbstractAction {
         @Override
         public void actionPerformed(ActionEvent event) {
             putValue(SELECTED_KEY, Boolean.TRUE);
-            LSEditor.titleBundle = ResourceBundle.getBundle("rocks6205.system.properties.LSEditor",
-                    new Locale("ms", "MY"));
+            LSEditor.titleBundle = ResourceBundle.getBundle("LSEditor",
+                    new Locale("ms", "MY"),LSEditor.languageLoader);
             v.reloadBundle();
         }
     }
@@ -1231,7 +1231,7 @@ public abstract class LSAbstractAction extends AbstractAction {
          * @param v Parent component
          */
         public TamilLanguageToggleAction(LSView parent) {
-            super("Tamil", KeyEvent.VK_T, null, parent);
+            super("தமிழ்", KeyEvent.VK_T, null, parent);
         }
 
         /**
@@ -1241,14 +1241,14 @@ public abstract class LSAbstractAction extends AbstractAction {
          * @param actionName Name of action component
          */
         public TamilLanguageToggleAction(LSView parent, String actionName) {
-            super(actionName, "Tamil", KeyEvent.VK_T, null, parent);
+            super(actionName, "தமிழ்", KeyEvent.VK_T, null, parent);
         }
 
         @Override
         public void actionPerformed(ActionEvent event) {
             putValue(SELECTED_KEY, Boolean.TRUE);
-            LSEditor.titleBundle = ResourceBundle.getBundle("rocks6205.system.properties.LSEditor",
-                    new Locale("ta", "IN"));
+            LSEditor.titleBundle = ResourceBundle.getBundle("LSEditor",
+                    new Locale("ta", "IN"),LSEditor.languageLoader);
             v.reloadBundle();
         }
     }
@@ -1274,7 +1274,7 @@ public abstract class LSAbstractAction extends AbstractAction {
          * @param v Parent component
          */
         public ThaiLanguageToggleAction(ResourceBundle b,LSView parent) {
-            super(b.getString("action.thaiLanguage.name"), KeyEvent.VK_T, null, parent);
+            super("ไทย", KeyEvent.VK_T, null, parent);
         }
 
         /**
@@ -1284,14 +1284,14 @@ public abstract class LSAbstractAction extends AbstractAction {
          * @param actionName Name of action component
          */
         public ThaiLanguageToggleAction(LSView parent, String actionName) {
-            super(actionName, "Thai", KeyEvent.VK_T, null, parent);
+            super(actionName, "ไทย", KeyEvent.VK_T, null, parent);
         }
 
         @Override
         public void actionPerformed(ActionEvent event) {
             putValue(SELECTED_KEY, Boolean.TRUE);
-            LSEditor.titleBundle = ResourceBundle.getBundle("rocks6205.system.properties.LSEditor",
-                    new Locale("th", "TH"));
+            LSEditor.titleBundle = ResourceBundle.getBundle("LSEditor",
+                    new Locale("th", "TH"),LSEditor.languageLoader);
             v.reloadBundle();
         }
     }

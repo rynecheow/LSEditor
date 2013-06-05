@@ -11,6 +11,8 @@ import rocks6205.system.properties.Translator;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
+import java.net.URLClassLoader;
 
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -32,20 +34,26 @@ import javax.swing.UnsupportedLookAndFeelException;
 public class LSEditor {
     public static final Logger   logger = Logger.getLogger(Thread.currentThread().getStackTrace()[0].getClassName());
     public static ResourceBundle titleBundle;
-
+    public static ClassLoader languageLoader;
+    
     public static void main(String[] rcks) throws Exception {
-        File file = new File("src/rocks6205/system/properties/" + "LSEditor_" + Locale.FRENCH
+       Locale locale = new Locale("nl", "BE");
+       File file = new File("resources/lang/" + "LSEditor_" + locale
                              + ".properties");    /* Locale.FRANCE */
 
         logger.info(String.format("Your default locale is %s \n", Locale.getDefault().toString()));
 
         if (!file.exists()) {
-            Translator.translate(new File("src/rocks6205/system/properties/" + "LSEditor_" + Locale.US
+            Translator.translate(new File("resources/lang/" + "LSEditor_" + Locale.US
                    + ".properties"), file,
-                    Language.fromString(Locale.FRENCH.getLanguage()));    /* Locale.FRANCE.getLanguage() */
+                    Language.fromString(locale.getLanguage()));    /* Locale.FRANCE.getLanguage() */
         }
-        Thread.sleep(10000);
-        titleBundle = ResourceBundle.getBundle("rocks6205.system.properties.LSEditor", Locale.FRENCH);    /* Locale.FRANCE */
+         
+        String languageBundlePath = "resources" + File.separator + "lang" + File.separator;
+        URL[] urls = {new File(languageBundlePath).toURI().toURL()};  
+        languageLoader = new URLClassLoader(urls);
+        
+        titleBundle = ResourceBundle.getBundle("LSEditor", locale, languageLoader);    /* Locale.FRANCE */
 
         String message = String.format("The current active OS is " + OSValidator.getOS() + ".\n");
 

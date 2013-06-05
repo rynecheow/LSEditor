@@ -379,11 +379,11 @@ public final class LSUIMenubar extends JMenuBar implements LSUIProtocol {
         zoomOutAction.setText(b.getString("action.zoomout.title"));
         zoomInAction.setText(b.getString("action.zoomin.title"));
         toggleCodeAct.setText(b.getString("action.closecodeview.title"));
-        malayLanguageToggleAction.setText(b.getString("action.malayLanguage.name"));
-        englishLanguageToggleAction.setText(b.getString("action.englishLanguage.name"));
-        japaneseLanguageToggleAction.setText(b.getString("action.japaneseLanguage.name"));
-        chineseLanguageToggleAction.setText(b.getString("action.chineseLanguage.name"));
-        thaiLanguageToggleAction.setText(b.getString("action.thaiLanguage.name"));
+        malayLanguageToggleAction.setText("Bahasa Melayu");
+        englishLanguageToggleAction.setText("English");
+        japaneseLanguageToggleAction.setText("日本語");
+        chineseLanguageToggleAction.setText("中文");
+        thaiLanguageToggleAction.setText("ไทย");
         
         fileMenu.setToolTipText(b.getString("menubar.file.title"));
         editMenu.setToolTipText(b.getString("menubar.edit.title"));

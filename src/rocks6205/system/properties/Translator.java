@@ -16,7 +16,7 @@ import java.io.PrintWriter;
 import java.util.Locale;
 import java.util.Scanner;
 import java.util.logging.Logger;
-
+import org.apache.commons.lang3.StringEscapeUtils;
 /**
  *
  * @author Sugar CheeSheen Chan
@@ -56,8 +56,9 @@ public class Translator {
                         String[] token          = line.split("=");
                         LSEditor.logger.warning(token[1].trim());
                         String   translatedText = Translate.execute(token[1].trim(), language);
-
+                        translatedText = StringEscapeUtils.escapeJava(translatedText);
                         LSEditor.logger.info(String.format("%s \n", translatedText));
+                        
                         writer.write(token[0].trim() + " = " + translatedText + "\n");
                     }
                 }
@@ -79,4 +80,5 @@ public class Translator {
 
         return false;
     }
+
 }
