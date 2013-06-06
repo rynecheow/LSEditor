@@ -44,14 +44,14 @@ public class LSEditor {
                              + ".properties");    /* Locale.FRANCE */
 
         logger.info(String.format("Your default locale is %s \n", Locale.getDefault().toString()));
-
+        
         if (!file.exists()) {
+           titleBundle = ResourceBundle.getBundle("LSEditor", Locale.US, languageLoader);
+           LSUISplashScreen splash = new LSUISplashScreen(10000);
+            splash.showSplash();
             Translator.translate(new File("resources/lang/" + "LSEditor_" + Locale.US
                    + ".properties"), file,
                     Language.fromString(locale.getLanguage()));    /* Locale.FRANCE.getLanguage() */
-            LSUISplashScreen splash = new LSUISplashScreen(10000);
-      
-            splash.showSplash();
         }
          
         String languageBundlePath = "resources" + File.separator + "lang" + File.separator;

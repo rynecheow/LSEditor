@@ -606,7 +606,7 @@ public abstract class LSAbstractAction extends AbstractAction {
          * @param v Parent component
          */
         public PanModeAction(ResourceBundle b,LSView parent) {
-            super("Pan", KeyEvent.VK_P, null, parent);
+            super(b.getString("action.pan.title"), KeyEvent.VK_P, null, parent);
         }
 
         /**
@@ -776,7 +776,7 @@ public abstract class LSAbstractAction extends AbstractAction {
          * @param v Parent component
          */
         public SelectModeAction(ResourceBundle b,LSView parent) {
-            super("Select", KeyEvent.VK_S, null, parent);
+            super(b.getString("action.selection.title"), KeyEvent.VK_S, null, parent);
         }
 
         /**
