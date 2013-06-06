@@ -12,3 +12,4 @@
 CVS/
 !microsoft-translator-java-api-0.6.2-jar-with-dependencies.jar
 !appbundler-1.0.jar
+!commons-lang3-3.1.jar
