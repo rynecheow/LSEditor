@@ -19,8 +19,10 @@ import java.util.ResourceBundle;
 import java.util.logging.Logger;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import rocks6205.editor.viewcomponents.LSUISplashScreen;
 
 /**
  * Execute main function.
@@ -37,7 +39,7 @@ public class LSEditor {
     public static ClassLoader languageLoader;
     
     public static void main(String[] rcks) throws Exception {
-       Locale locale = new Locale("nl", "BE");
+       Locale locale = new Locale("ru", "MO");
        File file = new File("resources/lang/" + "LSEditor_" + locale
                              + ".properties");    /* Locale.FRANCE */
 
@@ -47,6 +49,9 @@ public class LSEditor {
             Translator.translate(new File("resources/lang/" + "LSEditor_" + Locale.US
                    + ".properties"), file,
                     Language.fromString(locale.getLanguage()));    /* Locale.FRANCE.getLanguage() */
+            LSUISplashScreen splash = new LSUISplashScreen(10000);
+      
+            splash.showSplash();
         }
          
         String languageBundlePath = "resources" + File.separator + "lang" + File.separator;
@@ -59,18 +64,16 @@ public class LSEditor {
 
         logger.info(message);
 
-//      if (!OSValidator.isMac()) {
-//          JOptionPane.showMessageDialog(
-//              new JFrame(),
-//              message + "The current application only provide support for Mac OS X. The application will exit now.",
-//              "Operating system not supported", JOptionPane.WARNING_MESSAGE);
-//          System.exit(0);
-//      }
+      if (!OSValidator.isMac()) {
+          JOptionPane.showMessageDialog(
+              new JFrame(),
+              message + "The current application only provide support for Mac OS X. The application will exit now.",
+              "Operating system not supported", JOptionPane.WARNING_MESSAGE);
+          System.exit(0);
+      }
         setUpLookAndFeel();
 
-//      LSUISplashScreen splash = new LSUISplashScreen(5000);
-//      
-//      splash.showSplash();
+      
         LSViewController c = new LSViewController();
 
         c.createBlankDocument();

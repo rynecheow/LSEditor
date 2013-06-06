@@ -47,7 +47,7 @@ public final class LSUISplashScreen extends JWindow {
 
         // Build the splash screen
         JLabel label  = new JLabel(new ImageIcon("imageicon/LSSplashScreen.png"));
-        JLabel copyrt = new JLabel("Copyright ROCKS6205, LSEditor, v2.1(build x). Open-source.", JLabel.CENTER);
+        JLabel copyrt = new JLabel(LSEditor.titleBundle.getString("translate.text"), JLabel.CENTER);
 
         copyrt.setFont(new Font("Sans-Serif", Font.BOLD, 12));
         content.add(label, BorderLayout.CENTER);
