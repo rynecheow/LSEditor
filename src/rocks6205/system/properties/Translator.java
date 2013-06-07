@@ -13,7 +13,6 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.PrintWriter;
 
-import java.util.Locale;
 import java.util.Scanner;
 import java.util.logging.Logger;
 import org.apache.commons.lang3.StringEscapeUtils;
@@ -23,21 +22,6 @@ import org.apache.commons.lang3.StringEscapeUtils;
  */
 public class Translator {
     public static final Logger logger = Logger.getLogger(Thread.currentThread().getStackTrace()[0].getClassName());
-
-    public static File makeNewPropertiesFile(Locale locale) {
-        File file = new File("src/rocks6205/system/properties/" + "LSEditor_" + Locale.getDefault()
-                             + ".properties");
-
-        try {
-            file.createNewFile();
-        } catch (Exception ex) {
-            LSEditor.logger.warning(ex.getLocalizedMessage());
-
-            return null;
-        }
-
-        return file;
-    }
 
     public static void translate(File inputFile, File outputFile, Language language) throws Exception {
         Translate.setClientId("RCKS_SEPT");

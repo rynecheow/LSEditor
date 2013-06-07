@@ -40,7 +40,7 @@ public class LSEditor {
     
     public static void main(String[] rcks) throws Exception {
        Locale locale = new Locale("ru", "MO");
-       File file = new File("resources/lang/" + "LSEditor_" + locale
+       File file = new File("lang/" + "LSEditor_" + locale
                              + ".properties");    /* Locale.FRANCE */
 
         logger.info(String.format("Your default locale is %s \n", Locale.getDefault().toString()));
@@ -49,12 +49,12 @@ public class LSEditor {
            titleBundle = ResourceBundle.getBundle("LSEditor", Locale.US, languageLoader);
            LSUISplashScreen splash = new LSUISplashScreen(10000);
             splash.showSplash();
-            Translator.translate(new File("resources/lang/" + "LSEditor_" + Locale.US
+            Translator.translate(new File("lang/" + "LSEditor_" + Locale.US
                    + ".properties"), file,
                     Language.fromString(locale.getLanguage()));    /* Locale.FRANCE.getLanguage() */
         }
          
-        String languageBundlePath = "resources" + File.separator + "lang" + File.separator;
+        String languageBundlePath = "lang" + File.separator;
         URL[] urls = {new File(languageBundlePath).toURI().toURL()};  
         languageLoader = new URLClassLoader(urls);
         
