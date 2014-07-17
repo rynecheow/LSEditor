@@ -8,27 +8,21 @@ import rocks6205.editor.viewcomponents.tree.LSElementNavigationTreeModel;
 import rocks6205.editor.viewcomponents.tree.LSTreeBuilder;
 import rocks6205.editor.viewcomponents.tree.LSTreeNode;
 import rocks6205.editor.viewcomponents.tree.LSTreeNodeRenderer;
-
 import rocks6205.system.properties.LSEditorGUIConstants;
+
+import javax.swing.*;
+import javax.swing.event.TreeSelectionEvent;
+import javax.swing.event.TreeSelectionListener;
+import java.awt.*;
+import java.util.ResourceBundle;
 
 //~--- JDK imports ------------------------------------------------------------
 
-import java.awt.BorderLayout;
-
-import java.util.ResourceBundle;
-
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTree;
-import javax.swing.event.TreeSelectionEvent;
-import javax.swing.event.TreeSelectionListener;
-
 /**
  * Panel which contains the navigation tree.
- * 
+ *
  * @author Cheow Yeong Chi
- * 
- * @since 2.1 
+ * @since 2.1
  */
 
 public final class LSUINavigationPanel extends JPanel implements LSUIProtocol, TreeSelectionListener {
@@ -43,7 +37,6 @@ public final class LSUINavigationPanel extends JPanel implements LSUIProtocol, T
     private JTree navigationTree;
 
     /**
-     *
      * @param parent
      */
     public LSUINavigationPanel(LSView parent) {
@@ -73,7 +66,7 @@ public final class LSUINavigationPanel extends JPanel implements LSUIProtocol, T
     }
 
     public void updateTree() {
-        LSTreeNode                   node  = LSTreeBuilder.build(parentView.getController().getModel().getSVGElement());
+        LSTreeNode node = LSTreeBuilder.build(parentView.getController().getModel().getSVGElement());
         LSElementNavigationTreeModel model = new LSElementNavigationTreeModel(node);
 
         navigationTree.setModel(model);
@@ -97,7 +90,9 @@ public final class LSUINavigationPanel extends JPanel implements LSUIProtocol, T
      * {@inheritDoc}
      */
     @Override
-    public void bindHandlers() {}
+    public void bindHandlers() {
+    }
 
-    public void reloadString(ResourceBundle b) {}
+    public void reloadString(ResourceBundle b) {
+    }
 }

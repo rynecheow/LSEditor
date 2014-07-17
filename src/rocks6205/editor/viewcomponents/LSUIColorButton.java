@@ -5,43 +5,30 @@ package rocks6205.editor.viewcomponents;
 import rocks6205.editor.model.adt.LSPainting;
 import rocks6205.editor.model.adt.LSPaintingType;
 
-//~--- JDK imports ------------------------------------------------------------
-
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Point;
-import java.awt.RenderingHints;
+import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import javax.swing.Icon;
-import javax.swing.JButton;
-import javax.swing.JColorChooser;
-import javax.swing.JPanel;
-import javax.swing.JPopupMenu;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
+//~--- JDK imports ------------------------------------------------------------
 
 /**
  * Custom JButtons that use to control colors of elements using a pop up.
  *
  * @author Cheow Yeong Chi
- *
  * @since 2.4
  */
 public final class LSUIColorButton extends JButton implements LSUIProtocol {
-    protected LSPainting  painting;
+    protected LSPainting painting;
     private JColorChooser colorChooser;
-    private LSUIButton    noneButton;
-    private JPopupMenu    popOver;
-    Point                 point;
-    private JPanel        chooserPanel;
+    private LSUIButton noneButton;
+    private JPopupMenu popOver;
+    Point point;
+    private JPanel chooserPanel;
 
     private LSUIColorButton(LSPainting p) {
         painting = p;
@@ -65,9 +52,9 @@ public final class LSUIColorButton extends JButton implements LSUIProtocol {
     @Override
     public void initialise() {
         colorChooser = new JColorChooser(painting.getPaintColor());
-        popOver      = new JPopupMenu();
+        popOver = new JPopupMenu();
         chooserPanel = new JPanel();
-        noneButton   = LSUIButton.create();
+        noneButton = LSUIButton.create();
     }
 
     /**
@@ -113,10 +100,12 @@ public final class LSUIColorButton extends JButton implements LSUIProtocol {
                     g2d.fillRect(1, 1, 23, 23);
                 }
             }
+
             @Override
             public int getIconWidth() {
                 return 25;
             }
+
             @Override
             public int getIconHeight() {
                 return 25;
@@ -147,31 +136,18 @@ public final class LSUIColorButton extends JButton implements LSUIProtocol {
      */
     @Override
     public void bindHandlers() {
-        colorChooser.getSelectionModel().addChangeListener(new ChangeListener() {
-            @Override
-            public void stateChanged(ChangeEvent e) {
-                setPainting(new LSPainting(colorChooser.getColor()));
-                fireStateChanged();
-            }
+        colorChooser.getSelectionModel().addChangeListener(e -> {
+            setPainting(new LSPainting(colorChooser.getColor()));
+            fireStateChanged();
         });
-        noneButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                setPaintingNone();
-            }
-        });
+        noneButton.addActionListener(e -> setPaintingNone());
         addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
                 point = getTopLevelAncestor().getMousePosition(true);
             }
         });
-        addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                popOver.show(getTopLevelAncestor(), point.x, point.y);
-            }
-        });
+        addActionListener(e -> popOver.show(getTopLevelAncestor(), point.x, point.y));
     }
 
     /**
@@ -185,6 +161,7 @@ public final class LSUIColorButton extends JButton implements LSUIProtocol {
 
     /**
      * Remove change listener for <i>presentation</i> to current list of listeners.
+     *
      * @param l
      */
     public void removePresentationChangeListener(ChangeListener l) {
@@ -205,9 +182,10 @@ public final class LSUIColorButton extends JButton implements LSUIProtocol {
     /*
      * MUTATORS.
      */
-    
+
     /**
      * Set paint for current button and fires changes.
+     *
      * @param p Paint object
      */
     public void setPainting(LSPainting p) {

@@ -10,9 +10,7 @@ import java.util.ArrayList;
  * descendants of the container element
  *
  * @author Cheow Yeong Chi
- *
  * @since 1.1
- *
  */
 public abstract class LSGenericContainer extends LSGenericElement {
     private ArrayList<LSGenericElement> descendants;
@@ -68,7 +66,7 @@ public abstract class LSGenericContainer extends LSGenericElement {
      * Check the index of the current element in the descendant list of the
      * container.
      *
-     * @param elem
+     * @param elem Element
      * @return index of current element
      */
     public int indexOf(LSGenericElement elem) {
@@ -89,7 +87,8 @@ public abstract class LSGenericContainer extends LSGenericElement {
 
     /**
      * Insert descendant element <code>e</code>at specific <code>index</code>
-     * @param e Element to be inserted
+     *
+     * @param e       Element to be inserted
      * @param atIndex Index for <code>e</code> to be inserted
      */
     public void insertDescendant(LSGenericElement e, int atIndex) {
@@ -99,20 +98,25 @@ public abstract class LSGenericContainer extends LSGenericElement {
 
     /**
      * Replace descendant element <code>e</code>at specific <code>index</code>
-     * @param e Element to be replaced
+     *
+     * @param e       Element to be replaced
      * @param atIndex Index for <code>e</code> to be replaced
      */
-    public void replaceDescendant(LSGenericElement e, int atIndex) {}
+    public void replaceDescendant(LSGenericElement e, int atIndex) {
+    }
 
     /**
      * Replace descendant element <code>e</code> with new element <code>eNew</code>
-     * @param e Element to be replaced
+     *
+     * @param e    Element to be replaced
      * @param eNew New element to replace current element
      */
-    public void replaceDescendant(LSGenericElement e, LSGenericElement eNew) {}
+    public void replaceDescendant(LSGenericElement e, LSGenericElement eNew) {
+    }
 
     /**
      * Remove descendant element at specific <code>index</code>
+     *
      * @param index Index for element to be removed
      */
     public void removeDescendant(int index) {
@@ -121,6 +125,7 @@ public abstract class LSGenericContainer extends LSGenericElement {
 
     /**
      * Remove descendant element that matches <code>e</code>
+     *
      * @param e Element to be removed
      */
     public void removeDescendant(LSGenericElement e) {

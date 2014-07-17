@@ -6,15 +6,14 @@ import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
-
 import rocks6205.editor.core.LSEditor;
 import rocks6205.editor.model.adt.LSLength;
 import rocks6205.editor.model.adt.LSLengthUnitType;
 
-//~--- JDK imports ------------------------------------------------------------
-
-import java.awt.Graphics2D;
+import java.awt.*;
 import java.awt.geom.Rectangle2D;
+
+//~--- JDK imports ------------------------------------------------------------
 
 /**
  * The <code>LSSVGContainer</code> class is a container element
@@ -23,9 +22,7 @@ import java.awt.geom.Rectangle2D;
  * elements.
  *
  * @author Cheow Yeong Chi
- *
  * @since 1.1
- *
  */
 public class LSSVGContainer extends LSGenericContainer {
 
@@ -118,10 +115,10 @@ public class LSSVGContainer extends LSGenericContainer {
      * @return <code>LSSVGContainer</code> object
      */
     public static LSSVGContainer parseDocument(Document document) {
-        LSSVGContainer     svg_e           = null;
+        LSSVGContainer svg_e = null;
         LSGenericContainer ancestorElement = null, newAncestorElement;
-        Node               node            = document.getDocumentElement();
-        Element            e;
+        Node node = document.getDocumentElement();
+        Element e;
 
         while (node != null) {
             newAncestorElement = null;
@@ -130,70 +127,70 @@ public class LSSVGContainer extends LSGenericContainer {
                 e = (Element) node;
 
                 switch (e.getTagName()) {
-                case "svg" :
-                    LSLength width     = null;
-                    LSLength height    = null;
-                    Attr     widthAttr = e.getAttributeNodeNS(null, "width");
+                    case "svg":
+                        LSLength width = null;
+                        LSLength height = null;
+                        Attr widthAttr = e.getAttributeNodeNS(null, "width");
 
-                    if (widthAttr != null) {
-                        width = LSLength.parse(widthAttr.getValue());
-                    }
+                        if (widthAttr != null) {
+                            width = LSLength.parse(widthAttr.getValue());
+                        }
 
-                    Attr heightAttr = e.getAttributeNodeNS(null, "height");
+                        Attr heightAttr = e.getAttributeNodeNS(null, "height");
 
-                    if (heightAttr != null) {
-                        height = LSLength.parse(heightAttr.getValue());
-                    }
+                        if (heightAttr != null) {
+                            height = LSLength.parse(heightAttr.getValue());
+                        }
 
-                    if ((width == null) || (height == null)) {
+                        if ((width == null) || (height == null)) {
+                            break;
+                        }
+
+                        svg_e = new LSSVGContainer(width, height);
+                        ancestorElement = svg_e;
+
                         break;
-                    }
 
-                    svg_e           = new LSSVGContainer(width, height);
-                    ancestorElement = svg_e;
+                    case "g":
+                        LSGroupContainer g_e = LSGroupContainer.parseElement(e);
 
-                    break;
+                        if (ancestorElement != null) {
+                            ancestorElement.addDescendant(g_e);
+                        } else {
+                            LSEditor.logger.warning("Null pointer dereferencing while parsing group ancestor element\n");
+                        }
 
-                case "g" :
-                    LSGroupContainer g_e = LSGroupContainer.parseElement(e);
+                        newAncestorElement = g_e;
 
-                    if (ancestorElement != null) {
-                        ancestorElement.addDescendant(g_e);
-                    } else {
-                        LSEditor.logger.warning("Null pointer dereferencing while parsing group ancestor element\n");
-                    }
+                        break;
 
-                    newAncestorElement = g_e;
+                    case "rect":
+                        if (ancestorElement != null) {
+                            ancestorElement.addDescendant(LSShapeRect.parseElement(e));
+                        } else {
+                            LSEditor.logger.warning(
+                                    "Null pointer dereferencing while parsing rectangle ancestor element\n");
+                        }
 
-                    break;
+                        break;
 
-                case "rect" :
-                    if (ancestorElement != null) {
-                        ancestorElement.addDescendant(LSShapeRect.parseElement(e));
-                    } else {
-                        LSEditor.logger.warning(
-                            "Null pointer dereferencing while parsing rectangle ancestor element\n");
-                    }
+                    case "circle":
+                        if (ancestorElement != null) {
+                            ancestorElement.addDescendant(LSShapeCircle.parseElement(e));
+                        } else {
+                            LSEditor.logger.warning("Null pointer dereferencing while parsing circle ancestor element\n");
+                        }
 
-                    break;
+                        break;
 
-                case "circle" :
-                    if (ancestorElement != null) {
-                        ancestorElement.addDescendant(LSShapeCircle.parseElement(e));
-                    } else {
-                        LSEditor.logger.warning("Null pointer dereferencing while parsing circle ancestor element\n");
-                    }
+                    case "line":
+                        if (ancestorElement != null) {
+                            ancestorElement.addDescendant(LSShapeLine.parseElement(e));
+                        } else {
+                            LSEditor.logger.warning("Null pointer dereferencing while parsing line ancestor element\n");
+                        }
 
-                    break;
-
-                case "line" :
-                    if (ancestorElement != null) {
-                        ancestorElement.addDescendant(LSShapeLine.parseElement(e));
-                    } else {
-                        LSEditor.logger.warning("Null pointer dereferencing while parsing line ancestor element\n");
-                    }
-
-                    break;
+                        break;
                 }
             }
 
@@ -222,7 +219,6 @@ public class LSSVGContainer extends LSGenericContainer {
     }
 
     /**
-     *
      * {@inheritDoc}
      */
     @Override

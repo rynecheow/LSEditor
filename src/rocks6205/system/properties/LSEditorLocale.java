@@ -9,7 +9,7 @@ public class LSEditorLocale {
 
     public LSEditorLocale(String property, String value) {
         this.property = property;
-        this.value    = value;
+        this.value = value;
     }
 
     public String getProperty() {

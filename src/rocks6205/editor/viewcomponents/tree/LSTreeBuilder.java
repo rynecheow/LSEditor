@@ -2,30 +2,25 @@ package rocks6205.editor.viewcomponents.tree;
 
 //~--- non-JDK imports --------------------------------------------------------
 
-import rocks6205.editor.model.elements.LSGenericContainer;
-import rocks6205.editor.model.elements.LSGenericElement;
-import rocks6205.editor.model.elements.LSGenericShape;
-import rocks6205.editor.model.elements.LSGroupContainer;
-import rocks6205.editor.model.elements.LSSVGContainer;
-
-//~--- JDK imports ------------------------------------------------------------
+import rocks6205.editor.model.elements.*;
 
 import java.util.Iterator;
+
+//~--- JDK imports ------------------------------------------------------------
 
 /**
  * Builds the tree by recursively check into any container elements and append to tree.
  *
  * @author Cheow Yeong Chi
- *
  * @since 2.4
  */
 public class LSTreeBuilder {
 
     /**
      * Builder method.
+     *
      * @param svgElement Element to be constructed as a tree.
      * @return constructed root <code>LSTreeNode</code>
-     *
      * @see #recurseIterateNode(rocks6205.editor.model.elements.LSGenericContainer, rocks6205.editor.viewcomponents.tree.LSTreeNode)
      */
     public static LSTreeNode build(LSSVGContainer svgElement) {
@@ -39,19 +34,16 @@ public class LSTreeBuilder {
     /**
      * Recurse into container elements if they have any descendants and append to tree.
      *
-     * @param container Container element
+     * @param container     Container element
      * @param containerNode Container node
-     *
      * @see #buildShapeNode(rocks6205.editor.model.elements.LSGenericShape)
      * @see #buildGroupNode()
      */
     private static void recurseIterateNode(LSGenericContainer container, LSTreeNode containerNode) {
-        for (Iterator<LSGenericElement> it = container.getDescendants().iterator(); it.hasNext(); ) {
-            LSGenericElement e = it.next();
-
+        for (LSGenericElement e : container.getDescendants()) {
             if (e instanceof LSGroupContainer) {
-                LSGroupContainer g         = (LSGroupContainer) e;
-                LSTreeNode       groupNode = buildGroupNode();
+                LSGroupContainer g = (LSGroupContainer) e;
+                LSTreeNode groupNode = buildGroupNode();
 
                 containerNode.addChild(groupNode);
                 recurseIterateNode(g, groupNode);
@@ -67,29 +59,29 @@ public class LSTreeBuilder {
 
     private static LSTreeNode buildShapeNode(LSGenericShape el) {
         String title;
-        int    type;
+        int type;
 
         switch (el.getShapeType()) {
-        case LSGenericShape.SHAPE_CIRCLE :
-            title = "Circle Element";
-            type  = LSTreeNode.NODE_CIRCLE;
+            case LSGenericShape.SHAPE_CIRCLE:
+                title = "Circle Element";
+                type = LSTreeNode.NODE_CIRCLE;
 
-            break;
+                break;
 
-        case LSGenericShape.SHAPE_LINE :
-            title = "Line Element";
-            type  = LSTreeNode.NODE_LINE;
+            case LSGenericShape.SHAPE_LINE:
+                title = "Line Element";
+                type = LSTreeNode.NODE_LINE;
 
-            break;
+                break;
 
-        case LSGenericShape.SHAPE_RECT :
-            title = "Rectangle Element";
-            type  = LSTreeNode.NODE_RECT;
+            case LSGenericShape.SHAPE_RECT:
+                title = "Rectangle Element";
+                type = LSTreeNode.NODE_RECT;
 
-            break;
+                break;
 
-        default :
-            throw new AssertionError("Invalid type of tree node");
+            default:
+                throw new AssertionError("Invalid type of tree node");
         }
 
         return new LSTreeNode(title, type);

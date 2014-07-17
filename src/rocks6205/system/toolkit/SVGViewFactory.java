@@ -10,7 +10,6 @@ import javax.swing.text.ViewFactory;
  * Factory class for <code>LSSVGPlainView</code>
  *
  * @author Cheow Yeong Chi
- * 
  * @since 2.5
  */
 class SVGViewFactory implements ViewFactory {
@@ -22,7 +21,8 @@ class SVGViewFactory implements ViewFactory {
     /**
      * Default constructor
      */
-    private SVGViewFactory() {}
+    private SVGViewFactory() {
+    }
 
     /**
      * {@inheritDoc}
@@ -31,9 +31,10 @@ class SVGViewFactory implements ViewFactory {
     public View create(Element elem) {
         return new LSSVGPlainView(elem);
     }
-    
+
     /**
      * Instantiate a factory object.
+     *
      * @return Factory object which creates <code>View</code>.
      */
     public static SVGViewFactory buildFactory() {

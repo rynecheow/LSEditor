@@ -9,33 +9,33 @@ import rocks6205.editor.model.adt.LSLength;
  * title of the document.
  *
  * @author Cheow Yeong Chi
- *
  * @since 2.4
  */
 public class LSDocumentDataObject {
     private LSLength width;
     private LSLength height;
-    private String   title;
+    private String title;
 
     /**
      * Default constructor.
      */
     public LSDocumentDataObject() {
-        width  = new LSLength(0);
+        width = new LSLength(0);
         height = new LSLength(0);
-        title  = "";
+        title = "";
     }
 
     /**
      * Constructs a <code>LSDocumentDataObject</code> instance with data initialised.
+     *
      * @param w Width of document
      * @param h Height of document
      * @param t Title of document
      */
     public LSDocumentDataObject(LSLength w, LSLength h, String t) {
-        width  = w;
+        width = w;
         height = h;
-        title  = t;
+        title = t;
     }
 
     /*

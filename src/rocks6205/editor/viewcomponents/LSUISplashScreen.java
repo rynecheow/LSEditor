@@ -4,25 +4,15 @@ package rocks6205.editor.viewcomponents;
 
 import rocks6205.editor.core.LSEditor;
 
+import javax.swing.*;
+import java.awt.*;
+
 //~--- JDK imports ------------------------------------------------------------
-
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.Toolkit;
-
-import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JWindow;
 
 /**
  * Splash screen.
  *
  * @author Cheow Yeong Chi
- *
  * @since 2.1
  */
 public final class LSUISplashScreen extends JWindow {
@@ -30,6 +20,7 @@ public final class LSUISplashScreen extends JWindow {
 
     /**
      * Constructs a splash screen for a duration of <code>d</code> milliseconds
+     *
      * @param d Duration of splash screen will show.
      */
     public LSUISplashScreen(int d) {
@@ -46,7 +37,7 @@ public final class LSUISplashScreen extends JWindow {
         setUpProperties();
 
         // Build the splash screen
-        JLabel label  = new JLabel(new ImageIcon("imageicon/LSSplashScreen.png"));
+        JLabel label = new JLabel(new ImageIcon("imageicon/LSSplashScreen.png"));
         JLabel copyrt = new JLabel(LSEditor.titleBundle.getString("translate.text"), JLabel.CENTER);
 
         copyrt.setFont(new Font("Sans-Serif", Font.BOLD, 12));
@@ -76,11 +67,11 @@ public final class LSUISplashScreen extends JWindow {
      * Set the window's bounds, centering the window.
      */
     private void setUpProperties() {
-        int       width  = 450;
-        int       height = 115;
+        int width = 450;
+        int height = 115;
         Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
-        int       x      = (screen.width - width) / 2;
-        int       y      = (screen.height - height) / 2;
+        int x = (screen.width - width) / 2;
+        int y = (screen.height - height) / 2;
 
         setBounds(x, y, width, height);
     }

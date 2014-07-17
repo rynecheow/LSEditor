@@ -2,48 +2,22 @@ package rocks6205.editor.viewcomponents.toolbars;
 
 //~--- non-JDK imports --------------------------------------------------------
 
-import rocks6205.editor.actions.LSAbstractAction.ChineseLanguageToggleAction;
-import rocks6205.editor.actions.LSAbstractAction.DeleteAction;
-import rocks6205.editor.actions.LSAbstractAction.DeselectAllAction;
-import rocks6205.editor.actions.LSAbstractAction.DocumentPropertiesAction;
-import rocks6205.editor.actions.LSAbstractAction.EnglishLanguageToggleAction;
-import rocks6205.editor.actions.LSAbstractAction.ExitAction;
-import rocks6205.editor.actions.LSAbstractAction.GroupAction;
-import rocks6205.editor.actions.LSAbstractAction.JapaneseLanguageToggleAction;
-import rocks6205.editor.actions.LSAbstractAction.MalayLanguageToggleAction;
-import rocks6205.editor.actions.LSAbstractAction.NewDocumentAction;
-import rocks6205.editor.actions.LSAbstractAction.OpenFileAction;
-import rocks6205.editor.actions.LSAbstractAction.SaveFileAction;
-import rocks6205.editor.actions.LSAbstractAction.SaveFileAsAction;
-import rocks6205.editor.actions.LSAbstractAction.SelectAllAction;
-import rocks6205.editor.actions.LSAbstractAction.TamilLanguageToggleAction;
-import rocks6205.editor.actions.LSAbstractAction.ThaiLanguageToggleAction;
-import rocks6205.editor.actions.LSAbstractAction.ToggleCodeViewAction;
-import rocks6205.editor.actions.LSAbstractAction.UngroupAction;
-import rocks6205.editor.actions.LSAbstractAction.ZoomInViewAction;
-import rocks6205.editor.actions.LSAbstractAction.ZoomOutViewAction;
+import rocks6205.editor.actions.LSAbstractAction.*;
 import rocks6205.editor.core.LSEditor;
 import rocks6205.editor.core.LSView;
 import rocks6205.editor.viewcomponents.LSUIProtocol;
 
-//~--- JDK imports ------------------------------------------------------------
-
+import javax.swing.*;
 import java.awt.event.KeyEvent;
-
 import java.util.ResourceBundle;
 
-import javax.swing.ButtonGroup;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
+//~--- JDK imports ------------------------------------------------------------
 
 /**
  * The main menu bar for the GUI.
  *
  * @author Toh Huey Jing
- *
  * @since 1.2
- *
  */
 public final class LSUIMenubar extends JMenuBar implements LSUIProtocol {
 
@@ -55,62 +29,58 @@ public final class LSUIMenubar extends JMenuBar implements LSUIProtocol {
     /*
      * GUI COMPONENTS
      */
-    private JMenu       fileMenu;
-    private JMenu       editMenu;
-    private JMenu       insertMenu;
-    private JMenu       windowMenu;
-    private JMenu       helpMenu;
-    private JMenu       languageMenu;
+    private JMenu fileMenu;
+    private JMenu editMenu;
+    private JMenu insertMenu;
+    private JMenu windowMenu;
+    private JMenu helpMenu;
+    private JMenu languageMenu;
     private ButtonGroup languageGrp;
-    private JMenuItem   newMenuItem;
-    private JMenuItem   openMenuItem;
-    private JMenuItem   saveMenuItem;
-    private JMenuItem   saveAsMenuItem;
-    private JMenuItem   docPropMenuItem;
-    private JMenuItem   exitMenuItem;
-    private JMenuItem   selectAllMenuItem;
-    private JMenuItem   deselectAllMenuItem;
-    private JMenuItem   groupMenuItem;
-    private JMenuItem   ungroupMenuItem;
-    private JMenuItem   deleteMenuItem;
-    private JMenuItem   insertRectMenuItem;
-    private JMenuItem   insertCircleMenuItem;
-    private JMenuItem   insertLineMenuItem;
-    private JMenuItem   zoomInMenuItem;
-    private JMenuItem   zoomOutMenuItem;
-    private JMenuItem   toggleCodeAreaViewMenuItem;
-    private JMenuItem   faqMenuItem;
-    private JMenuItem   aboutMenuItem;
-    private JMenuItem   malayLanguageMenuItem;
-    private JMenuItem   englishLanguageMenuItem;
-    private JMenuItem   japaneseLanguageMenuItem;
-    private JMenuItem   chineseLanguageMenuItem;
-    private JMenuItem   tamilLanguageMenuItem;
-    private JMenuItem   thaiLanguageMenuItem;
+    private JMenuItem newMenuItem;
+    private JMenuItem openMenuItem;
+    private JMenuItem saveMenuItem;
+    private JMenuItem saveAsMenuItem;
+    private JMenuItem docPropMenuItem;
+    private JMenuItem exitMenuItem;
+    private JMenuItem selectAllMenuItem;
+    private JMenuItem deselectAllMenuItem;
+    private JMenuItem groupMenuItem;
+    private JMenuItem ungroupMenuItem;
+    private JMenuItem deleteMenuItem;
+    private JMenuItem insertRectMenuItem;
+    private JMenuItem insertCircleMenuItem;
+    private JMenuItem insertLineMenuItem;
+    private JMenuItem zoomInMenuItem;
+    private JMenuItem zoomOutMenuItem;
+    private JMenuItem toggleCodeAreaViewMenuItem;
+    private JMenuItem malayLanguageMenuItem;
+    private JMenuItem englishLanguageMenuItem;
+    private JMenuItem japaneseLanguageMenuItem;
+    private JMenuItem chineseLanguageMenuItem;
+    private JMenuItem thaiLanguageMenuItem;
 
     /*
      * ACTION COMPONENTS
      */
-    private NewDocumentAction            newAct;
-    private OpenFileAction               openAct;
-    private SaveFileAction               saveAct;
-    private SaveFileAsAction             saveAsAct;
-    private ExitAction                   exitAct;
-    private SelectAllAction              selectAllAct;
-    private DeselectAllAction            deselectAllAct;
-    private GroupAction                  groupAction;
-    private UngroupAction                ungroupAction;
-    private DeleteAction                 deleteAction;
-    private ZoomInViewAction             zoomInAction;
-    private ZoomOutViewAction            zoomOutAction;
-    private ToggleCodeViewAction         toggleCodeAct;
-    private MalayLanguageToggleAction    malayLanguageToggleAction;
-    private EnglishLanguageToggleAction  englishLanguageToggleAction;
+    private NewDocumentAction newAct;
+    private OpenFileAction openAct;
+    private SaveFileAction saveAct;
+    private SaveFileAsAction saveAsAct;
+    private ExitAction exitAct;
+    private SelectAllAction selectAllAct;
+    private DeselectAllAction deselectAllAct;
+    private GroupAction groupAction;
+    private UngroupAction ungroupAction;
+    private DeleteAction deleteAction;
+    private ZoomInViewAction zoomInAction;
+    private ZoomOutViewAction zoomOutAction;
+    private ToggleCodeViewAction toggleCodeAct;
+    private MalayLanguageToggleAction malayLanguageToggleAction;
+    private EnglishLanguageToggleAction englishLanguageToggleAction;
     private JapaneseLanguageToggleAction japaneseLanguageToggleAction;
-    private ChineseLanguageToggleAction  chineseLanguageToggleAction;
-    private TamilLanguageToggleAction    tamilLanguageToggleAction;
-    private ThaiLanguageToggleAction     thaiLanguageToggleAction;
-    private DocumentPropertiesAction     docPropAct;
+    private ChineseLanguageToggleAction chineseLanguageToggleAction;
+    private ThaiLanguageToggleAction thaiLanguageToggleAction;
+    private DocumentPropertiesAction docPropAct;
 
     /*
      * CONSTRUCTOR
@@ -134,60 +104,60 @@ public final class LSUIMenubar extends JMenuBar implements LSUIProtocol {
      */
     @Override
     public void initialise() {
-        fileMenu                   = new JMenu();
-        editMenu                   = new JMenu();
-        insertMenu                 = new JMenu("Insert");
-        windowMenu                 = new JMenu();
-        helpMenu                   = new JMenu();
-        languageMenu               = new JMenu();
-        newMenuItem                = new JMenuItem();
-        openMenuItem               = new JMenuItem();
-        saveMenuItem               = new JMenuItem();
-        saveAsMenuItem             = new JMenuItem();
-        docPropMenuItem            = new JMenuItem();
-        exitMenuItem               = new JMenuItem();
-        selectAllMenuItem          = new JMenuItem();
-        deselectAllMenuItem        = new JMenuItem();
-        groupMenuItem              = new JMenuItem();
-        ungroupMenuItem            = new JMenuItem();
-        deleteMenuItem             = new JMenuItem();
-        insertRectMenuItem         = new JMenuItem("Rectangle");
-        insertCircleMenuItem       = new JMenuItem("Circle");
-        insertLineMenuItem         = new JMenuItem("Line");
-        zoomInMenuItem             = new JMenuItem();
-        zoomOutMenuItem            = new JMenuItem();
+        fileMenu = new JMenu();
+        editMenu = new JMenu();
+        insertMenu = new JMenu("Insert");
+        windowMenu = new JMenu();
+        helpMenu = new JMenu();
+        languageMenu = new JMenu();
+        newMenuItem = new JMenuItem();
+        openMenuItem = new JMenuItem();
+        saveMenuItem = new JMenuItem();
+        saveAsMenuItem = new JMenuItem();
+        docPropMenuItem = new JMenuItem();
+        exitMenuItem = new JMenuItem();
+        selectAllMenuItem = new JMenuItem();
+        deselectAllMenuItem = new JMenuItem();
+        groupMenuItem = new JMenuItem();
+        ungroupMenuItem = new JMenuItem();
+        deleteMenuItem = new JMenuItem();
+        insertRectMenuItem = new JMenuItem("Rectangle");
+        insertCircleMenuItem = new JMenuItem("Circle");
+        insertLineMenuItem = new JMenuItem("Line");
+        zoomInMenuItem = new JMenuItem();
+        zoomOutMenuItem = new JMenuItem();
         toggleCodeAreaViewMenuItem = new JMenuItem();
-        faqMenuItem                = new JMenuItem("FAQ");
-        aboutMenuItem              = new JMenuItem("About");
-        malayLanguageMenuItem      = new JMenuItem();
-        englishLanguageMenuItem    = new JMenuItem();
-        japaneseLanguageMenuItem   = new JMenuItem();
-        chineseLanguageMenuItem    = new JMenuItem();
-        thaiLanguageMenuItem       = new JMenuItem();
-        languageGrp                = new ButtonGroup();
+//        JMenuItem faqMenuItem = new JMenuItem("FAQ");
+//        JMenuItem aboutMenuItem = new JMenuItem("About");
+        malayLanguageMenuItem = new JMenuItem();
+        englishLanguageMenuItem = new JMenuItem();
+        japaneseLanguageMenuItem = new JMenuItem();
+        chineseLanguageMenuItem = new JMenuItem();
+        thaiLanguageMenuItem = new JMenuItem();
+        languageGrp = new ButtonGroup();
 
         /**
          * Initialising actions
          */
-        newAct                       = new NewDocumentAction( LSEditor.titleBundle , parent);
-        openAct                      = new OpenFileAction( LSEditor.titleBundle , parent);
-        saveAct                      = new SaveFileAction( LSEditor.titleBundle , parent);
-        saveAsAct                    = new SaveFileAsAction( LSEditor.titleBundle , parent);
-        exitAct                      = new ExitAction( LSEditor.titleBundle , parent);
-        selectAllAct                 = new SelectAllAction( LSEditor.titleBundle , parent);
-        deselectAllAct               = new DeselectAllAction( LSEditor.titleBundle , parent);
-        groupAction                  = new GroupAction( LSEditor.titleBundle , parent);
-        ungroupAction                = new UngroupAction( LSEditor.titleBundle , parent);
-        deleteAction                 = new DeleteAction( LSEditor.titleBundle , parent);
-        zoomOutAction                = new ZoomOutViewAction( LSEditor.titleBundle , parent);
-        zoomInAction                 = new ZoomInViewAction( LSEditor.titleBundle , parent);
-        toggleCodeAct                = new ToggleCodeViewAction( LSEditor.titleBundle , parent);
-        docPropAct                   = new DocumentPropertiesAction( LSEditor.titleBundle , parent);
-        malayLanguageToggleAction    = new MalayLanguageToggleAction( LSEditor.titleBundle , parent);
-        englishLanguageToggleAction  = new EnglishLanguageToggleAction( LSEditor.titleBundle , parent);
-        japaneseLanguageToggleAction = new JapaneseLanguageToggleAction( LSEditor.titleBundle , parent);
-        chineseLanguageToggleAction  = new ChineseLanguageToggleAction( LSEditor.titleBundle , parent);
-        thaiLanguageToggleAction     = new ThaiLanguageToggleAction( LSEditor.titleBundle , parent);
+        newAct = new NewDocumentAction(LSEditor.titleBundle, parent);
+        openAct = new OpenFileAction(LSEditor.titleBundle, parent);
+        saveAct = new SaveFileAction(LSEditor.titleBundle, parent);
+        saveAsAct = new SaveFileAsAction(LSEditor.titleBundle, parent);
+        exitAct = new ExitAction(LSEditor.titleBundle, parent);
+        selectAllAct = new SelectAllAction(LSEditor.titleBundle, parent);
+        deselectAllAct = new DeselectAllAction(LSEditor.titleBundle, parent);
+        groupAction = new GroupAction(LSEditor.titleBundle, parent);
+        ungroupAction = new UngroupAction(LSEditor.titleBundle, parent);
+        deleteAction = new DeleteAction(LSEditor.titleBundle, parent);
+        zoomOutAction = new ZoomOutViewAction(LSEditor.titleBundle, parent);
+        zoomInAction = new ZoomInViewAction(LSEditor.titleBundle, parent);
+        toggleCodeAct = new ToggleCodeViewAction(LSEditor.titleBundle, parent);
+        docPropAct = new DocumentPropertiesAction(LSEditor.titleBundle, parent);
+        malayLanguageToggleAction = new MalayLanguageToggleAction(LSEditor.titleBundle, parent);
+        englishLanguageToggleAction = new EnglishLanguageToggleAction(LSEditor.titleBundle, parent);
+        japaneseLanguageToggleAction = new JapaneseLanguageToggleAction(LSEditor.titleBundle, parent);
+        chineseLanguageToggleAction = new ChineseLanguageToggleAction(LSEditor.titleBundle, parent);
+        thaiLanguageToggleAction = new ThaiLanguageToggleAction(LSEditor.titleBundle, parent);
     }
 
     /**
@@ -355,8 +325,8 @@ public final class LSUIMenubar extends JMenuBar implements LSUIProtocol {
 
     public void toggleCodeMenuTitle(boolean flag) {
         toggleCodeAreaViewMenuItem.setText(!flag
-                                           ? LSEditor.titleBundle.getString("action.closecodeview.title")
-                                           : LSEditor.titleBundle.getString("action.opencodeview.title"));
+                ? LSEditor.titleBundle.getString("action.closecodeview.title")
+                : LSEditor.titleBundle.getString("action.opencodeview.title"));
     }
 
     public void reloadString(ResourceBundle b) {
@@ -384,13 +354,13 @@ public final class LSUIMenubar extends JMenuBar implements LSUIProtocol {
         japaneseLanguageToggleAction.setText("日本語");
         chineseLanguageToggleAction.setText("中文");
         thaiLanguageToggleAction.setText("ไทย");
-        
+
         fileMenu.setToolTipText(b.getString("menubar.file.title"));
         editMenu.setToolTipText(b.getString("menubar.edit.title"));
         windowMenu.setToolTipText(b.getString("menubar.window.title"));
         helpMenu.setToolTipText(b.getString("menubar.help.title"));
         languageMenu.setToolTipText(b.getString("menubar.language.title"));
-        
+
         newMenuItem.setToolTipText(b.getString("action.new.title"));
         openMenuItem.setToolTipText(b.getString("action.open.title"));
         saveMenuItem.setToolTipText(b.getString("action.save.title"));

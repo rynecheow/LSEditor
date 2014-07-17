@@ -5,18 +5,16 @@ package rocks6205.editor.viewcomponents.panels;
 import rocks6205.editor.core.LSView;
 import rocks6205.editor.viewcomponents.LSUIProtocol;
 import rocks6205.editor.viewcomponents.LSUISVGCodePane;
-
 import rocks6205.system.properties.LSEditorGUIConstants;
+
+import javax.swing.*;
 
 //~--- JDK imports ------------------------------------------------------------
 
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-
 /**
  * Panel which contains the code view or other miscellaneous functioning tools.
+ *
  * @author Cheow Yeong Chi
- * 
  * @since 2.0
  */
 public final class LSUIMiscPanel extends JPanel implements LSUIProtocol {
@@ -30,8 +28,8 @@ public final class LSUIMiscPanel extends JPanel implements LSUIProtocol {
      * GUI COMPONENTS
      */
     private LSUIRGBColorChooserPanel colorChooserPanel;
-    private JScrollPane              textScrollPane;
-    private LSUISVGCodePane          textArea;
+    private JScrollPane textScrollPane;
+    private LSUISVGCodePane textArea;
 
     public LSUIMiscPanel(LSView parent) {
         super();
@@ -46,8 +44,8 @@ public final class LSUIMiscPanel extends JPanel implements LSUIProtocol {
     @Override
     public void initialise() {
         colorChooserPanel = new LSUIRGBColorChooserPanel(parentView);
-        textScrollPane    = new JScrollPane();
-        textArea          = new LSUISVGCodePane();
+        textScrollPane = new JScrollPane();
+        textArea = new LSUISVGCodePane();
         textScrollPane.setViewportView(textArea);
     }
 
@@ -97,5 +95,6 @@ public final class LSUIMiscPanel extends JPanel implements LSUIProtocol {
      * {@inheritDoc}
      */
     @Override
-    public void bindHandlers() {}
+    public void bindHandlers() {
+    }
 }

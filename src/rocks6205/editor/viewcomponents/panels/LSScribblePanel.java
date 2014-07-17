@@ -2,35 +2,29 @@ package rocks6205.editor.viewcomponents.panels;
 
 //~--- JDK imports ------------------------------------------------------------
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Rectangle;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.geom.Rectangle2D;
-
 import java.util.ArrayList;
-
-import javax.swing.JPanel;
 
 /**
  * This panel deals with events such as user drag-select, or
  * resize components.
  *
  * @author Cheow Yeong Chi
- *
  * @since 2.0
- *
  */
 public class LSScribblePanel extends JPanel {
-    private static final long                serialVersionUID = -8306121661640569510L;
-    private Rectangle                        selectionBox;
+    private static final long serialVersionUID = -8306121661640569510L;
+    private Rectangle selectionBox;
     private ArrayList<? extends Rectangle2D> selectionRectangles;
     private ArrayList<? extends Rectangle2D> resizeRectangles;
 
     /**
      * Default constructor.
      */
-    public LSScribblePanel() {}
+    public LSScribblePanel() {
+    }
 
     public void setSelectionBox(Rectangle box) {
         selectionBox = box;
@@ -45,8 +39,7 @@ public class LSScribblePanel extends JPanel {
     }
 
     /**
-     *
-     * @param g
+     * @param g graphic
      */
     @Override
     protected void paintComponent(Graphics g) {

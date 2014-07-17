@@ -15,35 +15,23 @@ import rocks6205.editor.viewcomponents.panels.LSUIStatusPanel;
 import rocks6205.editor.viewcomponents.toolbars.LSUIMenubar;
 import rocks6205.editor.viewcomponents.toolbars.LSUISideToolbar;
 import rocks6205.editor.viewcomponents.toolbars.LSUITopToolbar;
-
 import rocks6205.system.properties.LSCanvasProperties;
 import rocks6205.system.properties.LSEditorGUIConstants;
 import rocks6205.system.properties.OSValidator;
 
-//~--- JDK imports ------------------------------------------------------------
-
-import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.Toolkit;
+import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
-
 import java.io.File;
 import java.io.IOException;
-
 import java.text.MessageFormat;
-
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
-import javax.swing.JViewport;
-import javax.swing.WindowConstants;
-import javax.swing.filechooser.FileNameExtensionFilter;
+//~--- JDK imports ------------------------------------------------------------
 
 /**
  * A class defining how the main user interface should look like.
@@ -51,12 +39,11 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  *
  * @author Toh Huey Jing
  * @author Cheow Yeong Chi
- *
  * @since 1.2
  */
 public final class LSView extends JFrame implements LSUIProtocol {
     private static final long serialVersionUID = 6764861773639452353L;
-    private static boolean    codeViewFlag;
+    private static boolean codeViewFlag;
 
     /*
      * STATIC INITIALISER
@@ -75,37 +62,28 @@ public final class LSView extends JFrame implements LSUIProtocol {
      */
     private LSViewController controller;
 
-    /*
-     * SIZE PROPERTIES
-     */
-    private int       width;
-    private int       height;
-    private Dimension screen;
-    private int       x;
-    private int       y;
-    private int       margin;
     private Dimension frameDim;
 
     /*
      * PROPERTIES
      */
-    private float   zoomScale;
+    private float zoomScale;
     private boolean isZoomChanged;
-    private File    displayedFile;
-    private String  documentTitle;
+    private File displayedFile;
+    private String documentTitle;
 
     /*
      * GUI COMPONENTS
      */
-    private JScrollPane                scrollPane;
-    private JViewport                  viewport;
-    private LSUIEditingPanel           editPanel;
-    private LSUIMenubar                menuBar;
-    private LSUITopToolbar             topBar;
-    private LSUISideToolbar            sideBar;
-    private LSUIStatusPanel            statusPanel;
-    private LSUINavigationPanel        navPanel;
-    private LSUIMiscPanel              miscPanel;
+    private JScrollPane scrollPane;
+    private JViewport viewport;
+    private LSUIEditingPanel editPanel;
+    private LSUIMenubar menuBar;
+    private LSUITopToolbar topBar;
+    private LSUISideToolbar sideBar;
+    private LSUIStatusPanel statusPanel;
+    private LSUINavigationPanel navPanel;
+    private LSUIMiscPanel miscPanel;
     private LSUICanvasPropertiesDialog docPropDlg;
 
     /*
@@ -120,10 +98,10 @@ public final class LSView extends JFrame implements LSUIProtocol {
     /**
      * Construct an <code>SVGView</code> instance with components initialised
      * and properly customised.
-     * 
-     * @see #setController(rocks6205.editor.core.LSViewController) 
-     * @see #initialise() 
-     * @see #customise() 
+     *
+     * @see #setController(rocks6205.editor.core.LSViewController)
+     * @see #initialise()
+     * @see #customise()
      */
     public LSView(LSViewController c) {
         super();
@@ -136,16 +114,16 @@ public final class LSView extends JFrame implements LSUIProtocol {
 
     /**
      * {@inheritDoc}
-     * 
-     * @see #setUpProperties() 
-     * @see #initialiseComponents() 
-     * @see #initialiseHandlers() 
+     *
+     * @see #setUpProperties()
+     * @see #initialiseComponents()
+     * @see #initialiseHandlers()
      */
     @Override
     public void initialise() {
         setUpProperties();
         isZoomChanged = false;
-        zoomScale     = 1.0f;
+        zoomScale = 1.0f;
         initialiseComponents();
         initialiseHandlers();
     }
@@ -154,15 +132,15 @@ public final class LSView extends JFrame implements LSUIProtocol {
      * Setting up size of the main view.
      */
     private void setUpProperties() {
-        margin   = OSValidator.isMac()
-                   ? -21
-                   : 0;
-        width    = 1180;
-        height   = 830 + margin;
+        int margin = OSValidator.isMac()
+                ? -21
+                : 0;
+        int width = 1180;
+        int height = 830 + margin;
         frameDim = new Dimension(width, height);
-        screen   = Toolkit.getDefaultToolkit().getScreenSize();
-        x        = (screen.width - width) / 2;
-        y        = (screen.height - height) / 2;
+        Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
+        int x = (screen.width - width) / 2;
+        int y = (screen.height - height) / 2;
         setLocation(x, y);
         LSCanvasProperties.setOutputResolution(Toolkit.getDefaultToolkit().getScreenResolution());
         setResizable(false);
@@ -172,16 +150,16 @@ public final class LSView extends JFrame implements LSUIProtocol {
      * Initialises child components.
      */
     private void initialiseComponents() {
-        menuBar     = new LSUIMenubar(this);
-        topBar      = new LSUITopToolbar("Editing Tools", this);
-        sideBar     = new LSUISideToolbar("Selection Tools", this);
+        menuBar = new LSUIMenubar(this);
+        topBar = new LSUITopToolbar("Editing Tools", this);
+        sideBar = new LSUISideToolbar("Selection Tools", this);
         statusPanel = new LSUIStatusPanel(this);
-        navPanel    = new LSUINavigationPanel(this);
-        miscPanel   = new LSUIMiscPanel(this);
-        editPanel   = new LSUIEditingPanel(this);
-        scrollPane  = new JScrollPane(editPanel);
-        viewport    = scrollPane.getViewport();
-        docPropDlg  = new LSUICanvasPropertiesDialog(this);
+        navPanel = new LSUINavigationPanel(this);
+        miscPanel = new LSUIMiscPanel(this);
+        editPanel = new LSUIEditingPanel(this);
+        scrollPane = new JScrollPane(editPanel);
+        viewport = scrollPane.getViewport();
+        docPropDlg = new LSUICanvasPropertiesDialog(this);
     }
 
     /**
@@ -193,7 +171,7 @@ public final class LSView extends JFrame implements LSUIProtocol {
 
     /**
      * {@inheritDoc}
-     * 
+     *
      * @see #layoutChildComponents()
      * @see #setUpEditingPanel()
      * @see #layoutFrame()
@@ -269,7 +247,7 @@ public final class LSView extends JFrame implements LSUIProtocol {
             @Override
             public void windowClosing(WindowEvent winEvt) {
                 int closeCf = JOptionPane.showConfirmDialog(null, "Exit SVG Editor?", "Confirm exit",
-                                  JOptionPane.WARNING_MESSAGE);
+                        JOptionPane.YES_NO_OPTION);
 
                 if (closeCf == JOptionPane.YES_OPTION) {
                     System.exit(0);
@@ -290,11 +268,11 @@ public final class LSView extends JFrame implements LSUIProtocol {
      * METHOD
      */
     public void update() {
-        ArrayList<LSGenericElement> selections    = new ArrayList<>(controller.getSelections());
-        boolean                     isAnySelected = !selections.isEmpty();
-        File                        currentFile   = controller.getCurrentFile();
-        boolean                     isFileChanged = (currentFile != displayedFile);
-        boolean                     needRepaint   = controller.isDocumentModified() || isZoomChanged || isFileChanged;
+        ArrayList<LSGenericElement> selections = new ArrayList<>(controller.getSelections());
+        boolean isAnySelected = !selections.isEmpty();
+        File currentFile = controller.getCurrentFile();
+        boolean isFileChanged = (currentFile != displayedFile);
+        boolean needRepaint = controller.isDocumentModified() || isZoomChanged || isFileChanged;
 
         sideBar.updateActionStatusFromView(isAnySelected);
         menuBar.updateActionStatusFromView(isAnySelected);
@@ -337,32 +315,32 @@ public final class LSView extends JFrame implements LSUIProtocol {
             return true;
         }
 
-        Object[]      messageArguments = { documentTitle };
-        MessageFormat formatter        = new MessageFormat("Save modifications?");
-        String        message          = formatter.format(messageArguments);
-        String        title            = formatter.format(messageArguments);
-        int           option           = JOptionPane.showOptionDialog(this, message, title,
-                                             JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE, null, null,
-                                             null);
+        Object[] messageArguments = {documentTitle};
+        MessageFormat formatter = new MessageFormat("Save modifications?");
+        String message = formatter.format(messageArguments);
+        String title = formatter.format(messageArguments);
+        int option = JOptionPane.showOptionDialog(this, message, title,
+                JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE, null, null,
+                null);
 
         switch (option) {
-        case JOptionPane.NO_OPTION :
-            return true;
-
-        case JOptionPane.YES_OPTION :
-            if (saveFile()) {
+            case JOptionPane.NO_OPTION:
                 return true;
-            }
+
+            case JOptionPane.YES_OPTION:
+                if (saveFile()) {
+                    return true;
+                }
         }
 
         return false;
     }
-    
+
     /**
      * Saves current file.
+     *
      * @return <code>true</code> if save successful, <code>false</code> otherwise.
-     * 
-     * @see #fileSaveAs() 
+     * @see #fileSaveAs()
      */
     public boolean saveFile() {
         boolean saved;
@@ -378,10 +356,11 @@ public final class LSView extends JFrame implements LSUIProtocol {
 
     /**
      * Saves file as some other file.
+     *
      * @return <code>true</code> if save successful, <code>false</code> otherwise.
      */
     public boolean fileSaveAs() {
-        boolean      saved        = false;
+        boolean saved = false;
         JFileChooser fileChoooser = new JFileChooser();
 
         fileChoooser.setMultiSelectionEnabled(false);
@@ -419,15 +398,14 @@ public final class LSView extends JFrame implements LSUIProtocol {
         if (displayedFile != null) {
             documentTitle = displayedFile.getName();
 
-            if (documentTitle != null) {
-                statusPanel.updateStatus(documentTitle);
-                repaint();
-            }
+            statusPanel.updateStatus(documentTitle);
+            repaint();
         }
     }
 
     /**
      * Instructs controller to open file.
+     *
      * @param f File to be opened.
      */
     public void openFile(File f) {
@@ -470,7 +448,7 @@ public final class LSView extends JFrame implements LSUIProtocol {
         docPropDlg.updateCanvasData(controller.getModel().getCanvasDTO());
         docPropDlg.displayLimited();
         controller.resizeDocument(controller.getModel().getCanvasDTO().getWidth(),
-                                  controller.getModel().getCanvasDTO().getHeight());
+                controller.getModel().getCanvasDTO().getHeight());
     }
 
     public void reloadBundle() {
@@ -534,10 +512,10 @@ public final class LSView extends JFrame implements LSUIProtocol {
     }
 
     /**
-     * @param zoom
+     * @param zoom zoom
      */
     public void changeZoom(float zoom) {
-        isZoomChanged  = true;
+        isZoomChanged = true;
         this.zoomScale = zoom;
     }
 
@@ -545,7 +523,7 @@ public final class LSView extends JFrame implements LSUIProtocol {
      * Resets zoom scale to 1.0.
      */
     public void resetZoom() {
-        isZoomChanged  = false;
+        isZoomChanged = false;
         this.zoomScale = 1.00f;
     }
 

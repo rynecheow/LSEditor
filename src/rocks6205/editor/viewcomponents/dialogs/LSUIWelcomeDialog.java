@@ -3,24 +3,19 @@ package rocks6205.editor.viewcomponents.dialogs;
 //~--- non-JDK imports --------------------------------------------------------
 
 import rocks6205.editor.actions.LSAbstractAction.OpenFileAction;
+import rocks6205.editor.core.LSEditor;
 import rocks6205.editor.core.LSView;
 import rocks6205.editor.viewcomponents.LSUIProtocol;
 
+import javax.swing.*;
+import java.awt.*;
+
 //~--- JDK imports ------------------------------------------------------------
-
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Toolkit;
-
-import javax.swing.GroupLayout;
-import javax.swing.JDialog;
-import javax.swing.JPanel;
-import rocks6205.editor.core.LSEditor;
 
 /**
  * Welcome screen when user first use the application.
- * @author Cheow Yeong Chi
  *
+ * @author Cheow Yeong Chi
  * @since 2.2
  */
 public final class LSUIWelcomeDialog extends JDialog implements LSUIProtocol {
@@ -28,11 +23,11 @@ public final class LSUIWelcomeDialog extends JDialog implements LSUIProtocol {
     /*
      * SIZE PROPERTIES
      */
-    private int       width;
-    private int       height;
+    private int width;
+    private int height;
     private Dimension screen;
-    private int       x;
-    private int       y;
+    private int x;
+    private int y;
 
     /*
      * GUI COMPONENTS
@@ -44,20 +39,17 @@ public final class LSUIWelcomeDialog extends JDialog implements LSUIProtocol {
      */
     private LSView parentView;
 
-    /*
-     * ACTION COMPONENTS
-     */
-    private OpenFileAction openFileAction;
 
     /**
      * Constructs a welcome dialog with parent component.
+     *
      * @param parent Parent component.
      */
     public LSUIWelcomeDialog(LSView parent) {
         super(parent, "Welcome Screen", true);
         this.height = 450;
-        this.width  = 600;
-        parentView  = parent;
+        this.width = 600;
+        parentView = parent;
         initialise();
         customise();
         bindHandlers();
@@ -69,8 +61,8 @@ public final class LSUIWelcomeDialog extends JDialog implements LSUIProtocol {
     @Override
     public void initialise() {
         setUpProperties();
-        drawPanel      = drawNewWelcomePanel();
-        openFileAction = new OpenFileAction(LSEditor.titleBundle , parentView);
+        drawPanel = drawNewWelcomePanel();
+        new OpenFileAction(LSEditor.titleBundle, parentView);
     }
 
     /**
@@ -78,13 +70,14 @@ public final class LSUIWelcomeDialog extends JDialog implements LSUIProtocol {
      */
     private void setUpProperties() {
         screen = Toolkit.getDefaultToolkit().getScreenSize();
-        x      = (screen.width - width) / 2;
-        y      = (screen.height - height) / 2;
+        x = (screen.width - width) / 2;
+        y = (screen.height - height) / 2;
     }
 
     /**
      * Creates a custom JPanel for welcome screen.
-     * @return  custom drawn <code>JPanel</code>.
+     *
+     * @return custom drawn <code>JPanel</code>.
      */
     private JPanel drawNewWelcomePanel() {
         return new JPanel() {
@@ -93,7 +86,8 @@ public final class LSUIWelcomeDialog extends JDialog implements LSUIProtocol {
              * {@inheritDoc}
              */
             @Override
-            protected void paintComponent(Graphics g) {}
+            protected void paintComponent(Graphics g) {
+            }
         };
     }
 
@@ -146,5 +140,6 @@ public final class LSUIWelcomeDialog extends JDialog implements LSUIProtocol {
      * {@inheritDoc}
      */
     @Override
-    public void bindHandlers() {}
+    public void bindHandlers() {
+    }
 }

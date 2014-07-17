@@ -1,14 +1,11 @@
 package rocks6205.system.properties;
 
 /**
- *
  * Describes the environment where the canvas will run on, focusing on output resolution and text size.
  *
  * @author Cheow Yeong Chi
  * @author Toh Huey Jing
- *
  * @since 1.3
- *
  */
 public class LSCanvasProperties {
 
@@ -27,7 +24,7 @@ public class LSCanvasProperties {
     private static int DOTS_PER_INCH = 72;
 
     /**
-     *     Default minimum zoom scale
+     * Default minimum zoom scale
      */
     public static final int DEFAULT_MIN_ZOOM_LEVEL = -20;
 
@@ -53,7 +50,8 @@ public class LSCanvasProperties {
     /**
      * Default constructor
      */
-    private LSCanvasProperties() {}
+    private LSCanvasProperties() {
+    }
 
     /*
      * ACCESSORS

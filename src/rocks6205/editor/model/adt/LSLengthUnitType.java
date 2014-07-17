@@ -11,8 +11,7 @@ import rocks6205.system.properties.LSCanvasProperties;
  * Refer to: <a href="http://www.w3.org/TR/SVG/types.html#InterfaceSVGLength">Scalable Vector Graphics
  * (SVG) 1.1 - Interface SVG Length</a>
  *
- * @author: Cheow Yeong Chi
- *
+ * @author Cheow Yeong Chi
  * @since 1.0
  */
 public enum LSLengthUnitType {
@@ -31,14 +30,14 @@ public enum LSLengthUnitType {
     /**
      * <p>This function gets the scaling factor according to the unit type specified. </p>
      * In CSS definition,<br>
-     *
+     * <p>
      * The 'ex' unit is defined by the font's 'x-height'. <br>
      * The x-height is so called because it is often equal to the height of the lowercase "x".
      * However, an 'ex' is defined even for fonts that don't contain an "x".<br>
      * <p>
      * 1 'em' is equal to the current font size. <br>
      * n 'em' means n times the size of the current font. <br>
-     *
+     * <p>
      * 1 'pt' is the same as 1/72 'in'<br>
      * 1 'pc' is the same as 12 'pt'<br>
      *
@@ -57,33 +56,33 @@ public enum LSLengthUnitType {
         float ex = 0.5f * em;
 
         switch (this) {
-        case MM :
-            return mm;
+            case MM:
+                return mm;
 
-        case CM :
-            return cm;
+            case CM:
+                return cm;
 
-        case IN :
-            return in;
+            case IN:
+                return in;
 
-        case PT :
-            return pt;
+            case PT:
+                return pt;
 
-        case PC :
-            return pc;
+            case PC:
+                return pc;
 
-        case EMS :
-            return em;
+            case EMS:
+                return em;
 
-        case EXS :
-            return ex;
+            case EXS:
+                return ex;
 
-        case NUMBER :
-        case PX :
-            return px;
+            case NUMBER:
+            case PX:
+                return px;
 
-        default :
-            return 0;
+            default:
+                return 0;
         }
     }
 
@@ -96,7 +95,7 @@ public enum LSLengthUnitType {
      * type if matches, returns <code>NUMBER</code> type if it doesn't
      *
      * @param symbol Unit symbol string
-     * @return  <code>LSLengthUnitType</code> symbolic constant
+     * @return <code>LSLengthUnitType</code> symbolic constant
      */
     public static LSLengthUnitType getType(String symbol) {
         for (LSLengthUnitType type : values()) {
@@ -109,13 +108,12 @@ public enum LSLengthUnitType {
     }
 
     /**
-     *
-     * @return
+     * @return Strings of symbol
      */
     public static String[] getSymbols() {
-        LSLengthUnitType[] types     = values();
-        int                typeCount = types.length;
-        String[]           symbols   = new String[typeCount];
+        LSLengthUnitType[] types = values();
+        int typeCount = types.length;
+        String[] symbols = new String[typeCount];
 
         for (int i = 0; i < typeCount; i++) {
             symbols[i] = types[i].getUnitSymbol();

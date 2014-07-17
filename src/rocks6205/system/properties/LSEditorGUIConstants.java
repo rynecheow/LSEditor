@@ -2,20 +2,16 @@ package rocks6205.system.properties;
 
 //~--- JDK imports ------------------------------------------------------------
 
-import java.awt.Color;
-
-import javax.swing.BorderFactory;
+import javax.swing.*;
 import javax.swing.border.Border;
+import java.awt.*;
 
 /**
  * Theme used for the editor GUI.
  *
  * @author Toh Huey Jing
  * @author Cheow Yeong Chi
- *
  * @since 1.6
- *
- *
  */
 public interface LSEditorGUIConstants {
 
@@ -38,7 +34,7 @@ public interface LSEditorGUIConstants {
      * Default border
      */
     public static final Border MASTER_DEFAULT_PANEL_BORDER =
-        BorderFactory.createLineBorder(MASTER_DEFAULT_BORDER_COLOR, 1);
+            BorderFactory.createLineBorder(MASTER_DEFAULT_BORDER_COLOR, 1);
 
     /**
      * Path to toolbar icons

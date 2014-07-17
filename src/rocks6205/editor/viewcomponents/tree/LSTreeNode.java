@@ -2,17 +2,15 @@ package rocks6205.editor.viewcomponents.tree;
 
 //~--- JDK imports ------------------------------------------------------------
 
+import javax.swing.tree.TreeNode;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Enumeration;
-
-import javax.swing.tree.TreeNode;
 
 /**
  * Defines the tree node of the navigation tree.
  *
  * @author Cheow Yeong Chi
- *
  * @since 2.4
  */
 public class LSTreeNode implements TreeNode {
@@ -20,14 +18,14 @@ public class LSTreeNode implements TreeNode {
     /*
      * Constants for types of node.
      */
-    public static final int NODE_SVG    = 0;
-    public static final int NODE_GROUP  = 1;
-    public static final int NODE_LINE   = 2;
-    public static final int NODE_RECT   = 3;
+    public static final int NODE_SVG = 0;
+    public static final int NODE_GROUP = 1;
+    public static final int NODE_LINE = 2;
+    public static final int NODE_RECT = 3;
     public static final int NODE_CIRCLE = 4;
 
     /**
-     *     The title will be displayed in the tree
+     * The title will be displayed in the tree
      */
     private String title;
 
@@ -52,17 +50,19 @@ public class LSTreeNode implements TreeNode {
 
     /**
      * Constructs a tree node by accepting a title and a type.
+     *
      * @param title
      * @param type
      */
     public LSTreeNode(String title, int type) {
         this.children = new ArrayList<>();
-        this.title    = title;
-        this.type     = type;
+        this.title = title;
+        this.type = type;
     }
 
     /**
      * Append child to current node
+     *
      * @param child Child tree node.
      */
     public void addChild(TreeNode child) {
@@ -71,6 +71,7 @@ public class LSTreeNode implements TreeNode {
 
     /**
      * Set parent node.
+     *
      * @param parent parent node.
      */
     public void setParent(TreeNode parent) {
@@ -119,6 +120,7 @@ public class LSTreeNode implements TreeNode {
 
     /**
      * {@inheritDoc }
+     *
      * @return parent node
      */
     @Override
@@ -128,6 +130,7 @@ public class LSTreeNode implements TreeNode {
 
     /**
      * {@inheritDoc }
+     *
      * @return If there is not children
      */
     @Override

@@ -2,17 +2,16 @@ package rocks6205.editor.model.adt;
 
 //~--- JDK imports ------------------------------------------------------------
 
-import java.awt.Color;
+import java.awt.*;
 
 /**
  * The <code>LSPainting</code> class is used to parse <code>paint</code> attribute in
  * SVG documents and convert to respective type and color to be drawn on canvas.<p>
  * Refer to: <a href="http://www.w3.org/TR/SVG/painting.html#SpecifyingPaint">Scalable Vector Graphics
  * (SVG) 1.1 - Specifying paint</a>
+ *
  * @author Cheow Yeong Chi
- *
  * @since 1.0
- *
  */
 public class LSPainting {
 
@@ -34,7 +33,6 @@ public class LSPainting {
      * Set current <code>LSPainting</code> instance to type <code>COLOR</code>.
      *
      * @param c Paint color
-     *
      * @see #setPaint(rocks6205.editor.model.adt.LSColor, rocks6205.editor.model.adt.LSPaintingType)
      */
     public LSPainting(Color c) {
@@ -45,7 +43,6 @@ public class LSPainting {
      * Set current <code>LSPainting</code> instance to type <code>COLOR</code>.
      *
      * @param c Paint color
-     *
      * @see #setPaint(rocks6205.editor.model.adt.LSColor, rocks6205.editor.model.adt.LSPaintingType)
      */
     public LSPainting(LSColor c) {
@@ -143,9 +140,9 @@ public class LSPainting {
 
     /**
      * Set current <code>LSPainting</code> instance to color <code>c</code> and type <code>type</code>
-     * @param c Paint color
-     * @param type Paint type
      *
+     * @param c    Paint color
+     * @param type Paint type
      * @see #setPaintType(rocks6205.editor.model.adt.LSPaintingType)
      * @see #setPaintColor(rocks6205.editor.model.adt.LSColor)
      */
@@ -161,7 +158,6 @@ public class LSPainting {
      * Variant. Setting the color of paint.
      *
      * @param c Paint color
-     *
      * @see #setPaint(rocks6205.editor.model.adt.LSColor, rocks6205.editor.model.adt.LSPaintingType)
      */
     public final void setPaint(LSColor c) {
@@ -170,19 +166,20 @@ public class LSPainting {
 
     /**
      * {@inheritDoc}
+     *
      * @return String of color in RGB format, none or empty.
      */
     @Override
     public String toString() {
         switch (paintType) {
-        case NONE :
-            return "none";
+            case NONE:
+                return "none";
 
-        case COLOR :
-            return "rgb(" + paintColor.getRed() + "," + paintColor.getGreen() + "," + paintColor.getBlue() + ")";
+            case COLOR:
+                return "rgb(" + paintColor.getRed() + "," + paintColor.getGreen() + "," + paintColor.getBlue() + ")";
 
-        default :
-            return "";
+            default:
+                return "";
         }
     }
 }

@@ -4,19 +4,15 @@ package rocks6205.editor.model.elements;
 
 import org.w3c.dom.Attr;
 import org.w3c.dom.Element;
-
 import rocks6205.editor.model.adt.LSLength;
 import rocks6205.editor.model.adt.LSLengthUnitType;
 import rocks6205.editor.model.adt.LSPaintingType;
 
-//~--- JDK imports ------------------------------------------------------------
-
-import java.awt.BasicStroke;
-import java.awt.Graphics2D;
-import java.awt.Shape;
+import java.awt.*;
 import java.awt.geom.Line2D;
 import java.awt.geom.Rectangle2D;
-import static rocks6205.editor.model.elements.LSGenericShape.SHAPE_CIRCLE;
+
+//~--- JDK imports ------------------------------------------------------------
 
 /**
  * The <code>LSShapeLine</code> class is used to parse <<code>line</code>> element in
@@ -24,9 +20,7 @@ import static rocks6205.editor.model.elements.LSGenericShape.SHAPE_CIRCLE;
  * the image canvas.
  *
  * @author Sugar CheeSheen Chan
- *
  * @since 1.1
- *
  */
 public final class LSShapeLine extends LSGenericShape {
 
@@ -163,20 +157,20 @@ public final class LSShapeLine extends LSGenericShape {
     @Override
     public Rectangle2D.Float getBounds() {
         Rectangle2D.Float bounds;
-        float             padding = 0;
+        float padding = 0;
 
         if (getResultantStroke().getPaintType() != LSPaintingType.NONE) {
             padding = getResultantStrokeWidth().getValue(LSLengthUnitType.PX) / 2;
         }
 
-        float computedX = (float) (Math.min(x1.getValue(LSLengthUnitType.PX), x2.getValue(LSLengthUnitType.PX))
-                                   - padding);
-        float computedY = (float) (Math.min(y1.getValue(LSLengthUnitType.PX), y2.getValue(LSLengthUnitType.PX))
-                                   - padding);
-        float computedWidth = (float) (Math.abs(x2.getValue(LSLengthUnitType.PX) - x1.getValue(LSLengthUnitType.PX))
-                                       + 2 * padding);
-        float computedHeight = (float) (Math.abs(y2.getValue(LSLengthUnitType.PX) - y1.getValue(LSLengthUnitType.PX))
-                                        + 2 * padding);
+        float computedX = Math.min(x1.getValue(LSLengthUnitType.PX), x2.getValue(LSLengthUnitType.PX))
+                - padding;
+        float computedY = Math.min(y1.getValue(LSLengthUnitType.PX), y2.getValue(LSLengthUnitType.PX))
+                - padding;
+        float computedWidth = Math.abs(x2.getValue(LSLengthUnitType.PX) - x1.getValue(LSLengthUnitType.PX))
+                + 2 * padding;
+        float computedHeight = Math.abs(y2.getValue(LSLengthUnitType.PX) - y1.getValue(LSLengthUnitType.PX))
+                + 2 * padding;
 
         bounds = new Rectangle2D.Float(computedX, computedY, computedWidth, computedHeight);
 
@@ -191,12 +185,12 @@ public final class LSShapeLine extends LSGenericShape {
     @Override
     public void drawShape(Graphics2D g) {
         Shape line = new Line2D.Float(x1.getValue(LSLengthUnitType.PX), y1.getValue(LSLengthUnitType.PX),
-                                      x2.getValue(LSLengthUnitType.PX), y2.getValue(LSLengthUnitType.PX));
+                x2.getValue(LSLengthUnitType.PX), y2.getValue(LSLengthUnitType.PX));
 
         line = getTransform().createTransformedShape(line);
         g.setPaint(getResultantStroke().getPaintColor());
         g.setStroke(new BasicStroke((float) getResultantStrokeWidth().getValue(LSLengthUnitType.PX),
-                                    getStrokeLineCap(), getStrokeLineJoin()));
+                getStrokeLineCap(), getStrokeLineJoin()));
         g.draw(line);
     }
 
@@ -207,12 +201,12 @@ public final class LSShapeLine extends LSGenericShape {
     /**
      * Parse line element from DOM level to object interpretable as defined
      *
-     * @param element         Element from the document returned by the XMLParser
-     * @return                Line element parsed from Element to be drawn
+     * @param element Element from the document returned by the XMLParser
+     * @return Line element parsed from Element to be drawn
      */
     public static LSShapeLine parseElement(Element element) {
-        LSShapeLine line   = new LSShapeLine();
-        Attr           x1Attr = element.getAttributeNodeNS(null, "x1");
+        LSShapeLine line = new LSShapeLine();
+        Attr x1Attr = element.getAttributeNodeNS(null, "x1");
 
         if (x1Attr != null) {
             line.setX1(LSLength.parse(x1Attr.getValue()));
@@ -242,17 +236,16 @@ public final class LSShapeLine extends LSGenericShape {
     }
 
     /**
-     *
      * {@inheritDoc}
      */
     @Override
     public String toString() {
         return LSShapeLine.class.getSimpleName();
     }
-    
+
     /**
-      * {@inheritDoc}
-      */
+     * {@inheritDoc}
+     */
     @Override
     public int getShapeType() {
         return SHAPE_LINE;

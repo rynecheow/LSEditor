@@ -3,19 +3,17 @@ package rocks6205.editor.model.elements;
 //~--- non-JDK imports --------------------------------------------------------
 
 import org.w3c.dom.Element;
-
 import rocks6205.editor.core.LSEditor;
 import rocks6205.editor.model.adt.LSLength;
 import rocks6205.editor.model.adt.LSPainting;
 
-//~--- JDK imports ------------------------------------------------------------
-
-import java.awt.Graphics2D;
+import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.NoninvertibleTransformException;
 import java.awt.geom.Rectangle2D;
-
 import java.util.ArrayList;
+
+//~--- JDK imports ------------------------------------------------------------
 
 /**
  * The <code>LSGroupContainer</code> class is a container used to group objects
@@ -25,7 +23,6 @@ import java.util.ArrayList;
  *
  * @author Cheow Yeong Chi
  * @since 1.1
- *
  */
 public class LSGroupContainer extends LSGenericContainer {
 
@@ -36,10 +33,12 @@ public class LSGroupContainer extends LSGenericContainer {
     /**
      * Default constructor
      */
-    public LSGroupContainer() {}
+    public LSGroupContainer() {
+    }
 
     /**
      * Ungroup function.
+     *
      * @return descendants of group.
      */
     public ArrayList<LSGenericElement> ungroup() {
@@ -98,15 +97,15 @@ public class LSGroupContainer extends LSGenericContainer {
     /*
      * METHODS
      */
-    
+
     private static void recurseAttributes(LSGroupContainer group) {
-        LSPainting fill        = group.getFill();
-        LSPainting stroke      = group.getStroke();
-        LSLength   strokeWidth = group.getStrokeWidth();
-        LSLength   tx          = group.getTranslateX();
-        LSLength   ty          = group.getTranslateY();
-        LSLength   descendantTx;
-        LSLength   descendantTy;
+        LSPainting fill = group.getFill();
+        LSPainting stroke = group.getStroke();
+        LSLength strokeWidth = group.getStrokeWidth();
+        LSLength tx = group.getTranslateX();
+        LSLength ty = group.getTranslateY();
+        LSLength descendantTx;
+        LSLength descendantTy;
 
         for (LSGenericElement descendant : group.getDescendants()) {
             if (descendant.getFill() == null) {
@@ -149,6 +148,7 @@ public class LSGroupContainer extends LSGenericContainer {
 
     /**
      * Parses the attributes on the  <<code>g</code>> element in the SVG document
+     *
      * @param e element from the document returned by the XMLParser
      * @return <code>LSGroupContainer</code> object
      */

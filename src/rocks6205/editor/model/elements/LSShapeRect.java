@@ -4,19 +4,14 @@ package rocks6205.editor.model.elements;
 
 import org.w3c.dom.Attr;
 import org.w3c.dom.Element;
-
 import rocks6205.editor.model.adt.LSLength;
 import rocks6205.editor.model.adt.LSLengthUnitType;
 import rocks6205.editor.model.adt.LSPaintingType;
 
-import static rocks6205.editor.model.elements.LSGenericShape.SHAPE_LINE;
+import java.awt.*;
+import java.awt.geom.Rectangle2D;
 
 //~--- JDK imports ------------------------------------------------------------
-
-import java.awt.BasicStroke;
-import java.awt.Graphics2D;
-import java.awt.Shape;
-import java.awt.geom.Rectangle2D;
 
 /**
  * The <code>LSShapeRect</code> class is used to parse <<code>rect</code>> element in
@@ -24,9 +19,7 @@ import java.awt.geom.Rectangle2D;
  * the image canvas.
  *
  * @author Sugar CheeSheen Chan
- *
  * @since 1.1
- *
  */
 public final class LSShapeRect extends LSGenericShape {
 
@@ -47,7 +40,7 @@ public final class LSShapeRect extends LSGenericShape {
     private LSLength y;
 
     /**
-     *  Width of the rectangle
+     * Width of the rectangle
      */
     private LSLength width;
 
@@ -61,9 +54,9 @@ public final class LSShapeRect extends LSGenericShape {
      * Construct an instance of <code>LSShapeRect</code> with coordinates and lengths initialised to zero.
      */
     public LSShapeRect() {
-        x      = new LSLength(0);
-        y      = new LSLength(0);
-        width  = new LSLength(0);
+        x = new LSLength(0);
+        y = new LSLength(0);
+        width = new LSLength(0);
         height = new LSLength(0);
     }
 
@@ -71,9 +64,9 @@ public final class LSShapeRect extends LSGenericShape {
      * Construct an instance of <code>LSShapeRect</code> with the coordinates
      * of the first point and the second point.
      *
-     * @param x x-coordinate of rectangle
-     * @param y y-coordinate of rectangle
-     * @param width Width of the rectangle
+     * @param x      x-coordinate of rectangle
+     * @param y      y-coordinate of rectangle
+     * @param width  Width of the rectangle
      * @param height Height of the rectangle
      */
     public LSShapeRect(LSLength x, LSLength y, LSLength width, LSLength height) {
@@ -164,21 +157,21 @@ public final class LSShapeRect extends LSGenericShape {
      */
     @Override
     public Rectangle2D.Float getBounds() {
-        float             xVal      = x.getValue(LSLengthUnitType.PX);
-        float             yVal      = y.getValue(LSLengthUnitType.PX);
-        float             widthVal  = width.getValue(LSLengthUnitType.PX);
-        float             heightVal = height.getValue(LSLengthUnitType.PX);
-        float             padding   = 0;
-        Rectangle2D.Float bounds    = new Rectangle2D.Float();
+        float xVal = x.getValue(LSLengthUnitType.PX);
+        float yVal = y.getValue(LSLengthUnitType.PX);
+        float widthVal = width.getValue(LSLengthUnitType.PX);
+        float heightVal = height.getValue(LSLengthUnitType.PX);
+        float padding = 0;
+        Rectangle2D.Float bounds = new Rectangle2D.Float();
 
         if ((widthVal > 0) && (heightVal > 0)) {
             if (getResultantStroke().getPaintType() != LSPaintingType.NONE) {
                 padding = getResultantStrokeWidth().getValue(LSLengthUnitType.PX) / 2;
             }
 
-            bounds.x      = xVal - padding;
-            bounds.y      = yVal - padding;
-            bounds.width  = widthVal + 2 * padding;
+            bounds.x = xVal - padding;
+            bounds.y = yVal - padding;
+            bounds.width = widthVal + 2 * padding;
             bounds.height = heightVal + 2 * padding;
         }
 
@@ -194,15 +187,15 @@ public final class LSShapeRect extends LSGenericShape {
     public void drawShape(Graphics2D g) {
         if ((width.getValue(LSLengthUnitType.PX) > 0) && (height.getValue(LSLengthUnitType.PX) > 0)) {
             Shape rect = new Rectangle2D.Float(x.getValue(LSLengthUnitType.PX), y.getValue(LSLengthUnitType.PX),
-                                               width.getValue(LSLengthUnitType.PX),
-                                               height.getValue(LSLengthUnitType.PX));
+                    width.getValue(LSLengthUnitType.PX),
+                    height.getValue(LSLengthUnitType.PX));
 
             rect = getTransform().createTransformedShape(rect);
             g.setPaint(getResultantFill().getPaintColor());
             g.fill(rect);
             g.setPaint(getResultantStroke().getPaintColor());
             g.setStroke(new BasicStroke((float) getResultantStrokeWidth().getValue(LSLengthUnitType.PX),
-                                        getStrokeLineCap(), getStrokeLineJoin()));
+                    getStrokeLineCap(), getStrokeLineJoin()));
             g.draw(rect);
         }
     }
@@ -210,19 +203,19 @@ public final class LSShapeRect extends LSGenericShape {
     /**
      * Parse rectangle element from DOM level to object interpretable as defined
      *
-     * @param element   Element from the document returned by the XMLParser
-     * @return          Rectangle element to be drawn parsed from <code>e</code>
+     * @param element Element from the document returned by the XMLParser
+     * @return Rectangle element to be drawn parsed from <code>e</code>
      */
     public static LSShapeRect parseElement(Element element) {
-        Attr widthAttr  = element.getAttributeNodeNS(null, "width");
+        Attr widthAttr = element.getAttributeNodeNS(null, "width");
         Attr heightAttr = element.getAttributeNodeNS(null, "height");
 
         if ((widthAttr == null) || (heightAttr == null)) {
             return null;
         }
 
-        LSShapeRect rect  = new LSShapeRect();
-        Attr        xAttr = element.getAttributeNodeNS(null, "x");
+        LSShapeRect rect = new LSShapeRect();
+        Attr xAttr = element.getAttributeNodeNS(null, "x");
 
         if (xAttr != null) {
             rect.setX(LSLength.parse(xAttr.getValue()));
@@ -242,7 +235,6 @@ public final class LSShapeRect extends LSGenericShape {
     }
 
     /**
-     *
      * {@inheritDoc}
      */
     @Override
@@ -251,8 +243,8 @@ public final class LSShapeRect extends LSGenericShape {
     }
 
     /**
-      * {@inheritDoc}
-      */
+     * {@inheritDoc}
+     */
     @Override
     public int getShapeType() {
         return SHAPE_RECT;

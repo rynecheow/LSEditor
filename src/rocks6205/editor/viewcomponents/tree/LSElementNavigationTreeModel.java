@@ -2,22 +2,20 @@ package rocks6205.editor.viewcomponents.tree;
 
 //~--- JDK imports ------------------------------------------------------------
 
-import java.util.ArrayList;
-
 import javax.swing.event.TreeModelListener;
 import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
+import java.util.ArrayList;
 
 /**
  * Tree model that configures the structure of the navigation tree.
  *
  * @author Cheow Yeong Chi
- *
  * @since 2.4
  */
 public class LSElementNavigationTreeModel implements TreeModel {
-    private TreeNode                     rootNode;
+    private TreeNode rootNode;
     private ArrayList<TreeModelListener> listeners;
 
     /*
@@ -33,10 +31,11 @@ public class LSElementNavigationTreeModel implements TreeModel {
 
     /**
      * Constructor that takes in a node and set is as the root node of the tree.
+     *
      * @param rootNode
      */
     public LSElementNavigationTreeModel(TreeNode rootNode) {
-        this.rootNode  = rootNode;
+        this.rootNode = rootNode;
         this.listeners = new ArrayList<>();
     }
 
@@ -74,7 +73,7 @@ public class LSElementNavigationTreeModel implements TreeModel {
     @Override
     public int getIndexOfChild(Object parent, Object child) {
         TreeNode parentNode = (TreeNode) parent;
-        TreeNode childNode  = (TreeNode) child;
+        TreeNode childNode = (TreeNode) child;
 
         return parentNode.getIndex(childNode);
     }
@@ -109,5 +108,6 @@ public class LSElementNavigationTreeModel implements TreeModel {
      * {@inheritDoc}
      */
     @Override
-    public void valueForPathChanged(TreePath path, Object newValue) {}
+    public void valueForPathChanged(TreePath path, Object newValue) {
+    }
 }

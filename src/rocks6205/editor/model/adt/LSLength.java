@@ -14,7 +14,6 @@ import java.util.regex.Pattern;
  * <code>width</code>, <code>height</code>, etc.
  *
  * @author Cheow Yeong Chi
- *
  * @since 1.0
  */
 public class LSLength {
@@ -61,8 +60,7 @@ public class LSLength {
      * and gives a float value of <code>val</code>.
      *
      * @param type Type of unit as defined in {@link LSLengthUnitType}
-     * @param val Value of length unit in <code>float</code>
-     *
+     * @param val  Value of length unit in <code>float</code>
      * @see #setValue(float)
      */
     public LSLength(LSLengthUnitType type, float val) {
@@ -103,9 +101,9 @@ public class LSLength {
 
     /**
      * Get the value of length unit by specific unit type.
-     * @param sym Target conversion type
-     * @return Length unit value with respect to the target type
      *
+     * @param target Target conversion type
+     * @return Length unit value with respect to the target type
      */
     public float getValue(LSLengthUnitType target) {
         if (target == null) {
@@ -141,28 +139,24 @@ public class LSLength {
     /**
      * Parsing length attribute by extracting symbols and matches with defined unit types.
      *
-     * @param lengthAttributeValue      Attribute string that is read directly from SVG file
-     * @return  <code>LSLength</code> object
+     * @param lengthAttributeValue Attribute string that is read directly from SVG file
+     * @return <code>LSLength</code> object
      */
     public static LSLength parse(String lengthAttributeValue) {
         lengthAttributeValue = lengthAttributeValue.trim();
 
-        if (lengthAttributeValue == null) {
-            return null;
-        }
-
         // initialise variables
         LSLength length = null;
-        Pattern  pattern, unitPattern;
-        Matcher  matcher;
-        String   numberStr = "";
-        String   unitStr   = "",
-                 unitSym   = "";
-        int      u         = 0;
+        Pattern pattern, unitPattern;
+        Matcher matcher;
+        String numberStr = "";
+        String unitStr = "",
+                unitSym = "";
+        int u = 0;
 
         // search
         for (String symbol : LSLengthUnitType.getSymbols()) {
-            if ((symbol != null) &&!symbol.isEmpty()) {
+            if ((symbol != null) && !symbol.isEmpty()) {
                 if (u != 0) {
                     symbol = "|" + symbol;
                 }
@@ -173,10 +167,10 @@ public class LSLength {
         }
 
         unitPattern = Pattern.compile("(" + unitSym + ")$");
-        matcher     = unitPattern.matcher(lengthAttributeValue);
+        matcher = unitPattern.matcher(lengthAttributeValue);
 
         if (matcher.find()) {
-            unitStr              = matcher.group();
+            unitStr = matcher.group();
             lengthAttributeValue = lengthAttributeValue.replace(unitStr, "");
         }
 
@@ -196,7 +190,8 @@ public class LSLength {
 
     /**
      * Convert the existing length unit to different type
-     * @param length Length unit
+     *
+     * @param length     Length unit
      * @param targetType type of length unit
      * @return Converted length unit with type set to target type
      */
@@ -208,6 +203,7 @@ public class LSLength {
 
     /**
      * {@inheritDoc}
+     *
      * @return value of length with the unit symbol
      */
     @Override

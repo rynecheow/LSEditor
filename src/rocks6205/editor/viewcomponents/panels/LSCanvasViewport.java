@@ -3,24 +3,19 @@ package rocks6205.editor.viewcomponents.panels;
 //~--- non-JDK imports --------------------------------------------------------
 
 import rocks6205.editor.core.LSView;
-
 import rocks6205.system.properties.LSCanvasProperties;
 
-//~--- JDK imports ------------------------------------------------------------
-
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Toolkit;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 
-import javax.swing.JPanel;
+//~--- JDK imports ------------------------------------------------------------
 
 /**
  * A viewport panel that renders SVG and contain the image canvas that the graphics
  * are to be drawn on.
  *
  * @author Cheow Yeong Chi
- *
  * @since 1.3
  */
 public class LSCanvasViewport extends JPanel {

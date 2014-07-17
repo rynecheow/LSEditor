@@ -4,19 +4,16 @@ package rocks6205.editor.viewcomponents;
 
 import rocks6205.system.properties.LSEditorGUIConstants;
 
-//~--- JDK imports ------------------------------------------------------------
-
+import javax.swing.*;
 import java.net.URL;
 
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
+//~--- JDK imports ------------------------------------------------------------
 
 /**
  * Custom JButtons with icons.
  *
  * @author Komalah Nair
  * @since 1.3
- *
  */
 public class LSUIButton extends JButton {
     private LSUIButton() {
@@ -25,6 +22,7 @@ public class LSUIButton extends JButton {
 
     /**
      * Factory method.
+     *
      * @return new instance of <code>LSUIButton</code>
      */
     public static LSUIButton create() {
@@ -51,11 +49,9 @@ public class LSUIButton extends JButton {
     }
 
     private ImageIcon createIcon(String iconName) {
-        String    path   = LSEditorGUIConstants.DEFAULT_PATH_TO_TOOLBAR_ICONS + iconName;
-        URL       imgURL = LSUIToggleButton.class.getResource(path);
-        
-        ImageIcon icon   = new ImageIcon(imgURL);
+        String path = LSEditorGUIConstants.DEFAULT_PATH_TO_TOOLBAR_ICONS + iconName;
+        URL imgURL = LSUIToggleButton.class.getResource(path);
 
-        return icon;
+        return new ImageIcon(imgURL);
     }
 }

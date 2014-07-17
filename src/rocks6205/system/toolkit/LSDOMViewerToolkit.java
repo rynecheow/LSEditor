@@ -9,7 +9,6 @@ import javax.swing.text.ViewFactory;
  * Editor kit which builds the factory for <code>LSSVGPlainView</code>.
  *
  * @author Cheow Yeong Chi
- * 
  * @since 2.5
  */
 public class LSDOMViewerToolkit extends StyledEditorKit {

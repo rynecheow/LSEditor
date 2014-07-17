@@ -4,18 +4,15 @@ package rocks6205.editor.model.elements;
 
 import org.w3c.dom.Attr;
 import org.w3c.dom.Element;
-
 import rocks6205.editor.model.adt.LSLength;
 import rocks6205.editor.model.adt.LSLengthUnitType;
 import rocks6205.editor.model.adt.LSPaintingType;
 
-//~--- JDK imports ------------------------------------------------------------
-
-import java.awt.BasicStroke;
-import java.awt.Graphics2D;
-import java.awt.Shape;
+import java.awt.*;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
+
+//~--- JDK imports ------------------------------------------------------------
 
 /**
  * The <code>LSShapeCircle</code> class is used to parse <<code>circle</code>> element in
@@ -23,9 +20,7 @@ import java.awt.geom.Rectangle2D;
  * the image canvas.
  *
  * @author Sugar CheeSheen Chan
- *
  * @since 1.1
- *
  */
 public final class LSShapeCircle extends LSGenericShape {
 
@@ -57,8 +52,8 @@ public final class LSShapeCircle extends LSGenericShape {
      * Construct an instance of <code>LSShapeCircle</code> with length initialised to zero.
      */
     public LSShapeCircle() {
-        cx     = new LSLength(0);
-        cy     = new LSLength(0);
+        cx = new LSLength(0);
+        cy = new LSLength(0);
         radius = new LSLength(0);
     }
 
@@ -66,8 +61,8 @@ public final class LSShapeCircle extends LSGenericShape {
      * Construct an instance of <code>LSShapeCircle</code> with the coordinates
      * of the centre and its radius.
      *
-     * @param cx x-coordinate of the centre of the circle
-     * @param cy y-coordinate of the centre of the circle
+     * @param cx     x-coordinate of the centre of the circle
+     * @param cy     y-coordinate of the centre of the circle
      * @param radius radius of the centre of the circle
      */
     public LSShapeCircle(LSLength cx, LSLength cy, LSLength radius) {
@@ -137,20 +132,20 @@ public final class LSShapeCircle extends LSGenericShape {
      */
     @Override
     public Rectangle2D.Float getBounds() {
-        float             r       = radius.getValue(LSLengthUnitType.PX);
-        float             xPos    = cx.getValue(LSLengthUnitType.PX);
-        float             yPos    = cy.getValue(LSLengthUnitType.PX);
-        float             padding = 0;
-        Rectangle2D.Float bounds  = new Rectangle2D.Float();
+        float r = radius.getValue(LSLengthUnitType.PX);
+        float xPos = cx.getValue(LSLengthUnitType.PX);
+        float yPos = cy.getValue(LSLengthUnitType.PX);
+        float padding = 0;
+        Rectangle2D.Float bounds = new Rectangle2D.Float();
 
         if (r > 0) {
             if (getResultantStroke().getPaintType() != LSPaintingType.NONE) {
                 padding = getResultantStrokeWidth().getValue(LSLengthUnitType.PX) / 2;
             }
 
-            bounds.x      = xPos - r - padding;
-            bounds.y      = yPos - r - padding;
-            bounds.width  = 2 * r + 2 * padding;
+            bounds.x = xPos - r - padding;
+            bounds.y = yPos - r - padding;
+            bounds.width = 2 * r + 2 * padding;
             bounds.height = 2 * r + 2 * padding;
         }
 
@@ -166,16 +161,16 @@ public final class LSShapeCircle extends LSGenericShape {
     public void drawShape(Graphics2D g) {
         if (radius.getValue(LSLengthUnitType.PX) > 0) {
             Shape ellipse = new Ellipse2D.Float(cx.getValue(LSLengthUnitType.PX)
-                                - radius.getValue(LSLengthUnitType.PX), cy.getValue(LSLengthUnitType.PX)
-                                    - radius.getValue(LSLengthUnitType.PX), 2 * radius.getValue(LSLengthUnitType.PX), 2
-                                      * radius.getValue(LSLengthUnitType.PX));
+                    - radius.getValue(LSLengthUnitType.PX), cy.getValue(LSLengthUnitType.PX)
+                    - radius.getValue(LSLengthUnitType.PX), 2 * radius.getValue(LSLengthUnitType.PX), 2
+                    * radius.getValue(LSLengthUnitType.PX));
 
             ellipse = getTransform().createTransformedShape(ellipse);
             g.setPaint(getResultantFill().getPaintColor());
             g.fill(ellipse);
             g.setPaint(getResultantStroke().getPaintColor());
             g.setStroke(new BasicStroke((float) getResultantStrokeWidth().getValue(LSLengthUnitType.PX),
-                                        getStrokeLineCap(), getStrokeLineJoin()));
+                    getStrokeLineCap(), getStrokeLineJoin()));
             g.draw(ellipse);
         }
     }
@@ -193,8 +188,8 @@ public final class LSShapeCircle extends LSGenericShape {
      * @return <code>LSShapeCircle</code> object
      */
     public static LSShapeCircle parseElement(Element element) {
-        LSShapeCircle circ        = new LSShapeCircle();
-        Attr          centreXAttr = element.getAttributeNodeNS(null, "cx");
+        LSShapeCircle circ = new LSShapeCircle();
+        Attr centreXAttr = element.getAttributeNodeNS(null, "cx");
 
         if (centreXAttr != null) {
             circ.setCx(LSLength.parse(centreXAttr.getValue()));
@@ -218,16 +213,16 @@ public final class LSShapeCircle extends LSGenericShape {
     }
 
     /**
-      * {@inheritDoc}
-      */
+     * {@inheritDoc}
+     */
     @Override
     public String toString() {
         return LSShapeCircle.class.getSimpleName();
     }
 
     /**
-      * {@inheritDoc}
-      */
+     * {@inheritDoc}
+     */
     @Override
     public int getShapeType() {
         return SHAPE_CIRCLE;

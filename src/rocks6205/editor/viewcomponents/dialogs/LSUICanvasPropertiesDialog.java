@@ -2,6 +2,7 @@ package rocks6205.editor.viewcomponents.dialogs;
 
 //~--- non-JDK imports --------------------------------------------------------
 
+import rocks6205.editor.core.LSEditor;
 import rocks6205.editor.core.LSModel;
 import rocks6205.editor.core.LSView;
 import rocks6205.editor.dto.LSDocumentDataObject;
@@ -10,33 +11,20 @@ import rocks6205.editor.model.adt.LSLengthUnitType;
 import rocks6205.editor.viewcomponents.LSNumericTextField;
 import rocks6205.editor.viewcomponents.LSUIProtocol;
 
-//~--- JDK imports ------------------------------------------------------------
-
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Toolkit;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-
 import java.util.ResourceBundle;
 
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JDialog;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.WindowConstants;
-import rocks6205.editor.core.LSEditor;
+//~--- JDK imports ------------------------------------------------------------
 
 /**
  * Document properties modal dialog.
- * 
- * @author Cheow Yeong Chi
  *
+ * @author Cheow Yeong Chi
  * @since 2.2
  */
 public final class LSUICanvasPropertiesDialog extends JDialog implements LSUIProtocol {
@@ -44,34 +32,34 @@ public final class LSUICanvasPropertiesDialog extends JDialog implements LSUIPro
     /*
      * SIZE PROPERTIES
      */
-    int       width;
-    int       height;
+    int width;
+    int height;
     Dimension screen;
-    int       x;
-    int       y;
+    int x;
+    int y;
 
     /*
      * GUI COMPONENTS
      */
-    private JPanel     backPanel;
-    private JButton    cancelButton;
-    private JLabel     colorModeInfoLabel;
-    private JLabel     colorModeLabel;
-    private JButton    confirmButton;
-    private JLabel     documentNameLabel;
+    private JPanel backPanel;
+    private JButton cancelButton;
+    private JLabel colorModeInfoLabel;
+    private JLabel colorModeLabel;
+    private JButton confirmButton;
+    private JLabel documentNameLabel;
     private JTextField documentNameTextField;
-    private JLabel     heightLabel;
+    private JLabel heightLabel;
     private JTextField heightTextField;
-    private JComboBox  heightUnitComboBox;
-    private JComboBox  presetComboBox;
-    private JLabel     presetLabel;
-    private JLabel     resolutionInfoLabel;
-    private JLabel     resolutionLabel;
-    private JComboBox  sizeComboBox;
-    private JLabel     sizeLabel;
-    private JLabel     widthLabel;
+    private JComboBox<String> heightUnitComboBox;
+    private JComboBox<String> presetComboBox;
+    private JLabel presetLabel;
+    private JLabel resolutionInfoLabel;
+    private JLabel resolutionLabel;
+    private JComboBox<String> sizeComboBox;
+    private JLabel sizeLabel;
+    private JLabel widthLabel;
     private JTextField widthTextField;
-    private JComboBox  widthUnitComboBox;
+    private JComboBox<String> widthUnitComboBox;
 
     /*
      * PARENT COMPONENT
@@ -85,13 +73,14 @@ public final class LSUICanvasPropertiesDialog extends JDialog implements LSUIPro
 
     /**
      * Constructs a canvas properties dialog with parent component.
+     *
      * @param parent Parent component.
      */
     public LSUICanvasPropertiesDialog(LSView parent) {
         super(parent, "Welcome Screen", true);
         this.height = 340;
-        this.width  = 480;
-        parentView  = parent;
+        this.width = 480;
+        parentView = parent;
         initialise();
         customise();
         bindHandlers();
@@ -103,25 +92,25 @@ public final class LSUICanvasPropertiesDialog extends JDialog implements LSUIPro
     @Override
     public void initialise() {
         setUpProperties();
-        backPanel             = new JPanel();
-        documentNameLabel     = new JLabel();
+        backPanel = new JPanel();
+        documentNameLabel = new JLabel();
         documentNameTextField = new JTextField();
-        presetLabel           = new JLabel();
-        presetComboBox        = new JComboBox();
-        sizeLabel             = new JLabel();
-        sizeComboBox          = new JComboBox();
-        widthLabel            = new JLabel();
-        heightLabel           = new JLabel();
-        widthTextField        = new LSNumericTextField();
-        heightTextField       = new LSNumericTextField();
-        widthUnitComboBox     = new JComboBox();
-        heightUnitComboBox    = new JComboBox();
-        resolutionLabel       = new JLabel();
-        resolutionInfoLabel   = new JLabel();
-        colorModeLabel        = new JLabel();
-        colorModeInfoLabel    = new JLabel();
-        confirmButton         = new JButton();
-        cancelButton          = new JButton();
+        presetLabel = new JLabel();
+        presetComboBox = new JComboBox<>();
+        sizeLabel = new JLabel();
+        sizeComboBox = new JComboBox<>();
+        widthLabel = new JLabel();
+        heightLabel = new JLabel();
+        widthTextField = new LSNumericTextField();
+        heightTextField = new LSNumericTextField();
+        widthUnitComboBox = new JComboBox<>();
+        heightUnitComboBox = new JComboBox<>();
+        resolutionLabel = new JLabel();
+        resolutionInfoLabel = new JLabel();
+        colorModeLabel = new JLabel();
+        colorModeInfoLabel = new JLabel();
+        confirmButton = new JButton();
+        cancelButton = new JButton();
     }
 
     /**
@@ -129,8 +118,8 @@ public final class LSUICanvasPropertiesDialog extends JDialog implements LSUIPro
      */
     private void setUpProperties() {
         screen = Toolkit.getDefaultToolkit().getScreenSize();
-        x      = (screen.width - width) / 2;
-        y      = (screen.height - height) / 2;
+        x = (screen.width - width) / 2;
+        y = (screen.height - height) / 2;
     }
 
     /**
@@ -182,13 +171,13 @@ public final class LSUICanvasPropertiesDialog extends JDialog implements LSUIPro
         presetLabel.setForeground(new Color(255, 255, 255));
         backPanel.add(presetLabel);
         presetLabel.setBounds(49, 69, 42, 16);
-        presetComboBox.setModel(new DefaultComboBoxModel(new String[] { "Default Editor Size", "Web" }));
+        presetComboBox.setModel(new DefaultComboBoxModel<>(new String[]{"Default Editor Size", "Web"}));
         backPanel.add(presetComboBox);
         presetComboBox.setBounds(176, 65, 202, 27);
         sizeLabel.setForeground(new Color(255, 255, 255));
         backPanel.add(sizeLabel);
         sizeLabel.setBounds(49, 102, 29, 16);
-        sizeComboBox.setModel(new DefaultComboBoxModel(new String[] { "800 x 600", "1024 x 768", "1152 x 864" }));
+        sizeComboBox.setModel(new DefaultComboBoxModel<>(new String[]{"800 x 600", "1024 x 768", "1152 x 864"}));
         backPanel.add(sizeComboBox);
         sizeComboBox.setBounds(176, 98, 202, 27);
         widthLabel.setForeground(new Color(255, 255, 255));
@@ -201,10 +190,10 @@ public final class LSUICanvasPropertiesDialog extends JDialog implements LSUIPro
         widthTextField.setBounds(176, 131, 100, 28);
         backPanel.add(heightTextField);
         heightTextField.setBounds(176, 166, 100, 28);
-        widthUnitComboBox.setModel(new DefaultComboBoxModel(new String[] { "px", "in", "cm", "mm", "pt" }));
+        widthUnitComboBox.setModel(new DefaultComboBoxModel<>(new String[]{"px", "in", "cm", "mm", "pt"}));
         backPanel.add(widthUnitComboBox);
         widthUnitComboBox.setBounds(288, 133, 90, 27);
-        heightUnitComboBox.setModel(new DefaultComboBoxModel(new String[] { "px", "in", "cm", "mm", "pt" }));
+        heightUnitComboBox.setModel(new DefaultComboBoxModel<>(new String[]{"px", "in", "cm", "mm", "pt"}));
         backPanel.add(heightUnitComboBox);
         heightUnitComboBox.setBounds(288, 168, 90, 27);
         resolutionLabel.setBackground(new Color(255, 255, 255));
@@ -252,6 +241,7 @@ public final class LSUICanvasPropertiesDialog extends JDialog implements LSUIPro
                 updateModel();
                 dispose();
             }
+
             private void updateModel() {
                 LSModel model = parentView.getController().getModel();
 
@@ -259,44 +249,41 @@ public final class LSUICanvasPropertiesDialog extends JDialog implements LSUIPro
                 parentView.getController().setModel(model);
             }
         });
-        cancelButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-            }
-        });
+        cancelButton.addActionListener(e -> dispose());
+
         widthUnitComboBox.addItemListener(new ItemListener() {
             float val;
+
             @Override
             public void itemStateChanged(ItemEvent e) {
                 switch (widthUnitComboBox.getSelectedIndex()) {
-                case 0 :
-                    val = canvasData.getWidth().getValue(LSLengthUnitType.PX);
+                    case 0:
+                        val = canvasData.getWidth().getValue(LSLengthUnitType.PX);
 
-                    break;
+                        break;
 
-                case 1 :
-                    val = canvasData.getWidth().getValue(LSLengthUnitType.IN);
+                    case 1:
+                        val = canvasData.getWidth().getValue(LSLengthUnitType.IN);
 
-                    break;
+                        break;
 
-                case 2 :
-                    val = canvasData.getWidth().getValue(LSLengthUnitType.CM);
+                    case 2:
+                        val = canvasData.getWidth().getValue(LSLengthUnitType.CM);
 
-                    break;
+                        break;
 
-                case 3 :
-                    val = canvasData.getWidth().getValue(LSLengthUnitType.MM);
+                    case 3:
+                        val = canvasData.getWidth().getValue(LSLengthUnitType.MM);
 
-                    break;
+                        break;
 
-                case 4 :
-                    val = canvasData.getWidth().getValue(LSLengthUnitType.PT);
+                    case 4:
+                        val = canvasData.getWidth().getValue(LSLengthUnitType.PT);
 
-                    break;
+                        break;
 
-                default :
-                    throw new AssertionError("Invalid symbol for conversion");
+                    default:
+                        throw new AssertionError("Invalid symbol for conversion");
                 }
 
                 widthTextField.setText(String.format("%.1f", val));
@@ -306,39 +293,39 @@ public final class LSUICanvasPropertiesDialog extends JDialog implements LSUIPro
 
     private void updateHeight(LSLength length) {
         String unit = length.getUnitType().getUnitSymbol();
-        int    comboBoxIndex;
-        float  value = length.getValue();
+        int comboBoxIndex;
+        float value = length.getValue();
 
         heightTextField.setText(String.format("%d", (int) value));
 
         switch (unit) {
-        case "px" :
-            comboBoxIndex = 0;
+            case "px":
+                comboBoxIndex = 0;
 
-            break;
+                break;
 
-        case "in" :
-            comboBoxIndex = 1;
+            case "in":
+                comboBoxIndex = 1;
 
-            break;
+                break;
 
-        case "cm" :
-            comboBoxIndex = 2;
+            case "cm":
+                comboBoxIndex = 2;
 
-            break;
+                break;
 
-        case "mm" :
-            comboBoxIndex = 3;
+            case "mm":
+                comboBoxIndex = 3;
 
-            break;
+                break;
 
-        case "pt" :
-            comboBoxIndex = 4;
+            case "pt":
+                comboBoxIndex = 4;
 
-            break;
+                break;
 
-        default :
-            throw new AssertionError("Invalid symbol");
+            default:
+                throw new AssertionError("Invalid symbol");
         }
 
         heightUnitComboBox.setSelectedIndex(comboBoxIndex);
@@ -346,39 +333,39 @@ public final class LSUICanvasPropertiesDialog extends JDialog implements LSUIPro
 
     private void updateWidth(LSLength length) {
         String unit = length.getUnitType().getUnitSymbol();
-        int    comboBoxIndex;
-        float  value = length.getValue();
+        int comboBoxIndex;
+        float value = length.getValue();
 
         widthTextField.setText(String.format("%d", (int) value));
 
         switch (unit) {
-        case "px" :
-            comboBoxIndex = 0;
+            case "px":
+                comboBoxIndex = 0;
 
-            break;
+                break;
 
-        case "in" :
-            comboBoxIndex = 1;
+            case "in":
+                comboBoxIndex = 1;
 
-            break;
+                break;
 
-        case "cm" :
-            comboBoxIndex = 2;
+            case "cm":
+                comboBoxIndex = 2;
 
-            break;
+                break;
 
-        case "mm" :
-            comboBoxIndex = 3;
+            case "mm":
+                comboBoxIndex = 3;
 
-            break;
+                break;
 
-        case "pt" :
-            comboBoxIndex = 4;
+            case "pt":
+                comboBoxIndex = 4;
 
-            break;
+                break;
 
-        default :
-            throw new AssertionError("Invalid symbol");
+            default:
+                throw new AssertionError("Invalid symbol");
         }
 
         widthUnitComboBox.setSelectedIndex(comboBoxIndex);
@@ -393,78 +380,78 @@ public final class LSUICanvasPropertiesDialog extends JDialog implements LSUIPro
 
     public LSDocumentDataObject generateCanvasDTO() {
         return new LSDocumentDataObject(generateEffectiveWidth(), generateEffectiveHeight(),
-                                      documentNameTextField.getText());
+                documentNameTextField.getText());
     }
 
     private LSLength generateEffectiveHeight() {
-        float            val = Float.parseFloat(heightTextField.getText());
+        float val = Float.parseFloat(heightTextField.getText());
         LSLengthUnitType unitType;
 
         switch (heightUnitComboBox.getSelectedIndex()) {
-        case 0 :
-            unitType = LSLengthUnitType.PX;
+            case 0:
+                unitType = LSLengthUnitType.PX;
 
-            break;
+                break;
 
-        case 1 :
-            unitType = LSLengthUnitType.IN;
+            case 1:
+                unitType = LSLengthUnitType.IN;
 
-            break;
+                break;
 
-        case 2 :
-            unitType = LSLengthUnitType.CM;
+            case 2:
+                unitType = LSLengthUnitType.CM;
 
-            break;
+                break;
 
-        case 3 :
-            unitType = LSLengthUnitType.MM;
+            case 3:
+                unitType = LSLengthUnitType.MM;
 
-            break;
+                break;
 
-        case 4 :
-            unitType = LSLengthUnitType.PT;
+            case 4:
+                unitType = LSLengthUnitType.PT;
 
-            break;
+                break;
 
-        default :
-            throw new AssertionError("Invalid INDEX");
+            default:
+                throw new AssertionError("Invalid INDEX");
         }
 
         return new LSLength(unitType, val);
     }
 
     private LSLength generateEffectiveWidth() {
-        float            val = Float.parseFloat(widthTextField.getText());
+        float val = Float.parseFloat(widthTextField.getText());
         LSLengthUnitType unitType;
 
         switch (widthUnitComboBox.getSelectedIndex()) {
-        case 0 :
-            unitType = LSLengthUnitType.PX;
+            case 0:
+                unitType = LSLengthUnitType.PX;
 
-            break;
+                break;
 
-        case 1 :
-            unitType = LSLengthUnitType.IN;
+            case 1:
+                unitType = LSLengthUnitType.IN;
 
-            break;
+                break;
 
-        case 2 :
-            unitType = LSLengthUnitType.CM;
+            case 2:
+                unitType = LSLengthUnitType.CM;
 
-            break;
+                break;
 
-        case 3 :
-            unitType = LSLengthUnitType.MM;
+            case 3:
+                unitType = LSLengthUnitType.MM;
 
-            break;
+                break;
 
-        case 4 :
-            unitType = LSLengthUnitType.PT;
+            case 4:
+                unitType = LSLengthUnitType.PT;
 
-            break;
+                break;
 
-        default :
-            throw new AssertionError("Invalid INDEX");
+            default:
+                throw new AssertionError("Invalid INDEX");
         }
 
         return new LSLength(unitType, val);

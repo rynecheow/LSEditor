@@ -5,24 +5,17 @@ package rocks6205.editor.actions;
 import rocks6205.editor.core.LSEditor;
 import rocks6205.editor.core.LSView;
 
-//~--- JDK imports ------------------------------------------------------------
-
+import javax.swing.*;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.UnsupportedFlavorException;
-
 import java.io.File;
 import java.io.IOException;
-
 import java.util.List;
 
-import javax.swing.JOptionPane;
-import javax.swing.TransferHandler;
-
-import static javax.swing.TransferHandler.COPY;
+//~--- JDK imports ------------------------------------------------------------
 
 /**
- *
  * @author Cheow Yeong Chi
  * @version 2.5
  */
@@ -33,7 +26,6 @@ public class LSTransferHandler extends TransferHandler {
      */
     private LSView parentView;
 
-    public LSTransferHandler() {}
 
     public LSTransferHandler(LSView parent) {
         parentView = parent;
@@ -71,13 +63,13 @@ public class LSTransferHandler extends TransferHandler {
                 return false;
             }
 
-            File    f               = l.get(0);
+            File f = l.get(0);
             boolean isFileTypeValid = f.getName().substring(f.getName().lastIndexOf(".")).equalsIgnoreCase(".svg");
 
             if (!isFileTypeValid) {
                 LSEditor.logger.warning("File extension must be \'.svg\' in order to be opened.\n");
                 JOptionPane.showMessageDialog(parentView, "File extension must be \'.svg\' in order to be opened.\n",
-                                              "File extension error", JOptionPane.WARNING_MESSAGE);
+                        "File extension error", JOptionPane.WARNING_MESSAGE);
 
                 return false;
             }

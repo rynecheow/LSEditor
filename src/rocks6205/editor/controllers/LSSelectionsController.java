@@ -4,20 +4,19 @@ package rocks6205.editor.controllers;
 
 import rocks6205.editor.model.elements.LSGenericElement;
 
-//~--- JDK imports ------------------------------------------------------------
-
-import java.awt.Point;
-import java.awt.Rectangle;
+import java.awt.*;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
-
 import java.util.LinkedHashSet;
+
+//~--- JDK imports ------------------------------------------------------------
 
 public interface LSSelectionsController {
 
     /**
      * Checks elements in selections and returns true if point is in bound of
      * any element.
+     *
      * @param point
      * @return If point is selected
      */
@@ -25,36 +24,42 @@ public interface LSSelectionsController {
 
     /**
      * Return a set of elements that is of current selections
+     *
      * @return Hash set of elements
      */
     public LinkedHashSet<LSGenericElement> getSelections();
 
     /**
      * Adds element to selection set.
+     *
      * @param e SVG elements
      */
     public void addToSelection(LSGenericElement e);
 
     /**
      * Add any element in the selected point to selection set.
+     *
      * @param point Current selection point
      */
     public void addToSelection(Point2D point);
 
     /**
      * Add any element in the selected rectangular area to selection set.
+     *
      * @param rect Rectangular selection area
      */
     public void addToSelection(Rectangle2D rect);
 
     /**
      * Remove any element in the selected point to selection set.
-     * @param point
+     *
+     * @param point Point to remove from selection
      */
     public void removeFromSelection(Point point);
 
     /**
      * Remove any element in the selected point to selection set.
+     *
      * @param rect Rectangular selection area
      */
     public void removeFromSelection(Rectangle rect);

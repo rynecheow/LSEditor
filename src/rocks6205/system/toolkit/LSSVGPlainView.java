@@ -2,49 +2,34 @@ package rocks6205.system.toolkit;
 
 //~--- JDK imports ------------------------------------------------------------
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
-
-import java.util.Iterator;
+import javax.swing.text.*;
+import java.awt.*;
 import java.util.LinkedHashMap;
 import java.util.Map.Entry;
 import java.util.TreeMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.swing.text.BadLocationException;
-import javax.swing.text.Document;
-import javax.swing.text.Element;
-import javax.swing.text.PlainDocument;
-import javax.swing.text.PlainView;
-import javax.swing.text.Segment;
-import javax.swing.text.Utilities;
-
 /**
- *
- *
  * @author kees
  * @author Cheow Yeong Chi
- *
  * @since 2.5
  */
 public final class LSSVGPlainView extends PlainView {
-    private final static Color                         HIGHLIGHT_COLOR_START_END_TAG   = new Color(0x64d3e7);
-    private final static Color                         HIGHLIGHT_COLOR_ATTRIBUTE_VALUE = new Color(0xae81ff);
-    private final static Color                         HIGHLIGHT_COLOR_ATTRIBUTE_TAG   = new Color(0xe9286a);
-    private final static Color                         HIGHLIGHT_COLOR_COMMENT         = new Color(0x535454);
-    private final static Color                         HIGHLIGHT_COLOR_CDATA           = new Color(0x535454);
-    private final static String                        SYNTAX_START_TAG                = "(</?!?(\\?)*[a-z]*)\\s?>?";
-    private final static String                        SYNTAX_END_TAG                  =
-        "(<{0,1})((/*)|(\\?*))(\\w*)>{1}";
-    private final static String                        SYNTAX_ATTRIBUTE_TAG            =
-        "\\s(\\p{L}+(?:(-|:)\\n?\\p{L}+)*)(\\w*)\\=";
-    private final static String                        SYNTAX_ATTRIBUTE_VALUE          = "\\w*\\=(\"[^\"]*\")";
-    private final static String                        SYNTAX_COMMENT                  = "(<!--.*-->)";
-    private final static String                        SYNTAX_CDATA                    = "(\\<!\\[CDATA\\[).*";
-    private final static String                        SYNTAX_CDATA_END                = ".*(]]>)";
+    private final static Color HIGHLIGHT_COLOR_START_END_TAG = new Color(0x64d3e7);
+    private final static Color HIGHLIGHT_COLOR_ATTRIBUTE_VALUE = new Color(0xae81ff);
+    private final static Color HIGHLIGHT_COLOR_ATTRIBUTE_TAG = new Color(0xe9286a);
+    private final static Color HIGHLIGHT_COLOR_COMMENT = new Color(0x535454);
+    private final static Color HIGHLIGHT_COLOR_CDATA = new Color(0x535454);
+    private final static String SYNTAX_START_TAG = "(</?!?(\\?)*[a-z]*)\\s?>?";
+    private final static String SYNTAX_END_TAG =
+            "(<{0,1})((/*)|(\\?*))(\\w*)>{1}";
+    private final static String SYNTAX_ATTRIBUTE_TAG =
+            "\\s(\\p{L}+(?:(-|:)\\n?\\p{L}+)*)(\\w*)\\=";
+    private final static String SYNTAX_ATTRIBUTE_VALUE = "\\w*\\=(\"[^\"]*\")";
+    private final static String SYNTAX_COMMENT = "(<!--.*-->)";
+    private final static String SYNTAX_CDATA = "(\\<!\\[CDATA\\[).*";
+    private final static String SYNTAX_CDATA_END = ".*(]]>)";
     private final static LinkedHashMap<Pattern, Color> syntaxHighlighter;
 
     static {
@@ -60,6 +45,7 @@ public final class LSSVGPlainView extends PlainView {
 
     /**
      * Constructor. Sets the tab size to three spaces.
+     *
      * @param e Element to be parsed in.
      */
     public LSSVGPlainView(Element e) {
@@ -75,15 +61,14 @@ public final class LSSVGPlainView extends PlainView {
             throws BadLocationException {
         ((Graphics2D) g).setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-        Document                  doc        = getDocument();
-        String                    docTxt     = doc.getText(beginIndex, endIndex - beginIndex);
-        TreeMap<Integer, Integer> indexMap   = new TreeMap<>();
-        TreeMap<Integer, Color>   colorMap   = new TreeMap<>();
-        Segment                   txtSegment = getLineBuffer();
+        Document doc = getDocument();
+        String docTxt = doc.getText(beginIndex, endIndex - beginIndex);
+        TreeMap<Integer, Integer> indexMap = new TreeMap<>();
+        TreeMap<Integer, Color> colorMap = new TreeMap<>();
+        Segment txtSegment = getLineBuffer();
 
-        for (Iterator<Entry<Pattern, Color>> it = syntaxHighlighter.entrySet().iterator(); it.hasNext(); ) {
-            Entry<Pattern, Color> currentEntry = it.next();
-            Matcher               matcher      = currentEntry.getKey().matcher(docTxt);
+        for (Entry<Pattern, Color> currentEntry : syntaxHighlighter.entrySet()) {
+            Matcher matcher = currentEntry.getKey().matcher(docTxt);
 
             while (matcher.find()) {
                 indexMap.put(matcher.start(1), matcher.end());
@@ -93,10 +78,9 @@ public final class LSSVGPlainView extends PlainView {
 
         int u = 0;
 
-        for (Iterator<Entry<Integer, Integer>> it = indexMap.entrySet().iterator(); it.hasNext(); ) {
-            Entry<Integer, Integer> currentEntry = it.next();
-            int                     startIndex   = currentEntry.getKey();
-            int                     stopIndex    = currentEntry.getValue();
+        for (Entry<Integer, Integer> currentEntry : indexMap.entrySet()) {
+            int startIndex = currentEntry.getKey();
+            int stopIndex = currentEntry.getValue();
 
             if (u < startIndex) {
                 g.setColor(Color.white);

@@ -5,7 +5,6 @@ package rocks6205.system.properties;
  * run on.
  *
  * @author Cheow Yeong Chi
- *
  * @since 1.6
  */
 public class OSValidator {
@@ -15,20 +14,21 @@ public class OSValidator {
      */
     private static String OS = System.getProperty("os.name");
 
-    private OSValidator() {}
+    private OSValidator() {
+    }
 
     /**
      * @return if the current operating system is Windows
      */
     public static boolean isWindows() {
-        return (OS.toLowerCase().indexOf("win") >= 0);
+        return (OS.toLowerCase().contains("win"));
     }
 
     /**
      * @return if the current operating system is Mac
      */
     public static boolean isMac() {
-        return (OS.toLowerCase().indexOf("mac") >= 0);
+        return (OS.toLowerCase().contains("mac"));
     }
 
     public static String getOS() {

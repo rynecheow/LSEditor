@@ -5,18 +5,13 @@ package rocks6205.editor.viewcomponents.panels;
 import rocks6205.editor.core.LSView;
 import rocks6205.editor.viewcomponents.LSUIProtocol;
 
+import javax.swing.*;
+import java.awt.*;
+
 //~--- JDK imports ------------------------------------------------------------
 
-import java.awt.Color;
-
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-
 /**
- * 
- * 
  * @author Cheow Yeong Chi
- * 
  * @since 2.1
  */
 public final class LSUIStatusPanel extends JPanel implements LSUIProtocol {
@@ -58,5 +53,6 @@ public final class LSUIStatusPanel extends JPanel implements LSUIProtocol {
      * {@inheritDoc}
      */
     @Override
-    public void bindHandlers() {}
+    public void bindHandlers() {
+    }
 }

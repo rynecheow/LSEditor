@@ -6,7 +6,6 @@ package rocks6205.editor.model.adt;
  * Includes Regular Expression Atomic Unit (REGEXAU) of some attributes.
  *
  * @author Cheow Yeong Chi
- *
  * @since 1.1
  */
 public interface LSSVGPrimitive {

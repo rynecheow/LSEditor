@@ -4,22 +4,20 @@ package rocks6205.editor.model.adt;
 
 import rocks6205.editor.core.LSEditor;
 
-//~--- JDK imports ------------------------------------------------------------
-
-import java.awt.Color;
-
+import java.awt.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+//~--- JDK imports ------------------------------------------------------------
 
 /**
  * The <code>LSColor</code> class is used to parse <code>color</code> attribute in SVG documents
  * and convert to standard RGB Color scheme readable by Java. <p>
- *
+ * <p>
  * Currently supported conversions formats are the standard RGB format e.g. <code> rgb(120,83,22)</code>,
  * hexadecimal format e.g. <code>#112DAC</code> and color keywords.
  *
  * @author Cheow Yeong Chi
- *
  * @since 1.0
  */
 public class LSColor extends Color {
@@ -29,15 +27,15 @@ public class LSColor extends Color {
      */
 
     /**
-     *  Regular expression for standard color format<br>
-     *  e.g. rgb(120,83,22)<br>
-     *  e.g. rgb(70%,62%,3%)
+     * Regular expression for standard color format<br>
+     * e.g. rgb(120,83,22)<br>
+     * e.g. rgb(70%,62%,3%)
      */
     public static final String RGB_COLOR;
 
     /**
-     *  Regular expression for hexadecimal color format<br>
-     *  e.g. #123abc , #fff
+     * Regular expression for hexadecimal color format<br>
+     * e.g. #123abc , #fff
      */
     public static final String HEXA_COLOR;
 
@@ -50,8 +48,8 @@ public class LSColor extends Color {
      */
     static {
         RGB_COLOR = "rgb\\((" + LSSVGPrimitive._8_BIT_UINT + "," + LSSVGPrimitive._8_BIT_UINT + ","
-                    + LSSVGPrimitive._8_BIT_UINT + "|" + LSSVGPrimitive.PERCENTAGE_UNUM + ","
-                    + LSSVGPrimitive.PERCENTAGE_UNUM + "," + LSSVGPrimitive.PERCENTAGE_UNUM + ")\\)";
+                + LSSVGPrimitive._8_BIT_UINT + "|" + LSSVGPrimitive.PERCENTAGE_UNUM + ","
+                + LSSVGPrimitive.PERCENTAGE_UNUM + "," + LSSVGPrimitive.PERCENTAGE_UNUM + ")\\)";
         HEXA_COLOR = "#" + "(" + LSSVGPrimitive._4_BIT_HEX_UINT + "{3}){1,2}";
     }
 
@@ -59,9 +57,9 @@ public class LSColor extends Color {
      * Creates <code>LSColor</code> from specified value of <code>red</code> , <code>green</code>,
      * and <code>blue</code> values
      *
-     * @param red Red integer value
+     * @param red   Red integer value
      * @param green Green integer value
-     * @param blue Blue integer value
+     * @param blue  Blue integer value
      */
     public LSColor(int red, int green, int blue) {
         super(red, green, blue);
@@ -71,9 +69,9 @@ public class LSColor extends Color {
      * Creates <code>LSColor</code> from specified value of <code>red</code> , <code>green</code>,
      * <code>blue</code> and <code>alpha</code> values
      *
-     * @param red Red integer value
+     * @param red   Red integer value
      * @param green Green integer value
-     * @param blue Blue integer value
+     * @param blue  Blue integer value
      * @param alpha Alpha integer value
      */
     public LSColor(int red, int green, int blue, int alpha) {
@@ -87,7 +85,6 @@ public class LSColor extends Color {
      * (SVG) 1.1 - Color Keywords</a>
      *
      * @author Sugar CheeSheen Chan
-     *
      * @since 1.0
      */
     private static enum SVGColorKeyword {
@@ -150,9 +147,9 @@ public class LSColor extends Color {
          * @param b Blue integer value
          */
         SVGColorKeyword(int r, int g, int b) {
-            this.red   = r;
+            this.red = r;
             this.green = g;
-            this.blue  = b;
+            this.blue = b;
         }
 
         /*
@@ -178,10 +175,8 @@ public class LSColor extends Color {
     /**
      * Parsing color attribute to convert to Java-compatible color type where matches formats.
      *
-     *
-     * @param colorAttributeString      Attribute string that is read directly from SVG file
+     * @param colorAttributeString Attribute string that is read directly from SVG file
      * @return <code>LSColor</code> object
-     *
      * @see #getColorFromKeyword(java.lang.String)
      * @see #decodeHex(java.lang.String)
      */
@@ -203,12 +198,12 @@ public class LSColor extends Color {
         Matcher rgbMatcher = Pattern.compile(RGB_COLOR, Pattern.CASE_INSENSITIVE).matcher(colorAttributeString);
 
         if (rgbMatcher.matches()) {
-            int[]  rgb        = new int[3];
-            String string     = rgbMatcher.group(1).trim();
+            int[] rgb = new int[3];
+            String string = rgbMatcher.group(1).trim();
             double multiplier = 1;
 
             if (string.contains("%")) {
-                string     = string.replace("%", "");
+                string = string.replace("%", "");
                 multiplier = 2.55;
             }
 
@@ -231,7 +226,6 @@ public class LSColor extends Color {
      * If raw color value is greater than 255 (maximum), function returns 255.
      * If raw color value is less than 0 (minimum), function returns 0.
      *
-     *
      * @param value Raw value from a color component
      * @return value Value after applying range
      */
@@ -250,7 +244,7 @@ public class LSColor extends Color {
     /**
      * Convert color keywords to Java-compatible color type where matches formats.
      *
-     * @param colorAttributeString      Attribute string that is read directly from SVG file
+     * @param colorAttributeString Attribute string that is read directly from SVG file
      * @return <code>LSColor</code> object
      */
     public static LSColor getColorFromKeyword(String colorAttributeString) {
@@ -268,9 +262,8 @@ public class LSColor extends Color {
     /**
      * Decodes hexadecimal string, and extend if the string is in only 3 hexadecimal digit format
      *
-     * @param hexColorString    Attribute string that is read directly from SVG file
+     * @param hexColorString Attribute string that is read directly from SVG file
      * @return <code>LSColor</code> object
-     *
      * @see #decode(java.lang.String)
      */
     private static LSColor decodeHex(String hexColorString) {
@@ -289,20 +282,20 @@ public class LSColor extends Color {
      * Convert hexadecimal strings that are in 3 digit format into 6-digit format for Color
      * class to decode
      *
-     * @param hexColorString    Short hexadecimal string
-     * @return  Extended hexadecimal string
+     * @param hexColorString Short hexadecimal string
+     * @return Extended hexadecimal string
      */
     private static String extendHex(String hexColorString) {
         Matcher shortHexaStringMatcher = Pattern.compile(LSSVGPrimitive._4_BIT_HEX_UINT
-                                             + "{3}").matcher(hexColorString.substring(1));
+                + "{3}").matcher(hexColorString.substring(1));
 
         if (shortHexaStringMatcher.matches()) {
             String shortHex = shortHexaStringMatcher.group(),
-                   prefix   = "#";
-            char   c;
+                    prefix = "#";
+            char c;
 
             for (int i = 0; i < 3; i++) {
-                c      = shortHex.charAt(i);
+                c = shortHex.charAt(i);
                 prefix += "" + c + c;
             }
 
@@ -314,6 +307,7 @@ public class LSColor extends Color {
 
     /**
      * Creates own type of color from a typecasted <code>Color</color> subclass
+     *
      * @param c General color
      * @return Color of type LSColor
      */

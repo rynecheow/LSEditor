@@ -8,19 +8,17 @@ import rocks6205.editor.model.elements.LSSVGContainer;
 /**
  * SVG Viewer model which consist the current SVG parent fragment/object.
  *
- * @author: Cheow Yeong Chi
- *
+ * @author Cheow Yeong Chi
  * @since 1.0
- *
  */
 public class LSModel {
 
     /**
      * SVG Element to be drawn.
      */
-    private LSSVGContainer       SVGElement;
+    private LSSVGContainer SVGElement;
     private LSDocumentDataObject canvasDTO;
-    private String               title;
+    private String title;
 
     /**
      * Default constructor.
@@ -46,7 +44,6 @@ public class LSModel {
 
     /**
      * @param svgElement SVG Element to be drawn.
-     *
      * @see #updateCanvasDTO()
      */
     public final void setSVGElement(LSSVGContainer svgElement) {
@@ -56,7 +53,6 @@ public class LSModel {
 
     /**
      * @param data Data object
-     *
      * @see #updateCanvasDTO()
      */
     public final void setCanvasDTO(LSDocumentDataObject data) {

@@ -2,33 +2,21 @@ package rocks6205.editor.viewcomponents.toolbars;
 
 //~--- non-JDK imports --------------------------------------------------------
 
-import rocks6205.editor.actions.LSAbstractAction.DeleteAction;
-import rocks6205.editor.actions.LSAbstractAction.DrawCircleAction;
-import rocks6205.editor.actions.LSAbstractAction.DrawLineAction;
-import rocks6205.editor.actions.LSAbstractAction.DrawRectAction;
-import rocks6205.editor.actions.LSAbstractAction.GroupAction;
-import rocks6205.editor.actions.LSAbstractAction.PanModeAction;
-import rocks6205.editor.actions.LSAbstractAction.SelectModeAction;
-import rocks6205.editor.actions.LSAbstractAction.UngroupAction;
+import rocks6205.editor.actions.LSAbstractAction.*;
+import rocks6205.editor.core.LSEditor;
 import rocks6205.editor.core.LSView;
 import rocks6205.editor.viewcomponents.LSUIButton;
 import rocks6205.editor.viewcomponents.LSUIProtocol;
 import rocks6205.editor.viewcomponents.LSUIToggleButton;
-
 import rocks6205.system.properties.LSEditorGUIConstants;
+
+import javax.swing.*;
+import java.util.ResourceBundle;
 
 //~--- JDK imports ------------------------------------------------------------
 
-import java.util.ResourceBundle;
-
-import javax.swing.JToolBar;
-import javax.swing.SwingConstants;
-import rocks6205.editor.core.LSEditor;
-
 /**
- *
  * @author Cheow Yeong Chi
- *
  * @since 2.2
  */
 public final class LSUISideToolbar extends JToolBar implements LSUIProtocol {
@@ -46,21 +34,21 @@ public final class LSUISideToolbar extends JToolBar implements LSUIProtocol {
     private LSUIToggleButton drawRectButton;
     private LSUIToggleButton drawCircButton;
     private LSUIToggleButton drawLineButton;    // group 2
-    private LSUIButton       groupButton;
-    private LSUIButton       ungroupButton;     // group 3
-    private LSUIButton       deleteButton;
+    private LSUIButton groupButton;
+    private LSUIButton ungroupButton;     // group 3
+    private LSUIButton deleteButton;
 
     /*
      * ACTION COMPONENTS
      */
-    private DrawLineAction   drawLineAction;
-    private DrawRectAction   drawRectAction;
+    private DrawLineAction drawLineAction;
+    private DrawRectAction drawRectAction;
     private DrawCircleAction drawCircleAction;
-    private PanModeAction    panModeAction;
+    private PanModeAction panModeAction;
     private SelectModeAction selectModeAction;
-    private GroupAction      groupAction;
-    private UngroupAction    ungroupAction;
-    private DeleteAction     deleteAction;
+    private GroupAction groupAction;
+    private UngroupAction ungroupAction;
+    private DeleteAction deleteAction;
 
     public LSUISideToolbar(String name, LSView parent) {
         super(name);
@@ -71,22 +59,22 @@ public final class LSUISideToolbar extends JToolBar implements LSUIProtocol {
 
     @Override
     public void initialise() {
-        panButton        = LSUIToggleButton.create();
-        selectButton     = LSUIToggleButton.create();
-        drawRectButton   = LSUIToggleButton.create();
-        drawCircButton   = LSUIToggleButton.create();
-        drawLineButton   = LSUIToggleButton.create();
-        groupButton      = LSUIButton.create();
-        ungroupButton    = LSUIButton.create();
-        deleteButton     = LSUIButton.create();
-        panModeAction    = new PanModeAction( LSEditor.titleBundle , parentView);
-        selectModeAction = new SelectModeAction( LSEditor.titleBundle , parentView);
-        drawRectAction   = new DrawRectAction( LSEditor.titleBundle , parentView);
-        drawCircleAction = new DrawCircleAction( LSEditor.titleBundle , parentView);
-        drawLineAction   = new DrawLineAction( LSEditor.titleBundle , parentView);
-        groupAction      = new GroupAction( LSEditor.titleBundle , parentView);
-        ungroupAction    = new UngroupAction( LSEditor.titleBundle , parentView);
-        deleteAction     = new DeleteAction( LSEditor.titleBundle , parentView);
+        panButton = LSUIToggleButton.create();
+        selectButton = LSUIToggleButton.create();
+        drawRectButton = LSUIToggleButton.create();
+        drawCircButton = LSUIToggleButton.create();
+        drawLineButton = LSUIToggleButton.create();
+        groupButton = LSUIButton.create();
+        ungroupButton = LSUIButton.create();
+        deleteButton = LSUIButton.create();
+        panModeAction = new PanModeAction(LSEditor.titleBundle, parentView);
+        selectModeAction = new SelectModeAction(LSEditor.titleBundle, parentView);
+        drawRectAction = new DrawRectAction(LSEditor.titleBundle, parentView);
+        drawCircleAction = new DrawCircleAction(LSEditor.titleBundle, parentView);
+        drawLineAction = new DrawLineAction(LSEditor.titleBundle, parentView);
+        groupAction = new GroupAction(LSEditor.titleBundle, parentView);
+        ungroupAction = new UngroupAction(LSEditor.titleBundle, parentView);
+        deleteAction = new DeleteAction(LSEditor.titleBundle, parentView);
     }
 
     @Override
@@ -129,14 +117,14 @@ public final class LSUISideToolbar extends JToolBar implements LSUIProtocol {
      * button.
      */
     private void setIconsForButtons() {
-        String panIconPath       = "pan.png";
-        String selectIconPath    = "select.png";
+        String panIconPath = "pan.png";
+        String selectIconPath = "select.png";
         String rectangleIconPath = "rectangle.png";
-        String circleIconPath    = "circle.png";
-        String lineIconPath      = "line.png";
-        String groupIconPath     = "group.png";
-        String ungroupIconPath   = "ungroup.png";
-        String deleteIconPath    = "delete.png";
+        String circleIconPath = "circle.png";
+        String lineIconPath = "line.png";
+        String groupIconPath = "group.png";
+        String ungroupIconPath = "ungroup.png";
+        String deleteIconPath = "delete.png";
 
         panButton.setIcon(panIconPath);
         selectButton.setIcon(selectIconPath);
@@ -184,7 +172,7 @@ public final class LSUISideToolbar extends JToolBar implements LSUIProtocol {
         drawLineButton   = LSUIToggleButton.create();
         groupButton      = LSUIButton.create();
         ungroupButton    = LSUIButton.create();*/
-        
+
         deleteButton.setToolTipText("action.delete.title");
     }
 }

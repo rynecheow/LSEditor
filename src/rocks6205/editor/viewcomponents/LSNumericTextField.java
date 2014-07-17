@@ -4,28 +4,28 @@ package rocks6205.editor.viewcomponents;
 
 import rocks6205.editor.core.LSEditor;
 
-//~--- JDK imports ------------------------------------------------------------
-
-import javax.swing.JTextField;
+import javax.swing.*;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
 import javax.swing.text.PlainDocument;
 
+//~--- JDK imports ------------------------------------------------------------
+
 /**
  * Text field that accepts only integer value.
  *
  * @author Cheow Yeong Chi
- *
  * @since 2.5
  */
 public class LSNumericTextField extends JTextField {
     public LSNumericTextField() {
         super();
     }
-    
+
     /**
      * {@inheritDoc}
+     *
      * @return new instance of <code>LSNumericDocument</code>.
      */
     @Override
@@ -34,18 +34,19 @@ public class LSNumericTextField extends JTextField {
     }
 
     private class LSNumericDocument extends PlainDocument {
+        @SuppressWarnings("ResultOfMethodCallIgnored")
         @Override
         public void insertString(int offs, String str, AttributeSet a) throws BadLocationException {
             if (str == null) {
                 return;
             }
 
-            char[]  chars     = str.toCharArray();
+            char[] chars = str.toCharArray();
             boolean isInteger = true;
 
-            for (int i = 0; i < chars.length; i++) {
+            for (char aChar : chars) {
                 try {
-                    Integer.parseInt(String.valueOf(chars[i]));
+                    Integer.parseInt(String.valueOf(aChar));
                 } catch (NumberFormatException exc) {
                     isInteger = false;
                     LSEditor.logger.warning(exc.getMessage());

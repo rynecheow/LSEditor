@@ -4,35 +4,26 @@ package rocks6205.editor.model.elements;
 
 import org.w3c.dom.Attr;
 import org.w3c.dom.Element;
+import rocks6205.editor.model.adt.*;
 
-import rocks6205.editor.model.adt.LSColor;
-import rocks6205.editor.model.adt.LSLength;
-import rocks6205.editor.model.adt.LSLengthUnitType;
-import rocks6205.editor.model.adt.LSPainting;
-import rocks6205.editor.model.adt.LSPaintingType;
-import rocks6205.editor.model.adt.LSSVGPrimitive;
-
-//~--- JDK imports ------------------------------------------------------------
-
-import java.awt.BasicStroke;
-import java.awt.Graphics2D;
+import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+//~--- JDK imports ------------------------------------------------------------
 
 /**
  * The <code>LSGenericElement</code> class models a generic SVG Element
  * as either container type or graphical type of SVG element would look like.
- *
+ * <p>
  * The five attributes that is common in SVG Elements are <<code>fill</code>>,
  * <<code>stroke</code>>, <<code>stroke-width</code>>, <<code>stroke-linecap</code>>,
  * and <<code>stroke-linejoin</code>>.
  *
  * @author Cheow Yeong Chi
  * @since 1.1
- *
  */
 public abstract class LSGenericElement {
 
@@ -115,12 +106,14 @@ public abstract class LSGenericElement {
 
     /**
      * Calculate and return bounds of an SVG element
+     *
      * @return <code>Rectangle2D.Float</code> element
      */
     public abstract Rectangle2D.Float getBounds();
 
     /**
      * Draw the shape on the canvas accordingly with the attributes correctly parsed.
+     *
      * @param g Graphics to be drawn
      */
     public abstract void drawShape(Graphics2D g);
@@ -144,6 +137,7 @@ public abstract class LSGenericElement {
 
     /**
      * Returns the sibling element of the same ancestor element/parent node.
+     *
      * @return Sibling element
      */
     public LSGenericElement getNextSiblingElement() {
@@ -192,15 +186,15 @@ public abstract class LSGenericElement {
      * @return <<code>fill</code>> property of current instance.
      */
     public LSPainting getResultantFill() {
-        LSPainting effFill    = this.fill;
-        boolean    isFillNull = (effFill == null);
+        LSPainting effFill = this.fill;
+        boolean isFillNull = (effFill == null);
 
         if (!isFillNull) {
             return effFill;
         }
 
-        for (LSGenericContainer origin = getAncestorElement(); isFillNull && (origin != null);
-                origin = origin.getAncestorElement()) {
+        for (LSGenericContainer origin = getAncestorElement(); (origin != null);
+             origin = origin.getAncestorElement()) {
             if (origin.getResultantFill() != null) {
                 return origin.getResultantFill();
             }
@@ -223,15 +217,15 @@ public abstract class LSGenericElement {
      * @return <<code>stroke</code>> property of current instance.
      */
     public LSPainting getResultantStroke() {
-        LSPainting effStroke    = this.stroke;
-        boolean    isStrokeNull = (effStroke == null);
+        LSPainting effStroke = this.stroke;
+        boolean isStrokeNull = (effStroke == null);
 
         if (!isStrokeNull) {
             return effStroke;
         }
 
-        for (LSGenericContainer origin = getAncestorElement(); isStrokeNull && (origin != null);
-                origin = origin.getAncestorElement()) {
+        for (LSGenericContainer origin = getAncestorElement(); (origin != null);
+             origin = origin.getAncestorElement()) {
             if (origin.getResultantStroke() != null) {
                 return origin.getResultantStroke();
             }
@@ -254,15 +248,15 @@ public abstract class LSGenericElement {
      * @return <<code>strokeWidth</code>> property of current instance.
      */
     public LSLength getResultantStrokeWidth() {
-        LSLength effStrokeWidth    = this.strokeWidth;
-        boolean  isStrokeWidthNull = (effStrokeWidth == null);
+        LSLength effStrokeWidth = this.strokeWidth;
+        boolean isStrokeWidthNull = (effStrokeWidth == null);
 
         if (!isStrokeWidthNull) {
             return effStrokeWidth;
         }
 
-        for (LSGenericContainer origin = getAncestorElement(); isStrokeWidthNull && (origin != null);
-                origin = origin.getAncestorElement()) {
+        for (LSGenericContainer origin = getAncestorElement(); (origin != null);
+             origin = origin.getAncestorElement()) {
             if (origin.getResultantStrokeWidth() != null) {
                 return origin.getResultantStrokeWidth();
             }
@@ -336,7 +330,7 @@ public abstract class LSGenericElement {
     }
 
     /**
-     * @param strokeLinecap <code>strokeLineCap</code>> property of current instance.
+     * @param strokeLineCap <code>strokeLineCap</code>> property of current instance.
      */
     public void setStrokeLineCap(int strokeLineCap) {
         boolean valid = strokeLineCap == BasicStroke.CAP_ROUND;
@@ -391,6 +385,7 @@ public abstract class LSGenericElement {
 
     /**
      * Parse all other common attributes.
+     *
      * @param e Element from the document returned by the XMLParser
      */
     public void parseAttributes(Element e) {
@@ -408,7 +403,7 @@ public abstract class LSGenericElement {
         Attr transformAttr = e.getAttributeNodeNS(null, "transform");
 
         if (transformAttr != null) {
-            Matcher  translateMatcher = Pattern.compile(LSSVGPrimitive.TRANSLATE).matcher(transformAttr.getValue());
+            Matcher translateMatcher = Pattern.compile(LSSVGPrimitive.TRANSLATE).matcher(transformAttr.getValue());
             LSLength txLength;
             LSLength tyLength;
 

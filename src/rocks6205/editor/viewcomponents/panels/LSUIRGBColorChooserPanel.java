@@ -5,33 +5,20 @@ package rocks6205.editor.viewcomponents.panels;
 import rocks6205.editor.core.LSView;
 import rocks6205.editor.model.adt.LSColor;
 import rocks6205.editor.viewcomponents.LSUIProtocol;
-
 import rocks6205.system.properties.LSEditorGUIConstants;
 
-//~--- JDK imports ------------------------------------------------------------
-
-import java.awt.Color;
-import java.awt.Dimension;
-
-import javax.swing.BorderFactory;
-import javax.swing.GroupLayout;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JSlider;
-import javax.swing.JSpinner;
-import javax.swing.LayoutStyle;
-import javax.swing.SpinnerModel;
-import javax.swing.SpinnerNumberModel;
+import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import java.awt.*;
+
+//~--- JDK imports ------------------------------------------------------------
 
 /**
  * Color Chooser for SVGEditor
  *
  * @author Sugar CheeSheen Chan
- *
  * @since 2.2
- *
  */
 public final class LSUIRGBColorChooserPanel extends JPanel implements LSUIProtocol {
     private static final long serialVersionUID = 4003671910607353797L;
@@ -39,21 +26,18 @@ public final class LSUIRGBColorChooserPanel extends JPanel implements LSUIProtoc
     /*
      * PARENT COMPONENT
      */
-    private LSView       parent;
-    private LSColor      color;
-    private JSlider      blueSlider;
-    private JSpinner     blueSpinner;
-    private JPanel       finalColorIndicator;
-    private JSlider      greenSlider;
-    private JSpinner     greenSpinner;
-    private JSlider      redSlider;
-    private JSpinner     redSpinner;
-    private SpinnerModel redSpinnerModel;
-    private SpinnerModel greenSpinnerModel;
-    private SpinnerModel blueSpinnerModel;
-    private JLabel       redLabel;
-    private JLabel       greenLabel;
-    private JLabel       blueLabel;
+    private LSView parent;
+    private LSColor color;
+    private JSlider blueSlider;
+    private JSpinner blueSpinner;
+    private JPanel finalColorIndicator;
+    private JSlider greenSlider;
+    private JSpinner greenSpinner;
+    private JSlider redSlider;
+    private JSpinner redSpinner;
+    private JLabel redLabel;
+    private JLabel greenLabel;
+    private JLabel blueLabel;
 
     public LSUIRGBColorChooserPanel(LSView view) {
         super();
@@ -64,19 +48,19 @@ public final class LSUIRGBColorChooserPanel extends JPanel implements LSUIProtoc
 
     @Override
     public void initialise() {
-        redSpinnerModel     = new SpinnerNumberModel(0, 0, 255, 1);
-        greenSpinnerModel   = new SpinnerNumberModel(0, 0, 255, 1);
-        blueSpinnerModel    = new SpinnerNumberModel(0, 0, 255, 1);
+        SpinnerModel redSpinnerModel = new SpinnerNumberModel(0, 0, 255, 1);
+        SpinnerModel greenSpinnerModel = new SpinnerNumberModel(0, 0, 255, 1);
+        SpinnerModel blueSpinnerModel = new SpinnerNumberModel(0, 0, 255, 1);
         finalColorIndicator = new JPanel();
-        redSlider           = new JSlider();
-        greenSlider         = new JSlider();
-        blueSlider          = new JSlider();
-        redSpinner          = new JSpinner(redSpinnerModel);
-        greenSpinner        = new JSpinner(greenSpinnerModel);
-        blueSpinner         = new JSpinner(blueSpinnerModel);
-        redLabel            = new JLabel();
-        greenLabel          = new JLabel();
-        blueLabel           = new JLabel();
+        redSlider = new JSlider();
+        greenSlider = new JSlider();
+        blueSlider = new JSlider();
+        redSpinner = new JSpinner(redSpinnerModel);
+        greenSpinner = new JSpinner(greenSpinnerModel);
+        blueSpinner = new JSpinner(blueSpinnerModel);
+        redLabel = new JLabel();
+        greenLabel = new JLabel();
+        blueLabel = new JLabel();
     }
 
     @Override
@@ -136,70 +120,70 @@ public final class LSUIRGBColorChooserPanel extends JPanel implements LSUIProtoc
 
         setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(GroupLayout.Alignment.LEADING).addGroup(
-                GroupLayout.Alignment.TRAILING, layout.createSequentialGroup().addGroup(
-                    layout.createParallelGroup(GroupLayout.Alignment.LEADING).addGroup(
-                        GroupLayout.Alignment.TRAILING, layout.createSequentialGroup().addGap(
-                            0, 0, Short.MAX_VALUE).addComponent(
-                            blueSlider, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)).addGroup(
-                                GroupLayout.Alignment.TRAILING, layout.createSequentialGroup().addContainerGap(
-                                    18, Short.MAX_VALUE).addGroup(
-                                    layout.createParallelGroup(GroupLayout.Alignment.LEADING).addGroup(
-                                        GroupLayout.Alignment.TRAILING, layout.createSequentialGroup().addComponent(
-                                            finalColorIndicator, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE).addPreferredGap(
-                                                LayoutStyle.ComponentPlacement.RELATED).addComponent(
-                                                    greenSlider, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)).addComponent(
+                layout.createParallelGroup(GroupLayout.Alignment.LEADING).addGroup(
+                        GroupLayout.Alignment.TRAILING, layout.createSequentialGroup().addGroup(
+                                layout.createParallelGroup(GroupLayout.Alignment.LEADING).addGroup(
+                                        GroupLayout.Alignment.TRAILING, layout.createSequentialGroup().addGap(
+                                                0, 0, Short.MAX_VALUE).addComponent(
+                                                blueSlider, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)).addGroup(
+                                        GroupLayout.Alignment.TRAILING, layout.createSequentialGroup().addContainerGap(
+                                                18, Short.MAX_VALUE).addGroup(
+                                                layout.createParallelGroup(GroupLayout.Alignment.LEADING).addGroup(
+                                                        GroupLayout.Alignment.TRAILING, layout.createSequentialGroup().addComponent(
+                                                                finalColorIndicator, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE).addPreferredGap(
+                                                                LayoutStyle.ComponentPlacement.RELATED).addComponent(
+                                                                greenSlider, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)).addComponent(
                                                         redSlider, GroupLayout.Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))).addPreferredGap(
-                                                            LayoutStyle.ComponentPlacement.RELATED).addGroup(
-                                                                layout.createParallelGroup(
-                                                                    GroupLayout.Alignment.LEADING).addComponent(
-                                                                        redLabel).addComponent(greenLabel).addComponent(
-                                                                            blueLabel, GroupLayout.Alignment.TRAILING)).addPreferredGap(
-                                                                                LayoutStyle.ComponentPlacement.RELATED).addGroup(
-                                                                                    layout.createParallelGroup(
-                                                                                        GroupLayout.Alignment.LEADING).addComponent(
-                                                                                            redSpinner, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE).addComponent(
-                                                                                                greenSpinner, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE).addComponent(
-                                                                                                    blueSpinner, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE)).addContainerGap()));
+                                LayoutStyle.ComponentPlacement.RELATED).addGroup(
+                                layout.createParallelGroup(
+                                        GroupLayout.Alignment.LEADING).addComponent(
+                                        redLabel).addComponent(greenLabel).addComponent(
+                                        blueLabel, GroupLayout.Alignment.TRAILING)).addPreferredGap(
+                                LayoutStyle.ComponentPlacement.RELATED).addGroup(
+                                layout.createParallelGroup(
+                                        GroupLayout.Alignment.LEADING).addComponent(
+                                        redSpinner, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE).addComponent(
+                                        greenSpinner, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE).addComponent(
+                                        blueSpinner, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE)).addContainerGap()));
         layout.setVerticalGroup(
-            layout.createParallelGroup(GroupLayout.Alignment.LEADING).addGroup(
-                layout.createSequentialGroup().addGap(7, 7, 7).addGroup(
-                    layout.createParallelGroup(GroupLayout.Alignment.TRAILING).addComponent(
-                        redSlider, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-                        GroupLayout.PREFERRED_SIZE).addGroup(
-                            layout.createParallelGroup(GroupLayout.Alignment.BASELINE).addComponent(
-                                redSpinner, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-                                GroupLayout.PREFERRED_SIZE).addComponent(redLabel))).addGap(7, 7, 7).addGroup(
-                                    layout.createParallelGroup(GroupLayout.Alignment.LEADING).addGroup(
+                layout.createParallelGroup(GroupLayout.Alignment.LEADING).addGroup(
+                        layout.createSequentialGroup().addGap(7, 7, 7).addGroup(
+                                layout.createParallelGroup(GroupLayout.Alignment.TRAILING).addComponent(
+                                        redSlider, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+                                        GroupLayout.PREFERRED_SIZE).addGroup(
+                                        layout.createParallelGroup(GroupLayout.Alignment.BASELINE).addComponent(
+                                                redSpinner, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+                                                GroupLayout.PREFERRED_SIZE).addComponent(redLabel))).addGap(7, 7, 7).addGroup(
+                                layout.createParallelGroup(GroupLayout.Alignment.LEADING).addGroup(
                                         layout.createParallelGroup(GroupLayout.Alignment.TRAILING).addComponent(
-                                            greenSlider, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+                                                greenSlider, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
                                                 GroupLayout.PREFERRED_SIZE).addGroup(
-                                                    layout.createParallelGroup(
+                                                layout.createParallelGroup(
                                                         GroupLayout.Alignment.BASELINE).addComponent(
-                                                            greenSpinner, GroupLayout.PREFERRED_SIZE,
-                                                                GroupLayout.DEFAULT_SIZE,
-                                                                    GroupLayout.PREFERRED_SIZE).addComponent(
-                                                                        greenLabel))).addComponent(
-                                                                            finalColorIndicator,
-                                                                                GroupLayout.PREFERRED_SIZE,
-                                                                                    GroupLayout.DEFAULT_SIZE,
-                                                                                        GroupLayout.PREFERRED_SIZE)).addPreferredGap(
-                                                                                            LayoutStyle.ComponentPlacement.RELATED).addGroup(
-                                                                                                layout.createParallelGroup(
-                                                                                                    GroupLayout.Alignment.TRAILING).addGroup(
-                                                                                                        layout.createParallelGroup(
-                                                                                                            GroupLayout.Alignment.BASELINE).addComponent(
-                                                                                                                blueSpinner,
-                                                                                                                    GroupLayout.PREFERRED_SIZE,
-                                                                                                                        GroupLayout.DEFAULT_SIZE,
-                                                                                                                            GroupLayout.PREFERRED_SIZE).addComponent(
-                                                                                                                                blueLabel)).addComponent(
-                                                                                                                                    blueSlider,
-                                                                                                                                        GroupLayout.PREFERRED_SIZE,
-                                                                                                                                            GroupLayout.DEFAULT_SIZE,
-                                                                                                                                                GroupLayout.PREFERRED_SIZE)).addContainerGap(
-                                                                                                                                                    GroupLayout.DEFAULT_SIZE,
-                                                                                                                                                        Short.MAX_VALUE)));
+                                                        greenSpinner, GroupLayout.PREFERRED_SIZE,
+                                                        GroupLayout.DEFAULT_SIZE,
+                                                        GroupLayout.PREFERRED_SIZE).addComponent(
+                                                        greenLabel))).addComponent(
+                                        finalColorIndicator,
+                                        GroupLayout.PREFERRED_SIZE,
+                                        GroupLayout.DEFAULT_SIZE,
+                                        GroupLayout.PREFERRED_SIZE)).addPreferredGap(
+                                LayoutStyle.ComponentPlacement.RELATED).addGroup(
+                                layout.createParallelGroup(
+                                        GroupLayout.Alignment.TRAILING).addGroup(
+                                        layout.createParallelGroup(
+                                                GroupLayout.Alignment.BASELINE).addComponent(
+                                                blueSpinner,
+                                                GroupLayout.PREFERRED_SIZE,
+                                                GroupLayout.DEFAULT_SIZE,
+                                                GroupLayout.PREFERRED_SIZE).addComponent(
+                                                blueLabel)).addComponent(
+                                        blueSlider,
+                                        GroupLayout.PREFERRED_SIZE,
+                                        GroupLayout.DEFAULT_SIZE,
+                                        GroupLayout.PREFERRED_SIZE)).addContainerGap(
+                                GroupLayout.DEFAULT_SIZE,
+                                Short.MAX_VALUE)));
     }
 
     private void setFinalColorIndicatorLayout() {
@@ -207,11 +191,11 @@ public final class LSUIRGBColorChooserPanel extends JPanel implements LSUIProtoc
 
         finalColorIndicator.setLayout(finalColorIndicatorLayout);
         finalColorIndicatorLayout.setHorizontalGroup(
-            finalColorIndicatorLayout.createParallelGroup(GroupLayout.Alignment.LEADING).addGap(
-                0, 30, Short.MAX_VALUE));
+                finalColorIndicatorLayout.createParallelGroup(GroupLayout.Alignment.LEADING).addGap(
+                        0, 30, Short.MAX_VALUE));
         finalColorIndicatorLayout.setVerticalGroup(
-            finalColorIndicatorLayout.createParallelGroup(GroupLayout.Alignment.LEADING).addGap(
-                0, 30, Short.MAX_VALUE));
+                finalColorIndicatorLayout.createParallelGroup(GroupLayout.Alignment.LEADING).addGap(
+                        0, 30, Short.MAX_VALUE));
     }
 
     /**

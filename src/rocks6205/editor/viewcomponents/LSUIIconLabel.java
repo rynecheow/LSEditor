@@ -4,18 +4,15 @@ package rocks6205.editor.viewcomponents;
 
 import rocks6205.system.properties.LSEditorGUIConstants;
 
-//~--- JDK imports ------------------------------------------------------------
-
+import javax.swing.*;
 import java.net.URL;
 
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
+//~--- JDK imports ------------------------------------------------------------
 
 /**
  * Custom JLabel with icon.
  *
  * @author Cheow Yeong Chi
- *
  * @since 2.2
  */
 public class LSUIIconLabel extends JLabel {
@@ -55,7 +52,7 @@ public class LSUIIconLabel extends JLabel {
     /**
      * Sets the button's default icon with name to icon image <code>iconName</code>.
      *
-     * @param iconPath Name to icon image
+     * @param iconName Name to icon image
      */
     public void setIcon(String iconName) {
         ImageIcon icon = createIcon(iconName);
@@ -64,9 +61,9 @@ public class LSUIIconLabel extends JLabel {
     }
 
     private static ImageIcon createIcon(String iconName) {
-        String    path   = LSEditorGUIConstants.DEFAULT_PATH_TO_TOOLBAR_ICONS + iconName;
-        URL       imgURL = LSUIIconLabel.class.getResource(path);
-        ImageIcon icon   = new ImageIcon(imgURL);
+        String path = LSEditorGUIConstants.DEFAULT_PATH_TO_TOOLBAR_ICONS + iconName;
+        URL imgURL = LSUIIconLabel.class.getResource(path);
+        ImageIcon icon = new ImageIcon(imgURL);
 
         return icon;
     }

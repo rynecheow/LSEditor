@@ -2,64 +2,43 @@ package rocks6205.editor.core;
 
 //~--- non-JDK imports --------------------------------------------------------
 
+import com.sun.org.apache.xml.internal.serialize.OutputFormat;
+import com.sun.org.apache.xml.internal.serialize.XMLSerializer;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
-
 import org.xml.sax.InputSource;
-
 import rocks6205.editor.controllers.LSComponentsController;
 import rocks6205.editor.controllers.LSFileController;
 import rocks6205.editor.controllers.LSSelectionsController;
 import rocks6205.editor.model.adt.LSLength;
 import rocks6205.editor.model.adt.LSLengthUnitType;
 import rocks6205.editor.model.adt.LSPainting;
-import rocks6205.editor.model.elements.LSGenericContainer;
-import rocks6205.editor.model.elements.LSGenericElement;
-import rocks6205.editor.model.elements.LSGroupContainer;
-import rocks6205.editor.model.elements.LSSVGContainer;
-import rocks6205.editor.model.elements.LSShapeCircle;
-import rocks6205.editor.model.elements.LSShapeLine;
-import rocks6205.editor.model.elements.LSShapeRect;
-
+import rocks6205.editor.model.elements.*;
 import rocks6205.system.toolkit.LSSVGDOMParser;
-
-import static rocks6205.editor.controllers.LSFileController.NEW_DOCUMENT;
-
-//~--- JDK imports ------------------------------------------------------------
-
-import com.sun.org.apache.xml.internal.serialize.OutputFormat;
-import com.sun.org.apache.xml.internal.serialize.XMLSerializer;
-
-import java.awt.Graphics2D;
-import java.awt.Point;
-import java.awt.Rectangle;
-import java.awt.RenderingHints;
-import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
-import java.awt.image.BufferedImage;
-
-import java.io.File;
-import java.io.IOException;
-import java.io.StringWriter;
-import java.io.Writer;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.LinkedHashSet;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.OutputKeys;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerConfigurationException;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.*;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
+import java.awt.*;
+import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.io.StringWriter;
+import java.io.Writer;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.LinkedHashSet;
+import java.util.stream.Collectors;
+
+//~--- JDK imports ------------------------------------------------------------
 
 /**
  * The <code>SVGViewController</code> class defines a MVC module and plays as
@@ -68,7 +47,6 @@ import javax.xml.transform.stream.StreamResult;
  *
  * @author: Cheow Yeong Chi
  * @since 1.2
- *
  */
 public class LSViewController implements LSSelectionsController, LSFileController, LSComponentsController {
     /**
@@ -90,33 +68,27 @@ public class LSViewController implements LSSelectionsController, LSFileControlle
      * STATIC INITIALISER
      */
     static {
-        
-        ELEMENT_IN_ORDER = new Comparator<LSGenericElement>() {
-            @Override
-            public int compare(LSGenericElement e1, LSGenericElement e2) {
-                if (e1 == e2) {
-                    return 0;
-                }
 
-                LSGenericContainer ancestor = e1.getAncestorElement();
-
-                return ancestor.indexOf(e1) - ancestor.indexOf(e2);
+        ELEMENT_IN_ORDER = (e1, e2) -> {
+            if (e1 == e2) {
+                return 0;
             }
+
+            LSGenericContainer ancestor = e1.getAncestorElement();
+
+            return ancestor.indexOf(e1) - ancestor.indexOf(e2);
         };
-        
-        ELEMENT_REVERSED_ORDER = new Comparator<LSGenericElement>() {
-            @Override
-            public int compare(LSGenericElement e1, LSGenericElement e2) {
-                if (e1 == e2) {
-                    return 0;
-                }
 
-                LSGenericContainer ancestor = e1.getAncestorElement();
-
-                return ancestor.indexOf(e2) - ancestor.indexOf(e1);
+        ELEMENT_REVERSED_ORDER = (e1, e2) -> {
+            if (e1 == e2) {
+                return 0;
             }
+
+            LSGenericContainer ancestor = e1.getAncestorElement();
+
+            return ancestor.indexOf(e2) - ancestor.indexOf(e1);
         };
-        
+
         SVGDefaultNamespace = "http://www.w3.org/2000/svg";
     }
 
@@ -167,8 +139,8 @@ public class LSViewController implements LSSelectionsController, LSFileControlle
      * Default constructor.
      */
     public LSViewController() {
-        views              = new LinkedHashSet<>(1);
-        selections         = new LinkedHashSet<>();
+        views = new LinkedHashSet<>(1);
+        selections = new LinkedHashSet<>();
         isDocumentModified = false;
     }
 
@@ -272,12 +244,12 @@ public class LSViewController implements LSSelectionsController, LSFileControlle
 
             factory.setNamespaceAware(true);
 
-            DocumentBuilder    builder  = factory.newDocumentBuilder();
-            Document           doc      = builder.newDocument();
-            Node               ancestor = doc;
-            Element            e        = null;
-            Attr               attr;
-            LSGenericElement   svg_e = model.getSVGElement();
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            Document doc = builder.newDocument();
+            Node ancestor = doc;
+            Element e = null;
+            Attr attr;
+            LSGenericElement svg_e = model.getSVGElement();
             LSGenericContainer svgAncestor;
 
             while (svg_e != null) {
@@ -294,18 +266,18 @@ public class LSViewController implements LSSelectionsController, LSFileControlle
                     e.setAttributeNodeNS(attr);
 
                     if (root.hasDescendant()) {
-                        ancestor    = e;
-                        svg_e       = root.getDescendant(0);
+                        ancestor = e;
+                        svg_e = root.getDescendant(0);
                         svgAncestor = root;
 
                         continue;
                     }
                 } else {
-                    Attr       fillAttr        = null;
-                    Attr       strokeAttr      = null;
-                    Attr       strokeWidthAttr = null;
-                    Attr       transformAttr   = null;
-                    LSPainting fill            = svg_e.getFill();
+                    Attr fillAttr = null;
+                    Attr strokeAttr = null;
+                    Attr strokeWidthAttr = null;
+                    Attr transformAttr = null;
+                    LSPainting fill = svg_e.getFill();
 
                     if (fill != null) {
                         fillAttr = doc.createAttributeNS(null, "fill");
@@ -366,8 +338,8 @@ public class LSViewController implements LSSelectionsController, LSFileControlle
                         ancestor.appendChild(e);
 
                         if (group.hasDescendant()) {
-                            ancestor    = e;
-                            svg_e       = group.getDescendant(0);
+                            ancestor = e;
+                            svg_e = group.getDescendant(0);
                             svgAncestor = group;
 
                             continue;
@@ -375,7 +347,7 @@ public class LSViewController implements LSSelectionsController, LSFileControlle
                     } else if (svg_e instanceof LSShapeRect) {
                         LSShapeRect rect = (LSShapeRect) svg_e;
 
-                        e    = doc.createElementNS(SVGDefaultNamespace, "rect");
+                        e = doc.createElementNS(SVGDefaultNamespace, "rect");
                         attr = doc.createAttributeNS(null, "x");
                         attr.setValue(rect.getX().toString());
                         e.setAttributeNodeNS(attr);
@@ -392,7 +364,7 @@ public class LSViewController implements LSSelectionsController, LSFileControlle
                     } else if (svg_e instanceof LSShapeCircle) {
                         LSShapeCircle circle = (LSShapeCircle) svg_e;
 
-                        e    = doc.createElementNS(SVGDefaultNamespace, "circle");
+                        e = doc.createElementNS(SVGDefaultNamespace, "circle");
                         attr = doc.createAttributeNS(null, "cx");
                         attr.setValue(circle.getCx().toString());
                         e.setAttributeNodeNS(attr);
@@ -406,7 +378,7 @@ public class LSViewController implements LSSelectionsController, LSFileControlle
                     } else if (svg_e instanceof LSShapeLine) {
                         LSShapeLine line = (LSShapeLine) svg_e;
 
-                        e    = doc.createElementNS(SVGDefaultNamespace, "line");
+                        e = doc.createElementNS(SVGDefaultNamespace, "line");
                         attr = doc.createAttributeNS(null, "x1");
                         attr.setValue(line.getX1().toString());
                         e.setAttributeNodeNS(attr);
@@ -442,11 +414,11 @@ public class LSViewController implements LSSelectionsController, LSFileControlle
                 }
 
                 svgAncestor = svg_e.getAncestorElement();
-                svg_e       = svg_e.getNextSiblingElement();
+                svg_e = svg_e.getNextSiblingElement();
 
                 while ((svg_e == null) && (svgAncestor != null)) {
-                    ancestor    = ancestor.getParentNode();
-                    svg_e       = svgAncestor.getNextSiblingElement();
+                    ancestor = ancestor.getParentNode();
+                    svg_e = svgAncestor.getNextSiblingElement();
                     svgAncestor = svgAncestor.getAncestorElement();
                 }
             }
@@ -465,6 +437,7 @@ public class LSViewController implements LSSelectionsController, LSFileControlle
 
     /**
      * Get the width of current document.
+     *
      * @return Width of current model
      */
     public LSLength getDocumentWidth() {
@@ -473,6 +446,7 @@ public class LSViewController implements LSSelectionsController, LSFileControlle
 
     /**
      * Get the height of current document.
+     *
      * @return Height of current model
      */
     public LSLength getDocumentHeight() {
@@ -482,7 +456,7 @@ public class LSViewController implements LSSelectionsController, LSFileControlle
     /**
      * Resizes the current document to specific <code>width</code> and <code>height</code>.
      *
-     * @param width Canvas width
+     * @param width  Canvas width
      * @param height Canvas height
      */
     public void resizeDocument(LSLength width, LSLength height) {
@@ -499,7 +473,7 @@ public class LSViewController implements LSSelectionsController, LSFileControlle
         model.setTitle(NEW_DOCUMENT.getName());
         model.updateCanvasDTO();
         activeFile = NEW_DOCUMENT;
-        LSEditor.logger.info(String.format("New document created with height %.1f px and width %.1f px.\n", model.getSVGElement().getWidth().getValue(),model.getSVGElement().getHeight().getValue()));
+        LSEditor.logger.info(String.format("New document created with height %.1f px and width %.1f px.\n", model.getSVGElement().getWidth().getValue(), model.getSVGElement().getHeight().getValue()));
         unmodifyDocument();
         updateDocumentString();
         updateViews();
@@ -512,10 +486,10 @@ public class LSViewController implements LSSelectionsController, LSFileControlle
      * @return An image rendered from SVG element with anti-aliasing.
      */
     public BufferedImage renderImage(float scale) {
-        int           width  = (int) (model.getSVGElement().getWidth().getValue(LSLengthUnitType.PX) * scale);
-        int           height = (int) (model.getSVGElement().getHeight().getValue(LSLengthUnitType.PX) * scale);
-        BufferedImage image  = new BufferedImage(width, height, BufferedImage.TYPE_4BYTE_ABGR);
-        Graphics2D    g2d    = image.createGraphics();
+        int width = (int) (model.getSVGElement().getWidth().getValue(LSLengthUnitType.PX) * scale);
+        int height = (int) (model.getSVGElement().getHeight().getValue(LSLengthUnitType.PX) * scale);
+        BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_4BYTE_ABGR);
+        Graphics2D g2d = image.createGraphics();
 
         g2d.scale(scale, scale);
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -531,6 +505,7 @@ public class LSViewController implements LSSelectionsController, LSFileControlle
 
     /**
      * Add a view into the current set of views.
+     *
      * @param view
      */
     public void addView(LSView view) {
@@ -539,6 +514,7 @@ public class LSViewController implements LSSelectionsController, LSFileControlle
 
     /**
      * Removes a view into the current set of views.
+     *
      * @param view
      */
     public void removeView(LSView view) {
@@ -547,6 +523,7 @@ public class LSViewController implements LSSelectionsController, LSFileControlle
 
     /**
      * Gets the current set of views.
+     *
      * @return Set of views
      */
     public LinkedHashSet<LSView> getViews() {
@@ -571,7 +548,7 @@ public class LSViewController implements LSSelectionsController, LSFileControlle
     public void addElement(LSGenericElement e) {
         model.getSVGElement().addDescendant(e);
         LSEditor.logger.info(String.format("Element of type " + e.toString()
-                                           + " is added to the root element.\n"));
+                + " is added to the root element.\n"));
         touchDocument();
     }
 
@@ -589,7 +566,7 @@ public class LSViewController implements LSSelectionsController, LSFileControlle
     /**
      * {@inheritDoc}
      *
-     * @author  Cheow Yeong Chi
+     * @author Cheow Yeong Chi
      */
     @Override
     public void setStrokeForElement(LSPainting stroke, LSGenericElement e) {
@@ -656,26 +633,26 @@ public class LSViewController implements LSSelectionsController, LSFileControlle
     @Override
     public void resizeLine(LSShapeLine line, int endpoint, float changeX, float changeY) {
         switch (endpoint) {
-        case 1 :
-            LSLength x1 = new LSLength(line.getX1().getValue(LSLengthUnitType.PX) + changeX);
-            LSLength y1 = new LSLength(line.getY1().getValue(LSLengthUnitType.PX) + changeY);
+            case 1:
+                LSLength x1 = new LSLength(line.getX1().getValue(LSLengthUnitType.PX) + changeX);
+                LSLength y1 = new LSLength(line.getY1().getValue(LSLengthUnitType.PX) + changeY);
 
-            line.setX1(LSLength.convert(x1, line.getX1().getUnitType()));
-            line.setY1(LSLength.convert(y1, line.getY1().getUnitType()));
+                line.setX1(LSLength.convert(x1, line.getX1().getUnitType()));
+                line.setY1(LSLength.convert(y1, line.getY1().getUnitType()));
 
-            break;
+                break;
 
-        case 2 :
-            LSLength x2 = new LSLength(line.getX2().getValue(LSLengthUnitType.PX) + changeX);
-            LSLength y2 = new LSLength(line.getY2().getValue(LSLengthUnitType.PX) + changeY);
+            case 2:
+                LSLength x2 = new LSLength(line.getX2().getValue(LSLengthUnitType.PX) + changeX);
+                LSLength y2 = new LSLength(line.getY2().getValue(LSLengthUnitType.PX) + changeY);
 
-            line.setX2(LSLength.convert(x2, line.getX2().getUnitType()));
-            line.setY2(LSLength.convert(y2, line.getY2().getUnitType()));
+                line.setX2(LSLength.convert(x2, line.getX2().getUnitType()));
+                line.setY2(LSLength.convert(y2, line.getY2().getUnitType()));
 
-            break;
+                break;
 
-        default :
-            throw new IllegalArgumentException("Invalid endpoint number");
+            default:
+                throw new IllegalArgumentException("Invalid endpoint number");
         }
     }
 
@@ -697,7 +674,7 @@ public class LSViewController implements LSSelectionsController, LSFileControlle
                 if (svg_e != null) {
                     model.setSVGElement(svg_e);
                     model.setTitle(file.getName());
-                    activeFile         = file;
+                    activeFile = file;
                     isDocumentModified = false;
                     LSEditor.logger.info(String.format("File named %s is successfully loaded\n", file.getName()));
                     updateViews();
@@ -709,7 +686,7 @@ public class LSViewController implements LSSelectionsController, LSFileControlle
 
         return false;
     }
-    
+
     /**
      * {@inheritDoc}
      *
@@ -729,16 +706,16 @@ public class LSViewController implements LSSelectionsController, LSFileControlle
     public boolean fileSave(File file) throws IOException {
         if (file != null) {
             try {
-                Document           doc         = this.generateUpdatedDocument();
-                TransformerFactory tFact       = TransformerFactory.newInstance();
-                Transformer        transformer = tFact.newTransformer();
+                Document doc = this.generateUpdatedDocument();
+                TransformerFactory tFact = TransformerFactory.newInstance();
+                Transformer transformer = tFact.newTransformer();
 
                 transformer.setOutputProperty(OutputKeys.INDENT, "yes");
                 transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
 
-                DOMSource    source = new DOMSource(doc);
+                DOMSource source = new DOMSource(doc);
                 StreamResult result = new StreamResult(file);
-                
+
                 transformer.transform(source, result);
             } catch (TransformerConfigurationException e) {
                 LSEditor.logger.warning(e.getMessage());
@@ -746,7 +723,7 @@ public class LSViewController implements LSSelectionsController, LSFileControlle
                 Throwable exception = e.getException();
 
                 if ((exception != null) && (exception instanceof IOException)) {
-                    throw(IOException) exception;
+                    throw (IOException) exception;
                 }
             }
 
@@ -780,7 +757,7 @@ public class LSViewController implements LSSelectionsController, LSFileControlle
         activeFile = null;
         unmodifyDocument();
     }
-    
+
     /**
      * LSFileController
      */
@@ -833,7 +810,7 @@ public class LSViewController implements LSSelectionsController, LSFileControlle
     @Override
     public void addToSelection(Point2D point) {
         ArrayList<LSGenericElement> elements = model.getSVGElement().getDescendants();
-        LSGenericElement            e;
+        LSGenericElement e;
 
         for (int u = elements.size() - 1; u >= 0; u--) {
             e = elements.get(u);
@@ -855,11 +832,7 @@ public class LSViewController implements LSSelectionsController, LSFileControlle
      */
     @Override
     public void addToSelection(Rectangle2D rect) {
-        for (LSGenericElement e : model.getSVGElement().getDescendants()) {
-            if (e.getBounds().intersects(rect)) {
-                selections.add(e);
-            }
-        }
+        selections.addAll(model.getSVGElement().getDescendants().stream().filter(e -> e.getBounds().intersects(rect)).collect(Collectors.toList()));
 
         updateViews();
     }
@@ -872,7 +845,7 @@ public class LSViewController implements LSSelectionsController, LSFileControlle
     @Override
     public void removeFromSelection(Point point) {
         ArrayList<LSGenericElement> elements = model.getSVGElement().getDescendants();
-        LSGenericElement            e;
+        LSGenericElement e;
 
         for (int u = elements.size() - 1; u >= 0; u--) {
             e = elements.get(u);
@@ -894,11 +867,7 @@ public class LSViewController implements LSSelectionsController, LSFileControlle
      */
     @Override
     public void removeFromSelection(Rectangle rect) {
-        for (LSGenericElement elem : model.getSVGElement().getDescendants()) {
-            if (rect.contains(elem.getBounds())) {
-                selections.remove(elem);
-            }
-        }
+        model.getSVGElement().getDescendants().stream().filter(elem -> rect.contains(elem.getBounds())).forEach(selections::remove);
 
         updateViews();
     }
@@ -1019,9 +988,9 @@ public class LSViewController implements LSSelectionsController, LSFileControlle
 
         Collections.sort(selectionsList, ELEMENT_IN_ORDER);
 
-        LSSVGContainer   svgEl   = model.getSVGElement();
-        int              lastPos = svgEl.indexOf(selectionsList.get(selectionsList.size() - 1));
-        LSGroupContainer group   = new LSGroupContainer();
+        LSSVGContainer svgEl = model.getSVGElement();
+        int lastPos = svgEl.indexOf(selectionsList.get(selectionsList.size() - 1));
+        LSGroupContainer group = new LSGroupContainer();
 
         svgEl.insertDescendant(group, lastPos);
 
@@ -1043,8 +1012,8 @@ public class LSViewController implements LSSelectionsController, LSFileControlle
      */
     @Override
     public void ungroup() {
-        int                         position;
-        ArrayList<LSGenericElement> addList    = new ArrayList<>();
+        int position;
+        ArrayList<LSGenericElement> addList = new ArrayList<>();
         ArrayList<LSGenericElement> removeList = new ArrayList<>();
 
         for (LSGenericElement e : selections) {
@@ -1074,13 +1043,9 @@ public class LSViewController implements LSSelectionsController, LSFileControlle
             return;
         }
 
-        for (LSGenericElement e : addList) {
-            selections.add(e);
-        }
+        selections.addAll(addList.stream().collect(Collectors.toList()));
 
-        for (LSGenericElement e : removeList) {
-            selections.remove(e);
-        }
+        removeList.forEach(selections::remove);
 
         touchDocument();
     }
@@ -1093,7 +1058,7 @@ public class LSViewController implements LSSelectionsController, LSFileControlle
             format.setIndenting(true);
             format.setIndent(2);
 
-            Writer        out        = new StringWriter();
+            Writer out = new StringWriter();
             XMLSerializer serializer = new XMLSerializer(out, format);
 
             serializer.serialize(d);
@@ -1104,5 +1069,5 @@ public class LSViewController implements LSSelectionsController, LSFileControlle
         }
     }
 
-   
+
 }
